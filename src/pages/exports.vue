@@ -171,6 +171,17 @@
       >What happens to South-East Asian economies’ exports to China?</div>
       <div style="width:85%;margin:auto" id="stackChart"></div>
     </div>
+    <q-separator></q-separator>
+
+    <div class="q-py-xl">
+      <div
+        class="q-pb-md"
+        style="font-size:24px"
+        align="center"
+      >How does Thailand’s gross and domestic value-added trade balance with China differ?</div>
+      <div style="width:85%;margin:auto" id="stackChart1"></div>
+    </div>
+    <q-separator></q-separator>
   </q-page>
 </template>
 
@@ -327,10 +338,37 @@ export default {
         ],
       });
     },
+    setStackChart1() {
+      Highcharts.chart("stackChart1", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: "Column chart with negative values",
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges"],
+        },
+        credits: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: "John",
+            data: [-3, -1],
+          },
+          {
+            name: "Jane",
+            data: [-2, -2],
+          },
+        ],
+      });
+    },
   },
   mounted() {
     this.setData();
     this.setStackChart();
+    this.setStackChart1();
   },
 };
 </script>
