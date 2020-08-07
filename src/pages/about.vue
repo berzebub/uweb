@@ -144,7 +144,7 @@ export default {
     },
   },
   mounted() {
-    this.setData();
+    // this.setData();
   },
 };
 </script>
