@@ -13,7 +13,7 @@ const routes = [
       {
         path: "/home",
         component: () => import("pages/home.vue"),
-        name: "landing-page"
+        name: "home"
       },
       {
         path: "/involvement",
