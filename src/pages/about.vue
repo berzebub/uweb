@@ -1,9 +1,15 @@
 <template>
+<<<<<<< Updated upstream
   <div>
     <!-- <div id="container" style="width:100%; height:400px;"></div> -->
 
     <div id="container"></div>
   </div>
+=======
+  <q-page class="container">
+    <div class="brx"></div>
+  </q-page>
+>>>>>>> Stashed changes
 </template>
 
 <script>
