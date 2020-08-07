@@ -25,11 +25,21 @@
           </div>
           <div class="col-12 q-px-md">
             <div class="row justify-between">
-              <span>About</span>
-              <span>Trade-etools</span>
-              <span>ESCAP Trade</span>
-              <span>ESCAP Trade Policy</span>
-              <span>Terms of use</span>
+              <router-link to="/about" class="text-white" style="text-decoration:none;">
+                <span>About</span>
+              </router-link>
+              <router-link to="/" class="text-white" style="text-decoration:none;">
+                <span>Trade-etools</span>
+              </router-link>
+              <router-link to="/" class="text-white" style="text-decoration:none;">
+                <span>ESCAP Trade</span>
+              </router-link>
+              <router-link to="/" class="text-white" style="text-decoration:none;">
+                <span>ESCAP Trade Policy</span>
+              </router-link>
+              <router-link to="/teamofus" class="text-white" style="text-decoration:none;">
+                <span>Terms of use</span>
+              </router-link>
             </div>
           </div>
         </div>
