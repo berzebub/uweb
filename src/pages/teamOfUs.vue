@@ -6,7 +6,7 @@
       align="center"
     >
       <div>
-        <div>About</div>
+        <div>Team Of Us</div>
         <div>Content</div>
       </div>
     </div>

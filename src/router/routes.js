@@ -31,12 +31,15 @@ const routes = [
         name: "about"
       },
       {
+        path: "/teamofus",
+        component: () => import("pages/teamOfUs.vue"),
+        name: "teamofus"
+      },
+      {
         path: "/exports",
         component: () => import("pages/exports.vue"),
         name: "exports"
       },
-
-
     ]
   },
 
