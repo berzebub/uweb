@@ -1,7 +1,10 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-footer style="background-color:#020B3B" class="q-pa-md">
-      <div class="flex flex-center">
+    <q-footer style="background-color:#020B3B" class="q-py-md">
+      <div
+        class="row justify-between q-px-sm items-center"
+        style="max-width:1024px;margin:auto;width:100%"
+      >
         <div style="max-width:180px">
           <q-img style="width:162px" src="../../public/logo.png"></q-img>
         </div>
