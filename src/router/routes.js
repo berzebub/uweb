@@ -6,6 +6,11 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
+        path: "/test",
+        component: () => import("pages/test.vue"),
+        name: "test"
+      },
+      {
         path: "",
         component: () => import("pages/Index.vue"),
         name: "landing-page"
@@ -24,6 +29,11 @@ const routes = [
         path: "/about",
         component: () => import("pages/about.vue"),
         name: "about"
+      },
+      {
+        path: "/teamofus",
+        component: () => import("pages/teamOfUs.vue"),
+        name: "teamofus"
       },
       {
         path: "/exports",

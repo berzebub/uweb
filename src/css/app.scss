@@ -1,7 +1,13 @@
 // app global css in SCSS form
 
 body{
+    width:100%;
     background-color: #F2F2F2;
+    background-image: url('../../public/images/bg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+    background-position: right top;
 }
 
 .brx{
@@ -25,11 +31,8 @@ body{
 }
 
 .container{
-    max-width:1000px;
+    max-width:1024px;
     width: 100%;
     margin:auto;
-}
-
-.brx{
-    border:1px solid red
+    
 }
