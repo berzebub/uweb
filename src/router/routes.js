@@ -10,6 +10,11 @@ const routes = [
     component: () => import("pages/home.vue"),
     name: "landing-page"
   },
+  {
+    path: "/involvement",
+    component: () => import("pages/involvement.vue"),
+    name: "landing-page"
+  },
   // {
   //   path: '/',
   //   component: () => import('layouts/MainLayout.vue'),
