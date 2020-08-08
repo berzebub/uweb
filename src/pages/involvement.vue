@@ -1,9 +1,16 @@
 <template>
-  <div>INVOLVEMENT</div>
+  <q-page>
+   <app-bar></app-bar>
+  </q-page>
 </template>
 
 <script>
-export default {};
+import appBar from "../components/appBarWithLogo"
+export default {
+  components: {
+    appBar,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
