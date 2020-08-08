@@ -6,11 +6,6 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: "/test",
-        component: () => import("pages/test.vue"),
-        name: "test"
-      },
-      {
         path: "",
         component: () => import("pages/Index.vue"),
         name: "landing-page"
@@ -39,6 +34,18 @@ const routes = [
         path: "/exports",
         component: () => import("pages/exports.vue"),
         name: "exports"
+      },
+      {
+        path: "/download",
+        component: () => import("pages/downloadData.vue"),
+        name: "downloaddata"
+      },
+
+      // NOTE : Page test
+      {
+        path: "/test",
+        component: () => import("pages/test.vue"),
+        name: "test"
       },
     ]
   },
