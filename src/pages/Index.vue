@@ -24,6 +24,7 @@
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
+            to="/download"
           ></q-btn>
         </div>
       </div>
@@ -55,6 +56,7 @@
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
+            to="/download"
           ></q-btn>
           <q-btn
             class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
