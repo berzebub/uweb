@@ -1,5 +1,7 @@
 <template>
-  <div>INVOLVEMENT</div>
+  <q-page>
+   
+  </q-page>
 </template>
 
 <script>

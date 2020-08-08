@@ -1,6 +1,9 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-footer style="background-color:#020B3B" class="q-py-md">
+    <q-page-container>
+      <router-view />
+      
+        <div style="background-color:#020B3B" class="q-py-md absolute-bottom">
       <div
         class="row justify-between q-px-sm items-center"
         style="max-width:1024px;margin:auto;width:100%"
@@ -44,11 +47,9 @@
           </div>
         </div>
       </div>
-    </q-footer>
-
-    <q-page-container>
-      <router-view />
+    </div>
     </q-page-container>
+      
   </q-layout>
 </template>
 
