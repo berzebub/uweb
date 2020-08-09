@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-white">
-    <q-toolbar>
-      <q-btn class="color4" flat icon="home" size="25px"></q-btn>
+  <div class="bg-white shadow-5 q-py-sm">
+    <q-toolbar class>
+      <q-btn to="/" class="color4" flat icon="home" size="25px"></q-btn>
       <q-space></q-space>
       <div class="row q-py-sm">
         <div>
