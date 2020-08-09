@@ -1,16 +1,28 @@
 <template>
   <div class="bg-white">
     <q-toolbar>
-      <q-btn flat icon="home" size="25px"></q-btn>
+      <q-btn class="color4" flat icon="home" size="25px"></q-btn>
       <q-space></q-space>
       <div class="row q-py-sm">
         <div>
           Exporting economy
-          <q-select dense :options="countryOptions" v-model="countrySelected" outlined></q-select>
+          <q-select
+            style="width:240px"
+            dense
+            :options="countryOptions"
+            v-model="countrySelected"
+            outlined
+          ></q-select>
         </div>
         <div class="q-pl-lg">
           Year
-          <q-select dense :options="yearOptions" v-model="yearSelected" outlined></q-select>
+          <q-select
+            style="width:144px"
+            dense
+            :options="yearOptions"
+            v-model="yearSelected"
+            outlined
+          ></q-select>
         </div>
       </div>
     </q-toolbar>

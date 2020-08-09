@@ -3,11 +3,8 @@
     <q-page-container>
       <router-view />
 
-      <div style="background-color:#020B3B" class="q-py-md absolute-bottom">
-        <div
-          class="row justify-between q-px-sm items-center"
-          style="max-width:1024px;margin:auto;width:100%"
-        >
+      <div style="background-color:#020B3B;" class="q-py-md absolute-bottom">
+        <div class="row justify-between q-px-sm items-center" style="width:1024px;margin:auto;">
           <div style="max-width:180px">
             <q-img style="width:162px" src="../../public/logo.png"></q-img>
           </div>
@@ -15,13 +12,13 @@
             <q-img style="width:162px" src="../../public/fealac.png"></q-img>
           </div>
           <div class="row col" style="max-width:600px">
-            <div class="col-12 q-col-gutter-md" align="right">
-              <q-icon size="30px" name="fab fa-twitter"></q-icon>
-              <q-icon size="30px" name="fab fa-facebook-f"></q-icon>
-              <q-icon size="30px" name="fab fa-youtube"></q-icon>
-              <q-icon size="30px" name="fab fa-instagram"></q-icon>
-              <q-icon size="30px" name="fab fa-flickr"></q-icon>
-              <q-icon size="30px" name="fab fa-invision"></q-icon>
+            <div class="col-12 q-col-gutter-md text-white" align="right">
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-twitter"></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-facebook-f"></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-youtube"></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-instagram"></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-flickr"></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-invision"></q-icon>
             </div>
             <div class="col-12 q-py-sm q-px-md">
               <q-separator color="white"></q-separator>
