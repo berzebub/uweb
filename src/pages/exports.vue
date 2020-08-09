@@ -296,7 +296,7 @@
       </div>
     </div>
     <!-- menu forward linkages -->
-    <div v-show="activeMenu == 4" style="padding-bottom:100px" class>
+    <div v-show="activeMenu == 4" style="padding-bottom:100px" class="brx">
       <div v-show="menuDropdownSelected2 == 1">
         <div class="q-px-md">
           <div class="q-pa-md" style="border-radius:5px;border:2px solid">
@@ -383,7 +383,7 @@
         <q-separator></q-separator>
         <div style="height:50px"></div>
         <div class="q-px-md">
-          <div style="width:85%;margin:auto" id="stackChart9"></div>
+          <div style="width:80%;margin:auto" id="stackChart9"></div>
           <div align="center">
             <q-img style="width:85%;margin:auto" src="../../public/temp_graph1.png"></q-img>
           </div>
@@ -614,6 +614,9 @@ in exports to United States?`,
         },
       });
       Highcharts.chart("stackChart9", {
+        chart: {
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
+        },
         series: [
           {
             type: "treemap",

@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
-      <router-view class="container" />
+      <router-view class="container shadow-10" />
 
       <div style="background-color:#020B3B;" class="q-py-md absolute-bottom">
         <div class="row justify-between q-px-sm items-center" style="width:1000px;margin:auto;">
