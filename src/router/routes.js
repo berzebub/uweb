@@ -26,9 +26,9 @@ const routes = [
         name: "about"
       },
       {
-        path: "/teamofus",
-        component: () => import("pages/teamOfUs.vue"),
-        name: "teamofus"
+        path: "/termOfUse",
+        component: () => import("pages/termofuse.vue"),
+        name: "termofuse"
       },
       {
         path: "/exports",

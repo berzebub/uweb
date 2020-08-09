@@ -1,17 +1,34 @@
 <template>
-    <div class="bg-white">
-        <div class="flex q-pa-md">
-                <q-img style="max-width:300px;width:100%" src="../../public/logoAppbar.png"></q-img>
+  <div class="bg-white">
+    <q-toolbar>
+      <q-btn flat icon="home" size="25px"></q-btn>
+      <q-space></q-space>
+      <div class="row q-py-sm">
+        <div>
+          Exporting economy
+          <q-select dense :options="countryOptions" v-model="countrySelected" outlined></q-select>
         </div>
-    </div>
+        <div class="q-pl-lg">
+          Year
+          <q-select dense :options="yearOptions" v-model="yearSelected" outlined></q-select>
+        </div>
+      </div>
+    </q-toolbar>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {
+  data() {
+    return {
+      yearOptions: [2017, 2018, 2019, 2020],
+      yearSelected: 2020,
+      countryOptions: ["Thailand", "China"],
+      countrySelected: "Thailand",
+    };
+  },
+};
 </script>
 
 <style scoped>
-
 </style>
