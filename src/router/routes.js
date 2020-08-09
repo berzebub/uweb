@@ -1,9 +1,7 @@
-
 const routes = [
-
   {
-    path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    path: "/",
+    component: () => import("layouts/MainLayout.vue"),
     children: [
       {
         path: "",
@@ -37,8 +35,13 @@ const routes = [
       },
       {
         path: "/download",
-        component: () => import("pages/downloadData.vue"),
+        component: () => import("pages/downloaddata.vue"),
         name: "downloaddata"
+      },
+      {
+        path: "/countrybriefs",
+        component: () => import("pages/countrybriefs.vue"),
+        name: "countrybriefs"
       },
 
       // NOTE : Page test
@@ -46,16 +49,16 @@ const routes = [
         path: "/test",
         component: () => import("pages/test.vue"),
         name: "test"
-      },
+      }
     ]
   },
 
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '*',
-    component: () => import('pages/Error404.vue')
+    path: "*",
+    component: () => import("pages/Error404.vue")
   }
-]
+];
 
-export default routes
+export default routes;

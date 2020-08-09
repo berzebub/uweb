@@ -63,6 +63,7 @@
             style="border-radius:10px;width:200px;"
             label="Country briefs"
             no-caps
+            to="countrybriefs"
           ></q-btn>
         </div>
       </div>
