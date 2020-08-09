@@ -23,59 +23,71 @@
     <!-- MENU -->
     <div class="row" style="border:1px solid">
       <div
-        :class="menuSelected == 1 ? 'bg4 text-white' : null"
-        @click="menuSelected = 1"
-        class="col-3 brr q-py-md"
+        :class="menuSelected == 1 ? 'bg4 text-white' : 'hover-btn'"
+        @click="menuSelected = 1,activeMenu = 1,menuDropdownSelected2 = 0,menuDropdownSelected = 0"
+        class="col-3 brr q-py-md cursor-pointer"
         align="center"
       >Structure of value added</div>
       <div
-        :class="menuSelected == 2 ? 'bg4 text-white' : null"
-        @click="menuSelected = 2"
-        class="col-3 brr q-py-md"
+        :class="menuSelected == 2 ? 'bg4 text-white' : 'hover-btn'"
+        @click="menuSelected = 2,activeMenu = 2,menuDropdownSelected2 = 0,menuDropdownSelected = 0"
+        class="col-3 brr q-py-md cursor-pointer"
         align="center"
       >Participation in GVCs</div>
       <div
-        :class="menuSelected == 3 ? 'bg4 text-white' : null"
+        :class="menuSelected == 3 ? 'bg4 text-white' : 'hover-btn'"
         @click="menuSelected = 3"
-        class="col-3 brr q-py-md"
+        class="col-3 brr q-py-md cursor-pointer"
         align="center"
       >
         Backward linkages
         <q-icon name="fas fa-caret-down"></q-icon>
-        <q-menu fit max-height="200px" style="width:100%" class="brx">
+        <q-menu fit max-height="200px" square style="width:100%" class="brx">
           <q-list>
-            <q-item clickable>
-              <q-item-section>Menu#1</q-item-section>
+            <q-item
+              :class="menuDropdownSelected == 1 ? 'bg4' : null"
+              clickable
+              v-close-popup
+              @click="menuDropdownSelected = 1,menuDropdownSelected2 = 0"
+            >
+              <q-item-section @click="activeMenu = 3">By region</q-item-section>
             </q-item>
-            <q-item clickable>
-              <q-item-section>Menu#2</q-item-section>
-            </q-item>
-            <q-separator />
-            <q-item clickable>
-              <q-item-section>Menu#3</q-item-section>
+            <q-item
+              :class="menuDropdownSelected == 2 ? 'bg4' : null"
+              clickable
+              v-close-popup
+              @click="menuDropdownSelected = 2,menuDropdownSelected2 = 0"
+            >
+              <q-item-section @click="activeMenu = 3">By sector</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
       </div>
       <div
-        :class="menuSelected == 4 ? 'bg4 text-white' : null"
+        :class="menuSelected == 4 ? 'bg4 text-white' : 'hover-btn'"
         @click="menuSelected = 4"
-        class="col-3 q-py-md"
+        class="col-3 q-py-md cursor-pointer"
         align="center"
       >
         Forward linkages
         <q-icon name="fas fa-caret-down"></q-icon>
         <q-menu fit max-height="200px" style="width:100%" class="brx">
           <q-list>
-            <q-item clickable>
-              <q-item-section>Menu#1</q-item-section>
+            <q-item
+              :class="menuDropdownSelected2 == 1 ? 'bg4' : null"
+              clickable
+              v-close-popup
+              @click="menuDropdownSelected2 = 1,menuDropdownSelected = 0"
+            >
+              <q-item-section @click="activeMenu = 4">By region</q-item-section>
             </q-item>
-            <q-item clickable>
-              <q-item-section>Menu#2</q-item-section>
-            </q-item>
-            <q-separator />
-            <q-item clickable>
-              <q-item-section>Menu#3</q-item-section>
+            <q-item
+              :class="menuDropdownSelected2 == 2 ? 'bg4' : null"
+              clickable
+              v-close-popup
+              @click="menuDropdownSelected2 = 2,menuDropdownSelected = 0"
+            >
+              <q-item-section @click="activeMenu = 4">By sector</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
@@ -95,93 +107,171 @@
       </div>
     </div>
 
-    <!-- COLUMN -->
-    <div class="q-pb-xl">
-      <div class="row">
-        <div class="col-3 q-pa-sm">
-          <div class="br-radius q-px-md">
-            <div align="center" style="font-size:24px">Table of contents:</div>
-            <div style="height:10px"></div>
-            <div style="font-size:18px ">
-              1.
-              <u>Key polycy questions</u>
+    <!-- menu structure of value added -->
+    <div v-show="activeMenu == 1" style="padding-bottom:100px">
+      <!-- COLUMN -->
+      <div class="q-pb-lg">
+        <div class="row">
+          <div class="q-pa-sm" style="width:300px">
+            <div class="br-radius q-pa-md">
+              <div align="center" style="font-size:24px">Table of contents:</div>
+              <div style="height:10px"></div>
+              <div class="font-content">
+                1.
+                <u>Key polycy questions</u>
+              </div>
+              <div class="q-pt-sm font-content">
+                2.
+                <u>Structure of value-added</u>
+              </div>
+              <div class="q-pt-sm font-content">
+                3.
+                <u>Comparison with partnerns</u>
+              </div>
+              <div class="q-pt-sm font-content">
+                4.
+                <u>Measuring trade balance</u>
+              </div>
             </div>
-            <div style="font-size:18px " class="q-pt-xs">
-              2.
-              <u>Structure of value-added</u>
-            </div>
-            <div style="font-size:18px " class="q-pt-xs">
-              3.
-              <u>Comparison with partnerns</u>
-            </div>
-            <div style="font-size:18px " class="q-pt-xs">
-              4.
-              <u>Measuring trade balance</u>
+          </div>
+          <div class="col q-pa-sm">
+            <div class="br-radius fit q-pa-md">
+              <div
+                style="font-size:24px"
+                align="center"
+              >How do you disaggregate value-added in gross exports?</div>
+              <div align="center">Thailand’s gross exports can be divided into five major parts :</div>
             </div>
           </div>
         </div>
-        <div class="col q-pa-sm">
-          <div class="br-radius fit q-px-md">
-            <div
-              style="font-size:24px"
-              align="center"
-            >How do you disaggregate value-added in gross exports?</div>
-            <div align="center">Thailand’s gross exports can be divided into five major parts :</div>
+      </div>
+
+      <!-- POLICY -->
+      <div class="q-pb-lg">
+        <div align="center" class="q-pb-md" style="font-size:24px">Key policy questions</div>
+        <div class="q-px-md font-content">
+          <div>
+            1.
+            <u>What happens to Thailand’s exports to a selected importer?</u>
+          </div>
+          <div class="q-py-md">
+            2.
+            <u>What happens to South-East Asian economics’s exports to a selected imported?</u>
+          </div>
+          <div>
+            3.
+            <u>How does Thailand’s domestic value-added and gross trade balance with the selected imported differ?</u>
           </div>
         </div>
       </div>
+
+      <q-separator></q-separator>
+      <div class="q-py-lg">
+        <div
+          class="q-pb-md"
+          style="font-size:24px"
+          align="center"
+        >What happens to Thailand's exports to China?</div>
+
+        <div style="width:85%;margin:auto" id="container"></div>
+      </div>
+      <q-separator></q-separator>
+
+      <div class="q-py-xl">
+        <div
+          class="q-pb-md"
+          style="font-size:24px"
+          align="center"
+        >What happens to South-East Asian economies’ exports to China?</div>
+        <div style="width:85%;margin:auto" id="stackChart"></div>
+      </div>
+      <q-separator></q-separator>
+
+      <div class="q-py-lg">
+        <div
+          class="q-pb-md"
+          style="font-size:24px"
+          align="center"
+        >How does Thailand’s gross and domestic value-added trade balance with China differ?</div>
+        <div style="width:85%;margin:auto" id="stackChart1"></div>
+      </div>
+      <q-separator></q-separator>
     </div>
 
-    <!-- POLICY -->
-    <div class="q-pb-md">
-      <div align="center" class="q-pb-md" style="font-size:24px">Key policy questions</div>
-      <div class="q-px-md" style="font-size:18px">
-        <div>
-          1.
-          <u>What happens to Thailand’s exports to a selected importer?</u>
+    <!-- menu participation in gvcs -->
+    <div v-show="activeMenu == 2" style="padding-bottom:100px">
+      <div class="q-px-md">
+        <!-- block #1 -->
+        <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+          <p class="font-graph" align="center">Why does GVC participation matter?</p>
+          <p
+            class="font-content"
+          >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
+          <p
+            class="font-content"
+          >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
         </div>
-        <div class="q-py-md">
-          2.
-          <u>What happens to South-East Asian economics’s exports to a selected imported?</u>
-        </div>
-        <div>
-          3.
-          <u>How does Thailand’s domestic value-added and gross trade balance with the selected imported differ?</u>
-        </div>
+
+        <p class="font-graph q-py-lg" align="center">
+          How much of Thailand’s exports to China are GVC related
+          compared to other South-East Asian economies?
+        </p>
+
+        <div style="width:85%;margin:auto" id="stackChart2"></div>
       </div>
     </div>
+    <!-- menu backward linkages -->
+    <div v-show="activeMenu == 3" style="padding-bottom:100px">
+      <div v-show="menuDropdownSelected == 1">
+        <div class="q-px-md">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p class="font-graph" align="center">Where does imported content come from?</p>
+            <p
+              class="font-content"
+            >Some part of Thailand’s gross exports consist of imported inputs that originate in other source economies.</p>
+            <p class="font-content" align="center">
+              <span class="q-pr-lg">Source economy</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Exporting economy (Thailand)</span>
+              <span class="q-px-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Importing economy</span>
+            </p>
+          </div>
 
-    <q-separator></q-separator>
-    <div class="q-py-xl">
-      <div
-        class="q-pb-md"
-        style="font-size:24px"
-        align="center"
-      >What happens to Thailand's exports to China?</div>
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-md">
+            1.
+            <u>Where does Thailand’s imported content come from in exports to a selected importer ?</u>
+          </p>
+          <p class="font-content q-px-md">
+            2.
+            <u>Where do South-East Asian economies’ imported content come from in exports to a selected importer ?</u>
+          </p>
+        </div>
 
-      <div style="width:85%;margin:auto" id="container"></div>
+        <q-separator></q-separator>
+
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart3"></div>
+        </div>
+
+        <q-separator></q-separator>
+
+        <div class="q-pt-xl q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart4"></div>
+        </div>
+      </div>
+
+      <div v-show="menuDropdownSelected == 2">By sector</div>
     </div>
-    <q-separator></q-separator>
-
-    <div class="q-py-xl">
-      <div
-        class="q-pb-md"
-        style="font-size:24px"
-        align="center"
-      >What happens to South-East Asian economies’ exports to China?</div>
-      <div style="width:85%;margin:auto" id="stackChart"></div>
+    <!-- menu forward linkages -->
+    <div v-show="activeMenu == 4" style="padding-bottom:100px">
+      menu4
+      <div v-show="menuDropdownSelected2 == 1">By region</div>
+      <div v-show="menuDropdownSelected2 == 2">By sector</div>
     </div>
-    <q-separator></q-separator>
-
-    <div class="q-py-xl">
-      <div
-        class="q-pb-md"
-        style="font-size:24px"
-        align="center"
-      >How does Thailand’s gross and domestic value-added trade balance with China differ?</div>
-      <div style="width:85%;margin:auto" id="stackChart1"></div>
-    </div>
-    <q-separator></q-separator>
   </q-page>
 </template>
 
@@ -197,7 +287,10 @@ export default {
       importCountrySelected: "Thailand",
       sectorSelected: "All",
       sectorOptions: ["All", "Sector #1", "Sector #2"],
-      menuSelected: 1,
+      menuSelected: 3,
+      activeMenu: 3,
+      menuDropdownSelected: 1,
+      menuDropdownSelected2: 0,
     };
   },
   methods: {
@@ -294,6 +387,38 @@ export default {
           text: "Global Mortality Rate 2012, per 100 000 population",
         },
       });
+
+      Highcharts.chart("stackChart3", {
+        series: [
+          {
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            allowDrillToNode: true,
+            animationLimit: 1000,
+            dataLabels: {
+              enabled: false,
+            },
+            levelIsConstant: false,
+            levels: [
+              {
+                level: 1,
+                dataLabels: {
+                  enabled: true,
+                },
+                borderWidth: 3,
+              },
+            ],
+            data: points,
+          },
+        ],
+        subtitle: {
+          text: `Gross exports of Thailand  in All sector(s) to China amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%).`,
+        },
+        title: {
+          text:
+            "Where does Thailand’s imported content in exports to China come from?",
+        },
+      });
     },
     setStackChart() {
       Highcharts.chart("stackChart", {
@@ -364,11 +489,101 @@ export default {
         ],
       });
     },
+    setStackChart2() {
+      Highcharts.chart("stackChart2", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: "Stacked column chart",
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Total fruit consumption",
+          },
+        },
+        tooltip: {
+          pointFormat:
+            '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: "percent",
+          },
+        },
+        series: [
+          {
+            name: "John",
+            data: [5, 3, 4, 7, 2],
+          },
+          {
+            name: "Jane",
+            data: [2, 2, 3, 2, 1],
+          },
+          {
+            name: "Joe",
+            data: [3, 4, 4, 2, 5],
+          },
+        ],
+      });
+
+      Highcharts.chart("stackChart4", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: `Where do South-East Asian economies’ imported content
+ in exports to China come from  ?
+`,
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Total fruit consumption",
+          },
+        },
+        tooltip: {
+          pointFormat:
+            '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: "percent",
+          },
+        },
+        series: [
+          {
+            name: "John",
+            data: [5, 3, 4, 7, 2],
+          },
+          {
+            name: "Jane",
+            data: [2, 2, 3, 2, 1],
+          },
+          {
+            name: "Joe",
+            data: [3, 4, 4, 2, 5],
+          },
+        ],
+      });
+    },
   },
   mounted() {
     this.setData();
     this.setStackChart();
     this.setStackChart1();
+
+    // participation in gvcs graph
+    this.setStackChart2();
   },
 };
 </script>
@@ -380,5 +595,8 @@ export default {
 .br-radius {
   border: 1px solid;
   border-radius: 8px;
+}
+.hover-btn:hover {
+  background-color: #dfefff;
 }
 </style>
