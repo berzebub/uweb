@@ -1,11 +1,9 @@
-import Vue from 'vue'
-import HighchartsVue from 'highcharts-vue'
-import VueRouter from 'vue-router'
-import routes from './routes'
-Vue.use(VueRouter)
-Vue.use(HighchartsVue)
-
-
+import Vue from "vue";
+import HighchartsVue from "highcharts-vue";
+import VueRouter from "vue-router";
+import routes from "./routes";
+Vue.use(VueRouter);
+Vue.use(HighchartsVue);
 
 /*
  * If not building with SSR mode, you can
@@ -16,7 +14,7 @@ Vue.use(HighchartsVue)
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -26,7 +24,23 @@ export default function (/* { store, ssrContext } */) {
     // quasar.conf.js -> build -> publicPath
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
-  })
+  });
 
-  return Router
+  return Router;
 }
+
+Vue.mixin({
+  data() {
+    return {};
+  },
+  methods: {
+    notifyGreen(message) {
+      this.$q.notify({
+        message: message,
+        color: "green",
+        position: "top",
+        timeout: "2500"
+      });
+    }
+  }
+});
