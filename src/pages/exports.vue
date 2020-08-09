@@ -898,19 +898,30 @@ from China in exports to United States?
       Highcharts.chart("stackChart10", {
         chart: {
           type: "column",
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
         title: {
-          text: `Which sectors in South-East Asian economies are most reliant on 
-export production in China ?
-`,
+          text: `Which sectors in South-East Asian economies are most reliant on export production in China`,
         },
         xAxis: {
-          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+          labels: {
+            rotation: -90,
+          },
+          categories: [
+            "Thailand",
+            "Vietnam",
+            "Malaysia",
+            "Singapore",
+            "Indonesia",
+            "Lao PDR",
+            "Cambodia",
+            "Brunei Darussalam",
+          ],
         },
         yAxis: {
           min: 0,
           title: {
-            text: "Total fruit consumption",
+            text: "% of gross exports to China",
           },
         },
         tooltip: {
@@ -926,15 +937,23 @@ export production in China ?
         series: [
           {
             name: "John",
-            data: [5, 3, 4, 7, 2],
+            data: [5, 3, 4, 7, 2, 4, 2, 1],
+            color: "#F99704",
           },
           {
             name: "Jane",
-            data: [2, 2, 3, 2, 1],
+            data: [2, 2, 3, 2, 1, 4, 2, 3],
+            color: "#9C26B3",
           },
           {
             name: "Joe",
-            data: [3, 4, 4, 2, 5],
+            data: [3, 4, 4, 2, 5, 3, 2, 1],
+            color: "#EB1E63",
+          },
+          {
+            name: "Joey",
+            data: [4, 2, 2, 5, 1, 1, 2, 3],
+            color: "#2381B8",
           },
         ],
       });
