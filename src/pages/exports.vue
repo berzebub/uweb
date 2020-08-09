@@ -1,24 +1,7 @@
 <template>
   <q-page class="container bg-white">
     <!-- HEADER BAR -->
-    <div class="row q-pa-md">
-      <div style="width:80px">
-        <q-icon style="color:#283891" name="home" size="65px"></q-icon>
-      </div>
-      <div class="col self-center">
-        <div class="row justify-end">
-          <div style="width:200px">
-            <span>Exporting economy</span>
-            <q-select dense outlined :options="countryList" v-model="countrySelected"></q-select>
-          </div>
-          <div style="width:20px"></div>
-          <div style="width:130px">
-            <span>Year</span>
-            <q-select v-model="yearSelected" dense outlined :options="yearList"></q-select>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-bar></app-bar>
 
     <!-- MENU -->
     <div class="row" style="border:1px solid">
@@ -42,7 +25,7 @@
       >
         Backward linkages
         <q-icon name="fas fa-caret-down"></q-icon>
-        <q-menu fit max-height="200px" square style="width:100%" class="brx">
+        <q-menu fit max-height="200px" square style="width:100%" class>
           <q-list>
             <q-item
               :class="menuDropdownSelected == 1 ? 'bg4' : null"
@@ -71,7 +54,7 @@
       >
         Forward linkages
         <q-icon name="fas fa-caret-down"></q-icon>
-        <q-menu fit max-height="200px" style="width:100%" class="brx">
+        <q-menu fit max-height="200px" style="width:100%" class>
           <q-list>
             <q-item
               :class="menuDropdownSelected2 == 1 ? 'bg4' : null"
@@ -108,7 +91,7 @@
     </div>
 
     <!-- menu structure of value added -->
-    <div v-show="activeMenu == 1" style="padding-bottom:100px">
+    <div v-show="activeMenu == 1" style="padding-bottom:100px" class>
       <!-- COLUMN -->
       <div class="q-pb-lg">
         <div class="row">
@@ -252,7 +235,7 @@
         </div>
 
         <q-separator></q-separator>
-
+        <div style="height:50px"></div>
         <div class="q-px-md">
           <div style="width:85%;margin:auto" id="stackChart3"></div>
         </div>
@@ -264,20 +247,168 @@
         </div>
       </div>
 
-      <div v-show="menuDropdownSelected == 2">By sector</div>
+      <div v-show="menuDropdownSelected == 2">
+        <div class="q-px-md">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p class="font-graph" align="center">Where does imported content come from?</p>
+            <p
+              class="font-content"
+            >Some part of Thailand’s gross exports consist of imported inputs that originate in other source economies.</p>
+            <p class="font-content" align="center">
+              <span class="q-pr-lg">Source economy</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Exporting economy (Thailand)</span>
+              <span class="q-px-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Importing economy</span>
+            </p>
+          </div>
+
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-sm">
+            1.
+            <u>Which sectors in Thailand rely the most on imported content for exports to a selected imported?</u>
+          </p>
+          <p class="font-content q-px-sm">
+            2.
+            <u>Which sectors in South-East Asian economies rely the most on imported content for exports to a selected importer?</u>
+          </p>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart5"></div>
+          <div align="center">
+            <q-img style="width:85%;margin:auto" src="../../public/temp_graph1.png"></q-img>
+          </div>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart6"></div>
+          <div align="center">
+            <q-img style="width:85%;margin:auto" src="../../public/temp_graph1.png"></q-img>
+          </div>
+        </div>
+      </div>
     </div>
     <!-- menu forward linkages -->
-    <div v-show="activeMenu == 4" style="padding-bottom:100px">
-      menu4
-      <div v-show="menuDropdownSelected2 == 1">By region</div>
-      <div v-show="menuDropdownSelected2 == 2">By sector</div>
+    <div v-show="activeMenu == 4" style="padding-bottom:100px" class>
+      <div v-show="menuDropdownSelected2 == 1">
+        <div class="q-px-md">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p
+              class="font-graph"
+              align="center"
+            >Where does Thailand contribute towards export production?</p>
+            <p class="font-content" align="center">
+              Some part of Thailand’s gross exports consist of intermediate inputs that are used by the direct importer to
+              produce exports for third economies.
+            </p>
+            <p class="font-content" align="center">
+              <span class="q-pr-lg">Exporting economy(Thailand)</span>
+              <span class="q-pl-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-px-lg">Importing economy</span>
+
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Third economies</span>
+            </p>
+          </div>
+
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-sm">
+            1.
+            <u>Where does Thailand contribute the most towards export production?</u>
+          </p>
+          <p class="font-content q-px-sm">
+            2.
+            <u>Where do South-East Asian economies contribute the most towards export production?</u>
+          </p>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart7"></div>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart8"></div>
+        </div>
+      </div>
+      <div v-show="menuDropdownSelected2 == 2">
+        <div class="q-px-md">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p
+              class="font-graph"
+              align="center"
+            >Where does Thailand contribute towards export production?</p>
+            <p class="font-content" align="center">
+              Some part of Thailand’s gross exports consist of intermediate inputs that are used by the direct importer to
+              produce exports for third economies.
+            </p>
+            <p class="font-content" align="center">
+              <span class="q-pr-lg">Exporting economy(Thailand)</span>
+              <span class="q-pl-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-px-lg">Importing economy</span>
+
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Third economies</span>
+            </p>
+          </div>
+
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-sm">
+            1.
+            <u>
+              Which sectors in Thailand are most reliant on export production
+              in a selected importer ?
+            </u>
+          </p>
+          <p class="font-content q-px-sm">
+            2.
+            <u>Which sectors in South-East Asian economies are most reliant on export production in a selected importer?</u>
+          </p>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart9"></div>
+          <div align="center">
+            <q-img style="width:85%;margin:auto" src="../../public/temp_graph1.png"></q-img>
+          </div>
+        </div>
+
+        <q-separator></q-separator>
+        <div style="height:50px"></div>
+        <div class="q-px-md">
+          <div style="width:85%;margin:auto" id="stackChart10"></div>
+          <div align="center">
+            <q-img style="width:85%;margin:auto" src="../../public/temp_graph1.png"></q-img>
+          </div>
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
 
 <script>
 import Axios from "axios";
+import appBar from "../components/appBarWithLogo";
 export default {
+  components: {
+    appBar,
+  },
   data() {
     return {
       countryList: ["Thailand", "China"],
@@ -287,10 +418,10 @@ export default {
       importCountrySelected: "Thailand",
       sectorSelected: "All",
       sectorOptions: ["All", "Sector #1", "Sector #2"],
-      menuSelected: 3,
-      activeMenu: 3,
-      menuDropdownSelected: 1,
-      menuDropdownSelected2: 0,
+      menuSelected: 4,
+      activeMenu: 4,
+      menuDropdownSelected: 0,
+      menuDropdownSelected2: 2,
     };
   },
   methods: {
@@ -419,6 +550,102 @@ export default {
             "Where does Thailand’s imported content in exports to China come from?",
         },
       });
+      Highcharts.chart("stackChart5", {
+        series: [
+          {
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            allowDrillToNode: true,
+            animationLimit: 1000,
+            dataLabels: {
+              enabled: false,
+            },
+            levelIsConstant: false,
+            levels: [
+              {
+                level: 1,
+                dataLabels: {
+                  enabled: true,
+                },
+                borderWidth: 3,
+              },
+            ],
+            data: points,
+          },
+        ],
+        subtitle: {
+          text: `Imported content from China in exports to United States : $8B`,
+        },
+        title: {
+          text: `Which sectors in Thailand rely the most on imported content from China
+in exports to United States?`,
+        },
+      });
+      Highcharts.chart("stackChart7", {
+        series: [
+          {
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            allowDrillToNode: true,
+            animationLimit: 1000,
+            dataLabels: {
+              enabled: false,
+            },
+            levelIsConstant: false,
+            levels: [
+              {
+                level: 1,
+                dataLabels: {
+                  enabled: true,
+                },
+                borderWidth: 3,
+              },
+            ],
+            data: points,
+          },
+        ],
+        subtitle: {
+          text: `Gross exports of Thailand  in *All* sector(s) to the world amount to *$40* billion in *year*. Of these exports, *$8* billion is Thailand’s contribution to export production in other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%).
+
+`,
+        },
+        title: {
+          text: `Where does Thailand contribute the most towards export production?`,
+        },
+      });
+      Highcharts.chart("stackChart9", {
+        series: [
+          {
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            allowDrillToNode: true,
+            animationLimit: 1000,
+            dataLabels: {
+              enabled: false,
+            },
+            levelIsConstant: false,
+            levels: [
+              {
+                level: 1,
+                dataLabels: {
+                  enabled: true,
+                },
+                borderWidth: 3,
+              },
+            ],
+            data: points,
+          },
+        ],
+        subtitle: {
+          text: `Contribution to China’s export production : $8B
+
+`,
+        },
+        title: {
+          text: `Which sectors in Thailand are most reliant on export production in China? 
+`,
+        },
+      });
     },
     setStackChart() {
       Highcharts.chart("stackChart", {
@@ -539,6 +766,139 @@ export default {
         title: {
           text: `Where do South-East Asian economies’ imported content
  in exports to China come from  ?
+`,
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Total fruit consumption",
+          },
+        },
+        tooltip: {
+          pointFormat:
+            '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: "percent",
+          },
+        },
+        series: [
+          {
+            name: "John",
+            data: [5, 3, 4, 7, 2],
+          },
+          {
+            name: "Jane",
+            data: [2, 2, 3, 2, 1],
+          },
+          {
+            name: "Joe",
+            data: [3, 4, 4, 2, 5],
+          },
+        ],
+      });
+
+      Highcharts.chart("stackChart6", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: `Which sectors in South-East Asian economies rely the most on imported content 
+from China in exports to United States?
+`,
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Total fruit consumption",
+          },
+        },
+        tooltip: {
+          pointFormat:
+            '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: "percent",
+          },
+        },
+        series: [
+          {
+            name: "John",
+            data: [5, 3, 4, 7, 2],
+          },
+          {
+            name: "Jane",
+            data: [2, 2, 3, 2, 1],
+          },
+          {
+            name: "Joe",
+            data: [3, 4, 4, 2, 5],
+          },
+        ],
+      });
+
+      Highcharts.chart("stackChart8", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: `Where do South-East Asian economies’ imported content
+ in exports to China come from  ?
+
+`,
+        },
+        xAxis: {
+          categories: ["Apples", "Oranges", "Pears", "Grapes", "Bananas"],
+        },
+        yAxis: {
+          min: 0,
+          title: {
+            text: "Total fruit consumption",
+          },
+        },
+        tooltip: {
+          pointFormat:
+            '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+          shared: true,
+        },
+        plotOptions: {
+          column: {
+            stacking: "percent",
+          },
+        },
+        series: [
+          {
+            name: "John",
+            data: [5, 3, 4, 7, 2],
+          },
+          {
+            name: "Jane",
+            data: [2, 2, 3, 2, 1],
+          },
+          {
+            name: "Joe",
+            data: [3, 4, 4, 2, 5],
+          },
+        ],
+      });
+
+      Highcharts.chart("stackChart10", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: `Which sectors in South-East Asian economies are most reliant on 
+export production in China ?
 `,
         },
         xAxis: {
