@@ -17,6 +17,7 @@
             class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Get started"
+            to="/getStarted"
             no-caps
           ></q-btn>
           <q-btn
@@ -24,7 +25,6 @@
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
-            to="/download"
           ></q-btn>
         </div>
       </div>
@@ -50,6 +50,7 @@
             style="border-radius:10px;width:200px;"
             label="Get started"
             no-caps
+            to="/getStarted"
           ></q-btn>
           <q-btn
             class="bg4 text-white q-mr-md q-mt-sm q-py-xs"

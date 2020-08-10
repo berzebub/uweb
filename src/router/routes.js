@@ -44,9 +44,9 @@ const routes = [
         name: "countrybriefs"
       },
       {
-        path: "/getStrated",
-        component: () => import("pages/getStrated.vue"),
-        name: "getStrated"
+        path: "/getStarted",
+        component: () => import("pages/getStarted.vue"),
+        name: "getStarted"
       },
 
       // NOTE : Page test

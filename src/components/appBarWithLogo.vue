@@ -1,7 +1,8 @@
 <template>
   <div class="bg-white q-py-sm">
     <q-toolbar class>
-      <q-btn to="/" class="color4" flat round size="35px" dense icon="home" />
+      <q-btn v-if="!isShowLogo" to="/" class="color4" flat round size="35px" dense icon="home" />
+      <q-img style="max-width:300px;width:100%" v-else src="../../public/logoAppbar.png"></q-img>
       <q-space></q-space>
       <div class="row q-py-sm">
         <div>
@@ -31,6 +32,12 @@
 
 <script>
 export default {
+  props: {
+    isShowLogo: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       yearOptions: [2017, 2018, 2019, 2020],
