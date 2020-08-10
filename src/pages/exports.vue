@@ -418,10 +418,10 @@ export default {
       importCountrySelected: "Thailand",
       sectorSelected: "All",
       sectorOptions: ["All", "Sector #1", "Sector #2"],
-      menuSelected: 4,
-      activeMenu: 4,
+      menuSelected: 0,
+      activeMenu: 0,
       menuDropdownSelected: 0,
-      menuDropdownSelected2: 2,
+      menuDropdownSelected2: 0,
     };
   },
   methods: {
