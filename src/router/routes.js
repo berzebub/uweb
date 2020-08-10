@@ -43,6 +43,11 @@ const routes = [
         component: () => import("pages/countrybriefs.vue"),
         name: "countrybriefs"
       },
+      {
+        path: "/getStrated",
+        component: () => import("pages/getStrated.vue"),
+        name: "getStrated"
+      },
 
       // NOTE : Page test
       {

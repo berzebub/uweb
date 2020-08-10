@@ -28,15 +28,28 @@
                 <router-link to="/about" class="text-white" style="text-decoration:none;">
                   <span>About</span>
                 </router-link>
-                <router-link to="/" class="text-white" style="text-decoration:none;">
+                <div
+                  to="/"
+                  @click="toTradeEtools()"
+                  class="text-white cursor-pointer"
+                  style="text-decoration:none;"
+                >
                   <span>Trade-etools</span>
-                </router-link>
-                <router-link to="/" class="text-white" style="text-decoration:none;">
+                </div>
+                <div
+                  @click="toEscapTrade()"
+                  class="text-white cursor-pointer"
+                  style="text-decoration:none;"
+                >
                   <span>ESCAP Trade</span>
-                </router-link>
-                <router-link to="/" class="text-white" style="text-decoration:none;">
+                </div>
+                <div
+                  @click="toTradeEtoolsPolicy()"
+                  class="text-white cursor-pointer"
+                  style="text-decoration:none;"
+                >
                   <span>ESCAP Trade Policy</span>
-                </router-link>
+                </div>
                 <router-link to="/termOfUse" class="text-white" style="text-decoration:none;">
                   <span>Terms of use</span>
                 </router-link>
@@ -105,6 +118,23 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: linksData,
     };
+  },
+  methods: {
+    toEscapTrade() {
+      window.open("https://artnet.unescap.org/databases", "_blank");
+    },
+    toTradeEtools() {
+      window.open(
+        "https://www.unescap.org/our-work/trade-investment-innovation",
+        "_blank"
+      );
+    },
+    toTradeEtoolsPolicy() {
+      window.open(
+        "https://www.unescap.org/our-work/trade-investment-innovation",
+        "_blank"
+      );
+    },
   },
 };
 </script>
