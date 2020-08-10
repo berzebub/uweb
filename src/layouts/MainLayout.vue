@@ -12,7 +12,7 @@
             <q-img style="width:162px" src="../../public/fealac.png"></q-img>
           </div>
           <q-space />
-          <div class="row" align="right">
+          <div class="row full-width" align="right">
             <div class="col-12 q-col-gutter-md text-white" align="right">
               <q-icon class="cursor-pointer" size="30px" name="fab fa-twitter"></q-icon>
               <q-icon class="cursor-pointer" size="30px" name="fab fa-facebook-f"></q-icon>
