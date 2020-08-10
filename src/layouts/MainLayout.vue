@@ -14,12 +14,37 @@
           <q-space />
           <div class="row full-width" align="right">
             <div class="col-12 q-col-gutter-md text-white" align="right">
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-twitter"></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-facebook-f"></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-youtube"></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-instagram"></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-flickr"></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-invision"></q-icon>
+              <q-icon
+                class="cursor-pointer"
+                size="30px"
+                name="fab fa-twitter"
+                @click="twitterLink()"
+              ></q-icon>
+              <q-icon
+                class="cursor-pointer"
+                size="30px"
+                name="fab fa-facebook-f"
+                @click="facebookLink()"
+              ></q-icon>
+              <q-icon
+                class="cursor-pointer"
+                size="30px"
+                name="fab fa-youtube"
+                @click="youtubeLink()"
+              ></q-icon>
+              <q-icon
+                class="cursor-pointer"
+                size="30px"
+                name="fab fa-instagram"
+                @click="instragramLink()"
+              ></q-icon>
+              <q-icon class="cursor-pointer" size="30px" name="fab fa-flickr" @click="flickrLink()"></q-icon>
+              <q-icon
+                class="cursor-pointer"
+                size="30px"
+                name="fab fa-invision"
+                @click="linkedinLink()"
+              ></q-icon>
             </div>
             <div class="col-12 q-py-sm q-px-md">
               <q-separator color="white"></q-separator>
@@ -64,63 +89,34 @@
 </template>
 
 <script>
-import EssentialLink from "components/EssentialLink.vue";
-
-const linksData = [
-  {
-    title: "Docs",
-    caption: "quasar.dev",
-    icon: "school",
-    link: "https://quasar.dev",
-  },
-  {
-    title: "Github",
-    caption: "github.com/quasarframework",
-    icon: "code",
-    link: "https://github.com/quasarframework",
-  },
-  {
-    title: "Discord Chat Channel",
-    caption: "chat.quasar.dev",
-    icon: "chat",
-    link: "https://chat.quasar.dev",
-  },
-  {
-    title: "Forum",
-    caption: "forum.quasar.dev",
-    icon: "record_voice_over",
-    link: "https://forum.quasar.dev",
-  },
-  {
-    title: "Twitter",
-    caption: "@quasarframework",
-    icon: "rss_feed",
-    link: "https://twitter.quasar.dev",
-  },
-  {
-    title: "Facebook",
-    caption: "@QuasarFramework",
-    icon: "public",
-    link: "https://facebook.quasar.dev",
-  },
-  {
-    title: "Quasar Awesome",
-    caption: "Community Quasar projects",
-    icon: "favorite",
-    link: "https://awesome.quasar.dev",
-  },
-];
-
 export default {
   name: "MainLayout",
-  components: { EssentialLink },
+
   data() {
-    return {
-      leftDrawerOpen: false,
-      essentialLinks: linksData,
-    };
+    return {};
   },
   methods: {
+    twitterLink() {
+      window.open("https://twitter.com/unescap", "_blank");
+    },
+    facebookLink() {
+      window.open("https://www.facebook.com/UNESCAP", "_blank");
+    },
+    youtubeLink() {
+      window.open("https://www.youtube.com/user/unescap", "_blank");
+    },
+    instragramLink() {
+      window.open("https://www.instagram.com/unitednationsescap/", "_blank");
+    },
+    flickrLink() {
+      window.open("https://www.flickr.com/photos/unitednationsescap", "_blank");
+    },
+    linkedinLink() {
+      window.open(
+        "https://www.linkedin.com/company/united-nations-escap/",
+        "_blank"
+      );
+    },
     toEscapTrade() {
       window.open("https://artnet.unescap.org/databases", "_blank");
     },
