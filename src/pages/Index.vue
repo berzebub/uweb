@@ -1,11 +1,11 @@
 <template>
-  <q-page class="container" style="background-color:#f2f2f2">
+  <q-page class="row" style="background-color:#f2f2f2;padding-bottom:100px;">
     <!-- Regional Integration -->
-    <div class="row q-pa-sm bg-white">
-      <div class="col-md-3 col-xs-12" style="width:280px;">
+    <div class="col-12 row q-pa-sm bg-white">
+      <div class="col-4">
         <q-img :src="require('../../public/images/1.png')"></q-img>
       </div>
-      <div class="col-md col-xs-12 row q-pa-lg">
+      <div class="col row q-pa-md">
         <div class="col-12 q-mb-md">
           <span class="text-h4 text-bold">Regional Integration</span>
           <div class="q-mt-xs" style="font-size:18px;">
@@ -14,14 +14,14 @@
         </div>
         <div class="col-12 self-end">
           <q-btn
-            class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Get started"
             to="/getStarted"
             no-caps
           ></q-btn>
           <q-btn
-            class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
@@ -31,11 +31,11 @@
     </div>
 
     <!-- Global value chains -->
-    <div class="row q-pa-sm bg-white" style="margin-top:10px;">
-      <div class="col-md-3 col-xs-12" style="width:280px;">
+    <div class="col-12 row q-pa-sm bg-white" style="margin-top:10px;">
+      <div class="col-4">
         <q-img :src="require('../../public/images/2.png')"></q-img>
       </div>
-      <div class="col-md col-xs-12 row q-pa-lg">
+      <div class="col row q-pa-md">
         <div class="col-12 q-mb-md">
           <span class="text-h4 text-bold">Global value chains</span>
           <div class="q-mt-xs" style="font-size:18px;">
@@ -46,21 +46,21 @@
         </div>
         <div class="col-12 self-end">
           <q-btn
-            class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Get started"
             no-caps
             to="/getStarted"
           ></q-btn>
           <q-btn
-            class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
             to="/download"
           ></q-btn>
           <q-btn
-            class="bg4 text-white q-mr-md q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Country briefs"
             no-caps
