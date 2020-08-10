@@ -1,17 +1,18 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-page-container>
+    <q-page-container class="relative-position">
       <router-view class="container shadow-10" />
 
-      <div style="background-color:#020B3B;" class="q-py-md absolute-bottom">
-        <div class="row justify-between q-px-sm items-center" style="width:1000px;margin:auto;">
-          <div style="max-width:180px">
+      <div style="background-color:#020B3B;" class="container q-py-md absolute-bottom">
+        <q-toolbar class="q-px-sm items-center">
+          <div class="q-mx-lg" style="max-width:180px">
             <q-img style="width:162px" src="../../public/logo.png"></q-img>
           </div>
-          <div class="q-pl-md" style="max-width:180px">
+          <div class="q-mx-lg" style="max-width:180px">
             <q-img style="width:162px" src="../../public/fealac.png"></q-img>
           </div>
-          <div class="row col" style="max-width:600px">
+          <q-space />
+          <div class="row" align="right">
             <div class="col-12 q-col-gutter-md text-white" align="right">
               <q-icon class="cursor-pointer" size="30px" name="fab fa-twitter"></q-icon>
               <q-icon class="cursor-pointer" size="30px" name="fab fa-facebook-f"></q-icon>
@@ -56,7 +57,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </q-toolbar>
       </div>
     </q-page-container>
   </q-layout>
