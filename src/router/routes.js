@@ -48,6 +48,36 @@ const routes = [
         component: () => import("pages/getStarted.vue"),
         name: "getStarted"
       },
+      {
+        path: "/structure-of-value-added",
+        component: () => import("pages/structureOfValueAdded.vue"),
+        name: "structureOfValueAdded"
+      },
+      {
+        path: "/participation-in-gvcs",
+        component: () => import("pages/participationInGvcs.vue"),
+        name: "participationInGvcs"
+      },
+      {
+        path: "/backward-linkages-by-region",
+        component: () => import("pages/backwardLinkagesByRegion.vue"),
+        name: "backwardLinkagesRegion"
+      },
+      {
+        path: "/backward-linkages-by-sector",
+        component: () => import("pages/backwardLinkagesBySector.vue"),
+        name: "backwardLinkagesSector"
+      },
+      {
+        path: "/forward-linkages-by-region",
+        component: () => import("pages/forwardLinkagesByRegion.vue"),
+        name: "forwardLinkagesRegion"
+      },
+      {
+        path: "/forward-linkages-by-sector",
+        component: () => import("pages/forwardLinkagesBySector.vue"),
+        name: "forwardLinkagesSector"
+      },
 
       // NOTE : Page test
       {
