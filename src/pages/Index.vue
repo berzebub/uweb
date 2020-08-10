@@ -1,29 +1,33 @@
 <template>
   <q-page class="row" style="background-color:#f2f2f2;padding-bottom:100px;">
     <!-- Regional Integration -->
-    <div class="col-12 row q-pa-sm bg-white">
-      <div class="col-4">
-        <q-img :src="require('../../public/images/1.png')"></q-img>
+    <div class="col-12 row q-pa-sm bg-white brx heightDiv">
+      <div class="col-4 q-pa-md">
+        <q-img src="../../public/images/1.png"></q-img>
       </div>
+
       <div class="col row q-pa-md">
-        <div class="col-12 q-mb-md">
+        <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Regional Integration</span>
           <div class="q-mt-xs" style="font-size:18px;">
             <span>ESCAP DigiSRII provides insights on the structure and progress of regional integration in Asia-Pacific</span>
           </div>
         </div>
-        <div class="col-12 self-end">
+        <div class="col-4" align="center">
           <q-btn
             class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Get started"
-            to="/getStarted"
+            disable
             no-caps
           ></q-btn>
+        </div>
+        <div class="col-4" align="center">
           <q-btn
             class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
             label="Download data"
+            disable
             no-caps
           ></q-btn>
         </div>
@@ -31,20 +35,18 @@
     </div>
 
     <!-- Global value chains -->
-    <div class="col-12 row q-pa-sm bg-white" style="margin-top:10px;">
-      <div class="col-4">
-        <q-img :src="require('../../public/images/2.png')"></q-img>
+    <div class="col-12 row q-pa-sm bg-white brx heightDiv" style="margin-top:10px;">
+      <div class="col-4 q-pa-md">
+        <q-img src="../../public/images/2.png"></q-img>
       </div>
       <div class="col row q-pa-md">
-        <div class="col-12 q-mb-md">
+        <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Global value chains</span>
           <div class="q-mt-xs" style="font-size:18px;">
-            <span>Gain insight into your economy’s participation in GVCs.</span>
-            <span>Uncover the sources of intermediate inputs and the</span>
-            <span>destinations of domestic value-added.</span>
+            <span>Gain insight into your economy's participation in GVCs. Uncover the sources of intermediate inputs and the destinations of domestic value-added</span>
           </div>
         </div>
-        <div class="col-12 self-end">
+        <div class="col-4" align="center">
           <q-btn
             class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
@@ -52,6 +54,8 @@
             no-caps
             to="/getStarted"
           ></q-btn>
+        </div>
+        <div class="col-4" align="center">
           <q-btn
             class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
@@ -59,6 +63,8 @@
             no-caps
             to="/download"
           ></q-btn>
+        </div>
+        <div class="col-4" align="center">
           <q-btn
             class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
             style="border-radius:10px;width:200px;"
@@ -77,6 +83,11 @@ export default {
   name: "PageIndex",
 };
 </script>
+<style>
+.heightDiv {
+  height: calc(50vh - 50px);
+}
+</style>
 
 
 
