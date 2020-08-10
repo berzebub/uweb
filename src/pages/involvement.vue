@@ -16,7 +16,7 @@
           >Get an overview of value-added structure of Thailand’s exports. Compare across sub-regional partners. See how this changes perception of bilateral trade balances.</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
-              <q-btn to="/exports" label="Let's go!" class="bg4 fit" no-caps></q-btn>
+              <q-btn to="/structure-of-value-added" label="Let's go!" class="bg4 fit" no-caps></q-btn>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
           >Get an overview of Thailand’s GVC related trade. Compare across sub-regional partners</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
-              <q-btn label="Let's go!" class="bg4 fit" no-caps></q-btn>
+              <q-btn to="/participation-in-gvcs" label="Let's go!" class="bg4 fit" no-caps></q-btn>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@
           >Find out where Thailand’s imported content comes from. Examine this by region and sector. Compare across sub-regional partners.</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
-              <q-btn label="Let's go!" class="bg4 fit" no-caps></q-btn>
+              <q-btn to="/backward-linkages-by-region" label="Let's go!" class="bg4 fit" no-caps></q-btn>
             </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
           >Find out where Thailand contributes towards export production. Examine this by region and sector. Compare across sub-regional partners.</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
-              <q-btn label="Let's go!" class="bg4 fit" no-caps></q-btn>
+              <q-btn to="/forward-linkages-by-region" label="Let's go!" class="bg4 fit" no-caps></q-btn>
             </div>
           </div>
         </div>
