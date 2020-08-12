@@ -33,17 +33,18 @@
     </div>
     <!-- <div class="row items-center" style="width:90%;margin:auto;max-width:1200px">
       <div class="col">
+        <div align="left" class="q-pl-sm text-subtitle3">Gross exports to China: $10B</div>
         <div id="container"></div>
-        <div align="left" class="q-pl-sm text-grey text-subtitle3">Gross exports to World: $40 B</div>
+        <div align="left" class="q-pl-sm text-subtitle3">Gross exports to World: $40 B</div>
       </div>
-      <div style="width:300px" class="q-px-sm">
+      <div style="width:350px" class="q-px-md">
         <div
           class="row items-center q-pt-md"
           v-for="(items,index) in colorListWithLabel"
           :key="index"
         >
           <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
+          <div class="col q-pl-md">{{ items.label }}</div>
         </div>
       </div>
     </div>-->
@@ -56,12 +57,11 @@
     <!-- <div class="row items-center">
       <div class="col">
       </div>
-      <div style="width:300px" class="q-px-sm">
+      <div style="width:350px" class="q-px-md">
         <div
           class="row items-center q-pt-md"
           v-for="(items,index) in colorListWithLabel"
           :key="index"
-          v-show="items.color != 'bg8'"
         >
           <div style="width:45px;height:30px" :class="items.color"></div>
           <div class="col q-pl-sm">{{ items.label }}</div>
@@ -73,6 +73,9 @@
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container2"></div>
     </div>
+    <div style="height:50px"></div>
+
+    <!-- Finish -->
     <div style="height:30px"></div>
   </q-page>
 </template>
@@ -175,11 +178,7 @@ export default {
           },
         },
         title: {
-          text: "What happens to Thailand's exports to China?",
-        },
-        subtitle: {
-          text: "Gross exports to China: $10 B",
-          align: "left",
+          text: "",
         },
       });
     },
@@ -190,7 +189,7 @@ export default {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
         title: {
-          text: "What happens to South-East Asian economies’ exports to China?",
+          text: "",
         },
         xAxis: {
           labels: {
@@ -327,5 +326,45 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
+.divLeft {
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.divRight {
+  margin-left: 20px;
+  width: 750px;
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.bracketLeft {
+  margin-left: 30px;
+  width: 400px;
+  height: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.bracketRight {
+  margin-top: 15px;
+  margin-left: 300px;
+  width: 400px;
+  height: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.textLeft {
+  margin-left: 80px;
+  width: 200px;
+  text-align: center;
+}
+.textRight {
+  margin-top: -30px;
+  margin-left: 400px;
+  width: 200px;
+  text-align: center;
+}
 </style>
