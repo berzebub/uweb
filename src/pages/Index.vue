@@ -3,10 +3,10 @@
     <!-- Regional Integration -->
     <div class="col-12 row q-pa-sm bg-white">
       <div class="col-4 self-center q-pa-xs">
-        <q-img src="../../public/images/1.png" style="width:calc(100% - 8vh)"></q-img>
+        <q-img src="../../public/images/1.png" style="height:calc(50vh - 80px);object-fit: cover;"></q-img>
       </div>
 
-      <div class="col-8 row q-pr-md q-py-md">
+      <div class="col-8 row q-pa-md q-py-md">
         <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Regional Integration</span>
           <div class="q-mt-xs font-content">
@@ -37,10 +37,10 @@
     <!-- Global value chains -->
     <div class="col-12 row q-pa-sm bg-white" style="margin-top:10px;">
       <div class="col-4 self-center q-pa-xs">
-        <q-img src="../../public/images/2.png" style="width:calc(100% - 8vh)"></q-img>
+        <q-img src="../../public/test.png" style="height:calc(50vh - 80px);object-fit: cover;"></q-img>
       </div>
 
-      <div class="col-8 row q-pr-md q-py-md">
+      <div class="col-8 row q-pa-md q-py-md">
         <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Global value chains</span>
           <div class="q-mt-xs font-content">
