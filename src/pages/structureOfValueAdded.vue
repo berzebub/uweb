@@ -4,7 +4,7 @@
     <header-menu></header-menu>
     <importing-select></importing-select>
 
-    <div style="width:90%;margin:auto;max-width:1000px">
+    <div style="width:90%;margin:auto;max-width:1200px">
       <q-img src="../../public/structure-1.png"></q-img>
     </div>
 
@@ -28,7 +28,10 @@
     </div>
     <hr />
     <div style="height:30px"></div>
-    <div class="row items-center">
+    <div style="width:90%;margin:auto;max-width:1200px">
+      <div id="container"></div>
+    </div>
+    <!-- <div class="row items-center" style="width:90%;margin:auto;max-width:1200px">
       <div class="col">
         <div id="container"></div>
         <div align="left" class="q-pl-sm text-grey text-subtitle3">Gross exports to World: $40 B</div>
@@ -43,12 +46,15 @@
           <div class="col q-pl-sm">{{ items.label }}</div>
         </div>
       </div>
-    </div>
+    </div>-->
     <hr />
     <div style="height:30px"></div>
-    <div class="row items-center">
+    <div style="width:90%;margin:auto;max-width:1200px">
+      <div id="container1"></div>
+    </div>
+
+    <!-- <div class="row items-center">
       <div class="col">
-        <div id="container1"></div>
       </div>
       <div style="width:300px" class="q-px-sm">
         <div
@@ -61,11 +67,11 @@
           <div class="col q-pl-sm">{{ items.label }}</div>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <div style="height:30px"></div>
-    <div style="width:90%;margin:auto">
-      <q-img src="../../public/graphDown.png"></q-img>
+    <div style="width:90%;margin:auto;max-width:1200px">
+      <div id="container2"></div>
     </div>
     <div style="height:30px"></div>
   </q-page>
@@ -107,6 +113,7 @@ export default {
           label: "Imported content",
         },
       ],
+      test: "xxx",
     };
   },
   methods: {
@@ -118,36 +125,55 @@ export default {
         series: [
           {
             type: "treemap",
-            layoutAlgorithm: "squarified",
+            layoutAlgorithm: "strip",
             data: [
               {
                 name: "Imp. cons. (60%)",
                 value: 60,
                 color: "#2381B8",
+                label: "Used in China’s comsumption",
               },
               {
                 name: "imp. exp. (15%)",
                 value: 5,
                 color: "#EB1E63",
+                label: "Used in China’s export production",
               },
               {
                 name: "Dom. cons (5%)",
                 value: 5,
                 color: "#F99704",
+                label: "Used in Thailand’s domestic comsumption",
               },
               {
                 name: "Double (5%)",
                 value: 5,
                 color: "#2D9687",
+                label: "Double counted exports from repeated border crossings",
               },
               {
                 name: "Imp. cont. (15%)",
                 value: 15,
                 color: "#9C26B3",
+                label: "Imported content",
               },
             ],
+            showInLegend: true,
+            legendType: "point",
           },
         ],
+        legend: {
+          align: "right",
+          verticalAlign: "middle",
+          width: 300,
+          itemMarginTop: 25,
+          symbolHeight: 25,
+          symbolWidth: 25,
+          symbolRadius: 0,
+          labelFormatter: function () {
+            return this.label;
+          },
+        },
         title: {
           text: "What happens to Thailand's exports to China?",
         },
@@ -161,6 +187,7 @@ export default {
       Highcharts.chart("container1", {
         chart: {
           type: "column",
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
         title: {
           text: "What happens to South-East Asian economies’ exports to China?",
@@ -198,15 +225,15 @@ export default {
           },
         },
         legend: {
-          // align: "right",
-          // verticalAlign: "right",
-          // floating: true,
-          // backgroundColor:
-          //   Highcharts.defaultOptions.legend.backgroundColor || "white",
-          // borderColor: "#CCC",
-          // borderWidth: 1,
-          // shadow: false,
-          enabled: false,
+          width: 300,
+          layout: "vertical",
+          enabled: true,
+          align: "right",
+          verticalAlign: "middle",
+          itemMarginTop: 25,
+          symbolHeight: 25,
+          symbolWidth: 25,
+          symbolRadius: 0,
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -244,10 +271,58 @@ export default {
         ],
       });
     },
+    setStackChart2() {
+      Highcharts.chart("container2", {
+        legend: {
+          layout: "vertical",
+          align: "right",
+          verticalAlign: "middle",
+          itemDistance: 10,
+          width: 300,
+          itemMarginTop: 25,
+          symbolHeight: 25,
+          symbolWidth: 25,
+          symbolRadius: 0,
+        },
+        chart: {
+          type: "column",
+        },
+        title: {
+          text:
+            "How does Thailand's gross and domestic value-added trade balance with China differ?",
+        },
+        xAxis: {
+          max: 0,
+          categories: ["", ""],
+        },
+        yAxis: {
+          max: 10,
+          title: {
+            text: "% of gross exports to China",
+          },
+        },
+        credits: {
+          enabled: false,
+        },
+        series: [
+          {
+            name: "Domestic value-added trade balance",
+            data: [-3],
+            color: "#2381B8",
+          },
+          {
+            name: "Gross trade balance",
+            data: [-9],
+            color: "#EB1E63",
+          },
+        ],
+      });
+    },
   },
   mounted() {
     this.setData();
     this.setStackChart();
+    this.setStackChart2();
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-white">
+  <q-page class="bg-white container" style="padding-bottom:120px">
     <app-bar></app-bar>
     <p
       class="font-page q-py-md"
