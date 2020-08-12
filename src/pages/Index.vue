@@ -15,7 +15,7 @@
         </div>
         <div class="col-4" align="center">
           <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
             style="border-radius:10px;width:200px;"
             label="Get started"
             disable
@@ -24,7 +24,7 @@
         </div>
         <div class="col-4" align="center">
           <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
             style="border-radius:10px;width:200px;"
             label="Download data"
             disable
@@ -49,7 +49,7 @@
         </div>
         <div class="col-4" align="center">
           <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
             style="border-radius:10px;width:200px;"
             label="Get started"
             no-caps
@@ -58,7 +58,7 @@
         </div>
         <div class="col-4" align="center">
           <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
             style="border-radius:10px;width:200px;"
             label="Download data"
             no-caps
@@ -67,7 +67,7 @@
         </div>
         <div class="col-4" align="center">
           <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs"
+            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
             style="border-radius:10px;width:200px;"
             label="Country briefs"
             no-caps

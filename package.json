@@ -1,9 +1,9 @@
 {
-  "name": "un-escap",
+  "name": "unescap",
   "version": "0.0.1",
-  "description": "un-escap-website",
-  "productName": "un-escap-website",
-  "author": "Tanin <ber_zebub@hotmail.com>",
+  "description": "UNESCAP website",
+  "productName": "UNESCAP website",
+  "author": "Awesome Team",
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
