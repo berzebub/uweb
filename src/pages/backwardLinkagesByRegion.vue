@@ -291,7 +291,7 @@ export default {
           },
           {
             name: "North America",
-            data: [5, 10, 5, 8, 4, 10, 8, 3, 15],
+            data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
             color: "#f99704",
           },
 
@@ -302,7 +302,7 @@ export default {
           },
           {
             name: "Latin America",
-            data: [5, 10, 5, 8, 4, 10, 8, 3, 15],
+            data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
             color: "#2D9687",
           },
           {
