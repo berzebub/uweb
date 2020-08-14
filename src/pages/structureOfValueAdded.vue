@@ -49,7 +49,7 @@
       </div>
     </div>
     <!-- POLICY -->
-    <div class="q-pa-lg">
+    <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px">
       <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
       <div class="q-px-md font-content">
         <div>
@@ -233,6 +233,7 @@ export default {
         title: {
           style: {
             fontSize: "24px",
+            fontFamily: "roboto",
           },
           text: "What happens to South-East Asian economies’ exports to China?",
         },
@@ -358,6 +359,7 @@ export default {
         title: {
           style: {
             fontSize: "24px",
+            fontFamily: "roboto",
           },
           text:
             "How does Thailand's gross and domestic value-added trade balance with China differ?",

@@ -160,7 +160,8 @@ export default {
         ],
         title: {
            style: {
-            fontSize: "24px",
+             fontSize: "24px",
+            fontFamily: "roboto",
           },
           text:
             "How much of Thailand’s exports to China are GVC related <br>compared to other South-East Asian economies?",
