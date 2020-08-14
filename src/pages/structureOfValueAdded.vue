@@ -4,10 +4,50 @@
     <header-menu></header-menu>
     <importing-select></importing-select>
 
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <q-img src="../../public/structure-1.png"></q-img>
+    <div class="row" style="margin:auto; width:1050px;">
+      <div class="divLeft col">
+        <div class="font-graph q-pt-md" align="center">Table of contents:</div>
+        <div class="q-pa-md font-content">
+          <div>
+            1.
+            <u>Key policy question</u>
+          </div>
+          <div class="q-pt-md">
+            2.
+            <u>Structure of value-added</u>
+          </div>
+          <div class="q-pt-md">
+            3.
+            <u>Comparison with partners</u>
+          </div>
+          <div class="q-pt-md">
+            4.
+            <u>Measuring trade balance</u>
+          </div>
+        </div>
+      </div>
+      <div class="divRight">
+        <div
+          class="font-graph q-pt-md"
+          align="center"
+        >How do you disaggregate value-added in gross exports?</div>
+        <div
+          class="font-content q-pt-md"
+          align="center"
+        >Thailand's gross exports can be divided into five major parts:</div>
+        <div class="row q-pt-md" style="width:95%; margin:auto;">
+          <div style="width:20%" align="center">Used in importer's comsumption</div>
+          <div style="width:20%" align="center">Used in domestic comsumption</div>
+          <div style="width:20%" align="center">Used in importer's export production</div>
+          <div style="width:20%" align="center">Imported content</div>
+          <div style="width:20%" align="center">Double counted exports from repeated border crossing</div>
+        </div>
+        <div class="bracketLeft"></div>
+        <div class="bracketRight"></div>
+        <div class="textLeft font-content">Thailand's valued-added in exports</div>
+        <div class="textRight font-content">GVC releated exports</div>
+      </div>
     </div>
-
     <!-- POLICY -->
     <div class="q-pa-lg">
       <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
@@ -352,5 +392,45 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style >
+.divLeft {
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.divRight {
+  margin-left: 20px;
+  width: 750px;
+  height: 300px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.bracketLeft {
+  margin-left: 30px;
+  width: 400px;
+  height: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.bracketRight {
+  margin-top: 15px;
+  margin-left: 300px;
+  width: 400px;
+  height: 10px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+.textLeft {
+  margin-left: 80px;
+  width: 200px;
+  text-align: center;
+}
+.textRight {
+  margin-top: -30px;
+  margin-left: 400px;
+  width: 200px;
+  text-align: center;
+}
 </style>

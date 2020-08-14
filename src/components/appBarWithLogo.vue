@@ -19,6 +19,7 @@
             :options="countryOptions"
             v-model="countrySelected"
             outlined
+            @input="selectCountry()"
           ></q-select>
         </div>
         <div class="q-pl-lg">
@@ -51,6 +52,14 @@ export default {
       countryOptions: ["Thailand", "China"],
       countrySelected: "Thailand",
     };
+  },
+  methods: {
+    selectCountry() {
+      this.$emit("countrySelected", this.countrySelected);
+    },
+  },
+  mounted() {
+    this.$emit("countrySelected", this.countrySelected);
   },
 };
 </script>

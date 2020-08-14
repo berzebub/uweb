@@ -1,8 +1,9 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar :isShowLogo="true" class="shadow-2"></app-bar>
+    <app-bar @countrySelected="(val) => displayCountry = val " :isShowLogo="true" class="shadow-2"></app-bar>
+
     <div class="relative-position q-my-md">
-      <p class="font-page" align="center">Thailand's key GVC relationships</p>
+      <p class="font-page" align="center">{{ displayCountry }}'s key GVC relationships</p>
       <q-btn
         to="/involvement"
         no-caps
@@ -27,8 +28,91 @@
           class="text-red"
         >7% ($18 billion)</span> of gross exports
       </p>
-      <div style="width:90%;margin:auto" class="q-py-md" align="center">
-        <q-img style="max-width:900px" src="../../public/getStarted1.png"></q-img>
+
+      <!-- <div style="width:100%;margin:auto" class="q-py-md relative-position brx" align="center">
+        <div class="row items-center justify-center">
+          <div class style="width:320px">
+            <div class="color1">
+              <b>
+                Imported content used in exports
+                (Backward linkages)
+              </b>
+              <br />Share: 26% of gross exports
+              Value: $65 billion
+            </div>
+            <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>
+          </div>
+
+          <div class="brx row col">
+            <div>
+              <q-img style="width:150px" src="../../public/arrow-right-red.png"></q-img>
+            </div>
+            <div class="q-px-md" style="font-size:36px">{{ displayCountry }}</div>
+            <div>
+              <q-img style="width:150px" src="../../public/arrow-right-green.png"></q-img>
+            </div>
+          </div>
+
+          <div style="width:320px">
+            <div class="color2">
+              <b>
+                Export of intermediates used in
+                export production
+                (Forward linkages)
+              </b>
+              <br />Share: 7% of gross exports
+              Value: $18 billion
+            </div>
+            <div style="border-radius:50%;width:60px;height:60px" class="bg2"></div>
+          </div>
+        </div>
+      </div>-->
+
+      <div style="max-width:1000px;margin:auto" class>
+        <div class="row items-start justify-center">
+          <div class style="width:300px" align="center">
+            <div class="color1">
+              <b>
+                Imported content used in exports
+                (Backward linkages)
+              </b>
+              <br />Share: 26% of gross exports
+              Value: $65 billion
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class style="width:300px" align="center">
+            <div class="color2">
+              <b>
+                Export of intermediates used in
+                export production
+                (Forward linkages)
+              </b>
+              <br />Share: 7% of gross exports
+              Value: $18 billion
+            </div>
+          </div>
+        </div>
+
+        <div class="row items-end justify-center">
+          <div style="width:300px;" align="center" class="relative-position">
+            <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>
+            <div class="absolute-right" style="right :-80px;top:30px">
+              <q-img style="width:150px" src="../../public/arrow-right-red.png"></q-img>
+            </div>
+          </div>
+          <div class="col" align="center">
+            <div class="relative-position" style="top:-12px">
+              <p style="font-size:36px">{{ displayCountry }}</p>
+            </div>
+          </div>
+          <div style="width:300px" class="relative-position" align="center">
+            <div class="absolute-right" style="left :-320px;top:30px">
+              <q-img style="width:150px" src="../../public/arrow-right-green.png"></q-img>
+            </div>
+            <div style="border-radius:50%;width:100px;height:100px" class="bg2"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -113,12 +197,20 @@
 
 <script>
 import appBar from "../components/appBarWithLogo";
+import Axios from "axios";
 export default {
   components: {
     appBar,
   },
   data() {
-    return {};
+    return {
+      displayCountry: "",
+    };
+  },
+  methods: {
+    countrySelected(val) {
+      this.displayCountry = val;
+    },
   },
 };
 </script>
