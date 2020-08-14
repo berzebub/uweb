@@ -71,44 +71,13 @@
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container"></div>
     </div>
-    <!-- <div class="row items-center" style="width:90%;margin:auto;max-width:1200px">
-      <div class="col">
-        <div id="container"></div>
-        <div align="left" class="q-pl-sm text-grey text-subtitle3">Gross exports to World: $40 B</div>
-      </div>
-      <div style="width:300px" class="q-px-sm">
-        <div
-          class="row items-center q-pt-md"
-          v-for="(items,index) in colorListWithLabel"
-          :key="index"
-        >
-          <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
-        </div>
-      </div>
-    </div>-->
+
     <hr />
     <div style="height:30px"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container1"></div>
     </div>
-
-    <!-- <div class="row items-center">
-      <div class="col">
-      </div>
-      <div style="width:300px" class="q-px-sm">
-        <div
-          class="row items-center q-pt-md"
-          v-for="(items,index) in colorListWithLabel"
-          :key="index"
-          v-show="items.color != 'bg8'"
-        >
-          <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
-        </div>
-      </div>
-    </div>-->
-
+    <hr />
     <div style="height:30px"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container2"></div>
@@ -184,13 +153,14 @@ export default {
                 name: "Dom. cons (5%)",
                 value: 5,
                 color: "#F99704",
-                label: "Used in Thailand’s domestic comsumption",
+                label: "Used in Thailand’s domestic <br>comsumption",
               },
               {
                 name: "Double (5%)",
                 value: 5,
                 color: "#2D9687",
-                label: "Double counted exports from repeated border crossings",
+                label:
+                  "Double counted exports <br>from repeated border crossings",
               },
               {
                 name: "Imp. cont. (15%)",
@@ -206,7 +176,7 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "12px",
+            fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000",
@@ -216,8 +186,8 @@ export default {
           verticalAlign: "middle",
           width: 300,
           itemMarginTop: 20,
-          symbolWidth: 30,
-          symbolHeight: 25,
+          symbolWidth: 50,
+          symbolHeight: 15,
           symbolRadius: 0,
 
           labelFormatter: function () {
@@ -225,11 +195,17 @@ export default {
           },
         },
         title: {
+          style: {
+            fontSize: "24px",
+          },
           text: "What happens to Thailand's exports to China?",
         },
         subtitle: {
-          text: "Gross exports to China: $10 B",
+          text: "Gross exports to China: $10B / Gross exports to World: $40B",
           align: "left",
+        },
+        credits: {
+          enabled: false,
         },
 
         exporting: {
@@ -255,6 +231,9 @@ export default {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
         title: {
+          style: {
+            fontSize: "24px",
+          },
           text: "What happens to South-East Asian economies’ exports to China?",
         },
         xAxis: {
@@ -289,15 +268,25 @@ export default {
             },
           },
         },
+        credits: {
+          enabled: false,
+        },
         legend: {
+          useHTML: true,
+          itemStyle: {
+            fontSize: "14px",
+            fontWeight: "medium",
+            fontFamily: "roboto",
+            color: "#00000",
+          },
           width: 300,
           layout: "vertical",
           enabled: true,
           align: "right",
           verticalAlign: "middle",
           itemMarginTop: 25,
-          symbolHeight: 25,
-          symbolWidth: 25,
+          symbolHeight: 15,
+          symbolWidth: 50,
           symbolRadius: 0,
         },
         tooltip: {
@@ -314,14 +303,9 @@ export default {
         },
         series: [
           {
-            name: "Used in Thailand's domestic comsumption",
-            data: [5, 10, 5, 8, 4, 10, 8, 3],
-            color: "#f99704",
-          },
-          {
-            name: "Imported content",
-            data: [9, 2, 10, 6, 15, 10, 8, 3],
-            color: "#9C26B3",
+            name: "Used in China's comsumption",
+            data: [18, 25, 20, 16, 12, 10, 14, 31],
+            color: "#2381B8",
           },
           {
             name: "Used in China's export production",
@@ -329,9 +313,19 @@ export default {
             color: "#EB1E63",
           },
           {
-            name: "Used in China's comsumption",
-            data: [18, 25, 20, 16, 12, 10, 14, 31],
-            color: "#2381B8",
+            name: "Used in Thailand's domestic <br>comsumption",
+            data: [5, 10, 5, 8, 4, 10, 8, 3],
+            color: "#f99704",
+          },
+          {
+            name: "Double counted exports from <br>repeated border crossings",
+            data: [0, 0, 0, 0, 0, 0, 0, 0],
+            color: "#2D9687",
+          },
+          {
+            name: "Imported content",
+            data: [9, 2, 10, 6, 15, 10, 8, 3],
+            color: "#9C26B3",
           },
         ],
       });
@@ -339,20 +333,32 @@ export default {
     setStackChart2() {
       Highcharts.chart("container2", {
         legend: {
+          useHTML: true,
+          itemStyle: {
+            fontSize: "14px",
+            fontWeight: "medium",
+            fontFamily: "roboto",
+            color: "#00000",
+          },
           layout: "vertical",
           align: "right",
           verticalAlign: "middle",
           itemDistance: 10,
           width: 300,
           itemMarginTop: 25,
-          symbolHeight: 25,
-          symbolWidth: 25,
+          symbolHeight: 15,
+          symbolWidth: 50,
           symbolRadius: 0,
         },
         chart: {
           type: "column",
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
+
         title: {
+          style: {
+            fontSize: "24px",
+          },
           text:
             "How does Thailand's gross and domestic value-added trade balance with China differ?",
         },
