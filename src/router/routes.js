@@ -84,6 +84,11 @@ const routes = [
         path: "/test",
         component: () => import("pages/test.vue"),
         name: "test"
+      },
+      {
+        path: "/test1",
+        component: () => import("pages/testGraph1.vue"),
+        name: "testGraph1"
       }
     ]
   },
