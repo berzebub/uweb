@@ -164,20 +164,19 @@ export default {
                 name: "imp. exp. (15%)",
                 value: 5,
                 color: "#EB1E63",
-                label: "Used in China’s export<br> production",
+                label: "Used in China’s export production",
               },
               {
                 name: "Dom. cons (5%)",
                 value: 5,
                 color: "#F99704",
-                label: "Used in Thailand’s domestic<br> comsumption",
+                label: "Used in Thailand’s domestic comsumption",
               },
               {
                 name: "Double (5%)",
                 value: 5,
                 color: "#2D9687",
-                label:
-                  "Double counted exports from<br> repeated border crossings",
+                label: "Double counted exports from repeated border crossings",
               },
               {
                 name: "Imp. cont. (15%)",
@@ -197,6 +196,7 @@ export default {
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000",
+            textOverflow: "",
           },
 
           align: "right",
@@ -222,13 +222,14 @@ export default {
           width: "1280px",
           chartOptions: {
             legend: {
-              width: 200,
+              width: 120,
               itemStyle: {
                 fontSize: "7px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
                 color: "#00000",
               },
+              symbolWidth: 10,
             },
           },
         },
