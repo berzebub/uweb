@@ -13,6 +13,37 @@
 
     <!-- NOTE : Selected List -->
     <div class="q-pa-md q-mt-lg" v-if="!isModify">
+      <!-- Indicator -->
+      <div class="row q-mt-lg justify-center">
+        <div class="col-3 self-center q-pa-md" align="center">
+          <div>
+            <span class="font-content">Indicator</span>
+          </div>
+        </div>
+        <div class="col-6 border" style="max-width: 400px;">
+          <div class="q-pa-sm bg4">
+            <span>Selected Indicator</span>
+          </div>
+          <q-scroll-area visible style="height: 200px;" class>
+            <div
+              class="border-bottom q-pa-sm"
+              :class="index % 2 == 1 ? 'bg11' : null"
+              v-for="(item,index) in indicatorList"
+              :key="index"
+            >{{item}}</div>
+          </q-scroll-area>
+        </div>
+
+        <div class="col-3 self-center" align="center">
+          <q-btn
+            class="bg4 q-px-sm"
+            rounded
+            label="Modify"
+            no-caps
+            @click="editModify('Indicator','indicator')"
+          ></q-btn>
+        </div>
+      </div>
       <!-- Exporting economy -->
       <div class="row q-mt-md justify-center">
         <div class="col-3 self-center q-pa-md" align="center">
@@ -168,38 +199,6 @@
             label="Modify"
             no-caps
             @click="editModify('Year','year')"
-          ></q-btn>
-        </div>
-      </div>
-
-      <!-- Indicator -->
-      <div class="row q-mt-lg justify-center">
-        <div class="col-3 self-center q-pa-md" align="center">
-          <div>
-            <span class="font-content">Indicator</span>
-          </div>
-        </div>
-        <div class="col-6 border" style="max-width: 400px;">
-          <div class="q-pa-sm bg4">
-            <span>Selected Indicator</span>
-          </div>
-          <q-scroll-area visible style="height: 200px;" class>
-            <div
-              class="border-bottom q-pa-sm"
-              :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in indicatorList"
-              :key="index"
-            >{{item}}</div>
-          </q-scroll-area>
-        </div>
-
-        <div class="col-3 self-center" align="center">
-          <q-btn
-            class="bg4 q-px-sm"
-            rounded
-            label="Modify"
-            no-caps
-            @click="editModify('Indicator','indicator')"
           ></q-btn>
         </div>
       </div>

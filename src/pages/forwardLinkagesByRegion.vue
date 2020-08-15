@@ -7,20 +7,23 @@
     <!-- Title box -->
     <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
       <div class="q-pa-md" style="border-radius:5px;border:2px solid">
-        <p class="font-graph" align="center">Where does imported content come from?</p>
+        <p
+          class="font-graph"
+          align="center"
+        >Where does Thailand contribute towards export production</p>
         <p
           class="font-content"
           align="center"
-        >Some part of Thailand’s gross exports consist of imported inputs that originate in other source economies.</p>
+        >Some part of Thailand’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economy.</p>
         <p class="font-content" align="center">
-          <span class="q-pr-lg">Source economy</span>
+          <span class="q-px-lg">Exporting economy (Thailand)</span>
+          <span class="q-pr-md text-weight-bold">:</span>
+          <span class="q-pr-lg">Sector</span>
 
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-px-lg">Exporting economy (Thailand)</span>
-          <span class="q-px-lg text-weight-bold">:</span>
-          <span class="q-pr-lg">Sector</span>
+          <span class="q-px-lg">Importing economy</span>
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-pl-lg">Importing economy</span>
+          <span class="q-pl-lg">Third economies</span>
         </p>
       </div>
 
@@ -28,11 +31,11 @@
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
         1.
-        <u>Where does Thailand’s imported content come from in exports to a selected importer ?</u>
+        <u>Where does Thailand contribute the most towards export production?</u>
       </p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
         2.
-        <u>Where do South-East Asian economies’ imported content come from in exports to a selected importer ?</u>
+        <u>Where do South-East Asian economies contribute the most towards export production?</u>
       </p>
     </div>
 
@@ -491,7 +494,7 @@ export default {
             fontSize: "24px",
           },
           text:
-            "Where does Thailand's imported content in exports to China come from?",
+            "Where does Thailand contribute the most towards export production?",
         },
         credits: {
           enabled: false,
@@ -501,7 +504,7 @@ export default {
             fontSize: "14px",
           },
           text:
-            "Gross exports of Thailand in All sector(s) to China amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>imported content in exports to China: $8B / Gross exports to China: $40B",
+            "Gross exports of Thailand in All sector(s) to World amount to *$40* billion in *year*. Of these exports, *$8* billion is Thailand's contribution to export production in other economies, mainly  United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>Contribution to export production: $8B / Gross exports to World: $40B",
           align: "center",
         },
       });
@@ -536,7 +539,7 @@ export default {
         yAxis: {
           min: 0,
           title: {
-            text: "% of gross exports to China",
+            text: "% of gross exports to world",
           },
           stackLabels: {
             enabled: false,
@@ -612,7 +615,7 @@ export default {
             fontSize: "24px",
           },
           text:
-            "Where do South-East Asian economies’ imported content in exports to China come from  ?",
+            "Where do South-East Asian economies contribute the most towards export production?",
         },
       });
     },
