@@ -551,12 +551,19 @@ export default {
           },
         },
         legend: {
+          useHTML: true,
+          itemStyle: {
+            fontSize: "14px",
+            fontWeight: "medium",
+            fontFamily: "roboto",
+            color: "#00000",
+          },
           align: "right",
           verticalAlign: "middle",
           width: 200,
           itemMarginTop: 25,
-          symbolHeight: 25,
-          symbolWidth: 25,
+          symbolHeight: 15,
+          symbolWidth: 50,
           symbolRadius: 0,
         },
 
@@ -575,20 +582,19 @@ export default {
 
         series: [
           {
-            name: "Rest of the world",
-            data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
-            color: "#9C26B3",
+            name: "Asia-Pacific",
+            data: [18, 25, 20, 16, 12, 10, 14, 31, 5],
+            color: "#2381B8",
+          },
+          {
+            name: "Europe",
+            data: [8, 3, 5, 10, 9, 10, 10, 3, 5],
+            color: "#EB1E63",
           },
           {
             name: "North America",
             data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
             color: "#f99704",
-          },
-
-          {
-            name: "Europe",
-            data: [8, 3, 5, 10, 9, 10, 10, 3, 5],
-            color: "#EB1E63",
           },
           {
             name: "Latin America",
@@ -596,9 +602,9 @@ export default {
             color: "#2D9687",
           },
           {
-            name: "Asia-Pacific",
-            data: [18, 25, 20, 16, 12, 10, 14, 31, 5],
-            color: "#2381B8",
+            name: "Rest of the world",
+            data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
+            color: "#9C26B3",
           },
         ],
         title: {
