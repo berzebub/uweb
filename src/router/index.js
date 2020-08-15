@@ -2,6 +2,9 @@ import Vue from "vue";
 import HighchartsVue from "highcharts-vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
+var VueScrollTo = require('vue-scrollto');
+
+Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);
 
@@ -14,7 +17,7 @@ Vue.use(HighchartsVue);
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,

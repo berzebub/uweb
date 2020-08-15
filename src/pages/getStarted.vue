@@ -88,6 +88,8 @@
     </div>
     <div style="height:50px;"></div>
     <hr />
+
+    <!-- Key GVC relationships by sector -->
     <div style="height:20px;"></div>
     <p class="font-graph q-py-md" align="center">key GVC relationships by sector</p>
     <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
@@ -130,14 +132,11 @@
       </div>
     </div>
 
-    <!-- <div align="center">
-      <q-img style="width:90%;max-width:900px" src="../../public/getStarted2.png"></q-img>
-    </div>-->
     <div style="height:50px"></div>
     <hr />
     <div style="height:20px"></div>
 
-    <!-- *********** -->
+    <!-- Key GVC relationships by economy -->
     <p class="font-graph q-py-md" align="center">key GVC relationships by economy</p>
 
     <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
@@ -180,9 +179,7 @@
         <q-img src="../../public/images/getStarted04.jpg" style="width:450px;"></q-img>
       </div>
     </div>
-    <!-- <div align="center">
-      <q-img style="width:90%;max-width:900px" src="../../public/getStarted2.png"></q-img>
-    </div>-->
+
     <div style="height:20px"></div>
     <div class="q-px-md" align="right">
       <q-btn
@@ -212,9 +209,9 @@ export default {
     };
   },
   methods: {
-    countrySelected(val) {
-      this.displayCountry = val;
-    },
+    // countrySelected(val) {
+    //   this.displayCountry = val;
+    // },
   },
 };
 </script>

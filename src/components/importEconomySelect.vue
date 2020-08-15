@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       countryList: ["Thailand", "China"],
-      countrySelected: "Thailand",
+      countrySelected: "China",
       sectorOptions: ["All", "Sector #1", "Sector #2"],
       sectorSelected: "All",
     };

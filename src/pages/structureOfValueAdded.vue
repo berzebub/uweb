@@ -1,26 +1,31 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar :isShowLogo="false"></app-bar>
+    <app-bar
+      :isShowLogo="false"
+      @countrySelected="(val) => displayCountry = val "
+      @yearSelected="(val) => displayYear = val "
+    ></app-bar>
     <header-menu></header-menu>
     <importing-select></importing-select>
 
+    <!-- table of content -->
     <div class="row" style="margin:auto; width:1050px;">
       <div class="divLeft col">
         <div class="font-graph q-pt-md" align="center">Table of contents:</div>
         <div class="q-pa-md font-content">
-          <div>
+          <div v-scroll-to="'#key'" class="cursor-pointer">
             1.
             <u>Key policy question</u>
           </div>
-          <div class="q-pt-md">
+          <div class="q-pt-md cursor-pointer" v-scroll-to="'#structure'">
             2.
             <u>Structure of value-added</u>
           </div>
-          <div class="q-pt-md">
+          <div class="q-pt-md cursor-pointer" v-scroll-to="'#comparison'">
             3.
             <u>Comparison with partners</u>
           </div>
-          <div class="q-pt-md">
+          <div class="q-pt-md cursor-pointer" v-scroll-to="'#measuring'">
             4.
             <u>Measuring trade balance</u>
           </div>
@@ -34,7 +39,7 @@
         <div
           class="font-content q-pt-md"
           align="center"
-        >Thailand's gross exports can be divided into five major parts:</div>
+        >{{displayCountry}}'s gross exports can be divided into five major parts:</div>
         <div class="row q-pt-md" style="width:95%; margin:auto;">
           <div style="width:20%" align="center">Used in importer's comsumption</div>
           <div style="width:20%" align="center">Used in domestic comsumption</div>
@@ -44,41 +49,46 @@
         </div>
         <div class="bracketLeft"></div>
         <div class="bracketRight"></div>
-        <div class="textLeft font-content">Thailand's valued-added in exports</div>
+        <div class="textLeft font-content">{{displayCountry}}'s valued-added in exports</div>
         <div class="textRight font-content">GVC releated exports</div>
       </div>
     </div>
-    <!-- POLICY -->
-    <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px">
+    <!-- Key policy question -->
+    <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
       <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
       <div class="q-px-md font-content">
-        <div>
+        <div v-scroll-to="'#structure'" class="cursor-pointer">
           1.
-          <u>What happens to Thailand’s exports to a selected importer?</u>
+          <u>What happens to {{displayCountry}}’s exports to a selected importer?</u>
         </div>
-        <div class="q-py-md">
+        <div class="cursor-pointer" v-scroll-to="'#comparison'">
           2.
           <u>What happens to South-East Asian economics’s exports to a selected imported?</u>
         </div>
-        <div>
+        <div class="cursor-pointer" v-scroll-to="'#measuring'">
           3.
-          <u>How does Thailand’s domestic value-added and gross trade balance with the selected imported differ?</u>
+          <u>How does {{displayCountry}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
         </div>
       </div>
     </div>
     <hr />
-    <div style="height:30px"></div>
+
+    <!-- What happends to ... exports to ...? -->
+    <div style="height:30px" id="structure"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container"></div>
     </div>
-
     <hr />
-    <div style="height:30px"></div>
+
+    <!-- What happens to ... econmics' exports to...? -->
+    <div id="comparison" style="height:30px"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container1"></div>
     </div>
     <hr />
-    <div style="height:30px"></div>
+
+    <!-- How does ... gross and domestic value-added trade balance with ... differ? -->
+    <div id="measuring" style="height:30px"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
       <div id="container2"></div>
     </div>
@@ -100,6 +110,8 @@ export default {
   },
   data() {
     return {
+      displayYear: "",
+      displayCountry: "",
       colorListWithLabel: [
         {
           color: "bg5",
@@ -122,7 +134,6 @@ export default {
           label: "Imported content",
         },
       ],
-      test: "xxx",
     };
   },
   methods: {
@@ -198,7 +209,8 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: "What happens to Thailand's exports to China?",
+          text:
+            "What happens to " + this.displayCountry + "'s exports to China?",
         },
         subtitle: {
           text: "Gross exports to China: $10B / Gross exports to World: $40B",

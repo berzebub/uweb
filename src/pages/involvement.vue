@@ -1,25 +1,29 @@
 <template>
   <q-page class="bg-white">
-    <app-bar></app-bar>
+    <app-bar
+      @countrySelected="(val) => displayCountry = val "
+      @yearSelected="(val) => displayYear = val "
+    ></app-bar>
     <p
       class="font-page q-py-md"
       align="center"
-    >Let’s look at Thailand’s involvement in global value chains in 2017</p>
+    >Let’s look at {{displayCountry}}’s involvement in global value chains in {{displayYear}}</p>
 
     <div class="row q-px-md" style="width:90%; margin:auto; max-width:1200px;">
       <!-- col1 -->
       <div class="col-3 q-px-sm">
-        <div class="bdrs fit q-pa-md fit relative-position">
-          <p align="center" class="text-weight-bold font-content">What about content of exports?</p>
-          <p
-            class="font-content"
-          >Get an overview of value-added structure of Thailand’s exports. Compare across sub-regional partners. See how this changes perception of bilateral trade balances.</p>
+        <div class="bdrs fit q-pa-md relative-position">
+          <p align="center" class="text-weight-bold font-graph">What about content of exports?</p>
+          <div
+            class="font-content q-pb-lg"
+            align="center"
+          >Get an overview of value-added structure of {{displayCountry}}’s exports. Compare across sub-regional partners. See how this changes perception of bilateral trade balances.</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
                 to="/structure-of-value-added"
                 label="Let's go!"
-                class="bg4 fit font-content"
+                class="bg4 fit font-content q-mb-md"
                 no-caps
               ></q-btn>
             </div>
@@ -29,16 +33,17 @@
       <!-- col2 -->
       <div class="col-3 q-px-sm">
         <div class="bdrs fit q-pa-md relative-position">
-          <p align="center" class="text-weight-bold font-content">What about participation in GVCs?</p>
-          <p
-            class="font-content"
-          >Get an overview of Thailand’s GVC related trade. Compare across sub-regional partners</p>
+          <p align="center" class="text-weight-bold font-graph">What about participation in GVCs?</p>
+          <div
+            class="font-content q-pb-lg"
+            align="center"
+          >Get an overview of {{displayCountry}}’s GVC related trade. Compare across sub-regional partners</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
                 to="/participation-in-gvcs"
                 label="Let's go!"
-                class="bg4 fit font-content"
+                class="bg4 fit font-content q-mb-md"
                 no-caps
               ></q-btn>
             </div>
@@ -48,17 +53,18 @@
       <!-- col3 -->
       <div class="col-3 q-px-sm">
         <div class="bdrs fit q-pa-md relative-position">
-          <p align="center" class="text-weight-bold font-content">What about backward linkages?</p>
+          <p align="center" class="text-weight-bold font-graph">What about backward linkages?</p>
 
           <p
             class="font-content"
-          >Find out where Thailand’s imported content comes from. Examine this by region and sector. Compare across sub-regional partners.</p>
+            align="center"
+          >Find out where {{displayCountry}}’s imported content comes from. Examine this by region and sector. Compare across sub-regional partners.</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
                 to="/backward-linkages-by-region"
                 label="Let's go!"
-                class="bg4 fit font-content"
+                class="bg4 fit font-content q-mb-md"
                 no-caps
               ></q-btn>
             </div>
@@ -68,16 +74,17 @@
       <!-- col4 -->
       <div class="col-3 q-px-sm">
         <div class="bdrs fit q-pa-md relative-position">
-          <p align="center" class="text-weight-bold font-content">What about forward linkages?</p>
-          <p
+          <p align="center" class="text-weight-bold font-graph">What about forward linkages?</p>
+          <div
             class="font-content"
-          >Find out where Thailand contributes towards export production. Examine this by region and sector. Compare across sub-regional partners.</p>
+            align="center"
+          >Find out where {{displayCountry}} contributes towards export production. Examine this by region and sector. Compare across sub-regional partners.</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
                 to="/forward-linkages-by-region"
                 label="Let's go!"
-                class="bg4 fit font-content"
+                class="bg4 fit font-content q-mb-md"
                 no-caps
               ></q-btn>
             </div>
@@ -94,12 +101,18 @@ export default {
   components: {
     appBar,
   },
+  data() {
+    return {
+      displayCountry: "",
+      displayYear: "",
+    };
+  },
 };
 </script>
 
 <style>
 .bdrs {
   border-radius: 5px;
-  border: 1px solid;
+  border: 2px solid;
 }
 </style>
