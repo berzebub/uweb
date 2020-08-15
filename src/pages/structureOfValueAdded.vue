@@ -2,14 +2,14 @@
   <q-page class="container bg-white" style="padding-bottom:100px">
     <app-bar
       :isShowLogo="false"
-      @countrySelected="(val) => displayCountry = val "
+      @countrySelected="exportingEconomyChanged"
       @yearSelected="(val) => displayYear = val "
     ></app-bar>
     <header-menu></header-menu>
     <importing-select></importing-select>
 
     <!-- table of content -->
-    <div class="row" style="margin:auto; width:1050px;">
+    <div class="row" style="margin:auto; max-width:1050px;width:95%;">
       <div class="divLeft col">
         <div class="font-graph q-pt-md" align="center">Table of contents:</div>
         <div class="q-pa-md font-content">
@@ -110,6 +110,7 @@ export default {
   },
   data() {
     return {
+      chart1: "",
       displayYear: "",
       displayCountry: "",
       colorListWithLabel: [
@@ -137,8 +138,24 @@ export default {
     };
   },
   methods: {
+    exportingEconomyChanged(val) {
+      this.loadingShow();
+      this.displayCountry = val;
+      setTimeout(() => {
+        this.setData();
+      }, 500);
+      setTimeout(() => {
+        this.setStackChart();
+      }, 1000);
+      setTimeout(() => {
+        this.setStackChart2();
+      }, 1500);
+      setTimeout(() => {
+        this.loadingHide();
+      }, 1600);
+    },
     async setData() {
-      Highcharts.chart("container", {
+      this.chart1 = Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
@@ -445,16 +462,18 @@ export default {
 
 <style >
 .divLeft {
-  height: 300px;
+  /* height: 300px; */
   border: 2px solid black;
   border-radius: 10px;
+  padding: 10px 0px;
 }
 .divRight {
   margin-left: 20px;
   width: 750px;
-  height: 300px;
+  /* height: 300px; */
   border: 2px solid black;
   border-radius: 10px;
+  padding: 10px 0px;
 }
 .bracketLeft {
   margin-left: 30px;

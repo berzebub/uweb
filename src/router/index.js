@@ -31,12 +31,27 @@ export default function (/* { store, ssrContext } */) {
 
   return Router;
 }
+import json from "../../public/country_list.json";
 
 Vue.mixin({
+
   data() {
     return {};
   },
+
   methods: {
+    getCountryList() {
+      let tempOptions = [];
+      json.forEach((element) => {
+        let data = {
+          label: element.name,
+          value: element.id,
+        };
+        tempOptions.push(data);
+      });
+      this.countryOptions = tempOptions;
+      this.countrySelected = tempOptions[0].value;
+    },
     notifyGreen(message) {
       this.$q.notify({
         message: message,
@@ -44,6 +59,14 @@ Vue.mixin({
         position: "top",
         timeout: "2500"
       });
+    },
+    loadingShow() {
+      this.$q.loading.show({
+        delay: 400
+      })
+    },
+    loadingHide() {
+      this.$q.loading.hide()
     }
   }
 });

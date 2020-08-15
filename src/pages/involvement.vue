@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-white">
+  <q-page class="bg-white" style="padding-bottom:120px">
     <app-bar
       @countrySelected="(val) => displayCountry = val "
       @yearSelected="(val) => displayYear = val "

@@ -19,6 +19,8 @@
             :options="countryOptions"
             v-model="countrySelected"
             outlined
+            emit-value
+            map-options
             @input="selectCountry()"
           ></q-select>
         </div>
@@ -39,6 +41,7 @@
 </template>
 
 <script>
+import json from "../../public/country_list.json";
 export default {
   props: {
     isShowLogo: {
@@ -50,21 +53,29 @@ export default {
     return {
       yearOptions: [2017, 2018, 2019, 2020],
       yearSelected: 2020,
-      countryOptions: ["Thailand", "China"],
-      countrySelected: "Thailand",
+      countryOptions: [],
+      countrySelected: "",
     };
   },
   methods: {
     selectCountry() {
-      this.$emit("countrySelected", this.countrySelected);
+      let countryName = this.countryOptions.filter(
+        (x) => x.value == this.countrySelected
+      )[0].label;
+
+      this.$q.localStorage.set("cid", this.countrySelected);
+
+      this.$emit("countrySelected", countryName);
     },
     selectYear() {
       this.$emit("yearSelected", this.yearSelected);
+      this.$q.localStorage.set("yid", this.yearSelected);
     },
   },
   mounted() {
-    this.$emit("countrySelected", this.countrySelected);
-    this.$emit("yearSelected", this.yearSelected);
+    this.getCountryList();
+    this.selectCountry();
+    this.selectYear();
   },
 };
 </script>
