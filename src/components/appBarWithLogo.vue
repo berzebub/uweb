@@ -52,7 +52,9 @@ export default {
   data() {
     return {
       yearOptions: [2017, 2018, 2019, 2020],
-      yearSelected: 2020,
+      yearSelected: this.$q.localStorage.has("yid")
+        ? this.$q.localStorage.getItem("yid")
+        : 2020,
       countryOptions: [],
       countrySelected: "",
     };
