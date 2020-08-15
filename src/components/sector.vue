@@ -31,26 +31,7 @@ export default {
       )[0].label;
       this.$q.localStorage.set("secId", this.sectorSelected);
       this.$emit("sectorSelected", this.sectorSelected);
-
-      // this.$emit("sectorSelected", this.sectorSelected);
     },
-    // async getSector() {
-    //   let url = "http://localhost/u_api/get_sector.php";
-    //   let sectorData = await Axios.get(url);
-    //   let tempSector = [];
-    //   sectorData.data.forEach((element) => {
-    //     let data = {
-    //       label: element.name,
-    //       value: element.id,
-    //     };
-    //     tempSector.push(data);
-    //   });
-    //   // ต้อง sort ไหม
-    //   // tempSector = tempSector.sort((a,b) => a.label > b.label ? 1 : -1);
-
-    //   this.sectorOptions = tempSector;
-    //   this.sectorSelected = tempSector[0].value;
-    // },
   },
   mounted() {
     this.getSectorList();
