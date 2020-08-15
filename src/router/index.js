@@ -32,6 +32,7 @@ export default function (/* { store, ssrContext } */) {
   return Router;
 }
 import json from "../../public/country_list.json";
+import sectorJson from "../../public/sector.json";
 
 Vue.mixin({
 
@@ -42,6 +43,9 @@ Vue.mixin({
   methods: {
     getCountryList() {
       let tempOptions = [];
+
+      // CID = country id
+      // impEc = Importing economy id
       json.forEach((element) => {
         let data = {
           label: element.name,
@@ -54,6 +58,30 @@ Vue.mixin({
         this.countrySelected = tempOptions[0].value;
       } else {
         this.countrySelected = this.$q.localStorage.getItem("cid")
+      }
+
+      if (!this.$q.localStorage.has('impEcId')) {
+        this.importingEconomy = tempOptions[0].value
+      } else {
+        this.importingEconomy = this.$q.localStorage.getItem("impEcId")
+      }
+
+    },
+    getSectorList() {
+      // secId = sector id
+      let tempOptions = [];
+      sectorJson.forEach((element) => {
+        let data = {
+          label: element.name,
+          value: element.id,
+        };
+        tempOptions.push(data);
+      });
+      this.sectorOptions = tempOptions;
+      if (!this.$q.localStorage.has("secId")) {
+        this.sectorSelected = tempOptions[0].value;
+      } else {
+        this.sectorSelected = this.$q.localStorage.getItem("secId")
       }
 
     },

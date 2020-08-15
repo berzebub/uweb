@@ -4,11 +4,11 @@
     <div class="col-6 q-px-md">
       <span>Importing economy</span>
       <q-select
-        @click="selectCountry()"
+        @input="selectCountry()"
         dense
         outlined
         :options="countryOptions"
-        v-model="countrySelected"
+        v-model="importingEconomy"
         emit-value
         map-options
       ></q-select>
@@ -17,7 +17,7 @@
     <div class="col-6 q-px-md">
       <span>Sector</span>
       <q-select
-        @click="selectSector()"
+        @input="selectSector()"
         dense
         outlined
         :options="sectorOptions"
@@ -35,43 +35,31 @@ export default {
   data() {
     return {
       countryOptions: [],
-      countrySelected: "China",
-      sectorOptions: ["All", "Sector #1", "Sector #2"],
+      importingEconomy: "",
+      sectorOptions: [],
       sectorSelected: "All",
     };
   },
   methods: {
     selectCountry() {
       let countryName = this.countryOptions.filter(
-        (x) => x.value == this.countrySelected
+        (x) => x.value == this.importingEconomy
       )[0].label;
-      this.$emit("countrySelected", countryName);
+      this.$emit("importingEconomy", countryName);
+      this.$q.localStorage.set("impEcId", this.importingEconomy);
     },
     selectSector() {
+      let sectorName = this.sectorOptions.filter(
+        (x) => x.value == this.sectorSelected
+      )[0].label;
+      this.$q.localStorage.set("secId", this.sectorSelected);
       this.$emit("sectorSelected", this.sectorSelected);
-    },
-    async getSector() {
-      let url = "http://localhost/u_api/get_sector.php";
-      let sectorData = await Axios.get(url);
-      let tempSector = [];
-      sectorData.data.forEach((element) => {
-        let data = {
-          label: element.name,
-          value: element.id,
-        };
-        tempSector.push(data);
-      });
-      // ต้อง sort ไหม
-      // tempSector = tempSector.sort((a,b) => a.label > b.label ? 1 : -1);
-
-      this.sectorOptions = tempSector;
-      this.sectorSelected = tempSector[0].value;
     },
   },
   mounted() {
     this.getCountryList();
     this.selectCountry();
-    this.getSector();
+    this.getSectorList();
   },
 };
 </script>
