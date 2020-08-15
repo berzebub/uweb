@@ -329,6 +329,37 @@ export default {
             color: "#9C26B3",
           },
         ],
+        exporting: {
+          // buttons: {
+          //   contextButton: {
+          //     menuItems: [
+          //       "printChart",
+          //       "separator",
+          //       // "downloadPNG",
+          //       // "downloadJPEG",
+          //       "downloadPDF",
+          //       // "downloadSVG",
+          //       // "separator",
+          //       "downloadCSV",
+          //       // "downloadXLS",
+          //       //"viewData",
+          //       // "openInCloud",
+          //     ],
+          //   },
+          // },
+          width: "1280px",
+          chartOptions: {
+            legend: {
+              width: 200,
+              itemStyle: {
+                fontSize: "7px",
+                fontWeight: "medium",
+                fontFamily: "roboto",
+                color: "#00000",
+              },
+            },
+          },
+        },
       });
     },
     setStackChart2() {

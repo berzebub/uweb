@@ -29,6 +29,7 @@
             dense
             :options="yearOptions"
             v-model="yearSelected"
+            @input="selectYear()"
             outlined
           ></q-select>
         </div>
@@ -57,9 +58,13 @@ export default {
     selectCountry() {
       this.$emit("countrySelected", this.countrySelected);
     },
+    selectYear() {
+      this.$emit("yearSelected", this.yearSelected);
+    },
   },
   mounted() {
     this.$emit("countrySelected", this.countrySelected);
+    this.$emit("yearSelected", this.yearSelected);
   },
 };
 </script>
