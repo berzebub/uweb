@@ -118,14 +118,14 @@
         </p>
       </div>
     </div>
-    <div class="row items-center" style="width:1100px;margin:auto;">
+    <div class="row items-center" style="width:1200px;margin:auto;">
       <div>
         <q-img src="../../public/images/getStarted01.jpg" style="width:450px;"></q-img>
       </div>
       <div
         align="center"
         class="font-graph"
-        style="width:120px; left: 15px;position:relative; top:-10px;"
+        style="width:250px; left: 15px;position:relative; top:-10px;"
       >{{ displayCountry }}</div>
       <div>
         <q-img src="../../public/images/getStarted02.jpg" style="width:450px;"></q-img>
@@ -166,14 +166,14 @@
       </div>
     </div>
 
-    <div class="row items-center" style="width:1100px;margin:auto;">
+    <div class="row items-center" style="width:1200px;margin:auto;">
       <div>
         <q-img src="../../public/images/getStarted03.jpg" style="width:450px;"></q-img>
       </div>
       <div
         align="center"
         class="font-graph"
-        style="width:120px; left: 15px;position:relative; top:-10px;"
+        style=" left: 15px;position:relative; top:-10px;width:250px;"
       >{{ displayCountry }}</div>
       <div>
         <q-img src="../../public/images/getStarted04.jpg" style="width:450px;"></q-img>
