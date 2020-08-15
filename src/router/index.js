@@ -50,7 +50,12 @@ Vue.mixin({
         tempOptions.push(data);
       });
       this.countryOptions = tempOptions;
-      this.countrySelected = tempOptions[0].value;
+      if (!this.$q.localStorage.has("cid")) {
+        this.countrySelected = tempOptions[0].value;
+      } else {
+        this.countrySelected = this.$q.localStorage.getItem("cid")
+      }
+
     },
     notifyGreen(message) {
       this.$q.notify({

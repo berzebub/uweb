@@ -550,6 +550,15 @@ export default {
             },
           },
         },
+        legend: {
+          align: "right",
+          verticalAlign: "middle",
+          width: 200,
+          itemMarginTop: 25,
+          symbolHeight: 25,
+          symbolWidth: 25,
+          symbolRadius: 0,
+        },
 
         tooltip: {
           headerFormat: "<b>{point.x}</pimported><br/>",
