@@ -39,9 +39,9 @@
       </p>
 
       <div style="height:50px;"></div>
-      <div style="max-width:1000px;margin:auto" class>
-        <div class="row items-start justify-center">
-          <div class style="width:300px" align="center">
+      <div style="max-width:1200px;margin:auto" class>
+        <div class="row brx items-start">
+          <div style="width:300px" align="center">
             <div class="color1">
               <b>
                 Imported content used in exports
@@ -66,7 +66,7 @@
         </div>
 
         <div>
-          <table style="width:840px;margin:auto;">
+          <table style="maxd-width:1/00px;margin:auto;" class>
             <tr>
               <td style="width:120px;">
                 <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>

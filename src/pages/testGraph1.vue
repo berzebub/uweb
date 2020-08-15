@@ -1,334 +1,177 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar :isShowLogo="false"></app-bar>
-    <header-menu></header-menu>
-    <importing-select></importing-select>
+    <app-bar @countrySelected="(val) => displayCountry = val " :isShowLogo="true" class="shadow-2"></app-bar>
 
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <q-img src="../../public/structure-1.png"></q-img>
+    <div class="relative-position q-my-md">
+      <p class="font-page" align="center">{{ displayCountry }}'s key GVC relationships</p>
+      <q-btn
+        to="/involvement"
+        no-caps
+        class="bg4 absolute"
+        style="right:10px;top:0px;width:190px"
+        label="Continue"
+      ></q-btn>
     </div>
 
-    <!-- POLICY -->
-    <div class="q-pa-lg">
-      <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
-      <div class="q-px-md font-content">
-        <div>
-          1.
-          <u>What happens to Thailand’s exports to a selected importer?</u>
+    <div class="font-content q-px-xl q-pt-md">
+      <p>
+        Thailand’s GVC exports amount to
+        <span class="text-red">33% ($85 billion)</span> of its gross exports in 2017
+      </p>
+      <p>
+        Imported content comprising
+        <span class="text-red">26% ($67 billion)</span> of gross exports
+      </p>
+      <p>
+        Export of intermediates used in further export production comprising
+        <span
+          class="text-red"
+        >7% ($18 billion)</span> of gross exports
+      </p>
+
+      <div style="max-width:1000px;margin:auto" class>
+        <div class="row items-start justify-center">
+          <div class style="width:300px" align="center">
+            <div class="color1">
+              <b>
+                Imported content used in exports
+                (Backward linkages)
+              </b>
+              <br />Share: 26% of gross exports
+              Value: $65 billion
+            </div>
+          </div>
+          <div class="col"></div>
+          <div class style="width:300px" align="center">
+            <div class="color2">
+              <b>
+                Export of intermediates used in
+                export production
+                (Forward linkages)
+              </b>
+              <br />Share: 7% of gross exports
+              Value: $18 billion
+            </div>
+          </div>
         </div>
-        <div class="q-py-md">
-          2.
-          <u>What happens to South-East Asian economics’s exports to a selected imported?</u>
-        </div>
-        <div>
-          3.
-          <u>How does Thailand’s domestic value-added and gross trade balance with the selected imported differ?</u>
+
+        <div class="row items-end justify-center">
+          <div style="width:300px;" align="center" class="relative-position">
+            <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>
+            <div class="absolute-right" style="right :-80px;top:30px">
+              <q-img style="width:150px" src="../../public/arrow-right-red.png"></q-img>
+            </div>
+          </div>
+          <div class="col" align="center">
+            <div class="relative-position" style="top:-12px">
+              <p style="font-size:36px">{{ displayCountry }}</p>
+            </div>
+          </div>
+          <div style="width:300px" class="relative-position" align="center">
+            <div class="absolute-right" style="left :-320px;top:30px">
+              <q-img style="width:150px" src="../../public/arrow-right-green.png"></q-img>
+            </div>
+            <div style="border-radius:50%;width:100px;height:100px" class="bg2"></div>
+          </div>
         </div>
       </div>
+    </div>
+
+    <hr />
+
+    <div class="row q-pa-md">
+      <div class="col-5">
+        <div class="color4">
+          <b>Backward linkages</b>
+        </div>
+        <span class="no-padding">
+          <b>Sector</b>
+        </span>
+        <p>
+          Share of foreign value-added in sectoral gross exports (%)
+          Foreign value-added (billions)
+        </p>
+      </div>
+      <div class="col-5 offset-2">
+        <div class="color4">
+          <b>Forward linkages</b>
+        </div>
+        <span class="no-padding">
+          <b>Sector</b>
+        </span>
+        <p>
+          Share of contribution to partner exports, in sectoral gross exports (%)
+          Contribution to partner exports (billions)
+        </p>
+      </div>
+    </div>
+
+    <p class="font-graph q-py-md" align="center">key GVC relationships byt sector</p>
+
+    <div align="center">
+      <q-img style="width:90%;max-width:900px" src="../../public/getStarted2.png"></q-img>
+    </div>
+    <div style="height:20px"></div>
+    <hr />
+    <div style="height:20px"></div>
+
+    <!-- *********** -->
+    <p class="font-graph q-py-md" align="center">key GVC relationships by economy</p>
+
+    <div class="row q-pa-md">
+      <div class="col-5">
+        <div class="color4">
+          <b>Backward linkages</b>
+        </div>
+        <span class="no-padding">
+          <b>Sector</b>
+        </span>
+        <p>
+          Share of foreign value-added in sectoral gross exports (%)
+          Foreign value-added (billions)
+        </p>
+      </div>
+      <div class="col-5 offset-2">
+        <div class="color4">
+          <b>Forward linkages</b>
+        </div>
+        <span class="no-padding">
+          <b>Sector</b>
+        </span>
+        <p>
+          Share of contribution to partner exports, in sectoral gross exports (%)
+          Contribution to partner exports (billions)
+        </p>
+      </div>
+    </div>
+    <div align="center">
+      <q-img style="width:90%;max-width:900px" src="../../public/getStarted2.png"></q-img>
+    </div>
+    <div style="height:20px"></div>
+    <div class="q-px-md" align="right">
+      <q-btn to="/involvement" no-caps class="bg4" style="width:190px" label="Continue"></q-btn>
     </div>
     <hr />
-    <div style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div align="center" class="font-graph">What happens to Thailand's exports to China?</div>
-      <div id="container"></div>
-    </div>
-    <!-- <div class="row items-center" style="width:90%;margin:auto;max-width:1200px">
-      <div class="col">
-        <div id="container"></div>
-        <div align="left" class="q-pl-sm text-grey text-subtitle3">Gross exports to World: $40 B</div>
-      </div>
-      <div style="width:300px" class="q-px-sm">
-        <div
-          class="row items-center q-pt-md"
-          v-for="(items,index) in colorListWithLabel"
-          :key="index"
-        >
-          <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
-        </div>
-      </div>
-    </div>-->
-    <hr />
-    <div style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div id="container1"></div>
-    </div>
-
-    <!-- <div class="row items-center">
-      <div class="col">
-      </div>
-      <div style="width:300px" class="q-px-sm">
-        <div
-          class="row items-center q-pt-md"
-          v-for="(items,index) in colorListWithLabel"
-          :key="index"
-          v-show="items.color != 'bg8'"
-        >
-          <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
-        </div>
-      </div>
-    </div>-->
-
-    <div style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div id="container2"></div>
-    </div>
-    <div style="height:30px"></div>
+    <div style="height:20px"></div>
   </q-page>
 </template>
 
 <script>
 import appBar from "../components/appBarWithLogo";
-import headerMenu from "../components/fourMenu";
-import importingSelect from "../components/importEconomySelect";
 import Axios from "axios";
-
 export default {
   components: {
     appBar,
-    headerMenu,
-    importingSelect,
   },
   data() {
     return {
-      colorListWithLabel: [
-        {
-          color: "bg5",
-          label: "Used in China's comsumption",
-        },
-        {
-          color: "bg6",
-          label: "Used in China's export production",
-        },
-        {
-          color: "bg7",
-          label: "Used in Thailand’s domestic comsumption",
-        },
-        {
-          color: "bg8",
-          label: "Double counted exports fromrepeated border crossings",
-        },
-        {
-          color: "bg9",
-          label: "Imported content",
-        },
-      ],
-      test: "xxx",
+      displayCountry: "",
     };
   },
   methods: {
-    async setData() {
-      Highcharts.chart("container", {
-        chart: {
-          style: { fontFamily: "roboto", fontSize: "18px" },
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
-        },
-        title: {
-          text: "",
-        },
-        series: [
-          {
-            type: "treemap",
-            layoutAlgorithm: "squarified",
-            data: [
-              {
-                name: "Imp. cons. (60%)",
-                value: 60,
-                color: "#2381B8",
-                label: "Used in China’s comsumption",
-              },
-              {
-                name: "imp. exp. (15%)",
-                value: 5,
-                color: "#EB1E63",
-                label: "Used in China’s export production",
-              },
-              {
-                name: "Dom. cons (5%)",
-                value: 5,
-                color: "#F99704",
-                label: "Used in Thailand’s domestic comsumption",
-              },
-              {
-                name: "Double (5%)",
-                value: 5,
-                color: "#2D9687",
-                label: "Double counted exports from repeated border crossings",
-              },
-              {
-                name: "Imp. cont. (15%)",
-                value: 15,
-                color: "#9C26B3",
-                label: "Imported content",
-              },
-            ],
-            showInLegend: true,
-            legendType: "point",
-          },
-        ],
-        legend: {
-          align: "right",
-          verticalAlign: "middle",
-          width: 350,
-          itemMarginTop: 25,
-          symbolHeight: 30,
-          symbolWidth: 45,
-          symbolRadius: 0,
-          style: { "font-size": "30px" },
-          labelFormatter: function () {
-            return this.label;
-          },
-        },
-
-        subtitle: {
-          text: "Gross exports to China: $10 B",
-          align: "left",
-        },
-      });
+    countrySelected(val) {
+      this.displayCountry = val;
     },
-    setStackChart() {
-      Highcharts.chart("container1", {
-        chart: {
-          style: { fontFamily: "roboto", fontSize: "18px" },
-          type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
-        },
-        title: {
-          text: "What happens to South-East Asian economies’ exports to China?",
-        },
-        xAxis: {
-          labels: {
-            rotation: -90,
-          },
-          categories: [
-            "Thailand",
-            "Vietname",
-            "Malaysia",
-            "Singapore",
-            "Indonesia",
-            "Lao PDR",
-            "Cambodia",
-            "Brunei Darussalam",
-          ],
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: "% of gross exports to China",
-          },
-          stackLabels: {
-            enabled: true,
-            style: {
-              fontWeight: "bold",
-              color:
-                // theme
-                (Highcharts.defaultOptions.title.style &&
-                  Highcharts.defaultOptions.title.style.color) ||
-                "gray",
-            },
-          },
-        },
-        legend: {
-          width: 300,
-          layout: "vertical",
-          enabled: true,
-          align: "right",
-          verticalAlign: "middle",
-          itemMarginTop: 25,
-          symbolHeight: 25,
-          symbolWidth: 25,
-          symbolRadius: 0,
-        },
-        tooltip: {
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
-        },
-        plotOptions: {
-          column: {
-            stacking: "normal",
-            dataLabels: {
-              enabled: false,
-            },
-          },
-        },
-        series: [
-          {
-            name: "Used in Thailand's domestic comsumption",
-            data: [5, 10, 5, 8, 4, 10, 8, 3],
-            color: "#f99704",
-          },
-          {
-            name: "Imported content",
-            data: [9, 2, 10, 6, 15, 10, 8, 3],
-            color: "#9C26B3",
-          },
-          {
-            name: "Used in China's export production",
-            data: [8, 3, 5, 10, 9, 10, 10, 3],
-            color: "#EB1E63",
-          },
-          {
-            name: "Used in China's comsumption",
-            data: [18, 25, 20, 16, 12, 10, 14, 31],
-            color: "#2381B8",
-          },
-        ],
-      });
-    },
-    setStackChart2() {
-      Highcharts.chart("container2", {
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-          itemDistance: 10,
-          width: 300,
-          itemMarginTop: 25,
-          symbolHeight: 25,
-          symbolWidth: 25,
-          symbolRadius: 0,
-        },
-        chart: {
-          style: { fontFamily: "roboto", fontSize: "18px" },
-          type: "column",
-        },
-        title: {
-          text:
-            "How does Thailand's gross and domestic value-added trade balance with China differ?",
-        },
-        xAxis: {
-          max: 0,
-          categories: ["", ""],
-        },
-        yAxis: {
-          max: 10,
-          title: {
-            text: "% of gross exports to China",
-          },
-        },
-        credits: {
-          enabled: false,
-        },
-        series: [
-          {
-            name: "Domestic value-added trade balance",
-            data: [-3],
-            color: "#2381B8",
-          },
-          {
-            name: "Gross trade balance",
-            data: [-9],
-            color: "#EB1E63",
-          },
-        ],
-      });
-    },
-  },
-  mounted() {
-    this.setData();
-    this.setStackChart();
-    this.setStackChart2();
   },
 };
 </script>
