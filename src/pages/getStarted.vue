@@ -40,7 +40,7 @@
 
       <div style="height:50px;"></div>
       <div style="max-width:1200px;margin:auto" class>
-        <div class="row brx items-start">
+        <div class="row items-start">
           <div style="width:300px" align="center">
             <div class="color1">
               <b>
