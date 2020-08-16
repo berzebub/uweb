@@ -43,8 +43,8 @@
       class="font-graph"
       align="center"
     >Which sectors in Thailand rely the most on imported content from China in exports to United States?</div>
-    <div align="center">
-      <img src="../../public/images/backsector01.jpg" alt width="900px;" />
+    <div align="center" style="width:900px; margin:auto;">
+      <q-img src="../../public/images/backsector01.jpg" />
     </div>
     <div style="height:30px"></div>
     <hr />
@@ -53,8 +53,8 @@
       class="font-graph"
       align="center"
     >Which sectors in South-East Asian economies rely the most on imported content from China in exports to United States?</div>
-    <div align="center">
-      <img src="../../public/images/backsector02.jpg" alt width="900px;" />
+    <div align="center" style="width:900px; margin:auto;">
+      <q-img src="../../public/images/backsector02.jpg" />
     </div>
   </q-page>
 </template>

@@ -129,7 +129,7 @@ export default {
               data: [
                 {
                   id: "A",
-                  name: "Aisa-Pacific ",
+                  name: "Asia-Pacific",
                   color: "#2381B8",
                   showInLegend: true,
                 },
@@ -484,18 +484,53 @@ export default {
                   value: 2.4,
                 },
                 {
-                  name: "Rest of the world",
+                  name: "Others",
                   parent: "E",
                   value: 0.4,
                 },
               ],
+              showInLegend: true,
+              legendType: "point",
             },
           ],
           legend: {
+            useHTML: true,
+            itemStyle: {
+              fontSize: "14px",
+              fontWeight: "medium",
+              fontFamily: "roboto",
+              color: "#00000",
+            },
+
+            align: "right",
+            verticalAlign: "middle",
+            width: "200",
+            // symbolPadding: 200,
+            symbolWidth: 0.1,
+            symbolHeight: 0.1,
+            symbolRadius: 0,
+            useHTML: true,
+            symbolWidth: 0,
             labelFormatter: function () {
-              return this.name;
+              // return "<div>" + this.name + "</div>";
+              if (this.name == "Europe") {
+                return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Euroupe</td></tr></table></div>';
+              } else if (this.name == "Latin America") {
+                return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2D9687;"></div></td><td style="padding-left:20px;">Latin America</td></tr></table></div>';
+              } else if (this.name == "North America") {
+                return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #F99704;"></div></td><td style="padding-left:20px;">North America</td></tr></table></div>';
+              } else if (this.name == "Asia-Pacific") {
+                return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2381B8;"></div></td><td style="padding-left:20px;">Asia-Pacific</td></tr></table></div>';
+              } else if (this.name == "Rest of the world") {
+                return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
+              }
             },
           },
+          // legend: {
+          //   labelFormatter: function () {
+          //     return this.name;
+          //   },
+          // },
           title: {
             style: {
               fontSize: "24px",
@@ -515,6 +550,7 @@ export default {
             align: "center",
           },
         }
+
         // function (chart) {
         //   chart.renderer
         //     .text(
@@ -648,5 +684,13 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
+.boxcolor1 {
+  width: 15px;
+  height: 15px;
+  background-color: #eb1e63;
+}
+.legend1 {
+  width: 300px;
+}
 </style>
