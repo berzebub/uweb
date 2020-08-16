@@ -66,7 +66,7 @@
         </div>
 
         <div>
-          <table style="maxd-width:1/00px;margin:auto;" class>
+          <table style="max-width:1200px;margin:auto;" class>
             <tr>
               <td style="width:120px;">
                 <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>
