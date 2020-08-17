@@ -30,11 +30,12 @@ export default {
         (x) => x.value == this.sectorSelected
       )[0].label;
       this.$q.localStorage.set("secId", this.sectorSelected);
-      this.$emit("sectorSelected", this.sectorSelected);
+      this.$emit("sectorSelected", sectorName);
     },
   },
   mounted() {
     this.getSectorList();
+    this.selectSector();
   },
 };
 </script>

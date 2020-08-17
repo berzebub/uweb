@@ -82,7 +82,10 @@ export default {
     };
   },
   methods: {
-    renderGraph() {},
+    renderGraph() {
+      this.setData();
+      this.setStackChart();
+    },
     sectorChanged(val) {
       this.displaySector = val;
     },
@@ -1424,8 +1427,8 @@ export default {
     },
   },
   mounted() {
-    this.setData();
-    this.setStackChart();
+    // this.setData();
+    // this.setStackChart();
   },
 };
 </script>

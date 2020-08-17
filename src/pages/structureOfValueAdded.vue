@@ -457,9 +457,9 @@ export default {
   },
   mounted() {
     this.getCountryList();
-    this.setData();
-    this.setStackChart();
-    this.setStackChart2();
+    // this.setData();
+    // this.setStackChart();
+    // this.setStackChart2();
   },
 };
 </script>

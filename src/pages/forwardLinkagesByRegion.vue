@@ -1,8 +1,12 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar :isShowLogo="false"></app-bar>
+    <app-bar
+      :isShowLogo="false"
+      @countrySelected="exportingEconomyChanged"
+      @yearSelected="yearChanged "
+    ></app-bar>
     <header-menu :activeMenu="4"></header-menu>
-    <sector></sector>
+    <sector @sectorSelected="sectorChanged"></sector>
 
     <!-- Title box -->
     <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
@@ -10,13 +14,13 @@
         <p
           class="font-graph"
           align="center"
-        >Where does Thailand contribute towards export production</p>
+        >Where does {{ displayCountry }} contribute towards export production</p>
         <p
           class="font-content"
           align="center"
-        >Some part of Thailand’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economy.</p>
+        >Some part of {{displayCountry}}’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economy.</p>
         <p class="font-content" align="center">
-          <span class="q-px-lg">Exporting economy (Thailand)</span>
+          <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
           <span class="q-pr-md text-weight-bold">:</span>
           <span class="q-pr-lg">Sector</span>
 
@@ -31,11 +35,11 @@
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
         1.
-        <u>Where does Thailand contribute the most towards export production?</u>
+        <u>Where does {{ displayCountry }} contribute the most towards export production?</u>
       </p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
         2.
-        <u>Where do South-East Asian economies contribute the most towards export production?</u>
+        <u>Where do {{ continent }} economies contribute the most towards export production?</u>
       </p>
     </div>
 
@@ -43,14 +47,12 @@
     <hr />
     <div style="height:30px"></div>
 
-    <!-- Where does Thailand's imported content -->
     <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
       <div id="container"></div>
     </div>
 
     <div style="height:30px"></div>
     <hr />
-    <!-- Where does South-East Asian imported content -->
     <div style="height:30px" id="importedregion"></div>
 
     <div style="width:90%;margin:auto;max-width:1200px">
@@ -73,31 +75,31 @@ export default {
   },
   data() {
     return {
-      colorListWithLabel: [
-        {
-          color: "bg5",
-          label: "Asia-Pacific",
-        },
-        {
-          color: "bg6",
-          label: "Europe",
-        },
-        {
-          color: "bg7",
-          label: "North America",
-        },
-        {
-          color: "bg8",
-          label: "Latin America",
-        },
-        {
-          color: "bg9",
-          label: "Rest of the world",
-        },
-      ],
+      displaySector: "",
+      displayCountry: "",
+      continent: "",
+      displayYear: "",
     };
   },
   methods: {
+    yearChanged(val) {
+      this.displayYear = val;
+      this.renderGraph();
+    },
+
+    exportingEconomyChanged(val) {
+      this.displayCountry = val.name;
+      this.continent = val.region;
+      this.renderGraph();
+    },
+    sectorChanged(val) {
+      this.displaySector = val;
+      this.renderGraph();
+    },
+    renderGraph() {
+      this.setData();
+      this.setStackChart();
+    },
     async setData() {
       Highcharts.chart("container", {
         chart: {
@@ -495,8 +497,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text:
-            "Where does Thailand contribute the most towards export production?",
+          text: `Where does ${this.displayCountry} contribute the most towards export production?`,
         },
         credits: {
           enabled: false,
@@ -538,8 +539,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text:
-            "Gross exports of Thailand in All sector(s) to World amount to *$40* billion in *year*. Of these exports, *$8* billion is Thailand's contribution to export production in other economies, mainly  United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>Contribution to export production: $8B / Gross exports to World: $40B",
+          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to World amount to *$40* billion in *year*. Of these exports, *$8* billion is ${this.displayCountry}'s contribution to export production in other economies, mainly  United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>Contribution to export production: $8B / Gross exports to World: $40B`,
           align: "center",
         },
       });
@@ -1415,8 +1415,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text:
-            "Where do South-East Asian economies contribute the most towards export production?",
+          text: `Where do ${this.continent} economies contribute the most towards export production?`,
         },
       });
     },

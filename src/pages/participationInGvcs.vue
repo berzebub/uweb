@@ -166,7 +166,7 @@ export default {
     },
   },
   mounted() {
-    this.setStackChart();
+    // this.setStackChart();
   },
 };
 </script>

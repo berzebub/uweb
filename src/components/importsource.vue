@@ -54,7 +54,7 @@ export default {
         (x) => x.value == this.sourceEconomy
       )[0].label;
       this.$q.localStorage.set("sourcingEconomy", this.sourceEconomy);
-      this.$emit("sourcingEconomy", this.sourceEconomy);
+      this.$emit("sourcingEconomy", sourceEconomy);
     },
   },
   mounted() {

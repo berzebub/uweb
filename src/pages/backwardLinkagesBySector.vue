@@ -1,8 +1,12 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar :isShowLogo="false"></app-bar>
+    <app-bar
+      :isShowLogo="false"
+      @countrySelected="exportingEconomyChanged"
+      @yearSelected="(val) => displayYear = val "
+    ></app-bar>
     <header-menu :activeMenu="3"></header-menu>
-    <source-select></source-select>
+    <source-select @importingEconomy="importingEconomyChanged" @sourcingEconomy="sourceChanged"></source-select>
 
     <!-- Title box -->
     <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
@@ -11,12 +15,12 @@
         <p
           class="font-content"
           align="center"
-        >Some part of Thailand’s gross exports consist of imported inputs that originate in other source economies.</p>
+        >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
         <p class="font-content" align="center">
           <span class="q-pr-lg">Source economy</span>
 
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-px-lg">Exporting economy (Thailand)</span>
+          <span class="q-px-lg">Exporting economy ({{ displayCountry }})</span>
           <span class="q-px-lg text-weight-bold">:</span>
           <span class="q-pr-lg">Sector</span>
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
@@ -28,11 +32,11 @@
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
         1.
-        <u>Which sectors in Thailand rely the most on imported content for exports to a selected importer?</u>
+        <u>Which sectors in {{ displayCountry }} rely the most on imported content for exports to a selected importer?</u>
       </p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
         2.
-        <u>Which sectors in South-East Asian economies rely the most on imported content for exports to a selected importer?</u>
+        <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
       </p>
     </div>
 
@@ -42,9 +46,14 @@
     <div
       class="font-graph"
       align="center"
-    >Which sectors in Thailand rely the most on imported content from China in exports to United States?</div>
+    >Which sectors in {{ displayCountry }} rely the most on imported content from {{displaySourceEconomy}} in exports to {{ displayImportingEconomy }}?</div>
     <div align="center" style="width:900px; margin:auto;">
-      <q-img src="../../public/images/backsector01.jpg" />
+      <p
+        align="left"
+      >Imported content from {{ displaySourceEconomy }} in exports to {{ displayImportingEconomy }} : $8B</p>
+      <q-img src="../../public/images/backsector01-1.jpg" />
+      <p align="left">Gross exports to {{ displayImportingEconomy }} :$40 B</p>
+      <q-img src="../../public/images/backsector01-legend.jpg" />
     </div>
     <div style="height:30px"></div>
     <hr />
@@ -52,7 +61,7 @@
     <div
       class="font-graph"
       align="center"
-    >Which sectors in South-East Asian economies rely the most on imported content from China in exports to United States?</div>
+    >Which sectors in {{ continent }} economies rely the most on imported content from {{ displaySourceEconomy }} in exports to {{ displayImportingEconomy }}?</div>
     <div align="center" style="width:900px; margin:auto;">
       <q-img src="../../public/images/backsector02.jpg" />
     </div>
@@ -69,6 +78,29 @@ export default {
     appBar,
     headerMenu,
     sourceSelect,
+  },
+  data() {
+    return {
+      continent: "",
+      displayCountry: "",
+      displayYear: "",
+      displaySourceEconomy: "",
+      displayImportingEconomy: "",
+    };
+  },
+  methods: {
+    renderGraph() {},
+    importingEconomyChanged(val) {
+      this.displayImportingEconomy = val;
+    },
+    sourceChanged(val) {
+      this.displaySourceEconomy = val;
+    },
+    exportingEconomyChanged(val) {
+      this.displayCountry = val.name;
+      this.continent = val.region;
+      // this.renderGraph();
+    },
   },
 };
 </script>
