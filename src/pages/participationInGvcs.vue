@@ -1,10 +1,17 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar :isShowLogo="false"></app-bar>
+    <app-bar
+      :isShowLogo="false"
+      @countrySelected="exportingEconomyChanged"
+      @yearSelected="(val) => displayYear = val "
+    ></app-bar>
     <header-menu :activeMenu="2"></header-menu>
-    <importing-select></importing-select>
+    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
     <div class="q-px-md">
-      <div style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px" class="q-pa-md" >
+      <div
+        style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px"
+        class="q-pa-md"
+      >
         <p class="font-graph" align="center">Why does GVC participation matter?</p>
         <p
           class="font-content"
@@ -15,22 +22,8 @@
       </div>
     </div>
     <div style="height:30px"></div>
- 
-        <div style="width:90%;margin:auto;max-width:1200px">
-        <div id="container1"></div>
-        </div>
-      
-      <!-- <div style="width:300px" class="q-px-sm">
-        <div
-          class="row items-center q-pt-md"
-          v-for="(items,index) in colorListWithLabel"
-          :key="index"
-          v-show="items.color != 'bg8'"
-        >
-          <div style="width:45px;height:30px" :class="items.color"></div>
-          <div class="col q-pl-sm">{{ items.label }}</div>
-        </div>
-      </div> -->
+    <div style="width:90%;margin:auto;max-width:1200px">
+      <div id="container1"></div>
     </div>
     <div style="height:30px"></div>
   </q-page>
@@ -49,30 +42,37 @@ export default {
   },
   data() {
     return {
-      // colorListWithLabel: [
-      //   {
-      //     color: "bg5",
-      //     label: "Used in China's export production (forward linkages)",
-      //   },
-      //   {
-      //     color: "bg6",
-      //     label: "Imported content (backward linkages)",
-      //   },
-      //   {
-      //     color: "bg7",
-      //     label: "Double counted exports from repeated border crossings",
-      //   },
-      // ],
+      displayImportingEconomy: "",
+      displayYear: "",
+      displayCountry: "",
+      continent: "",
+      displaySector: "",
     };
   },
   methods: {
+    sectorChanged(val) {
+      this.displaySector = val;
+      this.renderGraph();
+    },
+    renderGraph() {
+      this.setStackChart();
+    },
+    exportingEconomyChanged(val) {
+      this.displayCountry = val.name;
+      this.continent = val.region;
+      this.renderGraph();
+    },
+    importingEconomyChanged(val) {
+      this.displayImportingEconomy = val;
+      this.renderGraph();
+    },
     setStackChart() {
       Highcharts.chart("container1", {
         chart: {
           type: "column",
           height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
-      
+
         xAxis: {
           labels: {
             rotation: -90,
@@ -91,7 +91,7 @@ export default {
         yAxis: {
           min: 0,
           title: {
-            text: "% of gross exports to China",
+            text: `% of gross exports to ${this.displayImportingEconomy}`,
           },
           stackLabels: {
             enabled: false,
@@ -105,7 +105,7 @@ export default {
             },
           },
         },
-       credits: {
+        credits: {
           enabled: false,
         },
         legend: {
@@ -140,7 +140,7 @@ export default {
         },
         series: [
           {
-            name: "Used in China's export production <br>(forward linkages)",
+            name: `Used in ${this.displayImportingEconomy}'s export production <br>(forward linkages)`,
             data: [18, 25, 20, 16, 12, 10, 14, 31],
             color: "#2381B8",
           },
@@ -154,17 +154,13 @@ export default {
             data: [5, 10, 5, 8, 4, 10, 8, 3],
             color: "#f99704",
           },
-
-          
-          
         ],
         title: {
-           style: {
-             fontSize: "24px",
+          style: {
+            fontSize: "24px",
             fontFamily: "roboto",
           },
-          text:
-            "How much of Thailand’s exports to China are GVC related <br>compared to other South-East Asian economies?",
+          text: `How much of ${this.displayCountry}’s exports to ${this.displayImportingEconomy} are GVC related <br>compared to other ${this.continent} economies?`,
         },
       });
     },

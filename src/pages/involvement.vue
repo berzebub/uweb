@@ -7,7 +7,7 @@
     <p
       class="font-page q-py-md"
       align="center"
-    >Let’s look at {{displayCountry}}’s involvement in global value chains in {{displayYear}}</p>
+    >Let’s look at {{displayCountry.name}}’s involvement in global value chains in {{displayYear}}</p>
 
     <div class="row q-px-md" style="width:90%; margin:auto; max-width:1200px;">
       <!-- col1 -->
@@ -17,7 +17,7 @@
           <div
             class="font-content q-pb-lg"
             align="center"
-          >Get an overview of value-added structure of {{displayCountry}}’s exports. Compare across sub-regional partners. See how this changes perception of bilateral trade balances.</div>
+          >Get an overview of value-added structure of {{displayCountry.name}}’s exports. Compare across sub-regional partners. See how this changes perception of bilateral trade balances.</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
@@ -37,7 +37,7 @@
           <div
             class="font-content q-pb-lg"
             align="center"
-          >Get an overview of {{displayCountry}}’s GVC related trade. Compare across sub-regional partners</div>
+          >Get an overview of {{displayCountry.name}}’s GVC related trade. Compare across sub-regional partners</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
@@ -58,7 +58,7 @@
           <p
             class="font-content"
             align="center"
-          >Find out where {{displayCountry}}’s imported content comes from. Examine this by region and sector. Compare across sub-regional partners.</p>
+          >Find out where {{displayCountry.name}}’s imported content comes from. Examine this by region and sector. Compare across sub-regional partners.</p>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn
@@ -78,7 +78,7 @@
           <div
             class="font-content"
             align="center"
-          >Find out where {{displayCountry}} contributes towards export production. Examine this by region and sector. Compare across sub-regional partners.</div>
+          >Find out where {{displayCountry.name}} contributes towards export production. Examine this by region and sector. Compare across sub-regional partners.</div>
           <div class="q-py-lg">
             <div class="absolute-bottom" style="width:190px;margin:auto;bottom:10px" align="center">
               <q-btn

@@ -47,7 +47,6 @@ export default {
       )[0].label;
       this.$emit("importingEconomy", countryName);
       this.$q.localStorage.set("impEcId", this.importingEconomy);
-      // this.selectSector();
     },
     selectSector() {
       let sectorName = this.sectorOptions.filter(
@@ -59,8 +58,9 @@ export default {
   },
   mounted() {
     this.getCountryList();
-    this.selectCountry();
     this.getSectorList();
+    this.selectCountry();
+    this.selectSector();
   },
 };
 </script>

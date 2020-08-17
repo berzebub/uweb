@@ -3,10 +3,10 @@
     <app-bar
       :isShowLogo="false"
       @countrySelected="exportingEconomyChanged"
-      @yearSelected="(val) => displayYear = val "
+      @yearSelected="yearChanged"
     ></app-bar>
     <header-menu></header-menu>
-    <importing-select @importingEconomy="importingEconomyChanged"></importing-select>
+    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
 
     <!-- table of content -->
     <div class="row" style="margin:auto; max-width:1050px;width:95%;">
@@ -117,17 +117,25 @@ export default {
       displayYear: "",
       displayImportingEconomy: "",
       displayCountry: "",
+      displaySector: "",
     };
   },
   methods: {
+    yearChanged(val) {
+      this.displayYear = val;
+      this.renderGraph();
+    },
     importingEconomyChanged(val) {
       this.displayImportingEconomy = val;
+      this.renderGraph();
     },
-    sectorChanged(val) {},
-    exportingEconomyChanged(val) {
+    sectorChanged(val) {
+      this.displaySector = val;
+      this.renderGraph();
+    },
+    renderGraph() {
       this.loadingShow();
-      this.displayCountry = val.name;
-      this.continent = val.region;
+
       setTimeout(() => {
         this.setData();
       }, 500);
@@ -140,6 +148,11 @@ export default {
       setTimeout(() => {
         this.loadingHide();
       }, 1600);
+    },
+    exportingEconomyChanged(val) {
+      this.displayCountry = val.name;
+      this.continent = val.region;
+      this.renderGraph();
     },
     async setData() {
       this.chart1 = Highcharts.chart("container", {

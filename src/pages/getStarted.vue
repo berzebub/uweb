@@ -8,7 +8,7 @@
     ></app-bar>
 
     <div class="relative-position q-my-md">
-      <p class="font-page" align="center">{{ displayCountry }}'s key GVC relationships</p>
+      <p class="font-page" align="center">{{ displayCountry.name }}'s key GVC relationships</p>
       <q-btn
         to="/involvement"
         no-caps
@@ -22,7 +22,7 @@
     <div class="font-content q-px-xl q-pt-md" style="width:90%; margin:auto; max-width:1200px;">
       <p>
         <b>
-          {{ displayCountry }}’s GVC exports amount to
+          {{ displayCountry.name }}’s GVC exports amount to
           <span class="text-red">33% ($85 billion)</span>
           of its gross exports in {{displayYear}}
         </b>
@@ -74,7 +74,7 @@
               <td align="center" style="width:160px;">
                 <q-img style="width:150px" src="../../public/arrow-right-red.png"></q-img>
               </td>
-              <td style="font-size:24px; width:290px;" align="center">{{ displayCountry }}</td>
+              <td style="font-size:24px; width:290px;" align="center">{{ displayCountry.name }}</td>
               <td align="center" style="width:160px;">
                 <q-img style="width:150px" src="../../public/arrow-right-green.png"></q-img>
               </td>
@@ -126,7 +126,7 @@
         align="center"
         class="font-graph"
         style="width:250px; left: 15px;position:relative; top:-10px;"
-      >{{ displayCountry }}</div>
+      >{{ displayCountry.name }}</div>
       <div>
         <q-img src="../../public/images/getStarted02.jpg" style="width:450px;"></q-img>
       </div>
@@ -174,7 +174,7 @@
         align="center"
         class="font-graph"
         style=" left: 15px;position:relative; top:-10px;width:250px;"
-      >{{ displayCountry }}</div>
+      >{{ displayCountry.name }}</div>
       <div>
         <q-img src="../../public/images/getStarted04.jpg" style="width:450px;"></q-img>
       </div>
