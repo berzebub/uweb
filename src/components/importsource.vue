@@ -36,7 +36,9 @@ export default {
     return {
       countryOptions: [],
       importingEconomy: "",
-      sourceEconomy: "",
+      sourceEconomy: this.$q.localStorage.has("sourcingEconomy")
+        ? this.$q.localStorage.getItem("sourcingEconomy")
+        : "",
     };
   },
   methods: {
