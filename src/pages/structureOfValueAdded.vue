@@ -6,7 +6,7 @@
       @yearSelected="(val) => displayYear = val "
     ></app-bar>
     <header-menu></header-menu>
-    <importing-select></importing-select>
+    <importing-select @importingEconomy="importingEconomyChanged"></importing-select>
 
     <!-- table of content -->
     <div class="row" style="margin:auto; max-width:1050px;width:95%;">
@@ -63,7 +63,8 @@
         </div>
         <div class="cursor-pointer" v-scroll-to="'#comparison'">
           2.
-          <u>What happens to South-East Asian economics’s exports to a selected imported?</u>
+          <!-- TODO SOUTH EAST ASIAN เขียนฟังชันหาทวีป FIND -->
+          <u>What happens to {{continent}} economics’s exports to a selected imported?</u>
         </div>
         <div class="cursor-pointer" v-scroll-to="'#measuring'">
           3.
@@ -110,37 +111,23 @@ export default {
   },
   data() {
     return {
+      countryOptions: "",
+      continent: "",
       chart1: "",
       displayYear: "",
+      displayImportingEconomy: "",
       displayCountry: "",
-      colorListWithLabel: [
-        {
-          color: "bg5",
-          label: "Used in China's comsumption",
-        },
-        {
-          color: "bg6",
-          label: "Used in China's export production",
-        },
-        {
-          color: "bg7",
-          label: "Used in Thailand’s domestic comsumption",
-        },
-        {
-          color: "bg8",
-          label: "Double counted exports fromrepeated border crossings",
-        },
-        {
-          color: "bg9",
-          label: "Imported content",
-        },
-      ],
     };
   },
   methods: {
+    importingEconomyChanged(val) {
+      this.displayImportingEconomy = val;
+    },
+    sectorChanged(val) {},
     exportingEconomyChanged(val) {
       this.loadingShow();
-      this.displayCountry = val;
+      this.displayCountry = val.name;
+      this.continent = val.region;
       setTimeout(() => {
         this.setData();
       }, 500);
@@ -169,19 +156,19 @@ export default {
                 name: "Imp. cons. (60%)",
                 value: 60,
                 color: "#2381B8",
-                label: "Used in China’s comsumption",
+                label: `Used in ${this.displayImportingEconomy}’s comsumption`,
               },
               {
                 name: "imp. exp. (15%)",
                 value: 5,
                 color: "#EB1E63",
-                label: "Used in China’s export production",
+                label: `Used in ${this.displayImportingEconomy}’s export production`,
               },
               {
                 name: "Dom. cons (5%)",
                 value: 5,
                 color: "#F99704",
-                label: "Used in Thailand’s domestic <br>comsumption",
+                label: `Used in ${this.displayCountry}’s domestic <br>comsumption`,
               },
               {
                 name: "Double (5%)",
@@ -227,10 +214,14 @@ export default {
             fontSize: "24px",
           },
           text:
-            "What happens to " + this.displayCountry + "'s exports to China?",
+            "What happens to " +
+            this.displayCountry +
+            "'s exports to " +
+            this.displayImportingEconomy +
+            "?",
         },
         subtitle: {
-          text: "Gross exports to China: $10B / Gross exports to World: $40B",
+          text: `Gross exports to ${this.displayImportingEconomy}: $10B / Gross exports to World: $40B`,
           align: "left",
         },
         credits: {
@@ -264,7 +255,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: "What happens to South-East Asian economies’ exports to China?",
+          text: `What happens to ${this.continent} economies’ exports to ${this.displayImportingEconomy}?`,
         },
         xAxis: {
           labels: {
@@ -284,7 +275,7 @@ export default {
         yAxis: {
           min: 0,
           title: {
-            text: "% of gross exports to China",
+            text: `% of gross exports to ${this.displayImportingEconomy}`,
           },
           stackLabels: {
             enabled: true,
@@ -333,17 +324,17 @@ export default {
         },
         series: [
           {
-            name: "Used in China's comsumption",
+            name: `Used in ${this.displayImportingEconomy}'s comsumption`,
             data: [18, 25, 20, 16, 12, 10, 14, 31],
             color: "#2381B8",
           },
           {
-            name: "Used in China's export production",
+            name: `Used in ${this.displayImportingEconomy}'s export production`,
             data: [8, 3, 5, 10, 9, 10, 10, 3],
             color: "#EB1E63",
           },
           {
-            name: "Used in Thailand's domestic <br>comsumption",
+            name: `Used in ${this.displayCountry}'s domestic <br>comsumption`,
             data: [5, 10, 5, 8, 4, 10, 8, 3],
             color: "#f99704",
           },
@@ -421,8 +412,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text:
-            "How does Thailand's gross and domestic value-added trade balance with China differ?",
+          text: `How does ${this.displayCountry}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
         },
         xAxis: {
           max: 0,
@@ -431,7 +421,7 @@ export default {
         yAxis: {
           max: 10,
           title: {
-            text: "% of gross exports to China",
+            text: `% of gross exports to ${this.displayImportingEconomy}`,
           },
         },
         credits: {
@@ -453,6 +443,7 @@ export default {
     },
   },
   mounted() {
+    this.getCountryList();
     this.setData();
     this.setStackChart();
     this.setStackChart2();

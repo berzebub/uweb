@@ -50,6 +50,7 @@ Vue.mixin({
         let data = {
           label: element.name,
           value: element.id,
+          region: element.region
         };
         tempOptions.push(data);
       });

@@ -1,6 +1,6 @@
 <template>
   <!-- Selection -->
-  <div class="row q-py-xl" style="width:320px;margin:auto">
+  <div class="row q-py-lg" style="width:320px;margin:auto">
     <div>
       <span>Importing economy</span>
       <q-select

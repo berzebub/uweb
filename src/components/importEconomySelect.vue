@@ -47,13 +47,14 @@ export default {
       )[0].label;
       this.$emit("importingEconomy", countryName);
       this.$q.localStorage.set("impEcId", this.importingEconomy);
+      // this.selectSector();
     },
     selectSector() {
       let sectorName = this.sectorOptions.filter(
         (x) => x.value == this.sectorSelected
       )[0].label;
       this.$q.localStorage.set("secId", this.sectorSelected);
-      this.$emit("sectorSelected", this.sectorSelected);
+      this.$emit("sectorSelected", sectorName);
     },
   },
   mounted() {

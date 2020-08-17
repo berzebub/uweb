@@ -61,13 +61,16 @@ export default {
   },
   methods: {
     selectCountry() {
-      let countryName = this.countryOptions.filter(
+      let countrySelected = this.countryOptions.filter(
         (x) => x.value == this.countrySelected
-      )[0].label;
+      )[0];
 
       this.$q.localStorage.set("cid", this.countrySelected);
 
-      this.$emit("countrySelected", countryName);
+      this.$emit("countrySelected", {
+        name: countrySelected.label,
+        region: countrySelected.region,
+      });
     },
     selectYear() {
       this.$emit("yearSelected", this.yearSelected);
