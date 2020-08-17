@@ -58,6 +58,8 @@
         >Contribution to {{ displayImportingEconomy }} export production :$8B</p>
         <img class src="../../public/images/forwardsector01-1.jpg" alt />
         <p align="left" class="q-px-xl">Gross exports to {{ displayImportingEconomy }}: $40B</p>
+
+        <img class src="../../public/images/forwardsector01-legend.jpg" alt />
       </div>
     </div>
     <div style="height:30px"></div>
