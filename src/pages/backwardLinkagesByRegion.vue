@@ -1,8 +1,12 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar :isShowLogo="false"></app-bar>
+    <app-bar
+      :isShowLogo="false"
+      @countrySelected="exportingEconomyChanged"
+      @yearSelected="(val) => displayYear = val "
+    ></app-bar>
     <header-menu :activeMenu="3"></header-menu>
-    <importing-select></importing-select>
+    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
 
     <!-- Title box -->
     <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
@@ -11,12 +15,12 @@
         <p
           class="font-content"
           align="center"
-        >Some part of Thailand’s gross exports consist of imported inputs that originate in other source economies.</p>
+        >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
         <p class="font-content" align="center">
           <span class="q-pr-lg">Source economy</span>
 
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-px-lg">Exporting economy (Thailand)</span>
+          <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
           <span class="q-px-lg text-weight-bold">:</span>
           <span class="q-pr-lg">Sector</span>
           <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
@@ -28,11 +32,11 @@
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
         1.
-        <u>Where does Thailand’s imported content come from in exports to a selected importer ?</u>
+        <u>Where does {{displayCountry}}’s imported content come from in exports to a selected importer ?</u>
       </p>
       <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
         2.
-        <u>Where do South-East Asian economies’ imported content come from in exports to a selected importer ?</u>
+        <u>Where do {{continent}} economies’ imported content come from in exports to a selected importer ?</u>
       </p>
     </div>
 
@@ -70,31 +74,27 @@ export default {
   },
   data() {
     return {
-      colorListWithLabel: [
-        {
-          color: "bg5",
-          label: "Asia-Pacific",
-        },
-        {
-          color: "bg6",
-          label: "Europe",
-        },
-        {
-          color: "bg7",
-          label: "North America",
-        },
-        {
-          color: "bg8",
-          label: "Latin America",
-        },
-        {
-          color: "bg9",
-          label: "Rest of the world",
-        },
-      ],
+      continent: "",
+      displayCountry: "",
+      displaySector: "",
+      displayImportingEconomy: "",
+      displayYear: "",
     };
   },
   methods: {
+    renderGraph() {},
+    sectorChanged(val) {
+      this.displaySector = val;
+    },
+    exportingEconomyChanged(val) {
+      this.displayCountry = val.name;
+      this.continent = val.region;
+      this.renderGraph();
+    },
+    importingEconomyChanged(val) {
+      this.displayImportingEconomy = val;
+      this.renderGraph();
+    },
     async setData() {
       let chart = Highcharts.chart("container", {
         chart: {
@@ -533,8 +533,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text:
-            "Where does Thailand's imported content in exports to China come from?",
+          text: `Where does ${this.displayCountry}'s imported content in exports to ${this.displayImportingEconomy} come from?`,
         },
         credits: {
           enabled: false,
@@ -543,8 +542,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text:
-            "Gross exports of Thailand in All sector(s) to China amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>imported content in exports to China: $8B / Gross exports to China: $40B",
+          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>imported content in exports to ${this.displayImportingEconomy}: $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
           align: "center",
         },
       });
@@ -1420,8 +1418,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text:
-            "Where do South-East Asian economies contribute the most towards export production?",
+          text: `Where do ${this.continent} economies contribute the most towards export production?`,
         },
       });
     },
