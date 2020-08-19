@@ -213,6 +213,9 @@ export default {
     //   this.displayCountry = val;
     // },
   },
+  mounted() {
+    this.checkPlatform();
+  },
 };
 </script>
 

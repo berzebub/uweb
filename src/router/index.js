@@ -101,6 +101,13 @@ Vue.mixin({
     },
     loadingHide() {
       this.$q.loading.hide()
-    }
-  }
+    },
+    checkPlatform() {
+      if (this.$q.platform.is.mobile) {
+        this.$router.push("/not-support")
+      }
+    },
+  },
+
+
 });

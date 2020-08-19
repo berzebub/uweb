@@ -76,7 +76,11 @@
                 >
                   <span>ESCAP Trade Policy</span>
                 </div>
-                <div @click="showTermOfUseDialog()"  class="text-white cursor-pointer" style="text-decoration:none;">
+                <div
+                  @click="showTermOfUseDialog()"
+                  class="text-white cursor-pointer"
+                  style="text-decoration:none;"
+                >
                   <span>Terms of use</span>
                 </div>
               </div>
@@ -95,7 +99,7 @@
             >
               <div>
                 <p class="font-graph">About</p>
-                   <div style="width:50%;border-bottom:2px solid #283891"></div>
+                <div style="width:50%;border-bottom:2px solid #283891"></div>
                 <p
                   class="font-content q-pt-md"
                 >This online data visualization and distribution platform has been developed – with financial support from the Forum for East Asia-Latin America Cooperation and raw data provided by the Asian Development Bank from their Multi-Regional Input-Output database – with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies, in addition to more broadly understanding value-chain linkages between economies around the world.</p>
@@ -116,20 +120,20 @@
               <div>
                 <p class="font-graph">Terms of use</p>
                 <div style="width:50%;border-bottom:2px solid #283891"></div>
-                <p class="font-content q-pt-md" align="left">
-                  All users may publish information taken directly or derived from the platform, on the condition that:
-                  <ul>
-                    <li>  The platform is acknowledged, cited as ESCAP-FEALAC Global Value Chain Portal, accessed (month year), available at https://</li>
-                    <li>  Any conclusions or analyses based on the data and visualizations provided are accompanied by a disclaimer stating that they are the responsibility of the authors and do not necessarily represent the opinion of the United Nations.</li>
-                    <li>    Any re-dissemination by third parties of the data based on data downloads which goes beyond the purpose of publication of analytical work must be approved by the United Nations Secretariat prior to such re-dissemination.</li>
-                  </ul>
-                
-                
-              
-                  Requests can be sent to:<br>
-                  Trade, Investment and Innovation Division,<br>
-                  United Nations ESCAP, Email: escap-tiid@un.org
-                </p>
+                <p
+                  class="font-content q-pt-md"
+                  align="left"
+                >All users may publish information taken directly or derived from the platform, on the condition that:</p>
+                <ul class="font-content" align="left">
+                  <li>The platform is acknowledged, cited as ESCAP-FEALAC Global Value Chain Portal, accessed (month year), available at https://</li>
+                  <li>Any conclusions or analyses based on the data and visualizations provided are accompanied by a disclaimer stating that they are the responsibility of the authors and do not necessarily represent the opinion of the United Nations.</li>
+                  <li>Any re-dissemination by third parties of the data based on data downloads which goes beyond the purpose of publication of analytical work must be approved by the United Nations Secretariat prior to such re-dissemination.</li>
+                </ul>
+                <div class="font-content" align="left">
+                  Requests can be sent to:
+                  <br />Trade, Investment and Innovation Division,
+                  <br />United Nations ESCAP, Email: escap-tiid@un.org
+                </div>
               </div>
             </div>
           </q-card-section>
@@ -151,10 +155,10 @@ export default {
   },
   methods: {
     showAboutDialog() {
-      this.isShowAboutDialog = true
+      this.isShowAboutDialog = true;
     },
     showTermOfUseDialog() {
-      this.isShowTermOfUseDialog = true
+      this.isShowTermOfUseDialog = true;
     },
     twitterLink() {
       window.open("https://twitter.com/unescap", "_blank");
@@ -192,6 +196,9 @@ export default {
         "_blank"
       );
     },
+  },
+  mounted() {
+    this.checkPlatform();
   },
 };
 </script>

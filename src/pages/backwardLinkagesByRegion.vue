@@ -8,54 +8,61 @@
     <header-menu :activeMenu="3"></header-menu>
     <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
 
-    <!-- Title box -->
-    <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
-      <div class="q-pa-md" style="border-radius:5px;border:2px solid">
-        <p class="font-graph" align="center">Where does imported content come from?</p>
-        <p
-          class="font-content"
-          align="center"
-        >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
-        <p class="font-content" align="center">
-          <span class="q-pr-lg">Source economy</span>
+    <error-page
+      v-show="isShowErrorWarning"
+      displayText="The exporting economy must not be the same as the importing economy."
+    ></error-page>
 
-          <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
-          <span class="q-px-lg text-weight-bold">:</span>
-          <span class="q-pr-lg">Sector</span>
-          <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-          <span class="q-pl-lg">Importing economy</span>
+    <div v-show="!isShowErrorWarning">
+      <!-- Title box -->
+      <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
+        <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+          <p class="font-graph" align="center">Where does imported content come from?</p>
+          <p
+            class="font-content"
+            align="center"
+          >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
+          <p class="font-content" align="center">
+            <span class="q-pr-lg">Source economy</span>
+
+            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+            <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
+            <span class="q-px-lg text-weight-bold">:</span>
+            <span class="q-pr-lg">Sector</span>
+            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+            <span class="q-pl-lg">Importing economy</span>
+          </p>
+        </div>
+
+        <!-- Key policy questions -->
+        <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+          1.
+          <u>Where does {{displayCountry}}’s imported content come from in exports to a selected importer ?</u>
+        </p>
+        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+          2.
+          <u>Where do {{continent}} economies’ imported content come from in exports to a selected importer ?</u>
         </p>
       </div>
 
-      <!-- Key policy questions -->
-      <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
-        1.
-        <u>Where does {{displayCountry}}’s imported content come from in exports to a selected importer ?</u>
-      </p>
-      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
-        2.
-        <u>Where do {{continent}} economies’ imported content come from in exports to a selected importer ?</u>
-      </p>
-    </div>
+      <div style="height:30px"></div>
+      <hr />
+      <div style="height:30px"></div>
 
-    <div style="height:30px"></div>
-    <hr />
-    <div style="height:30px"></div>
+      <!-- Where does Thailand's imported content -->
+      <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
+        <div id="container"></div>
+      </div>
 
-    <!-- Where does Thailand's imported content -->
-    <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
-      <div id="container"></div>
-    </div>
+      <div style="height:30px"></div>
+      <hr />
+      <!-- Where does South-East Asian imported content -->
+      <div style="height:30px" id="importedregion"></div>
 
-    <div style="height:30px"></div>
-    <hr />
-    <!-- Where does South-East Asian imported content -->
-    <div style="height:30px" id="importedregion"></div>
-
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div id="container1"></div>
+      <div style="width:90%;margin:auto;max-width:1200px">
+        <div id="container1"></div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -65,12 +72,14 @@ import appBar from "../components/appBarWithLogo";
 import headerMenu from "../components/fourMenu";
 import importingSelect from "../components/importEconomySelect";
 import Axios from "axios";
+import errorPage from "../components/error-page";
 
 export default {
   components: {
     appBar,
     headerMenu,
     importingSelect,
+    errorPage,
   },
   data() {
     return {
@@ -79,6 +88,7 @@ export default {
       displaySector: "",
       displayImportingEconomy: "",
       displayYear: "",
+      isShowErrorWarning: false,
     };
   },
   methods: {
@@ -93,10 +103,21 @@ export default {
       this.displayCountry = val.name;
       this.continent = val.region;
       this.renderGraph();
+      if (val == this.displayImportingEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+      }
     },
     importingEconomyChanged(val) {
       this.displayImportingEconomy = val;
       this.renderGraph();
+
+      if (val == this.displayCountry) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+      }
     },
     async setData() {
       let chart = Highcharts.chart("container", {

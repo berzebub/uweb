@@ -7,25 +7,34 @@
     ></app-bar>
     <header-menu :activeMenu="2"></header-menu>
     <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
-    <div class="q-px-md">
-      <div
-        style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px"
-        class="q-pa-md"
-      >
-        <p class="font-graph" align="center">Why does GVC participation matter?</p>
-        <p
-          class="font-content"
-        >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
-        <p
-          class="font-content"
-        >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
+
+    <error-page
+      v-show="isShowErrorWarning"
+      displayText="The exporting economy must not be the same as the 
+importing economy."
+    ></error-page>
+
+    <div v-show="!isShowErrorWarning">
+      <div class="q-px-md">
+        <div
+          style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px"
+          class="q-pa-md"
+        >
+          <p class="font-graph" align="center">Why does GVC participation matter?</p>
+          <p
+            class="font-content"
+          >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
+          <p
+            class="font-content"
+          >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
+        </div>
       </div>
+      <div style="height:30px"></div>
+      <div style="width:90%;margin:auto;max-width:1200px">
+        <div id="container1"></div>
+      </div>
+      <div style="height:30px"></div>
     </div>
-    <div style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div id="container1"></div>
-    </div>
-    <div style="height:30px"></div>
   </q-page>
 </template>
 
@@ -33,12 +42,13 @@
 import appBar from "../components/appBarWithLogo";
 import headerMenu from "../components/fourMenu";
 import importingSelect from "../components/importEconomySelect";
-
+import errorPage from "../components/error-page";
 export default {
   components: {
     appBar,
     headerMenu,
     importingSelect,
+    errorPage,
   },
   data() {
     return {
@@ -47,6 +57,7 @@ export default {
       displayCountry: "",
       continent: "",
       displaySector: "",
+      isShowErrorWarning: false,
     };
   },
   methods: {
@@ -61,10 +72,20 @@ export default {
       this.displayCountry = val.name;
       this.continent = val.region;
       this.renderGraph();
+      if (val == this.displayImportingEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+      }
     },
     importingEconomyChanged(val) {
       this.displayImportingEconomy = val;
       this.renderGraph();
+      if (val == this.displayCountry) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+      }
     },
     setStackChart() {
       Highcharts.chart("container1", {
