@@ -28,9 +28,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in indicatorList"
+              v-for="(item, index) in indicatorList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -40,7 +42,7 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Indicator','indicator')"
+            @click="editModify('Indicator', 'indicator')"
           ></q-btn>
         </div>
       </div>
@@ -57,9 +59,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in exportList"
+              v-for="(item, index) in exportList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -69,7 +73,7 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Exporting economy','exportting')"
+            @click="editModify('Exporting economy', 'exportting')"
           ></q-btn>
         </div>
       </div>
@@ -87,9 +91,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in importingList"
+              v-for="(item, index) in importingList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -99,7 +105,7 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Importing economy','importing')"
+            @click="editModify('Importing economy', 'importing')"
           ></q-btn>
         </div>
       </div>
@@ -122,9 +128,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in sourceList"
+              v-for="(item, index) in sourceList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -134,7 +142,7 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Source economy','source')"
+            @click="editModify('Source economy', 'source')"
           ></q-btn>
         </div>
       </div>
@@ -154,9 +162,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in sectorList"
+              v-for="(item, index) in sectorList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -166,7 +176,7 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Sector','sector')"
+            @click="editModify('Sector', 'sector')"
           ></q-btn>
         </div>
       </div>
@@ -186,9 +196,11 @@
             <div
               class="border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in yearList"
+              v-for="(item, index) in yearList"
               :key="index"
-            >{{item}}</div>
+            >
+              {{ item }}
+            </div>
           </q-scroll-area>
         </div>
 
@@ -198,18 +210,34 @@
             rounded
             label="Modify"
             no-caps
-            @click="editModify('Year','year')"
+            @click="editModify('Year', 'year')"
           ></q-btn>
         </div>
       </div>
 
-      <div class="q-my-xl" style="padding-bottom:70px;" align="center">
-        <q-btn
-          class="bg4 font-content"
-          label="Download"
-          no-caps
-          style="width:200px;border-radius:10px;"
-        ></q-btn>
+      <div
+        class="q-my-xl row justify-center "
+        style="padding-bottom:70px;"
+        align="center"
+      >
+        <div>
+          <q-btn
+            class=" font-content"
+            outline=""
+            label="Clear All"
+            no-caps
+            style="width:200px;border-radius:10px;"
+            @click="clearAllData()"
+          ></q-btn>
+        </div>
+        <div class="q-ml-sm">
+          <q-btn
+            class="bg4 font-content"
+            label="Download"
+            no-caps
+            style="width:200px;border-radius:10px;"
+          ></q-btn>
+        </div>
       </div>
     </div>
 
@@ -218,7 +246,7 @@
       <div class="row justify-center">
         <!-- Modify Type -->
         <div class="col-11 q-pa-sm">
-          <span class="font-graph">{{modifyContent}}</span>
+          <span class="font-graph">{{ modifyContent }}</span>
         </div>
         <div class="col-5">
           <!-- Select Form -->
@@ -238,11 +266,13 @@
                   class="relative-position cursor-pointer"
                   :class="modifySelectDataList.includes(item) ? 'bg4' : null"
                   align="left"
-                  v-for="(item,index) in modifyDataList"
+                  v-for="(item, index) in modifyDataList"
                   :key="index"
                   style="padding:7px;"
                   @click="activeIndividual(item)"
-                >{{item}}</div>
+                >
+                  {{ item }}
+                </div>
               </q-scroll-area>
             </q-card>
           </q-expansion-item>
@@ -250,30 +280,42 @@
 
         <!-- Click Data to Draft -->
         <div class="col-1 self-center" style="width:70px;" align="center">
-          <q-btn @click="clickDataToDraft()" label=">" dense class="bg4 q-px-sm"></q-btn>
+          <q-btn
+            @click="clickDataToDraft()"
+            label=">"
+            dense
+            class="bg4 q-px-sm"
+          ></q-btn>
         </div>
 
         <!-- Select Draft Data -->
         <div class="col-5 border">
           <div class="bg4 row" style="padding:10px;">
-            <span>{{modifySelectDraftText}}</span>
+            <span>{{ modifySelectDraftText }}</span>
             <q-space />
-            <span @click="modifyDraftList = []" class="text-underline cursor-pointer">clear all</span>
+            <span
+              @click="modifyDraftList = []"
+              class="text-underline cursor-pointer"
+              >clear all</span
+            >
           </div>
           <q-scroll-area visible style="height: 200px;">
             <div
               class="row border-bottom q-pa-sm"
               :class="index % 2 == 1 ? 'bg11' : null"
-              v-for="(item,index) in modifyDraftList"
+              v-for="(item, index) in modifyDraftList"
               :key="index"
             >
-              <div>{{item}}</div>
+              <div>{{ item }}</div>
               <q-space />
               <div class="q-pr-sm">
                 <span
                   class="text-underline cursor-pointer"
-                  @click="modifyDraftList.splice(modifyDraftList.indexOf(item),1)"
-                >clear</span>
+                  @click="
+                    modifyDraftList.splice(modifyDraftList.indexOf(item), 1)
+                  "
+                  >clear</span
+                >
               </div>
             </div>
           </q-scroll-area>
@@ -318,7 +360,7 @@ export default {
         "Angola -- AGO",
         "Anguila -- AIA",
         "Aruba -- ABW",
-        "Australia -- AUS",
+        "Australia -- AUS"
       ],
       dataSectorList: [
         "01 -- agriculture hunting forestry and fishing",
@@ -329,7 +371,7 @@ export default {
         "06 -- wood and products of wood and cork",
         "07 -- pulp paper paper products printing and publishing",
         "08 -- coke refined petroleum and nuclear fuel",
-        "09 -- chemicals and chemical products",
+        "09 -- chemicals and chemical products"
       ],
       dataIndicatorList: [
         "Gross exports used in importer's comsumption (Imp_cons)",
@@ -344,7 +386,7 @@ export default {
         "Backward linkages, all exporting sectors (Back_link_sector)",
         "Forward linkages, all importing countries (Forward_link_country",
         "Forward linkages, all exporting sectors (Forward_link_sector)",
-        "Gross exports (Gross_exports)",
+        "Gross exports (Gross_exports)"
       ],
       dataYearList: [
         "2010",
@@ -356,7 +398,7 @@ export default {
         "2016",
         "2017",
         "2018",
-        "2019",
+        "2019"
       ],
 
       modifyDataList: [],
@@ -370,10 +412,18 @@ export default {
       indicatorList: [],
 
       modifySelectDataList: [],
-      modifySelectCountryList: [],
+      modifySelectCountryList: []
     };
   },
   methods: {
+    clearAllData() {
+      this.exportList = [];
+      this.importingList = [];
+      this.indicatorList = [];
+      this.sourceList = [];
+      this.yearList = [];
+      this.sectorList = [];
+    },
     saveData() {
       if (this.modifyType == "exportting") {
         this.exportList = this.modifyDraftList;
@@ -388,8 +438,7 @@ export default {
       } else {
         this.yearList = this.modifyDraftList;
       }
-
-      this.notifyGreen("บันทึกข้อมูลแล้ว");
+      this.isModify = false;
     },
 
     activeIndividual(val) {
@@ -457,8 +506,8 @@ export default {
       }
 
       this.isModify = true;
-    },
-  },
+    }
+  }
 };
 </script>
 
