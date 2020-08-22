@@ -102,7 +102,7 @@ export default {
     renderGraph() {},
     importingEconomyChanged(val) {
       this.displayImportingEconomy = val;
-      if (val == this.displayCountry) {
+      if (val == this.displayCountry || val == this.displaySourceEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
@@ -110,12 +110,20 @@ export default {
     },
     sourceChanged(val) {
       this.displaySourceEconomy = val;
+      if (val == this.displayCountry || val == this.displayImportingEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+      }
     },
     exportingEconomyChanged(val) {
       this.displayCountry = val.name;
       this.continent = val.region;
 
-      if (val == this.displayImportingEconomy) {
+      if (
+        val == this.displayImportingEconomy ||
+        val == this.displaySourceEconomy
+      ) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
