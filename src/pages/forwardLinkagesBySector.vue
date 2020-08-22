@@ -54,6 +54,7 @@
       <div
         class="font-graph"
         align="center"
+        id="importedcountry"
       >Which sectors in {{ displayCountry }} are most reliant on export production in {{ displayImportingEconomy }}?</div>
       <div align="center">
         <div style="max-width:900px;width:100%;margin:auto" class>
@@ -74,6 +75,7 @@
       <div
         class="font-graph"
         align="center"
+        id="importedregion"
       >Which sectors in {{ continent }} economies are most reliant on export production in {{ displayImportingEconomy }}?</div>
       <div align="center">
         <img src="../../public/images/backsector02.jpg" alt width="900px;" />

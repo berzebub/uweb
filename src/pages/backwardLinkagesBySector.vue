@@ -52,6 +52,7 @@
       <div
         class="font-graph"
         align="center"
+        id="importedcountry"
       >Which sectors in {{ displayCountry }} rely the most on imported content from {{displaySourceEconomy}} in exports to {{ displayImportingEconomy }}?</div>
       <div align="center" style="width:900px; margin:auto;">
         <p
@@ -67,6 +68,7 @@
       <div
         class="font-graph"
         align="center"
+        id="importedregion"
       >Which sectors in {{ continent }} economies rely the most on imported content from {{ displaySourceEconomy }} in exports to {{ displayImportingEconomy }}?</div>
       <div align="center" style="width:900px; margin:auto;">
         <q-img src="../../public/images/backsector02.jpg" />
