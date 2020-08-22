@@ -7,13 +7,17 @@
         align="center"
       >
         <div align="center" class style="width:150px">
-          <q-icon name="fas fa-exclamation-triangle" size="100px" color="red"></q-icon>
+          <q-icon
+            name="fas fa-exclamation-triangle"
+            size="100px"
+            color="red"
+          ></q-icon>
         </div>
         <div align="left">
           <p style="font-size:28px">
-            <b>Sorry, thispage isn't available</b>
+            <b>Sorry, this page isn't available</b>
           </p>
-          <p>{{displayText}}</p>
+          <p>{{ displayText }}</p>
         </div>
       </div>
     </div>
@@ -25,11 +29,10 @@ export default {
   props: {
     displayText: {
       type: String,
-      default: "",
-    },
-  },
+      default: ""
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

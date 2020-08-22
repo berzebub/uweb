@@ -29,7 +29,7 @@
       </p>
       <p>
         Imported content comprising
-        <span class="text-red">26% ($67 billion)</span> of gross exports
+        <span class="text-red">26% ($65 billion)</span> of gross exports
       </p>
       <p>
         Export of intermediates used in further export production comprising
