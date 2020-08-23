@@ -199,7 +199,7 @@
     },
     {
         "id": "35",
-        "name": "Kyrgyz Republic",
+        "name": "Kyrgyzstan",
         "region": "North and Central Asia",
         "iso": "KGZ"
     },
@@ -211,7 +211,7 @@
     },
     {
         "id": "37",
-        "name": "Lao People's Democratic Republic",
+        "name": "Lao PDR",
         "region": "South-East Asia",
         "iso": "LAO"
     },
@@ -319,7 +319,7 @@
     },
     {
         "id": "55",
-        "name": "People's Republic of China",
+        "name": "China",
         "region": "East and North-East Asia",
         "iso": "CHN"
     },
@@ -343,7 +343,7 @@
     },
     {
         "id": "59",
-        "name": "Russia",
+        "name": "Russia Federation",
         "region": "North and Central Asia",
         "iso": "RUS"
     },
@@ -391,7 +391,7 @@
     },
     {
         "id": "67",
-        "name": "Taipei,China",
+        "name": "Taiwan Province of China",
         "region": "East and North-East Asia",
         "iso": "TWN"
     },
