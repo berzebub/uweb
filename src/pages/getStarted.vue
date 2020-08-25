@@ -23,19 +23,23 @@
       <p>
         <b>
           {{ displayCountry.name }}’s GVC exports amount to
-          <span class="text-red">33% ($85 billion)</span>
+          <span
+            class="text-red"
+          >{{graphGVC.total_percent}}% (${{graphGVC.total_value}} billion)</span>
           of its gross exports in {{displayYear}}
         </b>
       </p>
       <p>
         Imported content comprising
-        <span class="text-red">26% ($65 billion)</span> of gross exports
+        <span
+          class="text-red"
+        >{{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion)</span> of gross exports
       </p>
       <p>
         Export of intermediates used in further export production comprising
         <span
           class="text-red"
-        >7% ($18 billion)</span> of gross exports
+        >{{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion)</span> of gross exports
       </p>
 
       <div style="height:50px;"></div>
@@ -47,8 +51,10 @@
                 Imported content used in exports
                 (Backward linkages)
               </b>
-              <br />Share: 26% of gross exports
-              <br />Value: $65 billion
+              <br />
+              Share: {{graphGVC.import_percent}}% of gross exports
+              <br />
+              Value: ${{graphGVC.import_value}} billion
             </div>
           </div>
           <div class="col"></div>
@@ -59,8 +65,10 @@
                 export production
                 (Forward linkages)
               </b>
-              <br />Share: 7% of gross exports
-              <br />Value: $18 billion
+              <br />
+              Share: {{graphGVC.export_percent}}% of gross exports
+              <br />
+              Value: ${{graphGVC.export_value}} billion
             </div>
           </div>
         </div>
@@ -206,14 +214,42 @@ export default {
     return {
       displayCountry: "",
       displayYear: "",
+      graphGVC: {},
     };
   },
+
   methods: {
+    async loadGVCGraph() {
+      let url = `https://www.thaiawesomedev.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
+
+      let format = {
+        total_percent: 0,
+        total_value: 0,
+        import_percent: 0,
+        import_value: 0,
+        export_percent: 0,
+        export_value: 0,
+      };
+
+      let getData = await Axios.get(url);
+
+      this.graphGVC = getData.data == "" ? format : getData.data;
+    },
     // countrySelected(val) {
     //   this.displayCountry = val;
     // },
   },
+  watch: {
+    displayCountry: {
+      handler() {
+        this.loadGVCGraph();
+      },
+      deep: true,
+    },
+  },
+
   mounted() {
+    this.loadGVCGraph();
     this.checkPlatform();
   },
 };

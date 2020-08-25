@@ -53,9 +53,7 @@ export default {
   data() {
     return {
       yearOptions: [],
-      yearSelected: this.$q.localStorage.has("yid")
-        ? this.$q.localStorage.getItem("yid")
-        : "",
+      yearSelected: "",
       countryOptions: [],
       countrySelected: "",
     };
@@ -79,6 +77,8 @@ export default {
       this.$q.localStorage.set("yid", this.yearSelected);
     },
     async loadYear() {
+      this.getCountryList();
+
       let url = "https://www.thaiawesomedev.com/u_api/get_year_active.php";
 
       let getYear = await Axios.get(url);
@@ -87,14 +87,13 @@ export default {
       this.yearSelected = this.$q.localStorage.has("yid")
         ? this.$q.localStorage.getItem("yid")
         : this.yearOptions[0];
+
+      this.selectCountry();
+      this.selectYear();
     },
   },
 
   mounted() {
-    this.getCountryList();
-    this.selectCountry();
-    this.selectYear();
-
     this.loadYear();
   },
 };

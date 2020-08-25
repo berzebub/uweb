@@ -151,47 +151,6 @@ export default {
         chart: {
           height: (3 / 4) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
-          events: {
-            load: function () {
-              // var label = this.renderer
-              //   .label(
-              //     "This text will adjust to chart resizing " +
-              //       "and redraws and will be visible on exported images."
-              //   )
-              //   .css({
-              //     width: "400px",
-              //     fontSize: "9px",
-              //   })
-              //   .attr({
-              //     stroke: "silver",
-              //     "stroke-width": 1,
-              //     r: 2,
-              //     padding: 5,
-              //   })
-              //   .add();
-
-              // label.align(
-              //   Highcharts.extend(label.getBBox(), {
-              //     align: "center",
-              //     x: 20, // offset
-              //     verticalAlign: "bottom",
-              //     y: 0, // offset
-              //   }),
-              //   null,
-              //   "spacingBox"
-              // );
-              this.renderer
-                .image(
-                  "https://www.highcharts.com/samples/graphics/sun.png",
-                  0,
-                  550,
-                  30,
-                  30
-                )
-                .add();
-            },
-          },
-          marginBottom: 150,
         },
         series: [
           {
@@ -199,7 +158,6 @@ export default {
             type: "treemap",
             layoutAlgorithm: "squarified",
             alternateStartingDirection: true,
-
             levels: [
               {
                 level: 1,
@@ -289,6 +247,7 @@ export default {
                 name: "Private household service",
                 color: "#1564C0",
               },
+              // End
               {
                 name: "agriculture hunting forestry and fishing",
                 parent: "A",
@@ -473,6 +432,8 @@ export default {
                 value: 2.45,
               },
             ],
+            showInLegend: true,
+            legendType: "point",
           },
         ],
         legend: {
@@ -503,17 +464,36 @@ export default {
           labelFormatter: function () {
             // return "<div>" + this.name + "</div>";
             if (this.name == "Agriculture") {
-              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2F978B;"></div></td><td style="padding-left:20px;">Agriculure</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2F978B;"></div></td><td style="padding-left:12px;">Agriculture</td></tr></table></div>';
+            } else if (this.name == "Mining") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #9A25B1;"></div></td><td style="padding-left:12px;">Mining</td></tr></table></div>';
             } else if (this.name == "Construction") {
-              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #8D243B;"></div></td><td style="padding-left:20px;">Construction</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #8D243B;"></div></td><td style="padding-left:12px;">Construction</td></tr></table></div>';
+            } else if (this.name == "Utilities") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #FA9908;"></div></td><td style="padding-left:12px;">Utilities</td></tr></table></div>';
+            } else if (this.name == "Low tech") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #F34336;"></div></td><td style="padding-left:12px;"><div>Manufacturtoring</div>Low tech </td></tr></table></div>';
+            } else if (this.name == "High and medium tech") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturtoring</div>High and medium tech</td></tr></table></div>';
+            } else if (this.name == "Trade and repair service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair service</td></tr></table></div>';
+            } else if (this.name == "Tourism") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Service</div>Tourism</td></tr></table></div>';
+            } else if (this.name == "Transport service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Service</div>Transport service</td></tr></table></div>';
+            } else if (this.name == "ICT service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Service</div>ICT service</td></tr></table></div>';
+            } else if (this.name == "Property service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Service</div>Property service</td></tr></table></div>';
+            } else if (this.name == "Financial service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Service</div>Financial service</td></tr></table></div>';
+            } else if (this.name == "Publice and welfare service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Service</div>Publice and welfare service</td></tr></table></div>';
+            } else if (this.name == "Private household service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household service</td></tr></table></div>';
             }
           },
         },
-        // legend: {
-        //   labelFormatter: function () {
-        //     return this.name;
-        //   },
-        // },
         title: {
           style: {
             fontSize: "24px",
