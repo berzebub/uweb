@@ -151,6 +151,38 @@ export default {
         chart: {
           height: (3 / 4) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
+          events: {
+            load: function () {
+              var label = this.renderer
+                .label(
+                  "This text will adjust to chart resizing " +
+                    "and redraws and will be visible on exported images."
+                )
+                .css({
+                  width: "400px",
+                  fontSize: "9px",
+                })
+                .attr({
+                  stroke: "silver",
+                  "stroke-width": 1,
+                  r: 2,
+                  padding: 5,
+                })
+                .add();
+
+              label.align(
+                Highcharts.extend(label.getBBox(), {
+                  align: "center",
+                  x: 20, // offset
+                  verticalAlign: "bottom",
+                  y: 0, // offset
+                }),
+                null,
+                "spacingBox"
+              );
+            },
+          },
+          marginBottom: 120,
         },
         series: [
           {
@@ -432,8 +464,6 @@ export default {
                 value: 2.45,
               },
             ],
-            showInLegend: true,
-            legendType: "point",
           },
         ],
         legend: {
@@ -465,6 +495,8 @@ export default {
             // return "<div>" + this.name + "</div>";
             if (this.name == "Agriculture") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2F978B;"></div></td><td style="padding-left:20px;">Agriculure</td></tr></table></div>';
+            } else if (this.name == "Construction") {
+              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #8D243B;"></div></td><td style="padding-left:20px;">Construction</td></tr></table></div>';
             }
           },
         },
