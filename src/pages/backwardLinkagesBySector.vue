@@ -49,6 +49,15 @@
       <div style="height:30px"></div>
       <hr />
       <div style="height:30px"></div>
+
+      <!-- กราฟ -->
+      <div class="q-py-xl">
+        <div align="center" style="width:900px; margin:auto;">
+          <div id="container"></div>
+        </div>
+      </div>
+
+      <!-- กราฟ -->
       <div
         class="font-graph"
         align="center"
@@ -101,7 +110,10 @@ export default {
     };
   },
   methods: {
-    renderGraph() {},
+    renderGraph() {
+      this.setData();
+      this.setStackChart();
+    },
     importingEconomyChanged(val) {
       this.displayImportingEconomy = val;
       if (val == this.displayCountry || val == this.displaySourceEconomy) {
@@ -109,6 +121,7 @@ export default {
       } else {
         this.isShowErrorWarning = false;
       }
+      this.renderGraph();
     },
     sourceChanged(val) {
       this.displaySourceEconomy = val;
@@ -117,6 +130,7 @@ export default {
       } else {
         this.isShowErrorWarning = false;
       }
+      this.renderGraph();
     },
     exportingEconomyChanged(val) {
       this.displayCountry = val.name;
@@ -130,7 +144,352 @@ export default {
       } else {
         this.isShowErrorWarning = false;
       }
-      // this.renderGraph();
+      this.renderGraph();
+    },
+    async setData() {
+      let chart = Highcharts.chart("container", {
+        chart: {
+          height: (3 / 4) * 100 + "%", // 16:9 ratio
+          style: { fontFamily: "roboto" },
+        },
+        series: [
+          {
+            legendType: "point",
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            alternateStartingDirection: true,
+
+            levels: [
+              {
+                level: 1,
+                // layoutAlgorithm: "sliceAndDice",
+                layoutAlgorithm: "squarified",
+                dataLabels: {
+                  enabled: true,
+                  align: "left",
+                  verticalAlign: "top",
+                  style: {
+                    fontSize: "15px",
+                    // fontWeight: "bold",
+                  },
+                },
+              },
+            ],
+
+            data: [
+              {
+                id: "A",
+                name: "Agriculture",
+                color: "#2F978B",
+                showInLegend: true,
+              },
+              {
+                id: "B",
+                name: "Mining",
+                color: "#9A25B1",
+              },
+              {
+                id: "C",
+                name: "Construction",
+                color: "#8D243B",
+              },
+              {
+                id: "D",
+                name: "Utilities",
+                color: "#FA9908",
+              },
+              {
+                id: "E",
+                name: "Low tech",
+                color: "#F34336",
+              },
+              {
+                id: "F",
+                name: "High and medium tech",
+                color: "#C3165B",
+              },
+              {
+                id: "G",
+                name: "Trade and repair service",
+                color: "#5E6DC1",
+              },
+              {
+                id: "H",
+                name: "Tourism",
+                color: "#3F50B8",
+              },
+              {
+                id: "I",
+                name: "Transport service",
+                color: "#3949AB",
+              },
+              {
+                id: "J",
+                name: "ICT service",
+                color: "#1565C0",
+              },
+              {
+                id: "K",
+                name: "Property service",
+                color: "#19227D",
+              },
+              {
+                id: "L",
+                name: "Financial service",
+                color: "#43A7F5",
+              },
+              {
+                id: "M",
+                name: "Publice and welfare service",
+                color: "#2088E7",
+              },
+              {
+                id: "N",
+                name: "Private household service",
+                color: "#1564C0",
+              },
+              {
+                name: "agriculture hunting forestry and fishing",
+                parent: "A",
+                value: 1.3,
+              },
+              {
+                name: "mining and quarrying",
+                parent: "B",
+                value: 10.9,
+              },
+              {
+                name: "construction",
+                parent: "C",
+                value: 4.61,
+              },
+              {
+                name: "electricity gas and water supply",
+                parent: "D",
+                value: 1.61,
+              },
+
+              {
+                name: "food beverages and tobacco",
+                parent: "E",
+                value: 5.61,
+              },
+              {
+                name: "textiles and textile products",
+                parent: "E",
+                value: 3.61,
+              },
+              {
+                name: "leather leather products and footwear",
+                parent: "E",
+                value: 2.61,
+              },
+              {
+                name: "wood and products of wood and cork",
+                parent: "E",
+                value: 4.21,
+              },
+              {
+                name: "pulp paper paper products printing and publishing",
+                parent: "E",
+                value: 2.21,
+              },
+              {
+                name: "rubber and plastics",
+                parent: "E",
+                value: 2.41,
+              },
+              {
+                name: "manufacturing nec recycling",
+                parent: "E",
+                value: 2.41,
+              },
+              {
+                name: "coke refined petroleum and nuclear fuel",
+                parent: "F",
+                value: 2.61,
+              },
+              {
+                name: "chemicals and chemical products",
+                parent: "F",
+                value: 3.61,
+              },
+
+              {
+                name: "other nonmetallic minerals",
+                parent: "F",
+                value: 1.61,
+              },
+              {
+                name: "basic metals and fabricated metal",
+                parent: "F",
+                value: 0.71,
+              },
+              {
+                name: "machinery nec",
+                parent: "F",
+                value: 4.71,
+              },
+              {
+                name: "electrical and optical equipment",
+                parent: "F",
+                value: 2.71,
+              },
+              {
+                name: "transport equipment",
+                parent: "F",
+                value: 1.81,
+              },
+
+              {
+                name:
+                  "sale maintenance and repair of motor vehicles and motorcycles retail sale of fuel",
+                parent: "G",
+                value: 1.61,
+              },
+              {
+                name:
+                  "wholesale trade and commission trade except of motor vehicles and motorcycles",
+                parent: "G",
+                value: 2.11,
+              },
+              {
+                name:
+                  "retail trade except of motor vehicles and motorcycles repair of household goods",
+                parent: "G",
+                value: 1.55,
+              },
+              {
+                name: "hotels and restaurants",
+                parent: "H",
+                value: 2.35,
+              },
+              {
+                name: "inland transport",
+                parent: "I",
+                value: 4.35,
+              },
+              {
+                name: "water transport",
+                parent: "I",
+                value: 1.35,
+              },
+              {
+                name: "air transport",
+                parent: "I",
+                value: 3.35,
+              },
+              {
+                name:
+                  "other supporting and auxiliary transport activities activities of travel agencies",
+                parent: "I",
+                value: 1.45,
+              },
+              {
+                name: "post and telecommunications",
+                parent: "J",
+                value: 3.45,
+              },
+              {
+                name: "financial intermediation",
+                parent: "L",
+                value: 5.45,
+              },
+              {
+                name: "real estate activities",
+                parent: "K",
+                value: 1.45,
+              },
+              {
+                name: "renting of m&eq and other business activities",
+                parent: "K",
+                value: 2.45,
+              },
+              {
+                name:
+                  "public administration and defense compulsory social security",
+                parent: "M",
+                value: 3.45,
+              },
+              {
+                name: "education",
+                parent: "M",
+                value: 5.45,
+              },
+              {
+                name: "health and social work",
+                parent: "M",
+                value: 1.45,
+              },
+              {
+                name: "other community social and personal services",
+                parent: "M",
+                value: 2.45,
+              },
+              {
+                name: "private households with employed persons",
+                parent: "N",
+                value: 2.45,
+              },
+            ],
+            showInLegend: true,
+            legendType: "point",
+          },
+        ],
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          floating: false,
+          borderWidth: 1,
+          // useHTML: true,
+          itemStyle: {
+            fontSize: "14px",
+            fontWeight: "medium",
+            fontFamily: "roboto",
+            color: "#00000",
+          },
+
+          // align: "left",
+          // verticalAlign: "bottom",
+          width: "870",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          useHTML: true,
+          symbolWidth: 0,
+          labelFormatter: function () {
+            // return "<div>" + this.name + "</div>";
+            if (this.name == "Agriculture") {
+              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2F978B;"></div></td><td style="padding-left:20px;">Agriculure</td></tr></table></div>';
+            }
+          },
+        },
+        // legend: {
+        //   labelFormatter: function () {
+        //     return this.name;
+        //   },
+        // },
+        title: {
+          style: {
+            fontSize: "24px",
+          },
+          text: `Which sectors in ${this.displayCountry} rely the most on imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy}?`,
+        },
+        credits: {
+          enabled: false,
+        },
+        subtitle: {
+          style: {
+            fontSize: "14px",
+          },
+          text: `Imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy} : $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
+          align: "left",
+        },
+      });
     },
   },
 };
