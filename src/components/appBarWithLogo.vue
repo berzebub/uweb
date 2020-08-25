@@ -42,6 +42,7 @@
 
 <script>
 import json from "../../public/country_list.json";
+import Axios from "axios";
 export default {
   props: {
     isShowLogo: {
@@ -51,10 +52,10 @@ export default {
   },
   data() {
     return {
-      yearOptions: [2017, 2018, 2019, 2020],
+      yearOptions: [],
       yearSelected: this.$q.localStorage.has("yid")
         ? this.$q.localStorage.getItem("yid")
-        : 2020,
+        : "",
       countryOptions: [],
       countrySelected: "",
     };
@@ -70,17 +71,31 @@ export default {
       this.$emit("countrySelected", {
         name: countrySelected.label,
         region: countrySelected.region,
+        iso: countrySelected.iso,
       });
     },
     selectYear() {
       this.$emit("yearSelected", this.yearSelected);
       this.$q.localStorage.set("yid", this.yearSelected);
     },
+    async loadYear() {
+      let url = "https://www.thaiawesomedev.com/u_api/get_year_active.php";
+
+      let getYear = await Axios.get(url);
+
+      this.yearOptions = getYear.data;
+      this.yearSelected = this.$q.localStorage.has("yid")
+        ? this.$q.localStorage.getItem("yid")
+        : this.yearOptions[0];
+    },
   },
+
   mounted() {
     this.getCountryList();
     this.selectCountry();
     this.selectYear();
+
+    this.loadYear();
   },
 };
 </script>
