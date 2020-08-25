@@ -153,36 +153,45 @@ export default {
           style: { fontFamily: "roboto" },
           events: {
             load: function () {
-              var label = this.renderer
-                .label(
-                  "This text will adjust to chart resizing " +
-                    "and redraws and will be visible on exported images."
-                )
-                .css({
-                  width: "400px",
-                  fontSize: "9px",
-                })
-                .attr({
-                  stroke: "silver",
-                  "stroke-width": 1,
-                  r: 2,
-                  padding: 5,
-                })
-                .add();
+              // var label = this.renderer
+              //   .label(
+              //     "This text will adjust to chart resizing " +
+              //       "and redraws and will be visible on exported images."
+              //   )
+              //   .css({
+              //     width: "400px",
+              //     fontSize: "9px",
+              //   })
+              //   .attr({
+              //     stroke: "silver",
+              //     "stroke-width": 1,
+              //     r: 2,
+              //     padding: 5,
+              //   })
+              //   .add();
 
-              label.align(
-                Highcharts.extend(label.getBBox(), {
-                  align: "center",
-                  x: 20, // offset
-                  verticalAlign: "bottom",
-                  y: 0, // offset
-                }),
-                null,
-                "spacingBox"
-              );
+              // label.align(
+              //   Highcharts.extend(label.getBBox(), {
+              //     align: "center",
+              //     x: 20, // offset
+              //     verticalAlign: "bottom",
+              //     y: 0, // offset
+              //   }),
+              //   null,
+              //   "spacingBox"
+              // );
+              this.renderer
+                .image(
+                  "https://www.highcharts.com/samples/graphics/sun.png",
+                  0,
+                  550,
+                  30,
+                  30
+                )
+                .add();
             },
           },
-          marginBottom: 120,
+          marginBottom: 150,
         },
         series: [
           {
