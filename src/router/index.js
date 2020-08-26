@@ -17,7 +17,7 @@ Vue.use(HighchartsVue);
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -31,7 +31,7 @@ export default function(/* { store, ssrContext } */) {
 
   return Router;
 }
-import json from "../../public/country_list.json";
+import countryJson from "../../public/country_list.json";
 import sectorJson from "../../public/sector.json";
 
 Vue.mixin({
@@ -45,12 +45,13 @@ Vue.mixin({
 
       // CID = country id
       // impEc = Importing economy id
-      json.forEach(element => {
+      countryJson.forEach(element => {
         let data = {
           label: element.name,
           value: element.id,
           region: element.region,
-          iso: element.iso
+          iso: element.iso,
+          index: element.id
         };
         tempOptions.push(data);
       });
