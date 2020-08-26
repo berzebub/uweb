@@ -2,7 +2,7 @@ import Vue from "vue";
 import HighchartsVue from "highcharts-vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-var VueScrollTo = require('vue-scrollto');
+var VueScrollTo = require("vue-scrollto");
 
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
@@ -17,7 +17,7 @@ Vue.use(HighchartsVue);
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -35,7 +35,6 @@ import json from "../../public/country_list.json";
 import sectorJson from "../../public/sector.json";
 
 Vue.mixin({
-
   data() {
     return {};
   },
@@ -46,11 +45,12 @@ Vue.mixin({
 
       // CID = country id
       // impEc = Importing economy id
-      json.forEach((element) => {
+      json.forEach(element => {
         let data = {
           label: element.name,
           value: element.id,
-          region: element.region
+          region: element.region,
+          iso: element.iso
         };
         tempOptions.push(data);
       });
@@ -58,23 +58,22 @@ Vue.mixin({
       if (!this.$q.localStorage.has("cid")) {
         this.countrySelected = tempOptions[0].value;
       } else {
-        this.countrySelected = this.$q.localStorage.getItem("cid")
+        this.countrySelected = this.$q.localStorage.getItem("cid");
       }
 
-      if (!this.$q.localStorage.has('impEcId')) {
-        this.importingEconomy = tempOptions[0].value
+      if (!this.$q.localStorage.has("impEcId")) {
+        this.importingEconomy = tempOptions[0].value;
       } else {
-        this.importingEconomy = this.$q.localStorage.getItem("impEcId")
+        this.importingEconomy = this.$q.localStorage.getItem("impEcId");
       }
-
     },
     getSectorList() {
       // secId = sector id
       let tempOptions = [];
-      sectorJson.forEach((element) => {
+      sectorJson.forEach(element => {
         let data = {
           label: element.name,
-          value: element.id,
+          value: element.id
         };
         tempOptions.push(data);
       });
@@ -82,9 +81,8 @@ Vue.mixin({
       if (!this.$q.localStorage.has("secId")) {
         this.sectorSelected = tempOptions[0].value;
       } else {
-        this.sectorSelected = this.$q.localStorage.getItem("secId")
+        this.sectorSelected = this.$q.localStorage.getItem("secId");
       }
-
     },
     notifyGreen(message) {
       this.$q.notify({
@@ -97,17 +95,15 @@ Vue.mixin({
     loadingShow() {
       this.$q.loading.show({
         delay: 400
-      })
+      });
     },
     loadingHide() {
-      this.$q.loading.hide()
+      this.$q.loading.hide();
     },
     checkPlatform() {
       if (this.$q.platform.is.mobile) {
-        this.$router.push("/not-support")
+        this.$router.push("/not-support");
       }
-    },
-  },
-
-
+    }
+  }
 });

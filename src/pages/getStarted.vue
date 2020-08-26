@@ -77,17 +77,31 @@
           <table style="max-width:1200px;margin:auto;" class>
             <tr>
               <td style="width:120px;">
-                <div style="border-radius:50%;width:100px;height:100px" class="bg1"></div>
+                <div
+                  :style="{width:graphGVC.redsize + 'px',height:graphGVC.redsize + 'px'}"
+                  style="border-radius:50%;"
+                  class="bg1"
+                  v-if="graphGVC.redsize"
+                ></div>
               </td>
               <td align="center" style="width:160px;">
-                <q-img style="width:150px" src="../../public/arrow-right-red.png"></q-img>
+                <q-img src="../../public/arrow-right-red.png" v-if="graphGVC.redsize"></q-img>
               </td>
               <td style="font-size:24px; width:290px;" align="center">{{ displayCountry.name }}</td>
               <td align="center" style="width:160px;">
-                <q-img style="width:150px" src="../../public/arrow-right-green.png"></q-img>
+                <q-img
+                  v-if="graphGVC.greensize"
+                  style="width:150px"
+                  src="../../public/arrow-right-green.png"
+                ></q-img>
               </td>
               <td style="width:120px;">
-                <div style="border-radius:50%;width:50px;height:50px;" class="bg2"></div>
+                <div
+                  v-if="graphGVC.greensize"
+                  :style="{width:graphGVC.greensize + 'px',height:graphGVC.greensize + 'px'}"
+                  style="border-radius:50%;"
+                  class="bg2"
+                ></div>
               </td>
             </tr>
           </table>
@@ -220,7 +234,7 @@ export default {
 
   methods: {
     async loadGVCGraph() {
-      let url = `https://www.thaiawesomedev.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
 
       let format = {
         total_percent: 0,
@@ -229,6 +243,8 @@ export default {
         import_value: 0,
         export_percent: 0,
         export_value: 0,
+        redsize: 0,
+        greensize: 0,
       };
 
       let getData = await Axios.get(url);
@@ -242,6 +258,7 @@ export default {
   watch: {
     displayCountry: {
       handler() {
+        console.log("xx");
         this.loadGVCGraph();
       },
       deep: true,

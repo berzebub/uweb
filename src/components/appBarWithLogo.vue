@@ -66,6 +66,8 @@ export default {
 
       this.$q.localStorage.set("cid", this.countrySelected);
 
+      console.log(countrySelected);
+
       this.$emit("countrySelected", {
         name: countrySelected.label,
         region: countrySelected.region,
@@ -79,7 +81,7 @@ export default {
     async loadYear() {
       this.getCountryList();
 
-      let url = "https://www.thaiawesomedev.com/u_api/get_year_active.php";
+      let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
       let getYear = await Axios.get(url);
 

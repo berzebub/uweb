@@ -149,7 +149,7 @@ export default {
     async setData() {
       let chart = Highcharts.chart("container", {
         chart: {
-          height: (3 / 4) * 100 + "%", // 16:9 ratio
+          height: (3 / 3) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
         },
         series: [
@@ -443,7 +443,7 @@ export default {
           verticalAlign: "bottom",
 
           floating: false,
-          borderWidth: 1,
+          borderWidth: 0,
           // useHTML: true,
           itemStyle: {
             fontSize: "14px",
