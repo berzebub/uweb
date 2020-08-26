@@ -66,8 +66,6 @@ export default {
 
       this.$q.localStorage.set("cid", this.countrySelected);
 
-      console.log(countrySelected);
-
       this.$emit("countrySelected", {
         name: countrySelected.label,
         region: countrySelected.region,

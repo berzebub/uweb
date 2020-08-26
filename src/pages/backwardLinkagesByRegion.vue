@@ -85,10 +85,15 @@ export default {
     return {
       continent: "",
       displayCountry: "",
+      exp_country: "",
+      import_country: "",
       displaySector: "",
+      sector: 0,
       displayImportingEconomy: "",
       displayYear: "",
       isShowErrorWarning: false,
+
+      graphOneDetailsList: [],
     };
   },
   methods: {
@@ -97,29 +102,71 @@ export default {
       this.setStackChart();
     },
     sectorChanged(val) {
-      this.displaySector = val;
+      this.displaySector = val.label;
+      this.sector = Number(val.value);
+
+      this.renderGraph();
     },
     exportingEconomyChanged(val) {
+      this.exp_country = val.iso;
       this.displayCountry = val.name;
       this.continent = val.region;
+
       this.renderGraph();
-      if (val == this.displayImportingEconomy) {
+
+      if (val.name == this.displayImportingEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
       }
     },
     importingEconomyChanged(val) {
-      this.displayImportingEconomy = val;
+      this.displayImportingEconomy = val.label;
+      this.import_country = val.iso;
+
       this.renderGraph();
 
-      if (val == this.displayCountry) {
+      if (val.label == this.displayCountry) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
       }
     },
     async setData() {
+      console.clear();
+      let url = `https://api.winner-english.com/u_api/cal_back_country_1.php?exp_country=${this.exp_country}&imp_country=${this.import_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(url);
+
+      let temp = [...getData.data];
+
+      temp = temp.splice(5);
+
+      temp.sort((a, b) => {
+        return b.value - a.value;
+      });
+
+      let getValue = temp.map((x) => {
+        return x.value;
+      });
+
+      let sumOfValue = getValue.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+      this.graphOneDetailsList = [];
+
+      let getFirstFive = temp.map((x, index) => {
+        if (index < 5) {
+          let newData = {
+            name: x.name,
+            sum: ((x.value / sumOfValue) * 100).toFixed(2),
+          };
+
+          this.graphOneDetailsList.push(newData);
+        }
+      });
+
       let chart = Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
@@ -148,369 +195,7 @@ export default {
               },
             ],
 
-            data: [
-              {
-                id: "A",
-                name: "Asia-Pacific",
-                color: "#2381B8",
-                showInLegend: true,
-              },
-              {
-                id: "B",
-                name: "Europe",
-                color: "#EB1E63",
-              },
-              {
-                id: "C",
-                name: "North America",
-                color: "#F99704",
-              },
-              {
-                id: "D",
-                name: "Latin America",
-                color: "#2D9687",
-              },
-              {
-                id: "E",
-                name: "Rest of the world",
-                color: "#9C26B3",
-              },
-              {
-                name: "Bhutan",
-                parent: "A",
-                value: 1.3,
-              },
-              {
-                name: "Hongkong",
-                parent: "A",
-                value: 10.9,
-              },
-              {
-                name: "Japan",
-                parent: "A",
-                value: 5.61,
-              },
-              {
-                name: "Bangladesh",
-                parent: "A",
-                value: 3.21,
-              },
-              {
-                name: "Brunei Darussalam",
-                parent: "A",
-                value: 1.21,
-              },
-              {
-                name: "Cambodia",
-                parent: "A",
-                value: 0.21,
-              },
-              {
-                name: "Cyprus",
-                parent: "A",
-                value: 0.31,
-              },
-              {
-                name: "India",
-                parent: "A",
-                value: 3.31,
-              },
-              {
-                name: "Indonesia",
-                parent: "A",
-                value: 2.31,
-              },
-              {
-                name: "Kazakhstan",
-                parent: "A",
-                value: 1.51,
-              },
-              {
-                name: "Kyrgyz Republic",
-                parent: "A",
-                value: 0.51,
-              },
-              {
-                name: "Republic of Korea",
-                parent: "A",
-                value: 2.51,
-              },
-              {
-                name: "Malaysia",
-                parent: "A",
-                value: 1.51,
-              },
-              {
-                name: "Maldives",
-                parent: "A",
-                value: 1.01,
-              },
-              {
-                name: "Mongolia",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Nepal",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Pakistan",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Philippines",
-                parent: "A",
-                value: 2.81,
-              },
-              {
-                name: "People's Republic of China",
-                parent: "A",
-                value: 8.81,
-              },
-              {
-                name: "Singapore",
-                parent: "A",
-                value: 2.81,
-              },
-              {
-                name: "Sri Lanka",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Austria",
-                parent: "B",
-                value: 1.8,
-              },
-              {
-                name: "Belgium",
-                parent: "B",
-                value: 2.5,
-              },
-              {
-                name: "Bulgaria",
-                parent: "B",
-                value: 1,
-              },
-              {
-                name: "Czech Republic",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Denmark",
-                parent: "B",
-                value: 1.6,
-              },
-              {
-                name: "Estonia",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "Finland",
-                parent: "B",
-                value: 1.3,
-              },
-              {
-                name: "France",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Germany",
-                parent: "B",
-                value: 4.3,
-              },
-              {
-                name: "Greece",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "Croatia",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Hungary",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Ireland",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Italy",
-                parent: "B",
-                value: 2.1,
-              },
-              {
-                name: "Lithuania",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Luxembourg",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Latvia",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Malta",
-                parent: "B",
-                value: 0.1,
-              },
-              {
-                name: "Netherlands",
-                parent: "B",
-                value: 2.1,
-              },
-              {
-                name: "Norway",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Poland",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Portugal",
-                parent: "B",
-                value: 2,
-              },
-              {
-                name: "Romania",
-                parent: "B",
-                value: 2.3,
-              },
-              {
-                name: "Russia",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Spain",
-                parent: "B",
-                value: 3.2,
-              },
-              {
-                name: "Slovak Republic",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Slovenia",
-                parent: "B",
-                value: 0.1,
-              },
-              {
-                name: "Sweden",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Switzerland",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "United States",
-                parent: "C",
-                value: 3.8,
-              },
-              {
-                name: "Canada",
-                parent: "C",
-                value: 2.7,
-              },
-              {
-                name: "Argentina",
-                parent: "D",
-                value: 1.8,
-              },
-              {
-                name: "Bolivia",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Brazil",
-                parent: "D",
-                value: 2.9,
-              },
-              {
-                name: "Bolivia",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Chile",
-                parent: "D",
-                value: 1.9,
-              },
-              {
-                name: "Colombia",
-                parent: "D",
-                value: 0.3,
-              },
-              {
-                name: "Ecuador",
-                parent: "D",
-                value: 0,
-              },
-              {
-                name: "Maxico",
-                parent: "D",
-                value: 0.8,
-              },
-              {
-                name: "Paraguay",
-                parent: "D",
-                value: 0.3,
-              },
-              {
-                name: "Peru",
-                parent: "D",
-                value: 0.7,
-              },
-              {
-                name: "Uruguay",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Venezuela",
-                parent: "D",
-                value: 0,
-              },
-              {
-                name: "Rest of the Latin America",
-                parent: "D",
-                value: 0.1,
-              },
-              {
-                name: "Australia",
-                parent: "E",
-                value: 2.4,
-              },
-              {
-                name: "Others",
-                parent: "E",
-                value: 0.4,
-              },
-            ],
+            data: getData.data,
             showInLegend: true,
             legendType: "point",
           },
@@ -566,7 +251,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>imported content in exports to ${this.displayImportingEconomy}: $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
+          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly ${this.graphOneDetailsList[0].name} (*${this.graphOneDetailsList[0].sum}*%), ${this.graphOneDetailsList[1].name} (*${this.graphOneDetailsList[1].sum}*%), ${this.graphOneDetailsList[2].name} (*${this.graphOneDetailsList[2].sum}*%), ${this.graphOneDetailsList[3].name} (*${this.graphOneDetailsList[3].sum}*%) and ${this.graphOneDetailsList[4].name} (*${this.graphOneDetailsList[4].sum}*%). <br>imported content in exports to ${this.displayImportingEconomy}: $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
           align: "center",
         },
       });
