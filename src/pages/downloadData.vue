@@ -111,7 +111,13 @@
       </div>
 
       <!-- Source economy (For FVA only) -->
-      <div class="row q-mt-lg justify-center">
+      <!-- v-if="indicatorList.findIndex(x => x.label == 'Backward linkages, all exporting sectors (Back_link_sector)') >= 0" -->
+
+      <!-- :style="indicatorList.findIndex(x => x.label == 'Backward linkages, all exporting sectors (Back_link_sector)') >= 0 ? :'opacity:1' : 'opacity:0.5'" -->
+      <div
+        class="row q-mt-lg justify-center"
+        :class="indicatorList.findIndex(x => x.label == 'Backward linkages, all exporting sectors (Back_link_sector)') >= 0 ? null : 'disable-source no-pointer-events'"
+      >
         <div style="width:150px" class="self-center q-pa-md" align="center">
           <div>
             <span class="font-content">
@@ -466,13 +472,46 @@ export default {
       }
     },
     clickDataToDraft() {
+      let _this = this;
+      function checkLength() {
+        if (_this.modifyType == "exportting") {
+          _this.isShowExceededQuotaDialog = true;
+          _this.errorExceededQuotaMessage =
+            "The maximum of selected export economy is 5 economics. ";
+        } else if (_this.modifyType == "importing") {
+          _this.isShowExceededQuotaDialog = true;
+          _this.errorExceededQuotaMessage =
+            "The maximum of selected importing economy is 5 economics. ";
+        } else if (_this.modifyType == "source") {
+          _this.isShowExceededQuotaDialog = true;
+          _this.errorExceededQuotaMessage =
+            "The maximum of selected source economy is 5 economics. ";
+        } else if (_this.modifyType == "sector") {
+          _this.isShowExceededQuotaDialog = true;
+          _this.errorExceededQuotaMessage =
+            "The maximum of selected sectoris 5 sectors. ";
+        }
+      }
       this.modifySelectDataList.forEach((element) => {
         let findIndex = this.modifyDataList.findIndex(
           (x) => x.index == element.index
         );
-        this.modifyDataList.splice(findIndex, 1);
-
-        this.modifyDraftList.push(element);
+        if (
+          this.modifyType != "exportting" &&
+          this.modifyType != "importing" &&
+          this.modifyType != "source" &&
+          this.modifyType != "sector"
+        ) {
+          this.modifyDataList.splice(findIndex, 1);
+          this.modifyDraftList.push(element);
+        } else {
+          if (this.modifyDraftList.length < 5) {
+            this.modifyDataList.splice(findIndex, 1);
+            this.modifyDraftList.push(element);
+          } else {
+            checkLength();
+          }
+        }
       });
       this.modifySelectDataList = [];
     },
@@ -538,20 +577,32 @@ export default {
 
       this.modifyType = type;
 
+      function displayCorrectRelativeData() {
+        if (_this.modifyDraftList.length) {
+          let mapSelectedId = _this.modifyDraftList.map((x) => x.index);
+          _this.modifyDataList = _this.modifyDataList.filter(
+            (x) => !mapSelectedId.includes(x.index)
+          );
+        }
+      }
+
       if (type == "exportting") {
         this.modifyDraftList = [...this.exportList];
         this.modifyDataList = getCountry();
 
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected exporting economy";
+        displayCorrectRelativeData();
       } else if (type == "importing") {
         this.modifyDraftList = [...this.importingList];
         this.modifyDataList = getCountry();
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected importing economy";
+        displayCorrectRelativeData();
       } else if (type == "source") {
         this.modifyDraftList = [...this.sourceList];
         this.modifyDataList = getCountry();
+        displayCorrectRelativeData();
 
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected source economy";
@@ -565,17 +616,21 @@ export default {
             label: element.name,
           });
         });
+
         this.modifyDataList = finalData;
+        displayCorrectRelativeData();
         this.modifySelectFormText = "Select from sector";
         this.modifySelectDraftText = "Selected sector(s)";
       } else if (type == "indicator") {
         this.modifyDraftList = [...this.indicatorList];
         this.modifyDataList = [...this.dataIndicatorList];
+        displayCorrectRelativeData();
         this.modifySelectFormText = "indicator";
         this.modifySelectDraftText = "Selected indicator";
       } else {
         this.modifyDraftList = [...this.yearList];
         this.modifyDataList = [...this.dataYearList];
+        displayCorrectRelativeData();
 
         this.modifySelectFormText = "year";
         this.modifySelectDraftText = "Selected Year(s)";
@@ -583,13 +638,20 @@ export default {
 
       this.isModify = true;
     },
-    getYear() {
-      let url = "https://thaiawesomedev.com";
+    async getYear() {
+      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let data = await Axios.get(url);
+      let temp = [];
+      data.data.forEach((element) => {
+        temp.push({ index: Number(element), label: element });
+      });
+      this.dataYearList = temp;
     },
   },
   mounted() {
     this.getSectorList();
     this.getCountryList();
+    this.getYear();
   },
 };
 </script>
@@ -605,5 +667,9 @@ export default {
 
 .text-underline {
   text-decoration: underline;
+}
+
+.disable-source {
+  opacity: 0.5;
 }
 </style>
