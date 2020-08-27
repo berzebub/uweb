@@ -1,12 +1,8 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar
-      :isShowLogo="false"
-      @countrySelected="exportingEconomyChanged"
-      @yearSelected="(val) => displayYear = val "
-    ></app-bar>
+    <app-bar :isShowLogo="false" @countrySelected="getEmitExportData"></app-bar>
     <header-menu :activeMenu="3"></header-menu>
-    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
+    <importing-select @sectorSelected="getEmitImportData"></importing-select>
 
     <error-page
       v-show="isShowErrorWarning"
@@ -21,12 +17,12 @@
           <p
             class="font-content"
             align="center"
-          >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
+          >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
           <p class="font-content" align="center">
             <span class="q-pr-lg">Source economy</span>
 
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
+            <span class="q-px-lg">Exporting economy ({{displayExportingEconomy}})</span>
             <span class="q-px-lg text-weight-bold">:</span>
             <span class="q-pr-lg">Sector</span>
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
@@ -38,7 +34,7 @@
         <p align="center" class="font-graph q-py-lg">Key policy questions</p>
         <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
           1.
-          <u>Where does {{displayCountry}}’s imported content come from in exports to a selected importer ?</u>
+          <u>Where does {{displayExportingEconomy}}’s imported content come from in exports to a selected importer ?</u>
         </p>
         <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
           2.
@@ -84,59 +80,109 @@ export default {
   data() {
     return {
       continent: "",
-      displayCountry: "",
-      exp_country: "",
-      import_country: "",
-      displaySector: "",
-      sector: 0,
-      displayImportingEconomy: "",
       displayYear: "",
+
+      displayExportingEconomy: "",
+      exp_country: "",
+
+      displayImportingEconomy: "",
+      imp_country: "",
+
+      displaySector: "",
+      sector: "",
+
       isShowErrorWarning: false,
 
       graphOneDetailsList: [],
     };
   },
   methods: {
-    renderGraph() {
-      this.setData();
-      this.setStackChart();
-    },
-    sectorChanged(val) {
-      this.displaySector = val.label;
-      this.sector = Number(val.value);
+    // Function Test
+    getEmitExportData(val) {
+      this.isRenderGraph = false;
 
-      this.renderGraph();
-    },
-    exportingEconomyChanged(val) {
+      this.displayYear = val.year;
+
+      this.displayExportingEconomy = val.name;
       this.exp_country = val.iso;
-      this.displayCountry = val.name;
       this.continent = val.region;
-
-      this.renderGraph();
 
       if (val.name == this.displayImportingEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
+
+        this.renderGraph();
       }
     },
-    importingEconomyChanged(val) {
-      this.displayImportingEconomy = val.label;
-      this.import_country = val.iso;
+    getEmitImportData(val) {
+      this.isRenderGraph = false;
 
-      this.renderGraph();
+      let countryData = val.countryData;
+      let sectorData = val.sectorData;
 
-      if (val.label == this.displayCountry) {
+      this.displayImportingEconomy = countryData.label;
+      this.imp_country = countryData.iso;
+
+      this.displaySector = sectorData.label;
+      this.sector = sectorData.value;
+
+      if (countryData.label == this.displayExportingEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
+
+        this.renderGraph();
       }
     },
-    async setData() {
-      console.clear();
-      let url = `https://api.winner-english.com/u_api/cal_back_country_1.php?exp_country=${this.exp_country}&imp_country=${this.import_country}&year=${this.displayYear}&sector=${this.sector}`;
+    // ------------------------------------------------------------
 
-      let getData = await Axios.get(url);
+    renderGraph() {
+      this.setData();
+    },
+    // sectorChanged(val) {
+    //   this.displaySector = val.label;
+    //   this.sector = Number(val.value);
+
+    //   this.renderGraph();
+    // },
+    // exportingEconomyChanged(val) {
+    //   this.exp_country = val.iso;
+    //   this.displayExportingEconomy = val.name;
+    //   this.continent = val.region;
+
+    //   this.renderGraph();
+
+    //   if (val.name == this.displayImportingEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+    // },
+    // importingEconomyChanged(val) {
+    //   this.displayImportingEconomy = val.label;
+    //   this.imp_country = val.iso;
+
+    //   this.renderGraph();
+
+    //   if (val.label == this.displayExportingEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+    // },
+    async setData() {
+      this.loadingShow();
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_back_country_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      let urlLinkSub = `https://api.winner-english.com/u_api/cal_back_country_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getDataSub = await Axios.get(urlLinkSub);
+
+      getDataSub = getDataSub.data;
 
       let temp = [...getData.data];
 
@@ -242,7 +288,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where does ${this.displayCountry}'s imported content in exports to ${this.displayImportingEconomy} come from?`,
+          text: `Where does ${this.displayExportingEconomy}'s imported content in exports to ${this.displayImportingEconomy} come from?`,
         },
         credits: {
           enabled: false,
@@ -251,10 +297,12 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$40* billion in *year*. Of these exports, *$8* billion is imported content that comes from other economies, mainly ${this.graphOneDetailsList[0].name} (*${this.graphOneDetailsList[0].sum}*%), ${this.graphOneDetailsList[1].name} (*${this.graphOneDetailsList[1].sum}*%), ${this.graphOneDetailsList[2].name} (*${this.graphOneDetailsList[2].sum}*%), ${this.graphOneDetailsList[3].name} (*${this.graphOneDetailsList[3].sum}*%) and ${this.graphOneDetailsList[4].name} (*${this.graphOneDetailsList[4].sum}*%). <br>imported content in exports to ${this.displayImportingEconomy}: $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
+          text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.ImportedContent}* billion is imported content that comes from other economies, mainly ${this.graphOneDetailsList[0].name} (*${this.graphOneDetailsList[0].sum}*%), ${this.graphOneDetailsList[1].name} (*${this.graphOneDetailsList[1].sum}*%), ${this.graphOneDetailsList[2].name} (*${this.graphOneDetailsList[2].sum}*%), ${this.graphOneDetailsList[3].name} (*${this.graphOneDetailsList[3].sum}*%) and ${this.graphOneDetailsList[4].name} (*${this.graphOneDetailsList[4].sum}*%). <br>imported content in exports to ${this.displayImportingEconomy}: $${getDataSub.ImportedContent}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.grossExport}B`,
           align: "center",
         },
       });
+
+      this.setStackChart();
     },
     setStackChart() {
       Highcharts.chart("container1", {
@@ -1130,6 +1178,8 @@ export default {
           text: `Where do ${this.continent} economies contribute the most towards export production?`,
         },
       });
+
+      this.loadingHide();
     },
   },
   mounted() {
