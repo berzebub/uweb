@@ -44,14 +44,14 @@ export default {
     selectCountry() {
       let countryName = this.countryOptions.filter(
         (x) => x.value == this.importingEconomy
-      )[0].label;
+      )[0];
       this.$emit("importingEconomy", countryName);
       this.$q.localStorage.set("impEcId", this.importingEconomy);
     },
     selectSector() {
       let sectorName = this.sectorOptions.filter(
         (x) => x.value == this.sectorSelected
-      )[0].label;
+      )[0];
       this.$q.localStorage.set("secId", this.sectorSelected);
       this.$emit("sectorSelected", sectorName);
     },

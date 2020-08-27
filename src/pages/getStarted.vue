@@ -258,7 +258,6 @@ export default {
   watch: {
     displayCountry: {
       handler() {
-        console.log("xx");
         this.loadGVCGraph();
       },
       deep: true,

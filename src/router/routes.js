@@ -5,6 +5,11 @@ const routes = [
     name: "not-support"
   },
   {
+    path: "/testgraph",
+    component: () => import("pages/testGraph.vue"),
+    name: "testGraph"
+  },
+  {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
@@ -83,7 +88,6 @@ const routes = [
         component: () => import("pages/forwardLinkagesBySector.vue"),
         name: "forwardLinkagesSector"
       },
-
 
       // NOTE : Page test
       {
