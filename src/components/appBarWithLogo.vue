@@ -21,7 +21,7 @@
             outlined
             emit-value
             map-options
-            @input="selectCountry()"
+            @input="selectData()"
           ></q-select>
         </div>
         <div class="q-pl-lg">
@@ -31,7 +31,7 @@
             dense
             :options="yearOptions"
             v-model="yearSelected"
-            @input="selectYear()"
+            @input="selectData()"
             outlined
           ></q-select>
         </div>
@@ -59,6 +59,24 @@ export default {
     };
   },
   methods: {
+    // Function Test
+    selectData() {
+      let countrySelected = this.countryOptions.filter(
+        (x) => x.value == this.countrySelected
+      )[0];
+
+      this.$q.localStorage.set("cid", this.countrySelected);
+      this.$q.localStorage.set("yid", this.yearSelected);
+
+      this.$emit("countrySelected", {
+        name: countrySelected.label,
+        region: countrySelected.region,
+        iso: countrySelected.iso,
+        year: this.yearSelected,
+      });
+    },
+    // -------------------------------------
+
     selectCountry() {
       let countrySelected = this.countryOptions.filter(
         (x) => x.value == this.countrySelected
@@ -88,8 +106,10 @@ export default {
         ? this.$q.localStorage.getItem("yid")
         : this.yearOptions[0];
 
-      this.selectCountry();
-      this.selectYear();
+      this.selectData();
+
+      // this.selectCountry();
+      // this.selectYear();
     },
   },
 

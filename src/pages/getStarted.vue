@@ -1,11 +1,8 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar
-      @countrySelected="(val) => displayCountry = val "
-      @yearSelected="(val) => displayYear = val "
-      :isShowLogo="true"
-      class="shadow-2"
-    ></app-bar>
+    <!-- @yearSelected="getEmitYear" -->
+
+    <app-bar @countrySelected="getEmitData" :isShowLogo="true" class="shadow-2"></app-bar>
 
     <div class="relative-position q-my-md">
       <p class="font-page" align="center">{{ displayCountry.name }}'s key GVC relationships</p>
@@ -233,10 +230,21 @@ export default {
   },
 
   methods: {
+    // Function Test
+    getEmitData(val) {
+      this.displayCountry = val;
+      this.displayYear = val.year;
+
+      this.loadGVCGraph();
+    },
+    // -----------------------------------------
+
     async loadGVCGraph() {
+      this.loadingShow();
+
       let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
 
-      let format = {
+      let formatData = {
         total_percent: 0,
         total_value: 0,
         import_percent: 0,
@@ -249,23 +257,13 @@ export default {
 
       let getData = await Axios.get(url);
 
-      this.graphGVC = getData.data == "" ? format : getData.data;
-    },
-    // countrySelected(val) {
-    //   this.displayCountry = val;
-    // },
-  },
-  watch: {
-    displayCountry: {
-      handler() {
-        this.loadGVCGraph();
-      },
-      deep: true,
+      this.graphGVC = getData.data == "" ? formatData : getData.data;
+
+      this.loadingHide();
     },
   },
 
   mounted() {
-    this.loadGVCGraph();
     this.checkPlatform();
   },
 };

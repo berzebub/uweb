@@ -1,12 +1,11 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar
-      :isShowLogo="false"
-      @countrySelected="exportingEconomyChanged"
-      @yearSelected="yearChanged"
-    ></app-bar>
+    <!-- @yearSelected="yearChanged" -->
+    <app-bar :isShowLogo="false" @countrySelected="getEmitExportData"></app-bar>
     <header-menu></header-menu>
-    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
+
+    <!-- @importingEconomy="importingEconomyChanged" -->
+    <importing-select @sectorSelected="getEmitImportData"></importing-select>
 
     <error-page
       v-show="isShowErrorWarning"
@@ -46,7 +45,7 @@ importing economy"
           <div
             class="font-content q-pt-md"
             align="center"
-          >{{displayCountry}}'s gross exports can be divided into five major parts:</div>
+          >{{displayExportEconomy}}'s gross exports can be divided into five major parts:</div>
           <div class="row q-pt-md" style="width:95%; margin:auto;">
             <div style="width:20%" align="center">Used in importer's comsumption</div>
             <div style="width:20%" align="center">Used in domestic comsumption</div>
@@ -59,7 +58,7 @@ importing economy"
           </div>
           <div class="bracketLeft"></div>
           <div class="bracketRight"></div>
-          <div class="textLeft font-content">{{displayCountry}}'s valued-added in exports</div>
+          <div class="textLeft font-content">{{displayExportEconomy}}'s valued-added in exports</div>
           <div class="textRight font-content">GVC releated exports</div>
         </div>
       </div>
@@ -69,7 +68,7 @@ importing economy"
         <div class="q-px-md font-content">
           <div v-scroll-to="'#structure'" class="cursor-pointer">
             1.
-            <u>What happens to {{displayCountry}}’s exports to a selected importer?</u>
+            <u>What happens to {{displayExportEconomy}}’s exports to a selected importer?</u>
           </div>
           <div class="cursor-pointer" v-scroll-to="'#comparison'">
             2.
@@ -78,7 +77,7 @@ importing economy"
           </div>
           <div class="cursor-pointer" v-scroll-to="'#measuring'">
             3.
-            <u>How does {{displayCountry}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+            <u>How does {{displayExportEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
           </div>
         </div>
       </div>
@@ -128,56 +127,121 @@ export default {
       chart1: "",
       displayYear: "",
       displayImportingEconomy: "",
-      displayCountry: "",
+      import_country: "",
+      displayExportEconomy: "",
+      exp_country: "",
       displaySector: "",
+      sector: "",
       isShowErrorWarning: false,
+
+      isRenderGraph: false,
     };
   },
   methods: {
-    yearChanged(val) {
-      this.displayYear = val;
-      this.renderGraph();
-    },
-    importingEconomyChanged(val) {
-      if (val == this.displayCountry) {
+    // Function Test
+    getEmitExportData(val) {
+      this.isRenderGraph = false;
+
+      console.log(val);
+
+      this.displayYear = val.year;
+
+      this.displayExportEconomy = val.name;
+      this.exp_country = val.iso;
+      this.continent = val.region;
+
+      if (val.name == this.displayImportingEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
+
+        this.renderGraph();
       }
-      this.displayImportingEconomy = val;
-      this.renderGraph();
     },
-    sectorChanged(val) {
-      this.displaySector = val;
-      this.renderGraph();
+    getEmitImportData(val) {
+      this.isRenderGraph = false;
+
+      console.log(val);
+      let countryData = val.countryData;
+      let sectorData = val.sectorData;
+
+      this.displayImportingEconomy = countryData.label;
+      this.import_country = countryData.iso;
+
+      this.displaySector = sectorData.label;
+      this.sector = sectorData.value;
+
+      if (countryData.label == this.displayExportEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+
+        this.renderGraph();
+      }
     },
+    // ------------------------------------------
+
+    // yearChanged(val) {
+    //   this.renderGraph();
+    // },
+    // importingEconomyChanged(val) {
+    //   if (val == this.displayExportEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+
+    //   this.displayImportingEconomy = val.label;
+    //   this.import_country = val.iso;
+    // },
+    // sectorChanged(val) {
+    //   this.displaySector = val.label;
+    //   this.sector = val.value;
+    //   this.renderGraph();
+    // },
+    // exportingEconomyChanged(val) {
+    //   this.displayExportEconomy = val.name;
+    //   this.exp_country = val.iso;
+    //   this.continent = val.region;
+    //   this.renderGraph();
+
+    //   if (val == this.displayImportingEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+    // },
+
     renderGraph() {
+      if (!this.isRenderGraph) {
+        console.log(1);
+        this.isRenderGraph = true;
+        this.setData();
+      }
+
+      // setTimeout(() => {
+
+      // }, 500);
+      // setTimeout(() => {
+      //   this.setStackChart();
+      // }, 1000);
+      // setTimeout(() => {
+      //   this.setStackChart2();
+      // }, 1500);
+      // setTimeout(() => {
+      //   this.loadingHide();
+      // }, 1600);
+    },
+
+    async setData() {
       this.loadingShow();
 
-      setTimeout(() => {
-        this.setData();
-      }, 500);
-      setTimeout(() => {
-        this.setStackChart();
-      }, 1000);
-      setTimeout(() => {
-        this.setStackChart2();
-      }, 1500);
-      setTimeout(() => {
-        this.loadingHide();
-      }, 1600);
-    },
-    exportingEconomyChanged(val) {
-      this.displayCountry = val.name;
-      this.continent = val.region;
-      this.renderGraph();
-      if (val == this.displayImportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-    },
-    async setData() {
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exp_country}&imp_country=${this.import_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
       this.chart1 = Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
@@ -189,33 +253,33 @@ export default {
             layoutAlgorithm: "strip",
             data: [
               {
-                name: "Imp. cons. (60%)",
-                value: 60,
+                name: `Imp. cons. (${getData.imp_cons}%)`,
+                value: getData.imp_cons,
                 color: "#2381B8",
                 label: `Used in ${this.displayImportingEconomy}’s comsumption`,
               },
               {
-                name: "imp. exp. (15%)",
-                value: 5,
+                name: `imp. exp. (${getData.imp_exp}%)`,
+                value: getData.imp_exp,
                 color: "#EB1E63",
                 label: `Used in ${this.displayImportingEconomy}’s export production`,
               },
               {
-                name: "Dom. cons (5%)",
-                value: 5,
+                name: `Dom. cons (${getData.dom_cons}%)`,
+                value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.displayCountry}’s domestic <br>comsumption`,
+                label: `Used in ${this.displayExportEconomy}’s domestic <br>comsumption`,
               },
               {
-                name: "Double (5%)",
-                value: 5,
+                name: `Double (${getData.double}%)`,
+                value: getData.double,
                 color: "#2D9687",
                 label:
                   "Double counted exports <br>from repeated border crossings",
               },
               {
-                name: "Imp. cont. (15%)",
-                value: 15,
+                name: `Imp. cont. (${getData.imp_cont}%)`,
+                value: getData.imp_cont,
                 color: "#9C26B3",
                 label: "Imported content",
               },
@@ -251,13 +315,13 @@ export default {
           },
           text:
             "What happens to " +
-            this.displayCountry +
+            this.displayExportEconomy +
             "'s exports to " +
             this.displayImportingEconomy +
             "?",
         },
         subtitle: {
-          text: `Gross exports to ${this.displayImportingEconomy}: $10B / Gross exports to World: $40B`,
+          text: `Gross exports to ${this.displayImportingEconomy}: $${getData.text_export_to_import_country}B / Gross exports to World: $${getData.text_export_to_world}B`,
           align: "left",
         },
         credits: {
@@ -279,8 +343,32 @@ export default {
           },
         },
       });
+
+      this.setStackChart();
     },
-    setStackChart() {
+    async setStackChart() {
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
+      let country = [];
+      let imp_cons = [];
+      let imp_exp = [];
+      let imp_cont = [];
+      let dom_cons = [];
+      let double = [];
+
+      getData.map((x) => {
+        country.push(x.imp_country);
+        imp_cons.push(x.imp_cons);
+        imp_exp.push(x.imp_exp);
+        imp_cont.push(x.imp_cont);
+        dom_cons.push(x.dom_cons);
+        double.push(x.double);
+      });
+
       Highcharts.chart("container1", {
         chart: {
           type: "column",
@@ -297,16 +385,7 @@ export default {
           labels: {
             rotation: -90,
           },
-          categories: [
-            "Thailand",
-            "Vietname",
-            "Malaysia",
-            "Singapore",
-            "Indonesia",
-            "Lao PDR",
-            "Cambodia",
-            "Brunei Darussalam",
-          ],
+          categories: country,
         },
         yAxis: {
           min: 0,
@@ -361,48 +440,48 @@ export default {
         series: [
           {
             name: `Used in ${this.displayImportingEconomy}'s comsumption`,
-            data: [18, 25, 20, 16, 12, 10, 14, 31],
+            data: imp_cons,
             color: "#2381B8",
           },
           {
             name: `Used in ${this.displayImportingEconomy}'s export production`,
-            data: [8, 3, 5, 10, 9, 10, 10, 3],
+            data: imp_exp,
             color: "#EB1E63",
           },
           {
-            name: `Used in ${this.displayCountry}'s domestic <br>comsumption`,
-            data: [5, 10, 5, 8, 4, 10, 8, 3],
+            name: `Used in ${this.displayExportEconomy}'s domestic <br>comsumption`,
+            data: dom_cons,
             color: "#f99704",
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
-            data: [0, 0, 0, 0, 0, 0, 0, 0],
+            data: double,
             color: "#2D9687",
           },
           {
             name: "Imported content",
-            data: [9, 2, 10, 6, 15, 10, 8, 3],
+            data: imp_cont,
             color: "#9C26B3",
           },
         ],
         exporting: {
-          // buttons: {
-          //   contextButton: {
-          //     menuItems: [
-          //       "printChart",
-          //       "separator",
-          //       // "downloadPNG",
-          //       // "downloadJPEG",
-          //       "downloadPDF",
-          //       // "downloadSVG",
-          //       // "separator",
-          //       "downloadCSV",
-          //       // "downloadXLS",
-          //       //"viewData",
-          //       // "openInCloud",
-          //     ],
-          //   },
-          // },
+          buttons: {
+            contextButton: {
+              menuItems: [
+                "printChart",
+                "separator",
+                // "downloadPNG",
+                // "downloadJPEG",
+                "downloadPDF",
+                // "downloadSVG",
+                // "separator",
+                "downloadCSV",
+                // "downloadXLS",
+                //"viewData",
+                // "openInCloud",
+              ],
+            },
+          },
           width: "1280px",
           chartOptions: {
             legend: {
@@ -417,6 +496,8 @@ export default {
           },
         },
       });
+
+      this.setStackChart2();
     },
     setStackChart2() {
       Highcharts.chart("container2", {
@@ -448,7 +529,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `How does ${this.displayCountry}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
+          text: `How does ${this.displayExportEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
         },
         xAxis: {
           max: 0,
@@ -476,6 +557,8 @@ export default {
           },
         ],
       });
+
+      this.loadingHide();
     },
   },
   mounted() {
