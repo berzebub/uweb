@@ -127,7 +127,7 @@ export default {
       chart1: "",
       displayYear: "",
       displayImportingEconomy: "",
-      import_country: "",
+      imp_country: "",
       displayExportEconomy: "",
       exp_country: "",
       displaySector: "",
@@ -141,8 +141,6 @@ export default {
     // Function Test
     getEmitExportData(val) {
       this.isRenderGraph = false;
-
-      console.log(val);
 
       this.displayYear = val.year;
 
@@ -161,12 +159,11 @@ export default {
     getEmitImportData(val) {
       this.isRenderGraph = false;
 
-      console.log(val);
       let countryData = val.countryData;
       let sectorData = val.sectorData;
 
       this.displayImportingEconomy = countryData.label;
-      this.import_country = countryData.iso;
+      this.imp_country = countryData.iso;
 
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
@@ -214,7 +211,6 @@ export default {
 
     renderGraph() {
       if (!this.isRenderGraph) {
-        console.log(1);
         this.isRenderGraph = true;
         this.setData();
       }
@@ -236,7 +232,7 @@ export default {
     async setData() {
       this.loadingShow();
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exp_country}&imp_country=${this.import_country}&year=${this.displayYear}&sector=${this.sector}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
       let getData = await Axios.get(urlLink);
 
@@ -499,7 +495,13 @@ export default {
 
       this.setStackChart2();
     },
-    setStackChart2() {
+    async setStackChart2() {
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
       Highcharts.chart("container2", {
         legend: {
           useHTML: true,
@@ -547,12 +549,12 @@ export default {
         series: [
           {
             name: "Domestic value-added trade balance",
-            data: [-3],
+            data: [getData.blue],
             color: "#2381B8",
           },
           {
             name: "Gross trade balance",
-            data: [-9],
+            data: [getData.red],
             color: "#EB1E63",
           },
         ],
