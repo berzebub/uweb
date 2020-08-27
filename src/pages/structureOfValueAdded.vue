@@ -45,7 +45,7 @@ importing economy"
           <div
             class="font-content q-pt-md"
             align="center"
-          >{{displayExportEconomy}}'s gross exports can be divided into five major parts:</div>
+          >{{displayExportingEconomy}}'s gross exports can be divided into five major parts:</div>
           <div class="row q-pt-md" style="width:95%; margin:auto;">
             <div style="width:20%" align="center">Used in importer's comsumption</div>
             <div style="width:20%" align="center">Used in domestic comsumption</div>
@@ -58,7 +58,7 @@ importing economy"
           </div>
           <div class="bracketLeft"></div>
           <div class="bracketRight"></div>
-          <div class="textLeft font-content">{{displayExportEconomy}}'s valued-added in exports</div>
+          <div class="textLeft font-content">{{displayExportingEconomy}}'s valued-added in exports</div>
           <div class="textRight font-content">GVC releated exports</div>
         </div>
       </div>
@@ -68,7 +68,7 @@ importing economy"
         <div class="q-px-md font-content">
           <div v-scroll-to="'#structure'" class="cursor-pointer">
             1.
-            <u>What happens to {{displayExportEconomy}}’s exports to a selected importer?</u>
+            <u>What happens to {{displayExportingEconomy}}’s exports to a selected importer?</u>
           </div>
           <div class="cursor-pointer" v-scroll-to="'#comparison'">
             2.
@@ -77,7 +77,7 @@ importing economy"
           </div>
           <div class="cursor-pointer" v-scroll-to="'#measuring'">
             3.
-            <u>How does {{displayExportEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+            <u>How does {{displayExportingEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
           </div>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default {
       displayYear: "",
       displayImportingEconomy: "",
       imp_country: "",
-      displayExportEconomy: "",
+      displayExportingEconomy: "",
       exp_country: "",
       displaySector: "",
       sector: "",
@@ -144,7 +144,7 @@ export default {
 
       this.displayYear = val.year;
 
-      this.displayExportEconomy = val.name;
+      this.displayExportingEconomy = val.name;
       this.exp_country = val.iso;
       this.continent = val.region;
 
@@ -168,7 +168,7 @@ export default {
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
 
-      if (countryData.label == this.displayExportEconomy) {
+      if (countryData.label == this.displayExportingEconomy) {
         this.isShowErrorWarning = true;
       } else {
         this.isShowErrorWarning = false;
@@ -182,7 +182,7 @@ export default {
     //   this.renderGraph();
     // },
     // importingEconomyChanged(val) {
-    //   if (val == this.displayExportEconomy) {
+    //   if (val == this.displayExportingEconomy) {
     //     this.isShowErrorWarning = true;
     //   } else {
     //     this.isShowErrorWarning = false;
@@ -197,7 +197,7 @@ export default {
     //   this.renderGraph();
     // },
     // exportingEconomyChanged(val) {
-    //   this.displayExportEconomy = val.name;
+    //   this.displayExportingEconomy = val.name;
     //   this.exp_country = val.iso;
     //   this.continent = val.region;
     //   this.renderGraph();
@@ -264,7 +264,7 @@ export default {
                 name: `Dom. cons (${getData.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.displayExportEconomy}’s domestic <br>comsumption`,
+                label: `Used in ${this.displayExportingEconomy}’s domestic <br>comsumption`,
               },
               {
                 name: `Double (${getData.double}%)`,
@@ -311,7 +311,7 @@ export default {
           },
           text:
             "What happens to " +
-            this.displayExportEconomy +
+            this.displayExportingEconomy +
             "'s exports to " +
             this.displayImportingEconomy +
             "?",
@@ -445,7 +445,7 @@ export default {
             color: "#EB1E63",
           },
           {
-            name: `Used in ${this.displayExportEconomy}'s domestic <br>comsumption`,
+            name: `Used in ${this.displayExportingEconomy}'s domestic <br>comsumption`,
             data: dom_cons,
             color: "#f99704",
           },
@@ -531,7 +531,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `How does ${this.displayExportEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
+          text: `How does ${this.displayExportingEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
         },
         xAxis: {
           max: 0,
