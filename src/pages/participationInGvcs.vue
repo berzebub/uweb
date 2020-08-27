@@ -1,12 +1,8 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar
-      :isShowLogo="false"
-      @countrySelected="exportingEconomyChanged"
-      @yearSelected="(val) => displayYear = val "
-    ></app-bar>
+    <app-bar :isShowLogo="false" @countrySelected="getEmitExportData"></app-bar>
     <header-menu :activeMenu="2"></header-menu>
-    <importing-select @importingEconomy="importingEconomyChanged" @sectorSelected="sectorChanged"></importing-select>
+    <importing-select @sectorSelected="getEmitImportData"></importing-select>
 
     <error-page
       v-show="isShowErrorWarning"
@@ -43,6 +39,7 @@ import appBar from "../components/appBarWithLogo";
 import headerMenu from "../components/fourMenu";
 import importingSelect from "../components/importEconomySelect";
 import errorPage from "../components/error-page";
+import Axios from "axios";
 export default {
   components: {
     appBar,
@@ -53,41 +50,105 @@ export default {
   data() {
     return {
       displayImportingEconomy: "",
+      exp_country: "",
       displayYear: "",
-      displayCountry: "",
+      displayExportingEconomy: "",
+      imp_country: "",
       continent: "",
       displaySector: "",
+      sector: "",
       isShowErrorWarning: false,
     };
   },
   methods: {
-    sectorChanged(val) {
-      this.displaySector = val;
-      this.renderGraph();
+    // Function Test
+    getEmitExportData(val) {
+      this.isRenderGraph = false;
+
+      this.displayYear = val.year;
+
+      this.displayExportingEconomy = val.name;
+      this.exp_country = val.iso;
+      this.continent = val.region;
+
+      if (val.name == this.displayImportingEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+
+        this.renderGraph();
+      }
     },
+    getEmitImportData(val) {
+      this.isRenderGraph = false;
+
+      let countryData = val.countryData;
+      let sectorData = val.sectorData;
+
+      this.displayImportingEconomy = countryData.label;
+      this.imp_country = countryData.iso;
+
+      this.displaySector = sectorData.label;
+      this.sector = sectorData.value;
+
+      if (countryData.label == this.displayExportingEconomy) {
+        this.isShowErrorWarning = true;
+      } else {
+        this.isShowErrorWarning = false;
+
+        this.renderGraph();
+      }
+    },
+    // ------------------------------------------------------------
+
     renderGraph() {
       this.setStackChart();
     },
-    exportingEconomyChanged(val) {
-      this.displayCountry = val.name;
-      this.continent = val.region;
-      this.renderGraph();
-      if (val == this.displayImportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-    },
-    importingEconomyChanged(val) {
-      this.displayImportingEconomy = val;
-      this.renderGraph();
-      if (val == this.displayCountry) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-    },
-    setStackChart() {
+
+    // sectorChanged(val) {
+    //   this.displaySector = val;
+    //   this.renderGraph();
+    // },
+    // exportingEconomyChanged(val) {
+    //   this.displayExportingEconomy = val.name;
+    //   this.continent = val.region;
+    //   this.renderGraph();
+    //   if (val == this.displayImportingEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+    // },
+    // importingEconomyChanged(val) {
+    //   this.displayImportingEconomy = val;
+    //   this.renderGraph();
+    //   if (val == this.displayExportingEconomy) {
+    //     this.isShowErrorWarning = true;
+    //   } else {
+    //     this.isShowErrorWarning = false;
+    //   }
+    // },
+    async setStackChart() {
+      this.loadingShow();
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_participation.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
+      let countryList = [];
+      let forwardList = [];
+      let backwardList = [];
+      let doubleList = [];
+
+      getData.map((x) => {
+        countryList.push(x.country);
+        forwardList.push(x.forward);
+        backwardList.push(x.backward);
+        doubleList.push(x.double);
+      });
+
       Highcharts.chart("container1", {
         chart: {
           type: "column",
@@ -98,16 +159,7 @@ export default {
           labels: {
             rotation: -90,
           },
-          categories: [
-            "Thailand",
-            "Vietname",
-            "Malaysia",
-            "Singapore",
-            "Indonesia",
-            "Lao PDR",
-            "Cambodia",
-            "Brunei Darussalam",
-          ],
+          categories: countryList,
         },
         yAxis: {
           min: 0,
@@ -162,17 +214,17 @@ export default {
         series: [
           {
             name: `Used in ${this.displayImportingEconomy}'s export production <br>(forward linkages)`,
-            data: [18, 25, 20, 16, 12, 10, 14, 31],
+            data: forwardList,
             color: "#2381B8",
           },
           {
             name: "Imported content (backward linkages)",
-            data: [8, 3, 5, 10, 9, 10, 10, 3],
+            data: backwardList,
             color: "#EB1E63",
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
-            data: [5, 10, 5, 8, 4, 10, 8, 3],
+            data: doubleList,
             color: "#f99704",
           },
         ],
@@ -181,9 +233,11 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `How much of ${this.displayCountry}’s exports to ${this.displayImportingEconomy} are GVC related <br>compared to other ${this.continent} economies?`,
+          text: `How much of ${this.displayExportingEconomy}’s exports to ${this.displayImportingEconomy} are GVC related <br>compared to other ${this.continent} economies?`,
         },
       });
+
+      this.loadingHide();
     },
   },
   mounted() {
