@@ -753,7 +753,6 @@ export default {
         this.resultList = values;
         this.isShowDownloadBtn = true;
         this.loadingHide();
-        this.$refs.downloadData.click();
       });
     },
     //indicator api link no sourceData
