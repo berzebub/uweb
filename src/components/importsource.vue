@@ -36,8 +36,8 @@ export default {
     return {
       countryOptions: [],
       importingEconomy: "",
-      sourceEconomy: this.$q.localStorage.has("sourcingEconomy")
-        ? this.$q.localStorage.getItem("sourcingEconomy")
+      sourceEconomy: this.$q.sessionStorage.has("sourcingEconomy")
+        ? this.$q.sessionStorage.getItem("sourcingEconomy")
         : "",
     };
   },
@@ -46,14 +46,18 @@ export default {
       let countryName = this.countryOptions.filter(
         (x) => x.value == this.importingEconomy
       )[0].label;
+
+      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
       this.$emit("importingEconomy", countryName);
-      this.$q.localStorage.set("impEcId", this.importingEconomy);
     },
     selectSource() {
-      let sourceEconomy = this.countryOptions.filter(
+      let sourceEconomy;
+
+      sourceEconomy = this.countryOptions.filter(
         (x) => x.value == this.sourceEconomy
       )[0].label;
-      this.$q.localStorage.set("sourcingEconomy", this.sourceEconomy);
+
+      this.$q.sessionStorage.set("sourcingEconomy", this.sourceEconomy);
       this.$emit("sourcingEconomy", sourceEconomy);
     },
   },
