@@ -17,7 +17,7 @@ Vue.use(HighchartsVue);
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -55,18 +55,26 @@ Vue.mixin({
         };
         tempOptions.push(data);
       });
-      tempOptions.sort((a, b) => a.label > b.label ? 1 : -1)
+      tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
+
       this.countryOptions = tempOptions;
-      if (!this.$q.localStorage.has("cid")) {
+
+      if (!this.$q.sessionStorage.has("cid")) {
         this.countrySelected = tempOptions[0].value;
       } else {
-        this.countrySelected = this.$q.localStorage.getItem("cid");
+        this.countrySelected = this.$q.sessionStorage.getItem("cid");
       }
 
-      if (!this.$q.localStorage.has("impEcId")) {
+      if (!this.$q.sessionStorage.has("impEcId")) {
         this.importingEconomy = tempOptions[0].value;
       } else {
-        this.importingEconomy = this.$q.localStorage.getItem("impEcId");
+        this.importingEconomy = this.$q.sessionStorage.getItem("impEcId");
+      }
+
+      if (!this.$q.sessionStorage.has("sourcEcId")) {
+        this.sourceEconomy = tempOptions[0].value;
+      } else {
+        this.sourceEconomy = this.$q.sessionStorage.getItem("sourcEcId");
       }
     },
     getSectorList() {
@@ -80,10 +88,10 @@ Vue.mixin({
         tempOptions.push(data);
       });
       this.sectorOptions = tempOptions;
-      if (!this.$q.localStorage.has("secId")) {
+      if (!this.$q.sessionStorage.has("secId")) {
         this.sectorSelected = tempOptions[0].value;
       } else {
-        this.sectorSelected = this.$q.localStorage.getItem("secId");
+        this.sectorSelected = this.$q.sessionStorage.getItem("secId");
       }
     },
     notifyGreen(message) {
