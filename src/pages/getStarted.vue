@@ -15,8 +15,16 @@
       ></q-btn>
     </div>
 
+    <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
+      <q-spinner-pie color="primary" size="100px" />
+    </div>
+
     <!-- Country's key GVC relationships -->
-    <div class="font-content q-px-xl q-pt-md" style="width:90%; margin:auto; max-width:1200px;">
+    <div
+      class="font-content q-px-xl q-pt-md"
+      style="width:90%; margin:auto; max-width:1200px;"
+      v-show="isGraphGVC"
+    >
       <p>
         <b>
           {{ displayCountry.name }}’s GVC exports amount to
@@ -226,6 +234,8 @@ export default {
       displayCountry: "",
       displayYear: "",
       graphGVC: {},
+
+      isGraphGVC: false,
     };
   },
 
@@ -240,7 +250,7 @@ export default {
     // -----------------------------------------
 
     async loadGVCGraph() {
-      this.loadingShow();
+      this.isGraphGVC = false;
 
       let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
 
@@ -252,14 +262,14 @@ export default {
         export_percent: 0,
         export_value: 0,
         redsize: 0,
-        greensize: 0,
+        greensize: 0
       };
 
       let getData = await Axios.get(url);
 
       this.graphGVC = getData.data == "" ? formatData : getData.data;
 
-      this.loadingHide();
+      this.isGraphGVC = true;
     },
   },
 
