@@ -1,15 +1,46 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <app-bar :isShowLogo="false" @countrySelected="getEmitExportData"></app-bar>
+    <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
     <header-menu :activeMenu="2"></header-menu>
-    <importing-select @sectorSelected="getEmitImportData"></importing-select>
+    <!-- <importing-select @sectorSelected="getEmitImportData"></importing-select> -->
 
+    <!-- Importing Economy -->
+    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+      <div class="col-6 q-px-md">
+        <span>Importing economy</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="countryOptions"
+          v-model="importingEconomy"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+
+      <div class="col-6 q-px-md">
+        <span>Sector</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="sectorOptions"
+          v-model="sectorSelected"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+    </div>
+
+    <!-- Error Page -->
     <error-page
       v-show="isShowErrorWarning"
       displayText="The exporting economy must not be the same as the 
 importing economy."
     ></error-page>
 
+    <!-- Show Content -->
     <div v-show="!isShowErrorWarning">
       <div class="q-px-md">
         <div
@@ -25,9 +56,15 @@ importing economy."
           >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
         </div>
       </div>
+
       <div style="height:30px"></div>
       <div style="width:90%;margin:auto;max-width:1200px">
-        <div id="container1"></div>
+        <div align="center" class="q-pa-lg" v-if="!isChart">
+          <q-spinner-pie color="primary" size="100px" />
+        </div>
+        <div v-show="isChart">
+          <div id="container1"></div>
+        </div>
       </div>
       <div style="height:30px"></div>
     </div>
@@ -49,55 +86,70 @@ export default {
   },
   data() {
     return {
+      countryOptions: [],
+      importingEconomy: "",
+
+      sectorOptions: [],
+      sectorSelected: "",
+
+      continent: "",
+
+      displayYear: "",
+
       displayImportingEconomy: "",
       exp_country: "",
-      displayYear: "",
+
       displayExportingEconomy: "",
       imp_country: "",
-      continent: "",
+
       displaySector: "",
       sector: "",
+
       isShowErrorWarning: false,
+
+      isChart: false,
     };
   },
   methods: {
-    // Function Test
-    getEmitExportData(val) {
-      this.isRenderGraph = false;
-
-      this.displayYear = val.year;
-
+    // Get Emit Data
+    getEmitData(val) {
+      // Exporting Economy
       this.displayExportingEconomy = val.name;
       this.exp_country = val.iso;
       this.continent = val.region;
+      this.displayYear = val.year;
 
-      if (val.name == this.displayImportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-
-        this.renderGraph();
-      }
+      this.getStructureOfValue();
     },
-    getEmitImportData(val) {
-      this.isRenderGraph = false;
 
-      let countryData = val.countryData;
-      let sectorData = val.sectorData;
+    // Get Structure Of Value
+    getStructureOfValue() {
+      // Importing Economy
+      let countryData = this.countryOptions.filter(
+        (x) => x.value == this.importingEconomy
+      )[0];
+
+      let sectorData = this.sectorOptions.filter(
+        (x) => x.value == this.sectorSelected
+      )[0];
 
       this.displayImportingEconomy = countryData.label;
       this.imp_country = countryData.iso;
-
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
 
-      if (countryData.label == this.displayExportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
+      this.$q.sessionStorage.set("impEcId", countryData.value);
 
-        this.renderGraph();
+      this.$q.sessionStorage.set("secId", sectorData.value);
+
+      if (this.displayImportingEconomy == this.displayExportingEconomy) {
+        this.isShowErrorWarning = true;
+        return;
       }
+
+      this.isShowErrorWarning = false;
+
+      this.renderGraph(); // Render Graph
     },
     // ------------------------------------------------------------
 
@@ -105,32 +157,8 @@ export default {
       this.setStackChart();
     },
 
-    // sectorChanged(val) {
-    //   this.displaySector = val;
-    //   this.renderGraph();
-    // },
-    // exportingEconomyChanged(val) {
-    //   this.displayExportingEconomy = val.name;
-    //   this.continent = val.region;
-    //   this.renderGraph();
-    //   if (val == this.displayImportingEconomy) {
-    //     this.isShowErrorWarning = true;
-    //   } else {
-    //     this.isShowErrorWarning = false;
-    //   }
-    // },
-    // importingEconomyChanged(val) {
-    //   this.displayImportingEconomy = val;
-    //   this.renderGraph();
-    //   if (val == this.displayExportingEconomy) {
-    //     this.isShowErrorWarning = true;
-    //   } else {
-    //     this.isShowErrorWarning = false;
-    //   }
-    // },
     async setStackChart() {
-      this.loadingShow();
-
+      this.isChart = false;
       let urlLink = `https://api.winner-english.com/u_api/cal_participation.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
       let getData = await Axios.get(urlLink);
@@ -148,6 +176,8 @@ export default {
         backwardList.push(x.backward);
         doubleList.push(x.double);
       });
+
+      this.isChart = true;
 
       Highcharts.chart("container1", {
         chart: {
@@ -236,12 +266,11 @@ export default {
           text: `How much of ${this.displayExportingEconomy}’s exports to ${this.displayImportingEconomy} are GVC related <br>compared to other ${this.continent} economies?`,
         },
       });
-
-      this.loadingHide();
     },
   },
-  mounted() {
-    // this.setStackChart();
+  async mounted() {
+    await this.getCountryList();
+    await this.getSectorList();
   },
 };
 </script>
