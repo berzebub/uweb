@@ -456,6 +456,7 @@ export default {
       this.sourceList = [];
       this.yearList = [];
       this.sectorList = [];
+      this.isShowDownloadBtn = false;
     },
     saveData() {
       if (this.modifyType == "exportting") {
@@ -472,6 +473,7 @@ export default {
         this.yearList = [...this.modifyDraftList];
       }
       this.isModify = false;
+      this.isShowDownloadBtn = false;
     },
 
     activeIndividual(val) {
@@ -502,7 +504,11 @@ export default {
         } else if (_this.modifyType == "sector") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected sectoris 5 sectors. ";
+            "The maximum of selected sector is 5 sectors. ";
+        } else if (_this.modifyType == "indicator") {
+          _this.isShowExceededQuotaDialog = true;
+          _this.errorExceededQuotaMessage =
+            "The maximum of selected indicators is 5 indicators. ";
         }
       }
       this.modifySelectDataList.forEach((element) => {
@@ -513,7 +519,8 @@ export default {
           this.modifyType != "exportting" &&
           this.modifyType != "importing" &&
           this.modifyType != "source" &&
-          this.modifyType != "sector"
+          this.modifyType != "sector" &&
+          this.modifyType != "indicator"
         ) {
           this.modifyDataList.splice(findIndex, 1);
           this.modifyDraftList.push(element);
@@ -882,8 +889,6 @@ export default {
           sectorData;
       }
 
-      // this.promiseBucket.push(data);
-
       let dataPromise = new Promise(async (a, b) => {
         let data = await Axios.get(url);
         if (typeData == 2) {
@@ -898,7 +903,6 @@ export default {
               year: x.year,
               indicator: x.indicator,
             };
-            // this.resultList.push(tempInput);
             a(tempInput);
           });
         } else {
@@ -912,14 +916,11 @@ export default {
             year: data.data.year,
             indicator: data.data.indicator,
           };
-          // this.resultList.push(tempInput);
           a(tempInput);
         }
       });
 
       this.promiseBucket.push(dataPromise);
-
-      // let data = await Axios.get(url);
     },
 
     //indicator api link with sourceData
@@ -941,10 +942,6 @@ export default {
         "&source_country=" +
         sourceData;
 
-      // this.promiseBucket.push(data);
-
-      // let data = await Axios.get(url);
-
       let dataPromise = new Promise(async (a, b) => {
         let data = await Axios.get(url);
         data.data.forEach((x) => {
@@ -958,7 +955,6 @@ export default {
             year: x.year,
             indicator: x.indicator,
           };
-          // this.resultList.push(tempInput);
         });
         a(tempInput);
       });
