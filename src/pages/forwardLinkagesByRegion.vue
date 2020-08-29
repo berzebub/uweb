@@ -1,26 +1,39 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar
-      :isShowLogo="false"
-      @countrySelected="exportingEconomyChanged"
-      @yearSelected="yearChanged "
-    ></app-bar>
+    <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
     <header-menu :activeMenu="4"></header-menu>
-    <sector @sectorSelected="sectorChanged"></sector>
+
+    <!-- <sector @sectorSelected="sectorChanged"></sector> -->
+
+    <div class="q-px-md q-py-lg" style="width:500px;margin:auto">
+      <span>Sector</span>
+      <q-select
+        @input="getStructureOfValue()"
+        dense
+        outlined
+        :options="sectorOptions"
+        v-model="sectorSelected"
+        emit-value
+        map-options
+      ></q-select>
+    </div>
 
     <!-- Title box -->
     <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
       <div class="q-pa-md" style="border-radius:5px;border:2px solid">
-        <p
-          class="font-graph"
-          align="center"
-        >Where does {{ displayCountry }} contribute towards export production</p>
-        <p
-          class="font-content"
-          align="center"
-        >Some part of {{displayCountry}}’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economy.</p>
+        <p class="font-graph" align="center">
+          Where does {{ displayExportingEconomy }} contribute towards export
+          production
+        </p>
         <p class="font-content" align="center">
-          <span class="q-px-lg">Exporting economy ({{displayCountry}})</span>
+          Some part of {{ displayExportingEconomy }}’s gross exports consist of
+          intermediate inputs that are used by the direct importer to produce
+          exports for third economy.
+        </p>
+        <p class="font-content" align="center">
+          <span class="q-px-lg"
+            >Exporting economy ({{ displayExportingEconomy }})</span
+          >
           <span class="q-pr-md text-weight-bold">:</span>
           <span class="q-pr-lg">Sector</span>
 
@@ -33,30 +46,52 @@
 
       <!-- Key policy questions -->
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+      <p
+        class="font-content q-px-sm cursor-pointer"
+        v-scroll-to="'#importedcountry'"
+      >
         1.
-        <u>Where does {{ displayCountry }} contribute the most towards export production?</u>
+        <u
+          >Where does {{ displayExportingEconomy }} contribute the most towards
+          export production?</u
+        >
       </p>
-      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+      <p
+        class="font-content q-px-sm cursor-pointer"
+        v-scroll-to="'#importedregion'"
+      >
         2.
-        <u>Where do {{ continent }} economies contribute the most towards export production?</u>
+        <u
+          >Where do {{ continent }} economies contribute the most towards export
+          production?</u
+        >
       </p>
     </div>
 
     <div style="height:30px"></div>
     <hr />
-    <div style="height:30px"></div>
 
-    <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
-      <div id="container"></div>
+    <!-- Where does Thailand's imported content -->
+    <div id="importedcountry" style="height:30px"></div>
+    <div style="width:90%;margin:auto;max-width:1200px">
+      <div align="center" class="q-pa-lg" v-if="!isChart">
+        <q-spinner-pie color="primary" size="100px" />
+      </div>
+      <div v-show="isChart">
+        <div id="container"></div>
+      </div>
     </div>
-
     <div style="height:30px"></div>
     <hr />
-    <div style="height:30px" id="importedregion"></div>
 
+    <div id="importedregion" style="height:30px"></div>
     <div style="width:90%;margin:auto;max-width:1200px">
-      <div id="container1"></div>
+      <div align="center" class="q-pa-lg" v-if="!isChart1">
+        <q-spinner-pie color="primary" size="100px" />
+      </div>
+      <div v-show="isChart1">
+        <div id="container1"></div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -71,40 +106,105 @@ export default {
   components: {
     appBar,
     headerMenu,
-    sector,
+    sector
   },
   data() {
     return {
-      displaySector: "",
-      displayCountry: "",
+      sectorOptions: [],
+      sectorSelected: "",
+
       continent: "",
       displayYear: "",
+
+      displayExportingEconomy: "",
+      exp_country: "",
+
+      displaySector: "",
+      sector: "",
+
+      isChart: false,
+      isChart1: false
     };
   },
   methods: {
-    yearChanged(val) {
-      this.displayYear = val;
-      this.renderGraph();
+    // Get Emit Data
+    getEmitData(val) {
+      // Exporting Economy
+      this.displayExportingEconomy = val.name;
+      this.exp_country = val.iso;
+      this.continent = val.region;
+      this.displayYear = val.year;
+
+      this.getStructureOfValue();
     },
 
-    exportingEconomyChanged(val) {
-      this.displayCountry = val.name;
-      this.continent = val.region;
-      this.renderGraph();
-    },
-    sectorChanged(val) {
-      this.displaySector = val;
-      this.renderGraph();
+    // Get Structure Of Value
+    getStructureOfValue() {
+      let sectorData = this.sectorOptions.filter(
+        x => x.value == this.sectorSelected
+      )[0];
+
+      this.displaySector = sectorData.label;
+      this.sector = sectorData.value;
+
+      this.$q.sessionStorage.set("secId", sectorData.value);
+
+      this.renderGraph(); // Render Graph
     },
     renderGraph() {
       this.setData();
       this.setStackChart();
     },
     async setData() {
+      this.isChart = false;
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_forward_country_1.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
+      let temp = [...getData];
+
+      temp = temp.splice(5);
+
+      temp.sort((a, b) => {
+        return b.value - a.value;
+      });
+
+      let getValue = temp.map(x => {
+        return x.value;
+      });
+
+      let sumOfValue = getValue.reduce((a, b) => {
+        return a + b;
+      }, 0);
+
+      let graphOneDetailsList = [];
+
+      let getFirstFive = temp.map((x, index) => {
+        if (index < 5) {
+          let newData = {
+            name: x.name,
+            sum: ((x.value / sumOfValue) * 100).toFixed(2)
+          };
+
+          graphOneDetailsList.push(newData);
+        }
+      });
+
+      let urlLinkSub = `https://api.winner-english.com/u_api/cal_forward_country_1a.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getDataSub = await Axios.get(urlLinkSub);
+
+      getDataSub = getDataSub.data;
+
+      this.isChart = true;
+
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" },
+          style: { fontFamily: "roboto" }
         },
         series: [
           {
@@ -121,386 +221,25 @@ export default {
                   verticalAlign: "top",
                   style: {
                     fontSize: "15px",
-                    fontWeight: "bold",
-                  },
-                },
-              },
+                    fontWeight: "bold"
+                  }
+                }
+              }
             ],
 
-            data: [
-              {
-                id: "A",
-                name: "Asia-Pacific",
-                color: "#2381B8",
-              },
-              {
-                id: "B",
-                name: "Europe",
-                color: "#EB1E63",
-              },
-              {
-                id: "C",
-                name: "North America",
-                color: "#F99704",
-              },
-              {
-                id: "D",
-                name: "Latin America",
-                color: "#2D9687",
-              },
-              {
-                id: "E",
-                name: "Rest of the world",
-                color: "#9C26B3",
-              },
-              {
-                name: "Bhutan",
-                parent: "A",
-                value: 1.3,
-              },
-              {
-                name: "Hongkong",
-                parent: "A",
-                value: 10.9,
-              },
-              {
-                name: "Japan",
-                parent: "A",
-                value: 5.61,
-              },
-              {
-                name: "Bangladesh",
-                parent: "A",
-                value: 3.21,
-              },
-              {
-                name: "Brunei Darussalam",
-                parent: "A",
-                value: 1.21,
-              },
-              {
-                name: "Cambodia",
-                parent: "A",
-                value: 0.21,
-              },
-              {
-                name: "Cyprus",
-                parent: "A",
-                value: 0.31,
-              },
-              {
-                name: "India",
-                parent: "A",
-                value: 3.31,
-              },
-              {
-                name: "Indonesia",
-                parent: "A",
-                value: 2.31,
-              },
-              {
-                name: "Kazakhstan",
-                parent: "A",
-                value: 1.51,
-              },
-              {
-                name: "Kyrgyz Republic",
-                parent: "A",
-                value: 0.51,
-              },
-              {
-                name: "Republic of Korea",
-                parent: "A",
-                value: 2.51,
-              },
-              {
-                name: "Malaysia",
-                parent: "A",
-                value: 1.51,
-              },
-              {
-                name: "Maldives",
-                parent: "A",
-                value: 1.01,
-              },
-              {
-                name: "Mongolia",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Nepal",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Pakistan",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Philippines",
-                parent: "A",
-                value: 2.81,
-              },
-              {
-                name: "People's Republic of China",
-                parent: "A",
-                value: 8.81,
-              },
-              {
-                name: "Singapore",
-                parent: "A",
-                value: 2.81,
-              },
-              {
-                name: "Sri Lanka",
-                parent: "A",
-                value: 0.81,
-              },
-              {
-                name: "Austria",
-                parent: "B",
-                value: 1.8,
-              },
-              {
-                name: "Belgium",
-                parent: "B",
-                value: 2.5,
-              },
-              {
-                name: "Bulgaria",
-                parent: "B",
-                value: 1,
-              },
-              {
-                name: "Czech Republic",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Denmark",
-                parent: "B",
-                value: 1.6,
-              },
-              {
-                name: "Estonia",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "Finland",
-                parent: "B",
-                value: 1.3,
-              },
-              {
-                name: "France",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Germany",
-                parent: "B",
-                value: 4.3,
-              },
-              {
-                name: "Greece",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "Croatia",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Hungary",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Ireland",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Italy",
-                parent: "B",
-                value: 2.1,
-              },
-              {
-                name: "Lithuania",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Luxembourg",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Latvia",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Malta",
-                parent: "B",
-                value: 0.1,
-              },
-              {
-                name: "Netherlands",
-                parent: "B",
-                value: 2.1,
-              },
-              {
-                name: "Norway",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Poland",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Portugal",
-                parent: "B",
-                value: 2,
-              },
-              {
-                name: "Romania",
-                parent: "B",
-                value: 2.3,
-              },
-              {
-                name: "Russia",
-                parent: "B",
-                value: 1.4,
-              },
-              {
-                name: "Spain",
-                parent: "B",
-                value: 3.2,
-              },
-              {
-                name: "Slovak Republic",
-                parent: "B",
-                value: 0,
-              },
-              {
-                name: "Slovenia",
-                parent: "B",
-                value: 0.1,
-              },
-              {
-                name: "Sweden",
-                parent: "B",
-                value: 1.1,
-              },
-              {
-                name: "Switzerland",
-                parent: "B",
-                value: 0.3,
-              },
-              {
-                name: "United States",
-                parent: "C",
-                value: 3.8,
-              },
-              {
-                name: "Canada",
-                parent: "C",
-                value: 2.7,
-              },
-              {
-                name: "Argentina",
-                parent: "D",
-                value: 1.8,
-              },
-              {
-                name: "Bolivia",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Brazil",
-                parent: "D",
-                value: 2.9,
-              },
-              {
-                name: "Bolivia",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Chile",
-                parent: "D",
-                value: 1.9,
-              },
-              {
-                name: "Colombia",
-                parent: "D",
-                value: 0.3,
-              },
-              {
-                name: "Ecuador",
-                parent: "D",
-                value: 0,
-              },
-              {
-                name: "Maxico",
-                parent: "D",
-                value: 0.8,
-              },
-              {
-                name: "Paraguay",
-                parent: "D",
-                value: 0.3,
-              },
-              {
-                name: "Peru",
-                parent: "D",
-                value: 0.7,
-              },
-              {
-                name: "Uruguay",
-                parent: "D",
-                value: 0.9,
-              },
-              {
-                name: "Venezuela",
-                parent: "D",
-                value: 0,
-              },
-              {
-                name: "Rest of the Latin America",
-                parent: "D",
-                value: 0.1,
-              },
-              {
-                name: "Australia",
-                parent: "E",
-                value: 2.4,
-              },
-              {
-                name: "Other",
-                parent: "E",
-                value: 0.4,
-              },
-            ],
+            data: getData,
             showInLegend: true,
-            legendType: "point",
-          },
+            legendType: "point"
+          }
         ],
         title: {
           style: {
-            fontSize: "24px",
+            fontSize: "24px"
           },
-          text: `Where does ${this.displayCountry} contribute the most towards export production?`,
+          text: `Where does ${this.displayExportingEconomy} contribute the most towards export production?`
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
         legend: {
           useHTML: true,
@@ -508,7 +247,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
 
           align: "right",
@@ -520,7 +259,7 @@ export default {
           symbolRadius: 0,
           useHTML: true,
           symbolWidth: 0,
-          labelFormatter: function () {
+          labelFormatter: function() {
             // return "<div>" + this.name + "</div>";
             if (this.name == "Europe") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Euroupe</td></tr></table></div>';
@@ -533,30 +272,70 @@ export default {
             } else if (this.name == "Rest of the world") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
             }
-          },
+          }
         },
         subtitle: {
           style: {
-            fontSize: "14px",
+            fontSize: "14px"
           },
-          text: `Gross exports of ${this.displayCountry} in ${this.displaySector} sector(s) to World amount to *$40* billion in *year*. Of these exports, *$8* billion is ${this.displayCountry}'s contribution to export production in other economies, mainly  United States of America (*19.05*%), Hong Kong (*10.9*%), Japan (*5.61*%), Rep. of Korea (*3.98*%) and Germany (*4.39*%). <br>Contribution to export production: $8B / Gross exports to World: $40B`,
-          align: "center",
-        },
+          text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to World amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.contribution}* billion is ${this.displayExportingEconomy}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
+          align: "center"
+        }
       });
     },
-    setStackChart() {
+    async setStackChart() {
+      this.isChart1 = false;
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_forward_country_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
+      // let getMapArea = getData.map(x => x.map(e => e.area))[0];
+
+      //  getMapArea = [...new Set(getMapArea)];
+
+      //  getMapArea.forEach(element => {
+
+      //  });
+
+      // let series = [];
+      // getData.forEach(element => {
+      //   let data = [];
+      //   for (let i = 0; i < element.length; i++) {
+      //     if (element[i].area == "Asia-Pacific") {
+      //       console.log(element[i]);
+      //     }
+
+      //     data.push({
+      //       name: element[i].imp_country,
+      //       y: 0,
+      //       drilldown: `${element[i].imp_country} - ${element[i].area}`
+      //     });
+      //   }
+
+      //   let dataFinal = {
+      //     name: element.area,
+      //     data: data
+      //   };
+      //   series.push(dataFinal);
+      // });
+
+      this.isChart1 = true;
+
       Highcharts.chart("container1", {
         chart: {
           type: "column",
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" },
+          style: { fontFamily: "roboto" }
         },
 
         xAxis: {
           labels: {
-            rotation: -90,
+            rotation: -90
           },
-          type: "category",
+          type: "category"
           // categories: [
           //   "Brunei Darussalam",
           //   "Cambodia",
@@ -570,12 +349,12 @@ export default {
           // ],
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
         yAxis: {
           min: 0,
           title: {
-            text: "% of gross exports to world",
+            text: "% of gross exports to world"
           },
           stackLabels: {
             enabled: false,
@@ -585,9 +364,9 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray",
-            },
-          },
+                "gray"
+            }
+          }
         },
         legend: {
           useHTML: true,
@@ -595,7 +374,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
           align: "right",
           verticalAlign: "middle",
@@ -603,20 +382,20 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0,
+          symbolRadius: 0
         },
 
         tooltip: {
           headerFormat: "<b>{point.x}</pimported><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false,
-            },
-          },
+              enabled: false
+            }
+          }
         },
 
         series: [
@@ -625,51 +404,51 @@ export default {
             data: [
               {
                 name: "Brunei Darussalam",
-                y: 18,
-                drilldown: "Brunei Darussalam - Asia Pacific",
+                y: 20,
+                drilldown: "Brunei Darussalam - Asia Pacific"
               },
               {
                 name: "Cambodia",
                 y: 3,
-                drilldown: "Cambodia - Asia Pacific",
+                drilldown: "Cambodia - Asia Pacific"
               },
               {
                 name: "Indonesia",
                 y: 1.6,
-                drilldown: "Indonesia - Asia Pacific",
+                drilldown: "Indonesia - Asia Pacific"
               },
               {
                 name: "Lao PDR",
                 y: 12,
-                drilldown: "Lao PDR - Asia Pacific",
+                drilldown: "Lao PDR - Asia Pacific"
               },
               {
                 name: "Malaysia",
                 y: 10,
-                drilldown: "Malaysia - Asia Pacific",
+                drilldown: "Malaysia - Asia Pacific"
               },
               {
                 name: "Philippines",
                 y: 10,
-                drilldown: "Philippines - Asia Pacific",
+                drilldown: "Philippines - Asia Pacific"
               },
               {
                 name: "Singapore",
                 y: 14,
-                drilldown: "Singapore - Asia Pacific",
+                drilldown: "Singapore - Asia Pacific"
               },
               {
                 name: "Thailand",
                 y: 14,
-                drilldown: "Thailand - Asia Pacific",
+                drilldown: "Thailand - Asia Pacific"
               },
               {
                 name: "Viet Nam",
                 y: 14,
-                drilldown: "Viet Nam - Asia Pacific",
-              },
+                drilldown: "Viet Nam - Asia Pacific"
+              }
             ],
-            color: "#2381B8",
+            color: "#2381B8"
           },
           {
             name: "Europe",
@@ -677,50 +456,50 @@ export default {
               {
                 name: "Brunei Darussalam",
                 y: 5,
-                drilldown: "Brunei Darussalam - Europe",
+                drilldown: "Brunei Darussalam - Europe"
               },
               {
                 name: "Cambodia",
                 y: 4,
-                drilldown: "Cambodia - Europe",
+                drilldown: "Cambodia - Europe"
               },
               {
                 name: "Indonesia",
                 y: 3,
-                drilldown: "Indonesia - Europe",
+                drilldown: "Indonesia - Europe"
               },
               {
                 name: "Lao PDR",
                 y: 2,
-                drilldown: "Lao PDR - Europe",
+                drilldown: "Lao PDR - Europe"
               },
               {
                 name: "Malaysia",
                 y: 4,
-                drilldown: "Malaysia - Europe",
+                drilldown: "Malaysia - Europe"
               },
               {
                 name: "Philippines",
                 y: 3,
-                drilldown: "Philippines - Europe",
+                drilldown: "Philippines - Europe"
               },
               {
                 name: "Singapore",
                 y: 2.4,
-                drilldown: "Singapore - Europe",
+                drilldown: "Singapore - Europe"
               },
               {
                 name: "Thailand",
                 y: 6,
-                drilldown: "Thailand - Europe",
+                drilldown: "Thailand - Europe"
               },
               {
                 name: "Viet Nam",
                 y: 3,
-                drilldown: "Viet Nam - Europe",
-              },
+                drilldown: "Viet Nam - Europe"
+              }
             ],
-            color: "#EB1E63",
+            color: "#EB1E63"
           },
           {
             name: "North America",
@@ -728,50 +507,50 @@ export default {
               {
                 name: "Brunei Darussalam",
                 y: 5,
-                drilldown: "Brunei Darussalam - North America",
+                drilldown: "Brunei Darussalam - North America"
               },
               {
                 name: "Cambodia",
                 y: 10,
-                drilldown: "Cambodia - North America",
+                drilldown: "Cambodia - North America"
               },
               {
                 name: "Indonesia",
                 y: 5,
-                drilldown: "Indonesia - North America",
+                drilldown: "Indonesia - North America"
               },
               {
                 name: "Lao PDR",
                 y: 8,
-                drilldown: "Lao PDR - North America",
+                drilldown: "Lao PDR - North America"
               },
               {
                 name: "Malaysia",
                 y: 4,
-                drilldown: "Malaysia - North America",
+                drilldown: "Malaysia - North America"
               },
               {
                 name: "Philippines",
                 y: 10,
-                drilldown: "Philippines - North America",
+                drilldown: "Philippines - North America"
               },
               {
                 name: "Singapore",
                 y: 8,
-                drilldown: "Singapore - North America",
+                drilldown: "Singapore - North America"
               },
               {
                 name: "Thailand",
                 y: 3,
-                drilldown: "Thailand - North America",
+                drilldown: "Thailand - North America"
               },
               {
                 name: "Viet Nam",
                 y: 5,
-                drilldown: "Viet Nam - North America",
-              },
+                drilldown: "Viet Nam - North America"
+              }
             ],
-            color: "#f99704",
+            color: "#f99704"
           },
           {
             name: "Latin America",
@@ -779,50 +558,50 @@ export default {
               {
                 name: "Brunei Darussalam",
                 y: 5,
-                drilldown: "Brunei Darussalam - Latin America",
+                drilldown: "Brunei Darussalam - Latin America"
               },
               {
                 name: "Cambodia",
                 y: 2,
-                drilldown: "Cambodia - Latin America",
+                drilldown: "Cambodia - Latin America"
               },
               {
                 name: "Indonesia",
                 y: 5,
-                drilldown: "Indonesia - Latin America",
+                drilldown: "Indonesia - Latin America"
               },
               {
                 name: "Lao PDR",
                 y: 3,
-                drilldown: "Lao PDR - Latin America",
+                drilldown: "Lao PDR - Latin America"
               },
               {
                 name: "Malaysia",
                 y: 4,
-                drilldown: "Malaysia - Latin America",
+                drilldown: "Malaysia - Latin America"
               },
               {
                 name: "Philippines",
                 y: 6,
-                drilldown: "Philippines - Latin America",
+                drilldown: "Philippines - Latin America"
               },
               {
                 name: "Singapore",
                 y: 2,
-                drilldown: "Singapore - Latin America",
+                drilldown: "Singapore - Latin America"
               },
               {
                 name: "Thailand",
                 y: 3,
-                drilldown: "Thailand - Latin America",
+                drilldown: "Thailand - Latin America"
               },
               {
                 name: "Viet Nam",
                 y: 5,
-                drilldown: "Viet Nam - Latin America",
-              },
+                drilldown: "Viet Nam - Latin America"
+              }
             ],
-            color: "#2D9687",
+            color: "#2D9687"
           },
           {
             name: "Rest of the world",
@@ -830,57 +609,57 @@ export default {
               {
                 name: "Brunei Darussalam",
                 y: 3,
-                drilldown: "Brunei Darussalam - Rest of the world",
+                drilldown: "Brunei Darussalam - Rest of the world"
               },
               {
                 name: "Cambodia",
                 y: 4,
-                drilldown: "Cambodia - Rest of the world",
+                drilldown: "Cambodia - Rest of the world"
               },
               {
                 name: "Indonesia",
                 y: 1,
-                drilldown: "Indonesia - Rest of the world",
+                drilldown: "Indonesia - Rest of the world"
               },
               {
                 name: "Lao PDR",
                 y: 2,
-                drilldown: "Lao PDR - Rest of the world",
+                drilldown: "Lao PDR - Rest of the world"
               },
               {
                 name: "Malaysia",
                 y: 5,
-                drilldown: "Malaysia - Rest of the world",
+                drilldown: "Malaysia - Rest of the world"
               },
               {
                 name: "Philippines",
                 y: 3.5,
-                drilldown: "Philippines - Rest of the world",
+                drilldown: "Philippines - Rest of the world"
               },
               {
                 name: "Singapore",
                 y: 2,
-                drilldown: "Singapore - Rest of the world",
+                drilldown: "Singapore - Rest of the world"
               },
               {
                 name: "Thailand",
                 y: 4,
-                drilldown: "Thailand - Rest of the world",
+                drilldown: "Thailand - Rest of the world"
               },
               {
                 name: "Viet Nam",
                 y: 1,
-                drilldown: "Viet Nam - Rest of the world",
-              },
+                drilldown: "Viet Nam - Rest of the world"
+              }
             ],
             // data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
-            color: "#9C26B3",
-          },
+            color: "#9C26B3"
+          }
         ],
         drilldown: {
           activeDataLabelStyle: {
             color: "white",
-            textShadow: "0 0 2px black, 0 0 2px black",
+            textShadow: "0 0 2px black, 0 0 2px black"
           },
           showInLegend: false,
           series: [
@@ -894,8 +673,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.4],
-              ],
+                ["Cambodia", 0.4]
+              ]
             },
             {
               id: "Cambodia - Asia Pacific",
@@ -904,8 +683,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Indonesia - Asia Pacific",
@@ -915,8 +694,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Lao PDR - Asia Pacific",
@@ -926,8 +705,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Malaysia - Asia Pacific",
@@ -938,8 +717,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Philippines - Asia Pacific",
@@ -950,8 +729,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Singapore - Asia Pacific",
@@ -962,8 +741,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Thailand - Asia Pacific",
@@ -974,8 +753,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Viet Nam - Asia Pacific",
@@ -986,8 +765,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Brunei Darussalam - Europe",
@@ -999,8 +778,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.4],
-              ],
+                ["Cambodia", 0.4]
+              ]
             },
             {
               id: "Cambodia - Europe",
@@ -1009,8 +788,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Indonesia - Europe",
@@ -1020,8 +799,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Lao PDR - Europe",
@@ -1031,8 +810,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Malaysia - Europe",
@@ -1043,8 +822,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Philippines - Europe",
@@ -1055,8 +834,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Singapore - Europe",
@@ -1067,8 +846,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Thailand - Europe",
@@ -1079,8 +858,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Viet Nam - Europe",
@@ -1091,8 +870,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Brunei Darussalam - North America",
@@ -1104,8 +883,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.4],
-              ],
+                ["Cambodia", 0.4]
+              ]
             },
             {
               id: "Cambodia - North America",
@@ -1114,8 +893,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Indonesia - North America",
@@ -1125,8 +904,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Lao PDR - North America",
@@ -1136,8 +915,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Malaysia - North America",
@@ -1148,8 +927,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Philippines - North America",
@@ -1160,8 +939,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Singapore - North America",
@@ -1172,8 +951,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Thailand - North America",
@@ -1184,8 +963,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Viet Nam - North America",
@@ -1196,8 +975,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Brunei Darussalam - Latin America",
@@ -1209,8 +988,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.4],
-              ],
+                ["Cambodia", 0.4]
+              ]
             },
             {
               id: "Cambodia - Latin America",
@@ -1219,8 +998,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Indonesia - Latin America",
@@ -1230,8 +1009,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Lao PDR - Latin America",
@@ -1241,8 +1020,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Malaysia - Latin America",
@@ -1253,8 +1032,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Philippines - Latin America",
@@ -1265,8 +1044,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Singapore - Latin America",
@@ -1277,8 +1056,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Thailand - Latin America",
@@ -1289,8 +1068,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Viet Nam - Latin America",
@@ -1301,8 +1080,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Brunei Darussalam - Rest of the world",
@@ -1314,8 +1093,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.4],
-              ],
+                ["Cambodia", 0.4]
+              ]
             },
             {
               id: "Cambodia - Rest of the world",
@@ -1324,8 +1103,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Indonesia - Rest of the world",
@@ -1335,8 +1114,8 @@ export default {
                 ["Bhutan", 1.2],
                 ["Sri Lanka", 0.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Lao PDR - Rest of the world",
@@ -1346,8 +1125,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Malaysia - Rest of the world",
@@ -1358,8 +1137,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Philippines - Rest of the world",
@@ -1370,8 +1149,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Singapore - Rest of the world",
@@ -1382,8 +1161,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Thailand - Rest of the world",
@@ -1394,8 +1173,8 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
+                ["Cambodia", 0.5]
+              ]
             },
             {
               id: "Viet Nam - Rest of the world",
@@ -1406,26 +1185,24 @@ export default {
                 ["Bhutan", 2.2],
                 ["Sri Lanka", 1.7],
                 ["Nepal", 0.6],
-                ["Cambodia", 0.5],
-              ],
-            },
-          ],
+                ["Cambodia", 0.5]
+              ]
+            }
+          ]
         },
         title: {
           style: {
-            fontSize: "24px",
+            fontSize: "24px"
           },
-          text: `Where do ${this.continent} economies contribute the most towards export production?`,
-        },
+          text: `Where do ${this.continent} economies contribute the most towards export production?`
+        }
       });
-    },
+    }
   },
-  mounted() {
-    this.setData();
-    this.setStackChart();
-  },
+  async mounted() {
+    await this.getSectorList();
+  }
 };
 </script>
 
-<style  scoped>
-</style>
+<style scoped></style>
