@@ -33,10 +33,10 @@ export default {
         (x) => x.value == this.importingEconomy
       )[0].label;
       this.$emit("importingEconomy", countryName);
-      this.$q.localStorage.set("impEcId", this.importingEconomy);
+      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
     },
   },
-  mounted() {
+  created() {
     this.getCountryList();
     this.selectCountry();
   },
