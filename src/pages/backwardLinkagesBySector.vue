@@ -1,12 +1,38 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:120px">
-    <app-bar
-      :isShowLogo="false"
-      @countrySelected="exportingEconomyChanged"
-      @yearSelected="(val) => displayYear = val "
-    ></app-bar>
+    <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
     <header-menu :activeMenu="3"></header-menu>
-    <source-select @importingEconomy="importingEconomyChanged" @sourcingEconomy="sourceChanged"></source-select>
+
+    <!-- <source-select @importingEconomy="importingEconomyChanged" @sourcingEconomy="sourceChanged"></source-select> -->
+
+    <!-- Importing Economy -->
+    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+      <div class="col-6 q-px-md">
+        <span>Importing economy</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="countryOptions"
+          v-model="importingEconomy"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+
+      <div class="col-6 q-px-md">
+        <span>Source economy</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="countryOptions"
+          v-model="sourceEconomy"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+    </div>
 
     <error-page
       v-show="isShowErrorWarning"
@@ -21,12 +47,12 @@
           <p
             class="font-content"
             align="center"
-          >Some part of {{ displayCountry }}’s gross exports consist of imported inputs that originate in other source economies.</p>
+          >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
           <p class="font-content" align="center">
             <span class="q-pr-lg">Source economy</span>
 
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-px-lg">Exporting economy ({{ displayCountry }})</span>
+            <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
             <span class="q-px-lg text-weight-bold">:</span>
             <span class="q-pr-lg">Sector</span>
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
@@ -38,7 +64,7 @@
         <p align="center" class="font-graph q-py-lg">Key policy questions</p>
         <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
           1.
-          <u>Which sectors in {{ displayCountry }} rely the most on imported content for exports to a selected importer?</u>
+          <u>Which sectors in {{ displayExportingEconomy }} rely the most on imported content for exports to a selected importer?</u>
         </p>
         <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
           2.
@@ -48,31 +74,29 @@
 
       <div style="height:30px"></div>
       <hr />
-      <div style="height:30px"></div>
 
-      <!-- กราฟ -->
-      <div class="q-py-xl">
+      <!-- <div align="center" id="importedcountry" style="height:30px"></div>
+      <div align="center" style="width:900px; margin:auto;">
         <div align="center" style="width:900px; margin:auto;">
           <div id="container"></div>
         </div>
       </div>
+      <div style="height:30px"></div>
+      <hr />-->
 
       <!-- กราฟ -->
-      <div
-        class="font-graph"
-        align="center"
-        id="importedcountry"
-      >Which sectors in {{ displayCountry }} rely the most on imported content from {{displaySourceEconomy}} in exports to {{ displayImportingEconomy }}?</div>
-      <div align="center" style="width:900px; margin:auto;">
-        <p
-          align="left"
-        >Imported content from {{ displaySourceEconomy }} in exports to {{ displayImportingEconomy }} : $8B</p>
-        <q-img src="../../public/images/backsector01-1.jpg" />
-        <p align="left">Gross exports to {{ displayImportingEconomy }} :$40 B</p>
-        <q-img src="../../public/images/backsector01-legend.jpg" />
+      <div id="importedcountry" style="height:30px"></div>
+      <div style="width:90%;margin:auto;max-width:1200px">
+        <div align="center" class="q-pa-lg" v-if="!isChart">
+          <q-spinner-pie color="primary" size="100px" />
+        </div>
+        <div v-show="isChart">
+          <div id="container"></div>
+        </div>
       </div>
       <div style="height:30px"></div>
       <hr />
+
       <div style="height:30px"></div>
       <div
         class="font-graph"
@@ -89,65 +113,106 @@
 <script>
 import appBar from "../components/appBarWithLogo";
 import headerMenu from "../components/fourMenu";
-import sourceSelect from "../components/importsource";
 import errorPage from "../components/error-page";
+import Axios from "axios";
 
 export default {
   components: {
     appBar,
     headerMenu,
-    sourceSelect,
     errorPage,
   },
   data() {
     return {
+      countryOptions: [],
+      importingEconomy: "",
+
+      sourceEconomy: "",
+
       continent: "",
-      displayCountry: "",
+
       displayYear: "",
+
+      displayExportingEconomy: "",
+      exp_country: "",
+
       displaySourceEconomy: "",
+      source_country: "",
+
       displayImportingEconomy: "",
+      imp_country: "",
+
       isShowErrorWarning: false,
+
+      isChart: false,
+      isChart1: false,
     };
   },
   methods: {
+    // Function Test
+    getEmitData(val) {
+      // Exporting Economy
+      this.displayExportingEconomy = val.name;
+      this.exp_country = val.iso;
+      this.continent = val.region;
+      this.displayYear = val.year;
+
+      this.getStructureOfValue();
+    },
+
+    // Get Structure Of Value
+    getStructureOfValue() {
+      // Importing Economy
+      let countryData = this.countryOptions.filter(
+        (x) => x.value == this.importingEconomy
+      )[0];
+
+      let sourceData = this.countryOptions.filter(
+        (x) => x.value == this.sourceEconomy
+      )[0];
+
+      this.displayImportingEconomy = countryData.label;
+      this.imp_country = countryData.iso;
+
+      this.displaySourceEconomy = sourceData.label;
+      this.source_country = sourceData.iso;
+
+      this.$q.sessionStorage.set("impEcId", countryData.value);
+
+      this.$q.sessionStorage.set("sourcEcId", sourceData.value);
+
+      if (this.displayImportingEconomy == this.displayExportingEconomy) {
+        this.isShowErrorWarning = true;
+        return;
+      }
+
+      this.isShowErrorWarning = false;
+
+      this.renderGraph(); // Render Graph
+    },
+
     renderGraph() {
       this.setData();
-      this.setStackChart();
+      // this.setStackChart();
     },
-    importingEconomyChanged(val) {
-      this.displayImportingEconomy = val;
-      if (val == this.displayCountry || val == this.displaySourceEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-      this.renderGraph();
-    },
-    sourceChanged(val) {
-      this.displaySourceEconomy = val;
-      if (val == this.displayCountry || val == this.displayImportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-      this.renderGraph();
-    },
-    exportingEconomyChanged(val) {
-      this.displayCountry = val.name;
-      this.continent = val.region;
 
-      if (
-        val == this.displayImportingEconomy ||
-        val == this.displaySourceEconomy
-      ) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-      }
-      this.renderGraph();
-    },
     async setData() {
-      let chart = Highcharts.chart("container", {
+      this.isChart = false;
+      let urlLink = `https://api.winner-english.com/u_api/cal_back_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
+
+      let getData = await Axios.get(urlLink);
+
+      getData = getData.data;
+
+      let urlLinkSub = `https://api.winner-english.com/u_api/cal_back_sector_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
+
+      let getDataSub = await Axios.get(urlLinkSub);
+
+      getDataSub = getDataSub.data;
+
+      this.isChart = true;
+
+      Highcharts.chart("container", {
         chart: {
           height: (3 / 3) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
@@ -175,263 +240,7 @@ export default {
               },
             ],
 
-            data: [
-              {
-                id: "A",
-                name: "Agriculture",
-                color: "#2F978B",
-                showInLegend: true,
-              },
-              {
-                id: "B",
-                name: "Mining",
-                color: "#9A25B1",
-              },
-              {
-                id: "C",
-                name: "Construction",
-                color: "#8D243B",
-              },
-              {
-                id: "D",
-                name: "Utilities",
-                color: "#FA9908",
-              },
-              {
-                id: "E",
-                name: "Low tech",
-                color: "#F34336",
-              },
-              {
-                id: "F",
-                name: "High and medium tech",
-                color: "#C3165B",
-              },
-              {
-                id: "G",
-                name: "Trade and repair service",
-                color: "#5E6DC1",
-              },
-              {
-                id: "H",
-                name: "Tourism",
-                color: "#3F50B8",
-              },
-              {
-                id: "I",
-                name: "Transport service",
-                color: "#3949AB",
-              },
-              {
-                id: "J",
-                name: "ICT service",
-                color: "#1565C0",
-              },
-              {
-                id: "K",
-                name: "Property service",
-                color: "#19227D",
-              },
-              {
-                id: "L",
-                name: "Financial service",
-                color: "#43A7F5",
-              },
-              {
-                id: "M",
-                name: "Publice and welfare service",
-                color: "#2088E7",
-              },
-              {
-                id: "N",
-                name: "Private household service",
-                color: "#1564C0",
-              },
-              // End
-              {
-                name: "agriculture hunting forestry and fishing",
-                parent: "A",
-                value: 1.3,
-              },
-              {
-                name: "mining and quarrying",
-                parent: "B",
-                value: 10.9,
-              },
-              {
-                name: "construction",
-                parent: "C",
-                value: 4.61,
-              },
-              {
-                name: "electricity gas and water supply",
-                parent: "D",
-                value: 1.61,
-              },
-
-              {
-                name: "food beverages and tobacco",
-                parent: "E",
-                value: 5.61,
-              },
-              {
-                name: "textiles and textile products",
-                parent: "E",
-                value: 3.61,
-              },
-              {
-                name: "leather leather products and footwear",
-                parent: "E",
-                value: 2.61,
-              },
-              {
-                name: "wood and products of wood and cork",
-                parent: "E",
-                value: 4.21,
-              },
-              {
-                name: "pulp paper paper products printing and publishing",
-                parent: "E",
-                value: 2.21,
-              },
-              {
-                name: "rubber and plastics",
-                parent: "E",
-                value: 2.41,
-              },
-              {
-                name: "manufacturing nec recycling",
-                parent: "E",
-                value: 2.41,
-              },
-              {
-                name: "coke refined petroleum and nuclear fuel",
-                parent: "F",
-                value: 2.61,
-              },
-              {
-                name: "chemicals and chemical products",
-                parent: "F",
-                value: 3.61,
-              },
-
-              {
-                name: "other nonmetallic minerals",
-                parent: "F",
-                value: 1.61,
-              },
-              {
-                name: "basic metals and fabricated metal",
-                parent: "F",
-                value: 0.71,
-              },
-              {
-                name: "machinery nec",
-                parent: "F",
-                value: 4.71,
-              },
-              {
-                name: "electrical and optical equipment",
-                parent: "F",
-                value: 2.71,
-              },
-              {
-                name: "transport equipment",
-                parent: "F",
-                value: 1.81,
-              },
-
-              {
-                name:
-                  "sale maintenance and repair of motor vehicles and motorcycles retail sale of fuel",
-                parent: "G",
-                value: 1.61,
-              },
-              {
-                name:
-                  "wholesale trade and commission trade except of motor vehicles and motorcycles",
-                parent: "G",
-                value: 2.11,
-              },
-              {
-                name:
-                  "retail trade except of motor vehicles and motorcycles repair of household goods",
-                parent: "G",
-                value: 1.55,
-              },
-              {
-                name: "hotels and restaurants",
-                parent: "H",
-                value: 2.35,
-              },
-              {
-                name: "inland transport",
-                parent: "I",
-                value: 4.35,
-              },
-              {
-                name: "water transport",
-                parent: "I",
-                value: 1.35,
-              },
-              {
-                name: "air transport",
-                parent: "I",
-                value: 3.35,
-              },
-              {
-                name:
-                  "other supporting and auxiliary transport activities activities of travel agencies",
-                parent: "I",
-                value: 1.45,
-              },
-              {
-                name: "post and telecommunications",
-                parent: "J",
-                value: 3.45,
-              },
-              {
-                name: "financial intermediation",
-                parent: "L",
-                value: 5.45,
-              },
-              {
-                name: "real estate activities",
-                parent: "K",
-                value: 1.45,
-              },
-              {
-                name: "renting of m&eq and other business activities",
-                parent: "K",
-                value: 2.45,
-              },
-              {
-                name:
-                  "public administration and defense compulsory social security",
-                parent: "M",
-                value: 3.45,
-              },
-              {
-                name: "education",
-                parent: "M",
-                value: 5.45,
-              },
-              {
-                name: "health and social work",
-                parent: "M",
-                value: 1.45,
-              },
-              {
-                name: "other community social and personal services",
-                parent: "M",
-                value: 2.45,
-              },
-              {
-                name: "private households with employed persons",
-                parent: "N",
-                value: 2.45,
-              },
-            ],
+            data: [...getData],
             showInLegend: true,
             legendType: "point",
           },
@@ -476,21 +285,21 @@ export default {
             } else if (this.name == "High and medium tech") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturtoring</div>High and medium tech</td></tr></table></div>';
             } else if (this.name == "Trade and repair service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair </td></tr></table></div>';
             } else if (this.name == "Tourism") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Service</div>Tourism</td></tr></table></div>';
             } else if (this.name == "Transport service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Service</div>Transport service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Service</div>Transport </td></tr></table></div>';
             } else if (this.name == "ICT service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Service</div>ICT service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Service</div>ICT </td></tr></table></div>';
             } else if (this.name == "Property service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Service</div>Property service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Service</div>Property </td></tr></table></div>';
             } else if (this.name == "Financial service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Service</div>Financial service</td></tr></table></div>';
-            } else if (this.name == "Publice and welfare service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Service</div>Publice and welfare service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Service</div>Financial </td></tr></table></div>';
+            } else if (this.name == "Public and welfare service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Service</div>Publice and welfare </td></tr></table></div>';
             } else if (this.name == "Private household service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household service</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household </td></tr></table></div>';
             }
           },
         },
@@ -498,7 +307,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Which sectors in ${this.displayCountry} rely the most on imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy}?`,
+          text: `Which sectors in ${this.displayExportingEconomy} rely the most on imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy}?`,
         },
         credits: {
           enabled: false,
@@ -507,11 +316,15 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy} : $8B / Gross exports to ${this.displayImportingEconomy}: $40B`,
+          text: `Imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy} : $${getDataSub.fromsource}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}B`,
           align: "left",
         },
       });
     },
+  },
+
+  async mounted() {
+    await this.getCountryList();
   },
 };
 </script>
