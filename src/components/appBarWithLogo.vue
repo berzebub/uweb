@@ -65,8 +65,8 @@ export default {
         (x) => x.value == this.countrySelected
       )[0];
 
-      this.$q.localStorage.set("cid", this.countrySelected);
-      this.$q.localStorage.set("yid", this.yearSelected);
+      this.$q.sessionStorage.set("cid", this.countrySelected);
+      this.$q.sessionStorage.set("yid", this.yearSelected);
 
       this.$emit("countrySelected", {
         name: countrySelected.label,
@@ -75,25 +75,7 @@ export default {
         year: this.yearSelected,
       });
     },
-    // -------------------------------------
-
-    selectCountry() {
-      let countrySelected = this.countryOptions.filter(
-        (x) => x.value == this.countrySelected
-      )[0];
-
-      this.$q.localStorage.set("cid", this.countrySelected);
-
-      this.$emit("countrySelected", {
-        name: countrySelected.label,
-        region: countrySelected.region,
-        iso: countrySelected.iso,
-      });
-    },
-    selectYear() {
-      this.$emit("yearSelected", this.yearSelected);
-      this.$q.localStorage.set("yid", this.yearSelected);
-    },
+    // ----------------------------------------------
     async loadYear() {
       this.getCountryList();
 
@@ -102,18 +84,15 @@ export default {
       let getYear = await Axios.get(url);
 
       this.yearOptions = getYear.data;
-      this.yearSelected = this.$q.localStorage.has("yid")
-        ? this.$q.localStorage.getItem("yid")
+      this.yearSelected = this.$q.sessionStorage.has("yid")
+        ? this.$q.sessionStorage.getItem("yid")
         : this.yearOptions[0];
 
       this.selectData();
-
-      // this.selectCountry();
-      // this.selectYear();
     },
   },
 
-  mounted() {
+  created() {
     this.loadYear();
   },
 };
