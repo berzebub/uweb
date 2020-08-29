@@ -2,12 +2,13 @@ import Vue from "vue";
 import HighchartsVue from "highcharts-vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
+import JsonCSV from 'vue-json-csv'
 var VueScrollTo = require("vue-scrollto");
 
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);
-
+Vue.component('downloadCsv', JsonCSV)
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;

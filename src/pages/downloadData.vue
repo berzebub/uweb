@@ -237,9 +237,18 @@
           ></q-btn>
         </div>
         <div class="q-pl-md">
+          <download-csv
+            v-if="isShowDownloadBtn"
+            class="bg-secondary font-content text-white cursor-pointer"
+            style="width:200px;border-radius:10px;height:45px;line-height:45px"
+            :data="resultList"
+            ref="downloadData"
+          >Download Data</download-csv>
+
           <q-btn
-            class="bg4 font-content"
-            label="Download"
+            v-else
+            class="bg-warning font-content"
+            label="Generate"
             no-caps
             style="width:200px;border-radius:10px;"
             @click="runBtn()"
@@ -352,6 +361,7 @@ import sectorJson from "../../public/sector.json";
 export default {
   data() {
     return {
+      isShowDownloadBtn: false,
       countryOptions: "",
       errorExceededQuotaMessage: "",
       sectorOptions: "",
@@ -435,6 +445,7 @@ export default {
       modifySelectCountryList: [],
       isShowExceededQuotaDialog: false,
       resultList: [],
+      promiseBucket: [],
     };
   },
   methods: {
@@ -651,11 +662,20 @@ export default {
     },
     runBtn() {
       this.resultList = [];
+      this.promiseBucket = [];
+
+      let totalLoop =
+        this.indicatorList.length *
+        this.exportList.length *
+        this.sectorList.length *
+        this.yearList.length;
+
       for (
         let indicatorIndex = 0;
         indicatorIndex < this.indicatorList.length;
         indicatorIndex++
       ) {
+        console.log(indicatorIndex);
         for (
           let exportIndex = 0;
           exportIndex < this.exportList.length;
@@ -698,7 +718,7 @@ export default {
                     );
                   }
                 } else {
-                  //กรณีมี ิback_link_sector
+                  //กรณีมี back_link_sector
                   for (
                     let sourceIndex = 0;
                     sourceIndex < this.sourceList.length;
@@ -728,11 +748,19 @@ export default {
           }
         }
       }
+      this.loadingShow();
+      Promise.all(this.promiseBucket).then((values) => {
+        this.resultList = values;
+        this.isShowDownloadBtn = true;
+        this.loadingHide();
+        this.$refs.downloadData.click();
+      });
     },
     //indicator api link no sourceData
     async indicatorApi(index, exportData, importData, sectorData, yearData) {
       let url = "";
       let typeData = 1;
+      let testPromise = [];
       if (index == 0) {
         url =
           "https://api.winner-english.com/u_api/indicator_imp_cons.php?imp_country=" +
@@ -854,35 +882,45 @@ export default {
           "&sector=" +
           sectorData;
       }
-      let data = await Axios.get(url);
 
-      if (typeData == 2) {
-        data.data.forEach((x) => {
+      // this.promiseBucket.push(data);
+
+      let dataPromise = new Promise(async (a, b) => {
+        let data = await Axios.get(url);
+        if (typeData == 2) {
+          data.data.forEach((x) => {
+            let tempInput = {
+              source_country: x.source_country,
+              exp_country: x.exp_country,
+              exp_sector: x.exp_sector,
+              imp_country: x.imp_country,
+              variable_set: x.variable_set,
+              value: x.value,
+              year: x.year,
+              indicator: x.indicator,
+            };
+            // this.resultList.push(tempInput);
+            a(tempInput);
+          });
+        } else {
           let tempInput = {
-            source_country: x.source_country,
-            exp_country: x.exp_country,
-            exp_sector: x.exp_sector,
-            imp_country: x.imp_country,
-            variable_set: x.variable_set,
-            value: x.value,
-            year: x.year,
-            indicator: x.indicator,
+            source_country: data.data.source_country,
+            exp_country: data.data.exp_country,
+            exp_sector: data.data.exp_sector,
+            imp_country: data.data.imp_country,
+            variable_set: data.data.variable_set,
+            value: data.data.value,
+            year: data.data.year,
+            indicator: data.data.indicator,
           };
-          this.resultList.push(tempInput);
-        });
-      } else {
-        let tempInput = {
-          source_country: data.data.source_country,
-          exp_country: data.data.exp_country,
-          exp_sector: data.data.exp_sector,
-          imp_country: data.data.imp_country,
-          variable_set: data.data.variable_set,
-          value: data.data.value,
-          year: data.data.year,
-          indicator: data.data.indicator,
-        };
-        this.resultList.push(tempInput);
-      }
+          // this.resultList.push(tempInput);
+          a(tempInput);
+        }
+      });
+
+      this.promiseBucket.push(dataPromise);
+
+      // let data = await Axios.get(url);
     },
 
     //indicator api link with sourceData
@@ -904,21 +942,29 @@ export default {
         "&source_country=" +
         sourceData;
 
-      let data = await Axios.get(url);
+      // this.promiseBucket.push(data);
 
-      data.data.forEach((x) => {
-        let tempInput = {
-          source_country: x.source_country,
-          exp_country: x.exp_country,
-          exp_sector: x.exp_sector,
-          imp_country: x.imp_country,
-          variable_set: x.variable_set,
-          value: x.value,
-          year: x.year,
-          indicator: x.indicator,
-        };
-        this.resultList.push(tempInput);
+      // let data = await Axios.get(url);
+
+      let dataPromise = new Promise(async (a, b) => {
+        let data = await Axios.get(url);
+        data.data.forEach((x) => {
+          let tempInput = {
+            source_country: x.source_country,
+            exp_country: x.exp_country,
+            exp_sector: x.exp_sector,
+            imp_country: x.imp_country,
+            variable_set: x.variable_set,
+            value: x.value,
+            year: x.year,
+            indicator: x.indicator,
+          };
+          // this.resultList.push(tempInput);
+        });
+        a(tempInput);
       });
+
+      this.promiseBucket.push(dataPromise);
     },
   },
   mounted() {
