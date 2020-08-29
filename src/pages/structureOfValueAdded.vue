@@ -1,18 +1,49 @@
 <template>
   <q-page class="container bg-white" style="padding-bottom:100px">
-    <!-- @yearSelected="yearChanged" -->
-    <app-bar :isShowLogo="false" @countrySelected="getEmitExportData"></app-bar>
+    <!-- App Bar -->
+    <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
     <header-menu></header-menu>
 
     <!-- @importingEconomy="importingEconomyChanged" -->
-    <importing-select @sectorSelected="getEmitImportData"></importing-select>
+    <!-- <importing-select @sectorSelected="getEmitImportData"></importing-select> -->
 
+    <!-- Importing Economy -->
+    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+      <div class="col-6 q-px-md">
+        <span>Importing economy</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="countryOptions"
+          v-model="importingEconomy"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+
+      <div class="col-6 q-px-md">
+        <span>Sector</span>
+        <q-select
+          @input="getStructureOfValue()"
+          dense
+          outlined
+          :options="sectorOptions"
+          v-model="sectorSelected"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
+    </div>
+
+    <!-- Error Page -->
     <error-page
       v-show="isShowErrorWarning"
       displayText="The exporting economy cannot be the same as the 
 importing economy"
     ></error-page>
 
+    <!-- Show Content -->
     <div v-show="!isShowErrorWarning">
       <!-- table of content -->
       <div class="row" style="margin:auto; max-width:1050px;width:95%;">
@@ -62,6 +93,7 @@ importing economy"
           <div class="textRight font-content">GVC releated exports</div>
         </div>
       </div>
+
       <!-- Key policy question -->
       <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
         <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
@@ -86,22 +118,38 @@ importing economy"
       <!-- What happends to ... exports to ...? -->
       <div style="height:30px" id="structure"></div>
       <div style="width:90%;margin:auto;max-width:1200px">
-        <div id="container"></div>
+        <div align="center" class="q-pa-lg" v-if="!isStructureChart">
+          <q-spinner-pie color="primary" size="100px" />
+        </div>
+        <div v-show="isStructureChart">
+          <div id="container"></div>
+        </div>
       </div>
       <hr />
 
       <!-- What happens to ... econmics' exports to...? -->
       <div id="comparison" style="height:30px"></div>
       <div style="width:90%;margin:auto;max-width:1200px">
-        <div id="container1"></div>
+        <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
+          <q-spinner-pie color="primary" size="100px" />
+        </div>
+        <div v-show="isComparisonChart">
+          <div id="container1"></div>
+        </div>
       </div>
       <hr />
 
       <!-- How does ... gross and domestic value-added trade balance with ... differ? -->
       <div id="measuring" style="height:30px"></div>
       <div style="width:90%;margin:auto;max-width:1200px">
-        <div id="container2"></div>
+        <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
+          <q-spinner-pie color="primary" size="100px" />
+        </div>
+        <div v-show="isMeasuringChart">
+          <div id="container2"></div>
+        </div>
       </div>
+
       <div style="height:30px"></div>
     </div>
   </q-page>
@@ -122,115 +170,83 @@ export default {
   },
   data() {
     return {
-      countryOptions: "",
+      countryOptions: [],
+      importingEconomy: "",
+
+      sectorOptions: [],
+      sectorSelected: "",
+
       continent: "",
-      chart1: "",
+
       displayYear: "",
+
       displayImportingEconomy: "",
       imp_country: "",
+
       displayExportingEconomy: "",
       exp_country: "",
+
       displaySector: "",
       sector: "",
-      isShowErrorWarning: false,
 
-      isRenderGraph: false,
+      isStructureChart: false,
+      isComparisonChart: false,
+      isMeasuringChart: false,
+
+      isShowErrorWarning: false,
     };
   },
   methods: {
-    // Function Test
-    getEmitExportData(val) {
-      this.isRenderGraph = false;
-
-      this.displayYear = val.year;
-
+    // Get Emit Data
+    getEmitData(val) {
+      // Exporting Economy
       this.displayExportingEconomy = val.name;
       this.exp_country = val.iso;
       this.continent = val.region;
+      this.displayYear = val.year;
 
-      if (val.name == this.displayImportingEconomy) {
-        this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-
-        this.renderGraph();
-      }
+      this.getStructureOfValue();
     },
-    getEmitImportData(val) {
-      this.isRenderGraph = false;
 
-      let countryData = val.countryData;
-      let sectorData = val.sectorData;
+    // Get Structure Of Value
+    async getStructureOfValue() {
+      // Importing Economy
+      let countryData = this.countryOptions.filter(
+        (x) => x.value == this.importingEconomy
+      )[0];
+
+      let sectorData = this.sectorOptions.filter(
+        (x) => x.value == this.sectorSelected
+      )[0];
 
       this.displayImportingEconomy = countryData.label;
       this.imp_country = countryData.iso;
-
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
 
-      if (countryData.label == this.displayExportingEconomy) {
+      this.$q.sessionStorage.set("impEcId", countryData.value);
+
+      this.$q.sessionStorage.set("secId", sectorData.value);
+
+      if (this.displayImportingEconomy == this.displayExportingEconomy) {
         this.isShowErrorWarning = true;
-      } else {
-        this.isShowErrorWarning = false;
-
-        this.renderGraph();
+        return;
       }
+
+      this.isShowErrorWarning = false;
+
+      this.renderGraph(); // Render Graph
     },
-    // ------------------------------------------
 
-    // yearChanged(val) {
-    //   this.renderGraph();
-    // },
-    // importingEconomyChanged(val) {
-    //   if (val == this.displayExportingEconomy) {
-    //     this.isShowErrorWarning = true;
-    //   } else {
-    //     this.isShowErrorWarning = false;
-    //   }
-
-    //   this.displayImportingEconomy = val.label;
-    //   this.import_country = val.iso;
-    // },
-    // sectorChanged(val) {
-    //   this.displaySector = val.label;
-    //   this.sector = val.value;
-    //   this.renderGraph();
-    // },
-    // exportingEconomyChanged(val) {
-    //   this.displayExportingEconomy = val.name;
-    //   this.exp_country = val.iso;
-    //   this.continent = val.region;
-    //   this.renderGraph();
-
-    //   if (val == this.displayImportingEconomy) {
-    //     this.isShowErrorWarning = true;
-    //   } else {
-    //     this.isShowErrorWarning = false;
-    //   }
-    // },
-
+    // Render Graph
     renderGraph() {
-      if (!this.isRenderGraph) {
-        this.isRenderGraph = true;
-        this.setData();
-      }
-
-      // setTimeout(() => {
-
-      // }, 500);
-      // setTimeout(() => {
-      //   this.setStackChart();
-      // }, 1000);
-      // setTimeout(() => {
-      //   this.setStackChart2();
-      // }, 1500);
-      // setTimeout(() => {
-      //   this.loadingHide();
-      // }, 1600);
+      this.setStackChart();
+      this.setStackChart2();
+      this.setStackChart3();
     },
 
-    async setData() {
-      this.loadingShow();
+    async setStackChart() {
+      this.isStructureChart = false;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
@@ -238,7 +254,9 @@ export default {
 
       getData = getData.data;
 
-      this.chart1 = Highcharts.chart("container", {
+      this.isStructureChart = true;
+
+      Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
@@ -339,10 +357,10 @@ export default {
           },
         },
       });
-
-      this.setStackChart();
     },
-    async setStackChart() {
+    async setStackChart2() {
+      this.isComparisonChart = false;
+
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
       let getData = await Axios.get(urlLink);
@@ -364,6 +382,8 @@ export default {
         dom_cons.push(x.dom_cons);
         double.push(x.double);
       });
+
+      this.isComparisonChart = true;
 
       Highcharts.chart("container1", {
         chart: {
@@ -492,15 +512,17 @@ export default {
           },
         },
       });
-
-      this.setStackChart2();
     },
-    async setStackChart2() {
+    async setStackChart3() {
+      this.isMeasuringChart = false;
+
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
       let getData = await Axios.get(urlLink);
 
       getData = getData.data;
+
+      this.isMeasuringChart = true;
 
       Highcharts.chart("container2", {
         legend: {
@@ -534,11 +556,9 @@ export default {
           text: `How does ${this.displayExportingEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
         },
         xAxis: {
-          max: 0,
           categories: ["", ""],
         },
         yAxis: {
-          max: 10,
           title: {
             text: `% of gross exports to ${this.displayImportingEconomy}`,
           },
@@ -559,12 +579,11 @@ export default {
           },
         ],
       });
-
-      this.loadingHide();
     },
   },
-  mounted() {
-    this.getCountryList();
+  async mounted() {
+    await this.getCountryList();
+    await this.getSectorList();
   },
 };
 </script>
