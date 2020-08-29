@@ -55,6 +55,7 @@ Vue.mixin({
         };
         tempOptions.push(data);
       });
+      tempOptions.sort((a, b) => a.label > b.label ? 1 : -1)
       this.countryOptions = tempOptions;
       if (!this.$q.localStorage.has("cid")) {
         this.countrySelected = tempOptions[0].value;

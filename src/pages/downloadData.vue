@@ -242,6 +242,7 @@
             label="Download"
             no-caps
             style="width:200px;border-radius:10px;"
+            @click="runBtn()"
           ></q-btn>
         </div>
       </div>
@@ -433,6 +434,7 @@ export default {
       modifySelectDataList: [],
       modifySelectCountryList: [],
       isShowExceededQuotaDialog: false,
+      resultList: [],
     };
   },
   methods: {
@@ -646,6 +648,277 @@ export default {
         temp.push({ index: Number(element), label: element });
       });
       this.dataYearList = temp;
+    },
+    runBtn() {
+      this.resultList = [];
+      for (
+        let indicatorIndex = 0;
+        indicatorIndex < this.indicatorList.length;
+        indicatorIndex++
+      ) {
+        for (
+          let exportIndex = 0;
+          exportIndex < this.exportList.length;
+          exportIndex++
+        ) {
+          for (
+            let importIndex = 0;
+            importIndex < this.importingList.length;
+            importIndex++
+          ) {
+            for (
+              let sectorIndex = 0;
+              sectorIndex < this.sectorList.length;
+              sectorIndex++
+            ) {
+              for (
+                let yearIndex = 0;
+                yearIndex < this.yearList.length;
+                yearIndex++
+              ) {
+                let index = this.indicatorList[indicatorIndex].index;
+                let exportData = this.exportList[exportIndex].label.split(
+                  " -- "
+                )[1];
+                let importData = this.importingList[importIndex].label.split(
+                  " -- "
+                )[1];
+                let sectorData = this.sectorList[sectorIndex].index;
+                let yearData = this.yearList[yearIndex].label;
+
+                if (index != 9) {
+                  //กรณีไม่ใช่ back_link_sector
+                  if (exportData != importData) {
+                    this.indicatorApi(
+                      index,
+                      exportData,
+                      importData,
+                      sectorData,
+                      yearData
+                    );
+                  }
+                } else {
+                  //กรณีมี ิback_link_sector
+                  for (
+                    let sourceIndex = 0;
+                    sourceIndex < this.sourceList.length;
+                    sourceIndex++
+                  ) {
+                    let sourceData = this.sourceList[sourceIndex].label.split(
+                      " -- "
+                    )[1];
+                    if (
+                      exportData != importData ||
+                      exportData != sourceData ||
+                      importData != sourceData
+                    ) {
+                      this.indicatorApi2(
+                        index,
+                        exportData,
+                        importData,
+                        sectorData,
+                        yearData,
+                        sourceData
+                      );
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    //indicator api link no sourceData
+    async indicatorApi(index, exportData, importData, sectorData, yearData) {
+      let url = "";
+      let typeData = 1;
+      if (index == 0) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_imp_cons.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 1) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_imp_exp.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 2) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_dom_cons.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 3) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_double.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 4) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_imp_cont.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 5) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_dva_tradebalance.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 6) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gross_tradebalance.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      } else if (index == 7) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gvc_participation.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+        typeData = 2;
+      } else if (index == 8) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_back_link_country.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+        typeData = 2;
+      } else if (index == 10) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_forward_link_country.php?exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+        typeData = 2;
+      } else if (index == 11) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_forward_link_sector.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData;
+        typeData = 2;
+      } else if (index == 12) {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gross_exports.php?imp_country=" +
+          importData +
+          "&exp_country=" +
+          exportData +
+          "&year=" +
+          yearData +
+          "&sector=" +
+          sectorData;
+      }
+      let data = await Axios.get(url);
+
+      if (typeData == 2) {
+        data.data.forEach((x) => {
+          let tempInput = {
+            source_country: x.source_country,
+            exp_country: x.exp_country,
+            exp_sector: x.exp_sector,
+            imp_country: x.imp_country,
+            variable_set: x.variable_set,
+            value: x.value,
+            year: x.year,
+            indicator: x.indicator,
+          };
+          this.resultList.push(tempInput);
+        });
+      } else {
+        let tempInput = {
+          source_country: data.data.source_country,
+          exp_country: data.data.exp_country,
+          exp_sector: data.data.exp_sector,
+          imp_country: data.data.imp_country,
+          variable_set: data.data.variable_set,
+          value: data.data.value,
+          year: data.data.year,
+          indicator: data.data.indicator,
+        };
+        this.resultList.push(tempInput);
+      }
+    },
+
+    //indicator api link with sourceData
+    async indicatorApi2(
+      index,
+      exportData,
+      importData,
+      sectorData,
+      yearData,
+      sourceData
+    ) {
+      let url =
+        "https://api.winner-english.com/u_api/indicator_back_link_sector.php?imp_country=" +
+        importData +
+        "&exp_country=" +
+        exportData +
+        "&year=" +
+        yearData +
+        "&source_country=" +
+        sourceData;
+
+      let data = await Axios.get(url);
+
+      data.data.forEach((x) => {
+        let tempInput = {
+          source_country: x.source_country,
+          exp_country: x.exp_country,
+          exp_sector: x.exp_sector,
+          imp_country: x.imp_country,
+          variable_set: x.variable_set,
+          value: x.value,
+          year: x.year,
+          indicator: x.indicator,
+        };
+        this.resultList.push(tempInput);
+      });
     },
   },
   mounted() {
