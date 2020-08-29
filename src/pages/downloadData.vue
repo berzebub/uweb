@@ -767,10 +767,18 @@ export default {
         }
       }
       this.loadingShow();
+      // All data will be generated finish in this section.
       Promise.all(this.promiseBucket).then((values) => {
-        if (values.length == 0) {
+        if (
+          values.length == 0 ||
+          this.indicatorList.length == 0 ||
+          this.importingList.length == 0 ||
+          this.exportList.length == 0 ||
+          this.yearList.length == 0 ||
+          this.sectorList.length == 0
+        ) {
           this.$q.notify({
-            message: "Incorrect Input Data.",
+            message: "Incorrect input data.",
             color: "red",
             position: "top",
           });
