@@ -51,8 +51,8 @@ export default {
         (x) => x.value == this.importingEconomy
       )[0];
 
-      this.$q.localStorage.set("secId", this.sectorSelected);
-      this.$q.localStorage.set("impEcId", this.importingEconomy);
+      this.$q.sessionStorage.set("secId", this.sectorSelected);
+      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
 
       let newData = {
         sectorData: sectorData,
@@ -63,25 +63,6 @@ export default {
     },
     // --------------------------------------------
 
-    selectCountry() {
-      let countryName = this.countryOptions.filter(
-        (x) => x.value == this.importingEconomy
-      )[0];
-
-      this.$emit("importingEconomy", countryName);
-
-      this.$q.localStorage.set("impEcId", this.importingEconomy);
-    },
-    selectSector() {
-      let sectorName = this.sectorOptions.filter(
-        (x) => x.value == this.sectorSelected
-      )[0];
-
-      this.$q.localStorage.set("secId", this.sectorSelected);
-
-      this.$emit("sectorSelected", sectorName);
-    },
-
     async loadData() {
       await this.getCountryList();
       await this.getSectorList();
@@ -91,9 +72,6 @@ export default {
   },
   mounted() {
     this.loadData();
-
-    // this.selectCountry();
-    // this.selectSector();
   },
 };
 </script>
