@@ -488,27 +488,39 @@ export default {
     },
     clickDataToDraft() {
       let _this = this;
+      // The maximum of selected items.
+      let maximumSelected = 5;
       function checkLength() {
         if (_this.modifyType == "exportting") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected export economy is 5 economics. ";
+            "The maximum of selected export economy is " +
+            maximumSelected +
+            " economics. ";
         } else if (_this.modifyType == "importing") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected importing economy is 5 economics. ";
+            "The maximum of selected importing economy is " +
+            maximumSelected +
+            " economics. ";
         } else if (_this.modifyType == "source") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected source economy is 5 economics. ";
+            "The maximum of selected source economy is " +
+            maximumSelected +
+            " economics. ";
         } else if (_this.modifyType == "sector") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected sector is 5 sectors. ";
+            "The maximum of selected sector is " +
+            maximumSelected +
+            " sectors. ";
         } else if (_this.modifyType == "indicator") {
           _this.isShowExceededQuotaDialog = true;
           _this.errorExceededQuotaMessage =
-            "The maximum of selected indicators is 5 indicators. ";
+            "The maximum of selected indicators is " +
+            maximumSelected +
+            " indicators. ";
         }
       }
       this.modifySelectDataList.forEach((element) => {
@@ -525,7 +537,7 @@ export default {
           this.modifyDataList.splice(findIndex, 1);
           this.modifyDraftList.push(element);
         } else {
-          if (this.modifyDraftList.length < 5) {
+          if (this.modifyDraftList.length < maximumSelected) {
             this.modifyDataList.splice(findIndex, 1);
             this.modifyDraftList.push(element);
           } else {
@@ -682,7 +694,6 @@ export default {
         indicatorIndex < this.indicatorList.length;
         indicatorIndex++
       ) {
-        console.log(indicatorIndex);
         for (
           let exportIndex = 0;
           exportIndex < this.exportList.length;
@@ -757,6 +768,15 @@ export default {
       }
       this.loadingShow();
       Promise.all(this.promiseBucket).then((values) => {
+        if (values.length == 0) {
+          this.$q.notify({
+            message: "Incorrect Input Data.",
+            color: "red",
+            position: "top",
+          });
+          this.loadingHide();
+          return;
+        }
         this.resultList = values;
         this.isShowDownloadBtn = true;
         this.loadingHide();
@@ -955,8 +975,8 @@ export default {
             year: x.year,
             indicator: x.indicator,
           };
+          a(tempInput);
         });
-        a(tempInput);
       });
 
       this.promiseBucket.push(dataPromise);
