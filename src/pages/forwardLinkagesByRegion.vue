@@ -31,9 +31,7 @@
           exports for third economy.
         </p>
         <p class="font-content" align="center">
-          <span class="q-px-lg"
-            >Exporting economy ({{ displayExportingEconomy }})</span
-          >
+          <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
           <span class="q-pr-md text-weight-bold">:</span>
           <span class="q-pr-lg">Sector</span>
 
@@ -46,25 +44,19 @@
 
       <!-- Key policy questions -->
       <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-      <p
-        class="font-content q-px-sm cursor-pointer"
-        v-scroll-to="'#importedcountry'"
-      >
+      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
         1.
-        <u
-          >Where does {{ displayExportingEconomy }} contribute the most towards
-          export production?</u
-        >
+        <u>
+          Where does {{ displayExportingEconomy }} contribute the most towards
+          export production?
+        </u>
       </p>
-      <p
-        class="font-content q-px-sm cursor-pointer"
-        v-scroll-to="'#importedregion'"
-      >
+      <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
         2.
-        <u
-          >Where do {{ continent }} economies contribute the most towards export
-          production?</u
-        >
+        <u>
+          Where do {{ continent }} economies contribute the most towards export
+          production?
+        </u>
       </p>
     </div>
 
@@ -106,7 +98,7 @@ export default {
   components: {
     appBar,
     headerMenu,
-    sector
+    sector,
   },
   data() {
     return {
@@ -121,9 +113,16 @@ export default {
 
       displaySector: "",
       sector: "",
+      chart2RawData: [], //Chart 2 raw data
+      chart2DrillDown: [], //Chart 2 drill down
+      chart2AsiaPacific: [], //Chart2 สำหรับตัว main (Asia-Pacific)
+      chart2Europe: [], //Chart2 สำหรับตัว main (Europe)
+      chart2NorthAmerica: [], //Chart2 สำหรับตัว main (North America)
+      chart2LatinAmerica: [], //Chart2 สำหรับตัว main (Latin America)
+      chart2RestOfTheWorld: [], //Chart2 สำหรับตัว main (Rest of the world)
 
       isChart: false,
-      isChart1: false
+      isChart1: false,
     };
   },
   methods: {
@@ -141,7 +140,7 @@ export default {
     // Get Structure Of Value
     getStructureOfValue() {
       let sectorData = this.sectorOptions.filter(
-        x => x.value == this.sectorSelected
+        (x) => x.value == this.sectorSelected
       )[0];
 
       this.displaySector = sectorData.label;
@@ -172,7 +171,7 @@ export default {
         return b.value - a.value;
       });
 
-      let getValue = temp.map(x => {
+      let getValue = temp.map((x) => {
         return x.value;
       });
 
@@ -186,7 +185,7 @@ export default {
         if (index < 5) {
           let newData = {
             name: x.name,
-            sum: ((x.value / sumOfValue) * 100).toFixed(2)
+            sum: ((x.value / sumOfValue) * 100).toFixed(2),
           };
 
           graphOneDetailsList.push(newData);
@@ -204,7 +203,7 @@ export default {
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" }
+          style: { fontFamily: "roboto" },
         },
         series: [
           {
@@ -221,25 +220,25 @@ export default {
                   verticalAlign: "top",
                   style: {
                     fontSize: "15px",
-                    fontWeight: "bold"
-                  }
-                }
-              }
+                    fontWeight: "bold",
+                  },
+                },
+              },
             ],
 
             data: getData,
             showInLegend: true,
-            legendType: "point"
-          }
+            legendType: "point",
+          },
         ],
         title: {
           style: {
-            fontSize: "24px"
+            fontSize: "24px",
           },
-          text: `Where does ${this.displayExportingEconomy} contribute the most towards export production?`
+          text: `Where does ${this.displayExportingEconomy} contribute the most towards export production?`,
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         legend: {
           useHTML: true,
@@ -247,7 +246,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
 
           align: "right",
@@ -259,7 +258,7 @@ export default {
           symbolRadius: 0,
           useHTML: true,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             // return "<div>" + this.name + "</div>";
             if (this.name == "Europe") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Euroupe</td></tr></table></div>';
@@ -272,15 +271,15 @@ export default {
             } else if (this.name == "Rest of the world") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
             }
-          }
+          },
         },
         subtitle: {
           style: {
-            fontSize: "14px"
+            fontSize: "14px",
           },
           text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to World amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.contribution}* billion is ${this.displayExportingEconomy}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
-          align: "center"
-        }
+          align: "center",
+        },
       });
     },
     async setStackChart() {
@@ -291,36 +290,175 @@ export default {
       let getData = await Axios.get(urlLink);
 
       getData = getData.data;
+      let countryList = [];
 
-      // let getMapArea = getData.map(x => x.map(e => e.area))[0];
+      getData.map((x) => {
+        countryList.push(x[0].exp_country);
+      });
+      let rawData = [];
+      getData.map((x) => {
+        let temp = x.filter((y) => y.value != 0);
+        rawData.push(temp);
+      });
+      rawData.map((x) => {
+        x.forEach((y) => {
+          this.chart2RawData.push(y);
+        });
+      });
 
-      //  getMapArea = [...new Set(getMapArea)];
+      //สร้าง Drill down สำหรับ Asia pacific
+      let asiaRawData = this.chart2RawData.filter(
+        (x) => x.area == "Asia-Pacific"
+      );
+      countryList.forEach((x) => {
+        let data = asiaRawData.filter((y) => y.exp_country == x);
+        let dataFinal = [];
+        let sum = 0;
+        data.forEach((z) => {
+          let temp = {
+            name: z.imp_country,
+            y: z.value,
+          };
+          sum += z.value;
+          dataFinal.push(temp);
+        });
 
-      //  getMapArea.forEach(element => {
+        let tempData = {
+          type: "pie",
+          id: x + " - " + "Asia Pacific",
+          name: x + " <br> " + "Asia-Pacific",
+          data: dataFinal,
+        };
+        this.chart2DrillDown.push(tempData);
+        tempData = {
+          name: x,
+          y: Number(sum.toFixed(2)),
+          drilldown: x + " - " + "Asia Pacific",
+        };
+        this.chart2AsiaPacific.push(tempData);
+      });
 
-      //  });
+      //สร้าง Drill down สำหรับ Europe
+      let europeRawData = this.chart2RawData.filter((x) => x.area == "Europe");
+      countryList.forEach((x) => {
+        let data = europeRawData.filter((y) => y.exp_country == x);
+        let dataFinal = [];
+        let sum = 0;
+        data.forEach((z) => {
+          let temp = {
+            name: z.imp_country,
+            y: z.value,
+          };
+          sum += z.value;
+          dataFinal.push(temp);
+        });
+        let tempData = {
+          type: "pie",
+          id: x + " - " + "Europe",
+          name: x + " <br> " + "Europe",
+          data: dataFinal,
+        };
+        this.chart2DrillDown.push(tempData);
+        tempData = {
+          name: x,
+          y: Number(sum.toFixed(2)),
+          drilldown: x + " - " + "Europe",
+        };
+        this.chart2Europe.push(tempData);
+      });
 
-      // let series = [];
-      // getData.forEach(element => {
-      //   let data = [];
-      //   for (let i = 0; i < element.length; i++) {
-      //     if (element[i].area == "Asia-Pacific") {
-      //       console.log(element[i]);
-      //     }
+      //สร้าง Drill down สำหรับ North America
+      let northAmericaRawData = this.chart2RawData.filter(
+        (x) => x.area == "North America"
+      );
+      countryList.forEach((x) => {
+        let data = northAmericaRawData.filter((y) => y.exp_country == x);
+        let dataFinal = [];
+        let sum = 0;
+        data.forEach((z) => {
+          let temp = {
+            name: z.imp_country,
+            y: z.value,
+          };
+          sum += z.value;
+          dataFinal.push(temp);
+        });
+        let tempData = {
+          type: "pie",
+          id: x + " - " + "North America",
+          name: x + " <br> " + "North America",
+          data: dataFinal,
+        };
+        this.chart2DrillDown.push(tempData);
+        tempData = {
+          name: x,
+          y: Number(sum.toFixed(2)),
+          drilldown: x + " - " + "North America",
+        };
+        this.chart2NorthAmerica.push(tempData);
+      });
 
-      //     data.push({
-      //       name: element[i].imp_country,
-      //       y: 0,
-      //       drilldown: `${element[i].imp_country} - ${element[i].area}`
-      //     });
-      //   }
+      //สร้าง Drill down สำหรับ Latin America
+      let latinAmericaRawData = this.chart2RawData.filter(
+        (x) => x.area == "Latin America"
+      );
+      countryList.forEach((x) => {
+        let data = latinAmericaRawData.filter((y) => y.exp_country == x);
+        let dataFinal = [];
+        let sum = 0;
+        data.forEach((z) => {
+          let temp = {
+            name: z.imp_country,
+            y: z.value,
+          };
+          sum += z.value;
+          dataFinal.push(temp);
+        });
+        let tempData = {
+          type: "pie",
+          id: x + " - " + "Latin America",
+          name: x + " <br> " + "Latin America",
+          data: dataFinal,
+        };
+        this.chart2DrillDown.push(tempData);
+        tempData = {
+          name: x,
+          y: Number(sum.toFixed(2)),
+          drilldown: x + " - " + "Latin America",
+        };
+        this.chart2LatinAmerica.push(tempData);
+      });
 
-      //   let dataFinal = {
-      //     name: element.area,
-      //     data: data
-      //   };
-      //   series.push(dataFinal);
-      // });
+      //สร้าง Drill down สำหรับ Rest of the world
+      let restRawData = this.chart2RawData.filter(
+        (x) => x.area == "Rest of the world"
+      );
+      countryList.forEach((x) => {
+        let data = restRawData.filter((y) => y.exp_country == x);
+        let dataFinal = [];
+        let sum = 0;
+        data.forEach((z) => {
+          let temp = {
+            name: z.imp_country,
+            y: z.value,
+          };
+          sum += z.value;
+          dataFinal.push(temp);
+        });
+        let tempData = {
+          type: "pie",
+          id: x + " - " + "Rest of the world",
+          name: x + " <br> " + "Rest of the world",
+          data: dataFinal,
+        };
+        this.chart2DrillDown.push(tempData);
+        tempData = {
+          name: x,
+          y: Number(sum.toFixed(2)),
+          drilldown: x + " - " + "Rest of the world",
+        };
+        this.chart2RestOfTheWorld.push(tempData);
+      });
 
       this.isChart1 = true;
 
@@ -328,33 +466,22 @@ export default {
         chart: {
           type: "column",
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" }
+          style: { fontFamily: "roboto" },
         },
 
         xAxis: {
           labels: {
-            rotation: -90
+            rotation: -90,
           },
-          type: "category"
-          // categories: [
-          //   "Brunei Darussalam",
-          //   "Cambodia",
-          //   "Indonesia",
-          //   "Lao PDR",
-          //   "Malaysia",
-          //   "Philippines",
-          //   "Singapore",
-          //   "Thailand",
-          //   "Vietnam",
-          // ],
+          type: "category",
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         yAxis: {
           min: 0,
           title: {
-            text: "% of gross exports to world"
+            text: "% of gross exports to world",
           },
           stackLabels: {
             enabled: false,
@@ -364,9 +491,9 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray"
-            }
-          }
+                "gray",
+            },
+          },
         },
         legend: {
           useHTML: true,
@@ -374,7 +501,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
           align: "right",
           verticalAlign: "middle",
@@ -382,826 +509,69 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0
+          symbolRadius: 0,
         },
 
         tooltip: {
           headerFormat: "<b>{point.x}</pimported><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
 
         series: [
           {
             name: "Asia-Pacific",
-            data: [
-              {
-                name: "Brunei Darussalam",
-                y: 20,
-                drilldown: "Brunei Darussalam - Asia Pacific"
-              },
-              {
-                name: "Cambodia",
-                y: 3,
-                drilldown: "Cambodia - Asia Pacific"
-              },
-              {
-                name: "Indonesia",
-                y: 1.6,
-                drilldown: "Indonesia - Asia Pacific"
-              },
-              {
-                name: "Lao PDR",
-                y: 12,
-                drilldown: "Lao PDR - Asia Pacific"
-              },
-              {
-                name: "Malaysia",
-                y: 10,
-                drilldown: "Malaysia - Asia Pacific"
-              },
-              {
-                name: "Philippines",
-                y: 10,
-                drilldown: "Philippines - Asia Pacific"
-              },
-              {
-                name: "Singapore",
-                y: 14,
-                drilldown: "Singapore - Asia Pacific"
-              },
-              {
-                name: "Thailand",
-                y: 14,
-                drilldown: "Thailand - Asia Pacific"
-              },
-              {
-                name: "Viet Nam",
-                y: 14,
-                drilldown: "Viet Nam - Asia Pacific"
-              }
-            ],
-            color: "#2381B8"
+            data: this.chart2AsiaPacific,
+            color: "#2381B8",
           },
           {
             name: "Europe",
-            data: [
-              {
-                name: "Brunei Darussalam",
-                y: 5,
-                drilldown: "Brunei Darussalam - Europe"
-              },
-              {
-                name: "Cambodia",
-                y: 4,
-                drilldown: "Cambodia - Europe"
-              },
-              {
-                name: "Indonesia",
-                y: 3,
-                drilldown: "Indonesia - Europe"
-              },
-              {
-                name: "Lao PDR",
-                y: 2,
-                drilldown: "Lao PDR - Europe"
-              },
-              {
-                name: "Malaysia",
-                y: 4,
-                drilldown: "Malaysia - Europe"
-              },
-              {
-                name: "Philippines",
-                y: 3,
-                drilldown: "Philippines - Europe"
-              },
-              {
-                name: "Singapore",
-                y: 2.4,
-                drilldown: "Singapore - Europe"
-              },
-              {
-                name: "Thailand",
-                y: 6,
-                drilldown: "Thailand - Europe"
-              },
-              {
-                name: "Viet Nam",
-                y: 3,
-                drilldown: "Viet Nam - Europe"
-              }
-            ],
-            color: "#EB1E63"
+            data: this.chart2Europe,
+            color: "#EB1E63",
           },
           {
             name: "North America",
-            data: [
-              {
-                name: "Brunei Darussalam",
-                y: 5,
-                drilldown: "Brunei Darussalam - North America"
-              },
-              {
-                name: "Cambodia",
-                y: 10,
-                drilldown: "Cambodia - North America"
-              },
-              {
-                name: "Indonesia",
-                y: 5,
-                drilldown: "Indonesia - North America"
-              },
-              {
-                name: "Lao PDR",
-                y: 8,
-                drilldown: "Lao PDR - North America"
-              },
-              {
-                name: "Malaysia",
-                y: 4,
-                drilldown: "Malaysia - North America"
-              },
-              {
-                name: "Philippines",
-                y: 10,
-                drilldown: "Philippines - North America"
-              },
-              {
-                name: "Singapore",
-                y: 8,
-                drilldown: "Singapore - North America"
-              },
-              {
-                name: "Thailand",
-                y: 3,
-                drilldown: "Thailand - North America"
-              },
-              {
-                name: "Viet Nam",
-                y: 5,
-                drilldown: "Viet Nam - North America"
-              }
-            ],
-            color: "#f99704"
+            data: this.chart2NorthAmerica,
+            color: "#f99704",
           },
           {
             name: "Latin America",
-            data: [
-              {
-                name: "Brunei Darussalam",
-                y: 5,
-                drilldown: "Brunei Darussalam - Latin America"
-              },
-              {
-                name: "Cambodia",
-                y: 2,
-                drilldown: "Cambodia - Latin America"
-              },
-              {
-                name: "Indonesia",
-                y: 5,
-                drilldown: "Indonesia - Latin America"
-              },
-              {
-                name: "Lao PDR",
-                y: 3,
-                drilldown: "Lao PDR - Latin America"
-              },
-              {
-                name: "Malaysia",
-                y: 4,
-                drilldown: "Malaysia - Latin America"
-              },
-              {
-                name: "Philippines",
-                y: 6,
-                drilldown: "Philippines - Latin America"
-              },
-              {
-                name: "Singapore",
-                y: 2,
-                drilldown: "Singapore - Latin America"
-              },
-              {
-                name: "Thailand",
-                y: 3,
-                drilldown: "Thailand - Latin America"
-              },
-              {
-                name: "Viet Nam",
-                y: 5,
-                drilldown: "Viet Nam - Latin America"
-              }
-            ],
-            color: "#2D9687"
+            data: this.chart2LatinAmerica,
+            color: "#2D9687",
           },
           {
             name: "Rest of the world",
-            data: [
-              {
-                name: "Brunei Darussalam",
-                y: 3,
-                drilldown: "Brunei Darussalam - Rest of the world"
-              },
-              {
-                name: "Cambodia",
-                y: 4,
-                drilldown: "Cambodia - Rest of the world"
-              },
-              {
-                name: "Indonesia",
-                y: 1,
-                drilldown: "Indonesia - Rest of the world"
-              },
-              {
-                name: "Lao PDR",
-                y: 2,
-                drilldown: "Lao PDR - Rest of the world"
-              },
-              {
-                name: "Malaysia",
-                y: 5,
-                drilldown: "Malaysia - Rest of the world"
-              },
-              {
-                name: "Philippines",
-                y: 3.5,
-                drilldown: "Philippines - Rest of the world"
-              },
-              {
-                name: "Singapore",
-                y: 2,
-                drilldown: "Singapore - Rest of the world"
-              },
-              {
-                name: "Thailand",
-                y: 4,
-                drilldown: "Thailand - Rest of the world"
-              },
-              {
-                name: "Viet Nam",
-                y: 1,
-                drilldown: "Viet Nam - Rest of the world"
-              }
-            ],
-            // data: [5, 10, 5, 8, 4, 10, 8, 3, 5],
-            color: "#9C26B3"
-          }
+            data: this.chart2RestOfTheWorld,
+            color: "#9C26B3",
+          },
         ],
         drilldown: {
           activeDataLabelStyle: {
             color: "white",
-            textShadow: "0 0 2px black, 0 0 2px black"
+            textShadow: "0 0 2px black, 0 0 2px black",
           },
           showInLegend: false,
-          series: [
-            {
-              id: "Brunei Darussalam - Asia Pacific",
-              name: "Brunei Darussalam <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 3],
-                ["Viet Nam", 2.1],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.4]
-              ]
-            },
-            {
-              id: "Cambodia - Asia Pacific",
-              name: "Cambodia <br> Asia-Pacific",
-              data: [
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Indonesia - Asia Pacific",
-              name: "Indonesia <br> Asia-Pacific",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Lao PDR - Asia Pacific",
-              name: "Lao PDR <br> Asia-Pacific",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Malaysia - Asia Pacific",
-              name: "Malaysia <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Philippines - Asia Pacific",
-              name: "Philippines <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Singapore - Asia Pacific",
-              name: "Singapore <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Thailand - Asia Pacific",
-              name: "Thailand <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Viet Nam - Asia Pacific",
-              name: "Viet Nam <br> Asia-Pacific",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Brunei Darussalam - Europe",
-              name: "Brunei Darussalam <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 3],
-                ["Viet Nam", 2.1],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.4]
-              ]
-            },
-            {
-              id: "Cambodia - Europe",
-              name: "Cambodia <br> Europe",
-              data: [
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Indonesia - Europe",
-              name: "Indonesia <br> Europe",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Lao PDR - Europe",
-              name: "Lao PDR <br> Europe",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Malaysia - Europe",
-              name: "Malaysia <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Philippines - Europe",
-              name: "Philippines <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Singapore - Europe",
-              name: "Singapore <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Thailand - Europe",
-              name: "Thailand <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Viet Nam - Europe",
-              name: "Viet Nam <br> Europe",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Brunei Darussalam - North America",
-              name: "Brunei Darussalam <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 3],
-                ["Viet Nam", 2.1],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.4]
-              ]
-            },
-            {
-              id: "Cambodia - North America",
-              name: "Cambodia <br> North America",
-              data: [
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Indonesia - North America",
-              name: "Indonesia <br> North America",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Lao PDR - North America",
-              name: "Lao PDR <br> North America",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Malaysia - North America",
-              name: "Malaysia <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Philippines - North America",
-              name: "Philippines <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Singapore - North America",
-              name: "Singapore <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Thailand - North America",
-              name: "Thailand <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Viet Nam - North America",
-              name: "Viet Nam <br> North America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Brunei Darussalam - Latin America",
-              name: "Brunei Darussalam <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 3],
-                ["Viet Nam", 2.1],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.4]
-              ]
-            },
-            {
-              id: "Cambodia - Latin America",
-              name: "Cambodia <br> Latin America",
-              data: [
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Indonesia - Latin America",
-              name: "Indonesia <br> Latin America",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Lao PDR - Latin America",
-              name: "Lao PDR <br> Latin America",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Malaysia - Latin America",
-              name: "Malaysia <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Philippines - Latin America",
-              name: "Philippines <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Singapore - Latin America",
-              name: "Singapore <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Thailand - Latin America",
-              name: "Thailand <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Viet Nam - Latin America",
-              name: "Viet Nam <br> Latin America",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Brunei Darussalam - Rest of the world",
-              name: "Brunei Darussalam <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 3],
-                ["Viet Nam", 2.1],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.4]
-              ]
-            },
-            {
-              id: "Cambodia - Rest of the world",
-              name: "Cambodia <br> Rest of the world",
-              data: [
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Indonesia - Rest of the world",
-              name: "Indonesia <br> Rest of the world",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 1.2],
-                ["Sri Lanka", 0.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Lao PDR - Rest of the world",
-              name: "Lao PDR <br> Rest of the world",
-              data: [
-                ["Taiwan", 3],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Malaysia - Rest of the world",
-              name: "Malaysia <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Philippines - Rest of the world",
-              name: "Philippines <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Singapore - Rest of the world",
-              name: "Singapore <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Thailand - Rest of the world",
-              name: "Thailand <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            },
-            {
-              id: "Viet Nam - Rest of the world",
-              name: "Viet Nam <br> Rest of the world",
-              data: [
-                ["Japan", 8],
-                ["Taiwan", 5],
-                ["Bhutan", 2.2],
-                ["Sri Lanka", 1.7],
-                ["Nepal", 0.6],
-                ["Cambodia", 0.5]
-              ]
-            }
-          ]
+          series: this.chart2DrillDown,
         },
         title: {
           style: {
-            fontSize: "24px"
+            fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies contribute the most towards export production?`
-        }
+          text: `Where do ${this.continent} economies contribute the most towards export production?`,
+        },
       });
-    }
+    },
   },
   async mounted() {
     await this.getSectorList();
-  }
+  },
 };
 </script>
 
