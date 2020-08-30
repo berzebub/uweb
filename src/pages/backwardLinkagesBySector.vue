@@ -181,7 +181,11 @@ export default {
 
       this.$q.sessionStorage.set("sourcEcId", sourceData.value);
 
-      if (this.displayImportingEconomy == this.displayExportingEconomy) {
+      if (
+        this.displayImportingEconomy == this.displayExportingEconomy ||
+        this.displayImportingEconomy == this.displaySourceEconomy ||
+        this.displaySourceEconomy == this.displayExportingEconomy
+      ) {
         this.isShowErrorWarning = true;
         return;
       }
@@ -214,7 +218,7 @@ export default {
 
       Highcharts.chart("container", {
         chart: {
-          height: (3 / 3) * 100 + "%", // 16:9 ratio
+          height: (3 / 4) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
         },
         series: [
@@ -281,9 +285,9 @@ export default {
             } else if (this.name == "Utilities") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #FA9908;"></div></td><td style="padding-left:12px;">Utilities</td></tr></table></div>';
             } else if (this.name == "Low tech") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #F34336;"></div></td><td style="padding-left:12px;"><div>Manufacturtoring</div>Low tech </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #F34336;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>Low tech </td></tr></table></div>';
             } else if (this.name == "High and medium tech") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturtoring</div>High and medium tech</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>High and medium tech</td></tr></table></div>';
             } else if (this.name == "Trade and repair service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair </td></tr></table></div>';
             } else if (this.name == "Tourism") {
