@@ -18,7 +18,7 @@ Vue.component('downloadCsv', JsonCSV)
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -67,7 +67,7 @@ Vue.mixin({
       }
 
       if (!this.$q.sessionStorage.has("impEcId")) {
-        this.importingEconomy = tempOptions[0].value;
+        this.importingEconomy = tempOptions[1].value;
       } else {
         this.importingEconomy = this.$q.sessionStorage.getItem("impEcId");
       }

@@ -231,7 +231,7 @@ export default {
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
 
-      this.$q.sessionStorage.set("impEcId", countryData.value);
+      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
 
       this.$q.sessionStorage.set("secId", sectorData.value);
 
