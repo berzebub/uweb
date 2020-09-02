@@ -6,7 +6,11 @@
 
     <div v-if="isShowContent">
       <div class="relative-position q-my-md">
-        <p class="font-page" align="center">{{ displayCountry.name }}'s key GVC relationships</p>
+        <p
+          class="font-page"
+          align="center"
+          id="keyGVC"
+        >{{ displayCountry.name }}'s key GVC relationships</p>
       </div>
 
       <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
@@ -19,6 +23,33 @@
         style="width:90%; margin:auto; max-width:1200px;"
         v-show="isGraphGVC"
       >
+        <!-- <q-btn-group style="width:100%" class="row justify-between"> -->
+        <!-- <q-btn label="Overview" />
+          <q-btn label="By exporting sector" />
+          <q-btn label="By partnet economy" />
+        </q-btn-group>
+        <div style="height:20px"></div>-->
+        <div class="row justify-center q-py-md">
+          <div class="col-4">
+            <q-btn v-scroll-to="'#keyGVC'" style="width:90%;margin:auto" label="Overview" no-caps></q-btn>
+          </div>
+          <div class="col-4">
+            <q-btn
+              v-scroll-to="'#exportingSector'"
+              style="width:90%;margin:auto"
+              label="By exporting sector"
+              no-caps
+            ></q-btn>
+          </div>
+          <div class="col-4">
+            <q-btn
+              v-scroll-to="'#byEconomy'"
+              style="width:90%;margin:auto"
+              label="By partner economy"
+              no-caps
+            ></q-btn>
+          </div>
+        </div>
         <p>
           <b>
             {{ displayCountry.name }}’s GVC exports amount to
@@ -112,7 +143,11 @@
 
       <!-- Key GVC relationships by sector -->
       <div style="height:20px;"></div>
-      <p class="font-graph q-py-md" align="center">key GVC relationships by sector</p>
+      <p
+        id="exportingSector"
+        class="font-graph q-py-md"
+        align="center"
+      >key GVC relationships by sector</p>
       <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
         <div class="col-5">
           <div class="color4 font-content">
@@ -158,7 +193,7 @@
       <div style="height:20px"></div>
 
       <!-- Key GVC relationships by economy -->
-      <p class="font-graph q-py-md" align="center">key GVC relationships by economy</p>
+      <p class="font-graph q-py-md" id="byEconomy" align="center">key GVC relationships by economy</p>
 
       <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
         <div class="col-5">
@@ -236,7 +271,8 @@ export default {
   },
 
   methods: {
-    // Function Test
+    goToOverview() {},
+    goToSector() {},
     getEmitData(val) {
       this.displayCountry = val;
       this.displayYear = val.year;

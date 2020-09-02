@@ -5,17 +5,24 @@ const routes = [
     name: "not-support"
   },
   {
-    path: "/testgraph",
-    component: () => import("pages/testGraph.vue"),
-    name: "testGraph"
-  },
-  {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
+        path: "/global-value-chains",
+        component: () => import("pages/globalValueChains"),
+        name: "globalValueChains"
+
+      },
+      {
+        path: "/regional-integration",
+        component: () => import("pages/regionalIntegration"),
+        name: "regionalIntegration"
+
+      },
+      {
         path: "",
-        component: () => import("pages/Index.vue"),
+        component: () => import("pages/welcome.vue"),
         name: "landing-page"
       },
       {
