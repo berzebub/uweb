@@ -1,7 +1,13 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:100px">
+  <q-page
+    class="container"
+    :class="!isShowPage || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
+    style="padding-bottom:100px"
+  >
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
-    <header-menu :activeMenu="2"></header-menu>
+    <div class="bg-white">
+      <header-menu :activeMenu="2"></header-menu>
+    </div>
     <!-- <importing-select @sectorSelected="getEmitImportData"></importing-select> -->
 
     <!-- Importing Economy -->
@@ -33,40 +39,42 @@
       </div>
     </div>
 
-    <!-- Error Page -->
-    <error-page
-      v-show="isShowErrorWarning"
-      displayText="The exporting economy must not be the same as the 
+    <div v-if="isShowPage">
+      <!-- Error Page -->
+      <error-page
+        v-show="isShowErrorWarning"
+        displayText="The exporting economy must not be the same as the 
 importing economy."
-    ></error-page>
+      ></error-page>
 
-    <!-- Show Content -->
-    <div v-show="!isShowErrorWarning">
-      <div class="q-px-md">
-        <div
-          style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px"
-          class="q-pa-md"
-        >
-          <p class="font-graph" align="center">Why does GVC participation matter?</p>
-          <p
-            class="font-content"
-          >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
-          <p
-            class="font-content"
-          >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
+      <!-- Show Content -->
+      <div v-show="!isShowErrorWarning">
+        <div class="q-px-md">
+          <div
+            style="border-radius:10px;border:2px solid; width:90%;margin:auto;max-width:1200px"
+            class="q-pa-md"
+          >
+            <p class="font-graph" align="center">Why does GVC participation matter?</p>
+            <p
+              class="font-content"
+            >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
+            <p
+              class="font-content"
+            >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
+          </div>
         </div>
-      </div>
 
-      <div style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isChart">
-          <q-spinner-pie color="primary" size="100px" />
+        <div style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isChart">
+            <div id="container1"></div>
+          </div>
         </div>
-        <div v-show="isChart">
-          <div id="container1"></div>
-        </div>
+        <div style="height:30px"></div>
       </div>
-      <div style="height:30px"></div>
     </div>
   </q-page>
 </template>
@@ -86,6 +94,7 @@ export default {
   },
   data() {
     return {
+      isShowPage: false,
       countryOptions: [],
       importingEconomy: "",
 
@@ -111,6 +120,19 @@ export default {
     };
   },
   methods: {
+    checkShowPage() {
+      if (
+        this.displayExportingEconomy != "" &&
+        this.displayYear != "" &&
+        this.displayImportingEconomy != "" &&
+        this.displaySector != ""
+      ) {
+        this.isShowPage = true;
+        return true;
+      } else {
+        return false;
+      }
+    },
     // Get Emit Data
     getEmitData(val) {
       // Exporting Economy
@@ -118,7 +140,7 @@ export default {
       this.exp_country = val.iso;
       this.continent = val.region;
       this.displayYear = val.year;
-
+      this.checkShowPage();
       this.getStructureOfValue();
     },
 
@@ -133,23 +155,32 @@ export default {
         (x) => x.value == this.sectorSelected
       )[0];
 
-      this.displayImportingEconomy = countryData.label;
-      this.imp_country = countryData.iso;
-      this.displaySector = sectorData.label;
-      this.sector = sectorData.value;
+      // this.displayImportingEconomy = countryData.label;
+      // this.imp_country = countryData.iso;
+      // this.displaySector = sectorData.label;
+      // this.sector = sectorData.value;
 
-      this.$q.sessionStorage.set("impEcId", countryData.value);
-
-      this.$q.sessionStorage.set("secId", sectorData.value);
-
-      if (this.displayImportingEconomy == this.displayExportingEconomy) {
-        this.isShowErrorWarning = true;
-        return;
+      if (countryData) {
+        this.displayImportingEconomy = countryData.label;
+        this.imp_country = countryData.iso;
       }
 
-      this.isShowErrorWarning = false;
+      if (sectorData) {
+        this.displaySector = sectorData.label;
+        this.sector = sectorData.value;
+      }
 
-      this.renderGraph(); // Render Graph
+      let check = this.checkShowPage();
+      if (check) {
+        if (this.displayImportingEconomy == this.displayExportingEconomy) {
+          this.isShowErrorWarning = true;
+          return;
+        }
+
+        this.isShowErrorWarning = false;
+
+        this.renderGraph(); // Render Graph
+      }
     },
     // ------------------------------------------------------------
 

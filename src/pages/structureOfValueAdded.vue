@@ -211,10 +211,6 @@ export default {
   },
   methods: {
     checkShowPage() {
-      // console.log(this.displayExportingEconomy);
-      // console.log(this.displayYear);
-      // console.log(this.displayImportingEconomy);
-      // console.log(this.displaySector);
       if (
         this.displayExportingEconomy != "" &&
         this.displayYear != "" &&
@@ -240,8 +236,6 @@ export default {
 
     // Get Structure Of Value
     async getStructureOfValue() {
-      let checkPage = this.checkShowPage();
-
       // Importing Economy
       let countryData = this.countryOptions.filter(
         (x) => x.value == this.importingEconomy
