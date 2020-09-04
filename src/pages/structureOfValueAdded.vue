@@ -211,6 +211,10 @@ export default {
   },
   methods: {
     checkShowPage() {
+      // console.log(this.displayExportingEconomy);
+      // console.log(this.displayYear);
+      // console.log(this.displayImportingEconomy);
+      // console.log(this.displaySector);
       if (
         this.displayExportingEconomy != "" &&
         this.displayYear != "" &&
@@ -218,6 +222,9 @@ export default {
         this.displaySector != ""
       ) {
         this.isShowPage = true;
+        return true;
+      } else {
+        return false;
       }
     },
     // Get Emit Data
@@ -227,12 +234,14 @@ export default {
       this.exp_country = val.iso;
       this.continent = val.region;
       this.displayYear = val.year;
-
+      this.checkShowPage();
       this.getStructureOfValue();
     },
 
     // Get Structure Of Value
     async getStructureOfValue() {
+      let checkPage = this.checkShowPage();
+
       // Importing Economy
       let countryData = this.countryOptions.filter(
         (x) => x.value == this.importingEconomy
@@ -242,23 +251,25 @@ export default {
         (x) => x.value == this.sectorSelected
       )[0];
 
-      this.displayImportingEconomy = countryData.label;
-      this.imp_country = countryData.iso;
-      this.displaySector = sectorData.label;
-      this.sector = sectorData.value;
-
-      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
-
-      this.$q.sessionStorage.set("secId", sectorData.value);
-
-      if (this.displayImportingEconomy == this.displayExportingEconomy) {
-        this.isShowErrorWarning = true;
-        return;
+      if (countryData) {
+        this.displayImportingEconomy = countryData.label;
+        this.imp_country = countryData.iso;
       }
 
-      this.isShowErrorWarning = false;
+      if (sectorData) {
+        this.displaySector = sectorData.label;
+        this.sector = sectorData.value;
+      }
+      let check = this.checkShowPage();
+      if (check) {
+        if (this.displayImportingEconomy == this.displayExportingEconomy) {
+          this.isShowErrorWarning = true;
+          return;
+        }
+        this.isShowErrorWarning = false;
 
-      this.renderGraph(); // Render Graph
+        this.renderGraph(); // Render Graph
+      }
     },
 
     // Render Graph
