@@ -1,85 +1,94 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:120px">
+  <q-page
+    class="container"
+    :class="!isShowPage  || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
+    style="padding-bottom:120px"
+  >
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
-    <header-menu :activeMenu="4"></header-menu>
-    <!-- Importing Economy -->
-    <div class="q-px-md q-py-lg" style="width:500px;margin:auto">
-      <span>Importing economy</span>
-      <q-select
-        @input="loadEconomy()"
-        dense
-        outlined
-        :options="countryOptions"
-        v-model="importingEconomy"
-        emit-value
-        map-options
-      ></q-select>
+    <div class="bg-white">
+      <header-menu :activeMenu="4"></header-menu>
+      <!-- Importing Economy -->
+      <div class="q-px-md q-py-lg" style="width:500px;margin:auto">
+        <span>Importing economy</span>
+        <q-select
+          @input="loadEconomy()"
+          dense
+          outlined
+          :options="countryOptions"
+          v-model="importingEconomy"
+          emit-value
+          map-options
+        ></q-select>
+      </div>
     </div>
 
     <error-page
       v-show="isShowErrorWarning"
+      class="q-pt-md"
       displayText="The exporting economy must not be the same as the importing economy."
     ></error-page>
 
-    <div v-show="!isShowErrorWarning">
-      <!-- Title box -->
-      <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
-        <div class="q-pa-md" style="border-radius:5px;border:2px solid">
-          <p
-            class="font-graph"
-            align="center"
-          >Where does {{ displayExportingEconomy }} contribute towards export production?</p>
-          <p
-            class="font-content"
-            align="center"
-          >Some part of {{ displayExportingEconomy }}’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economies.</p>
-          <div class="font-content" align="center">
-            <span class="q-px-lg">Exporting economy ({{displayExportingEconomy }})</span>
-            <span class="q-px-lg text-weight-bold">:</span>
-            <span class="q-pr-lg">Sector</span>
-            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-px-lg">Importing economy</span>
-            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-pl-lg">Third economies</span>
+    <div v-if="isShowPage">
+      <div v-show="!isShowErrorWarning">
+        <!-- Title box -->
+        <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p
+              class="font-graph"
+              align="center"
+            >Where does {{ displayExportingEconomy }} contribute towards export production?</p>
+            <p
+              class="font-content"
+              align="center"
+            >Some part of {{ displayExportingEconomy }}’s gross exports consist of intermediate inputs that are used by the direct importer to produce exports for third economies.</p>
+            <div class="font-content" align="center">
+              <span class="q-px-lg">Exporting economy ({{displayExportingEconomy }})</span>
+              <span class="q-px-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-px-lg">Importing economy</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Third economies</span>
+            </div>
+          </div>
+
+          <!-- Key policy questions -->
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+            1.
+            <u>Which sectors in {{ displayExportingEconomy }} are most reliant on export production in a selected importer?</u>
+          </p>
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+            2.
+            <u>Which sectors in {{ continent }} economies are most reliant on export production in a selected importer?</u>
+          </p>
+        </div>
+
+        <div style="height:30px"></div>
+        <hr />
+        <div style="height:30px"></div>
+        <!-- กราฟ -->
+        <div id="importedcountry" style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isChart">
+            <div id="container"></div>
           </div>
         </div>
+        <div style="height:30px"></div>
 
-        <!-- Key policy questions -->
-        <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
-          1.
-          <u>Which sectors in {{ displayExportingEconomy }} are most reliant on export production in a selected importer?</u>
-        </p>
-        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
-          2.
-          <u>Which sectors in {{ continent }} economies are most reliant on export production in a selected importer?</u>
-        </p>
-      </div>
-
-      <div style="height:30px"></div>
-      <hr />
-      <div style="height:30px"></div>
-      <!-- กราฟ -->
-      <div id="importedcountry" style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isChart">
-          <q-spinner-pie color="primary" size="100px" />
-        </div>
-        <div v-show="isChart">
-          <div id="container"></div>
-        </div>
-      </div>
-      <div style="height:30px"></div>
-
-      <!-- จบกราฟแรก -->
-      <hr />
-      <div style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isChart1">
-          <q-spinner-pie color="primary" size="100px" />
-        </div>
-        <div v-show="isChart1" id="importedregion">
-          <div id="container1"></div>
+        <!-- จบกราฟแรก -->
+        <hr />
+        <div style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isChart1">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isChart1" id="importedregion">
+            <div id="container1"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -102,6 +111,7 @@ export default {
   },
   data() {
     return {
+      isShowPage: false,
       countryOptions: [],
       displayExportingEconomy: "", //ชื่อเต็มประเทศส่งออก
       exp_country: "", //ชื่อ 3 ตัวประเทศส่งออก
@@ -116,6 +126,18 @@ export default {
     };
   },
   methods: {
+    checkShowPage() {
+      if (
+        this.displayExportingEconomy != "" &&
+        this.displayYear != "" &&
+        this.displayImportingEconomy != ""
+      ) {
+        this.isShowPage = true;
+        return true;
+      } else {
+        return false;
+      }
+    },
     getEmitData(val) {
       // Exporting Economy
       this.displayExportingEconomy = val.name;
@@ -132,19 +154,20 @@ export default {
         (x) => x.value == this.importingEconomy
       )[0];
 
-      this.displayImportingEconomy = countryData.label;
-      this.imp_country = countryData.iso;
-
-      this.$q.sessionStorage.set("impEcId", countryData.value);
-
-      if (this.displayImportingEconomy == this.displayExportingEconomy) {
-        this.isShowErrorWarning = true;
-        return;
+      if (countryData) {
+        this.displayImportingEconomy = countryData.label;
+        this.imp_country = countryData.iso;
       }
 
-      this.isShowErrorWarning = false;
-
-      this.renderGraph(); // Render Graph
+      let check = this.checkShowPage();
+      if (check) {
+        if (this.displayImportingEconomy == this.displayExportingEconomy) {
+          this.isShowErrorWarning = true;
+          return;
+        }
+        this.isShowErrorWarning = false;
+        this.renderGraph(); // Render Graph
+      }
     },
 
     renderGraph() {
