@@ -190,9 +190,15 @@
           </p>
         </div>
       </div>
-      <div class="row items-center" style="width:1200px;margin:auto;">
+      <div class="row justify-center items-center" style="width:1200px;margin:auto;">
         <div>
-          <q-img src="../../public/images/getStarted01.jpg" style="width:450px;"></q-img>
+          <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div class v-if="isGraphGVCSector">
+            <graph-gvc :data="graphBackwardGVCSector"></graph-gvc>
+          </div>
+          <!-- <q-img src="../../public/images/getStarted01.jpg" style="width:450px;"></q-img> -->
         </div>
         <div
           align="center"
@@ -200,7 +206,14 @@
           style="width:250px; left: 15px;position:relative; top:-10px;"
         >{{ displayCountry.name }}</div>
         <div>
-          <q-img src="../../public/images/getStarted02.jpg" style="width:450px;"></q-img>
+          <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+
+          <div class v-if="isGraphGVCSector">
+            <q-img src="../../public/images/getStarted02.jpg" style="width:450px;"></q-img>
+            <!-- <graph-gvc :data="graphBackwardGVCSector"></graph-gvc> -->
+          </div>
         </div>
       </div>
 
@@ -255,7 +268,7 @@
       <div style="height:20px"></div>
       <div class="q-px-md" align="right">
         <q-btn
-          to="/involvement"
+          to="/involvement/"
           no-caps
           class="bg4 font-content"
           style="border-radius:10px;width:200px;"
@@ -269,20 +282,26 @@
 </template>
 
 <script>
+import graphGvc from "../components/backwardGVC.vue";
 import appBar from "../components/appBarWithLogo";
 import Axios from "axios";
 export default {
   components: {
     appBar,
+    graphGvc,
   },
   data() {
     return {
       displayCountry: "",
       displayYear: "",
       graphGVC: {},
+      graphBackwardGVCSector: [],
 
       isGraphGVC: false,
+      isGraphGVCSector: false,
       isShowContent: false,
+
+      test: [],
     };
   },
 
@@ -295,6 +314,8 @@ export default {
       if (this.displayCountry != "" && this.displayYear != "") {
         this.isShowContent = true;
         this.loadGVCGraph();
+
+        this.loadGVCGraphSector();
       }
     },
     // -----------------------------------------
@@ -320,6 +341,99 @@ export default {
       this.graphGVC = getData.data == "" ? formatData : getData.data;
 
       this.isGraphGVC = true;
+    },
+
+    async loadGVCGraphSector() {
+      this.isGraphGVCSector = false;
+
+      let urlLinkBackward = `https://api.winner-english.com/u_api/cal_gvc_graph1_back.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+
+      let urlLinkForward = `https://api.winner-english.com/u_api/cal_gvc_graph1_forward.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+
+      let getDataBackward = await Axios.get(urlLinkBackward);
+
+      let getDataForward = await Axios.get(urlLinkForward);
+
+      let backwardData = getDataBackward.data;
+      let forwardData = getDataForward.data;
+
+      let valueArr = [];
+      let valArr = [];
+
+      let resultVal = "";
+      let resultValue = "";
+
+      backwardData.forEach((x) => {
+        valueArr.push(x.value);
+        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
+      });
+
+      forwardData.forEach((x) => {
+        valueArr.push(x.value);
+        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
+      });
+
+      resultValue = Math.max(...valueArr);
+
+      resultVal = Math.max(...valArr);
+
+      backwardData.forEach((x) => {
+        x.valuepx =
+          (x.value * 25) / resultValue < 10
+            ? "10"
+            : ((x.value * 25) / resultValue).toFixed(0);
+        x.val1px =
+          (x.val1 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val1 * 17) / resultVal).toFixed(0);
+        x.val2px =
+          (x.val2 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val2 * 17) / resultVal).toFixed(0);
+        x.val3px =
+          (x.val3 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val3 * 17) / resultVal).toFixed(0);
+        x.val4px =
+          (x.val4 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val4 * 17) / resultVal).toFixed(0);
+        x.val5px =
+          (x.val5 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val5 * 17) / resultVal).toFixed(0);
+      });
+
+      forwardData.forEach((x) => {
+        x.valuepx =
+          (x.value * 25) / resultValue < 10
+            ? "10"
+            : ((x.value * 25) / resultValue).toFixed(0);
+        x.val1px =
+          (x.val1 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val1 * 17) / resultVal).toFixed(0);
+        x.val2px =
+          (x.val2 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val2 * 17) / resultVal).toFixed(0);
+        x.val3px =
+          (x.val3 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val3 * 17) / resultVal).toFixed(0);
+        x.val4px =
+          (x.val4 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val4 * 17) / resultVal).toFixed(0);
+        x.val5px =
+          (x.val5 * 17) / resultVal < 7
+            ? "7"
+            : ((x.val5 * 17) / resultVal).toFixed(0);
+      });
+
+      this.graphBackwardGVCSector = backwardData;
+
+      this.isGraphGVCSector = true;
     },
   },
 
