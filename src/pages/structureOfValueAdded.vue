@@ -39,6 +39,11 @@
       </div>
     </div>
 
+    <div
+      class="absolute-center font-content"
+      v-if="!isShowPage"
+    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+
     <div v-if="isShowPage">
       <!-- Error Page -->
       <error-page

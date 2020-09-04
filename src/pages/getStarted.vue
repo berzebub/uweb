@@ -268,7 +268,7 @@
       <div style="height:20px"></div>
       <div class="q-px-md" align="right">
         <q-btn
-          to="/involvement/"
+          @click="toInvolvement()"
           no-caps
           class="bg4 font-content"
           style="border-radius:10px;width:200px;"
@@ -306,8 +306,11 @@ export default {
   },
 
   methods: {
-    goToOverview() {},
-    goToSector() {},
+    toInvolvement() {
+      this.$router.push("/involvement");
+      // cselec  = country and year that user selected
+      this.$q.sessionStorage.set("cselec", this.displayCountry);
+    },
     getEmitData(val) {
       this.displayCountry = val;
       this.displayYear = val.year;

@@ -74,14 +74,23 @@ export default {
     async loadYear() {
       this.getCountryList();
 
+      if (this.$route.name == "involvement") {
+        this.yearSelected = this.$q.sessionStorage.getItem("cselec").year;
+        let countryId = this.countryOptions.filter(
+          (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
+        );
+
+        this.countrySelected = countryId[0].value;
+      } else {
+        this.countrySelected = "";
+        this.yearSelected = "";
+      }
+
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
       let getYear = await Axios.get(url);
 
       this.yearOptions = getYear.data;
-      this.yearSelected = this.$q.sessionStorage.has("yid")
-        ? this.$q.sessionStorage.getItem("yid")
-        : "";
     },
   },
 

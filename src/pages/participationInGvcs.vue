@@ -7,39 +7,43 @@
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
     <div class="bg-white">
       <header-menu :activeMenu="2"></header-menu>
-    </div>
-    <!-- <importing-select @sectorSelected="getEmitImportData"></importing-select> -->
+      <!-- Importing Economy -->
 
-    <!-- Importing Economy -->
-    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
-      <div class="col-6 q-px-md">
-        <span>Importing economy</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="countryOptions"
-          v-model="importingEconomy"
-          emit-value
-          map-options
-        ></q-select>
+      <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+        <div class="col-6 q-px-md">
+          <span>Importing economy</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="countryOptions"
+            v-model="importingEconomy"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
+
+        <div class="col-6 q-px-md">
+          <span>Sector</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="sectorOptions"
+            v-model="sectorSelected"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
       </div>
-
-      <div class="col-6 q-px-md">
-        <span>Sector</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="sectorOptions"
-          v-model="sectorSelected"
-          emit-value
-          map-options
-        ></q-select>
-      </div>
     </div>
 
-    <div v-if="isShowPage">
+    <div
+      class="absolute-center font-content"
+      v-if="!isShowPage"
+    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+
+    <div v-if="isShowPage" class="relative-position">
       <!-- Error Page -->
       <error-page
         v-show="isShowErrorWarning"
