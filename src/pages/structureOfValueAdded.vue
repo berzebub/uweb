@@ -1,156 +1,161 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:100px">
+  <q-page
+    class="container"
+    :class="!isShowPage ? 'bg-loading' : 'bg-white'"
+    style="padding-bottom:100px"
+  >
     <!-- App Bar -->
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
-    <header-menu></header-menu>
 
-    <!-- @importingEconomy="importingEconomyChanged" -->
-    <!-- <importing-select @sectorSelected="getEmitImportData"></importing-select> -->
+    <div class="bg-white">
+      <header-menu></header-menu>
+      <!-- Importing Economy -->
+      <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+        <div class="col-6 q-px-md">
+          <span>Importing economy</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="countryOptions"
+            v-model="importingEconomy"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
 
-    <!-- Importing Economy -->
-    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
-      <div class="col-6 q-px-md">
-        <span>Importing economy</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="countryOptions"
-          v-model="importingEconomy"
-          emit-value
-          map-options
-        ></q-select>
-      </div>
-
-      <div class="col-6 q-px-md">
-        <span>Sector</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="sectorOptions"
-          v-model="sectorSelected"
-          emit-value
-          map-options
-        ></q-select>
+        <div class="col-6 q-px-md">
+          <span>Sector</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="sectorOptions"
+            v-model="sectorSelected"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
       </div>
     </div>
 
-    <!-- Error Page -->
-    <error-page
-      v-show="isShowErrorWarning"
-      displayText="The exporting economy cannot be the same as the 
+    <div v-if="isShowPage">
+      <!-- Error Page -->
+      <error-page
+        v-show="isShowErrorWarning"
+        displayText="The exporting economy cannot be the same as the 
 importing economy"
-    ></error-page>
+      ></error-page>
 
-    <!-- Show Content -->
-    <div v-show="!isShowErrorWarning">
-      <!-- table of content -->
-      <div class="row" style="margin:auto; max-width:1050px;width:95%;">
-        <div class="divLeft col">
-          <div class="font-graph q-pt-md" align="center">Table of contents:</div>
-          <div class="q-pa-md font-content">
-            <div v-scroll-to="'#key'" class="cursor-pointer">
-              1.
-              <u>Key policy question</u>
-            </div>
-            <div class="q-pt-md cursor-pointer" v-scroll-to="'#structure'">
-              2.
-              <u>Structure of value-added</u>
-            </div>
-            <div class="q-pt-md cursor-pointer" v-scroll-to="'#comparison'">
-              3.
-              <u>Comparison with partners</u>
-            </div>
-            <div class="q-pt-md cursor-pointer" v-scroll-to="'#measuring'">
-              4.
-              <u>Measuring trade balance</u>
+      <!-- Show Content -->
+      <div v-show="!isShowErrorWarning">
+        <!-- table of content -->
+        <div class="row" style="margin:auto; max-width:1050px;width:95%;">
+          <div class="divLeft col">
+            <div class="font-graph q-pt-md" align="center">Table of contents:</div>
+            <div class="q-pa-md font-content">
+              <div v-scroll-to="'#key'" class="cursor-pointer">
+                1.
+                <u>Key policy question</u>
+              </div>
+              <div class="q-pt-md cursor-pointer" v-scroll-to="'#structure'">
+                2.
+                <u>Structure of value-added</u>
+              </div>
+              <div class="q-pt-md cursor-pointer" v-scroll-to="'#comparison'">
+                3.
+                <u>Comparison with partners</u>
+              </div>
+              <div class="q-pt-md cursor-pointer" v-scroll-to="'#measuring'">
+                4.
+                <u>Measuring trade balance</u>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="divRight">
-          <div
-            class="font-graph q-pt-md"
-            align="center"
-          >How do you disaggregate value-added in gross exports?</div>
-          <div
-            class="font-content q-pt-md"
-            align="center"
-          >{{displayExportingEconomy}}'s gross exports can be divided into five major parts:</div>
-          <div class="row q-pt-md" style="width:95%; margin:auto;">
-            <div style="width:20%" align="center">Used in importer's comsumption</div>
-            <div style="width:20%" align="center">Used in domestic comsumption</div>
-            <div style="width:20%" align="center">Used in importer's export production</div>
-            <div style="width:20%" align="center">Imported content</div>
+          <div class="divRight">
             <div
-              style="width:20%"
+              class="font-graph q-pt-md"
               align="center"
-            >Double counted exports from repeated border crossing</div>
-          </div>
-          <div class="bracketLeft"></div>
-          <div class="bracketRight"></div>
-          <div class="textLeft font-content">{{displayExportingEconomy}}'s valued-added in exports</div>
-          <div class="textRight font-content">GVC releated exports</div>
-        </div>
-      </div>
-
-      <!-- Key policy question -->
-      <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
-        <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
-        <div class="q-px-md font-content">
-          <div v-scroll-to="'#structure'" class="cursor-pointer">
-            1.
-            <u>What happens to {{displayExportingEconomy}}’s exports to a selected importer?</u>
-          </div>
-          <div class="cursor-pointer" v-scroll-to="'#comparison'">
-            2.
-            <!-- TODO SOUTH EAST ASIAN เขียนฟังชันหาทวีป FIND -->
-            <u>What happens to {{continent}} economics’s exports to a selected imported?</u>
-          </div>
-          <div class="cursor-pointer" v-scroll-to="'#measuring'">
-            3.
-            <u>How does {{displayExportingEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+            >How do you disaggregate value-added in gross exports?</div>
+            <div
+              class="font-content q-pt-md"
+              align="center"
+            >{{displayExportingEconomy}}'s gross exports can be divided into five major parts:</div>
+            <div class="row q-pt-md" style="width:95%; margin:auto;">
+              <div style="width:20%" align="center">Used in importer's comsumption</div>
+              <div style="width:20%" align="center">Used in domestic comsumption</div>
+              <div style="width:20%" align="center">Used in importer's export production</div>
+              <div style="width:20%" align="center">Imported content</div>
+              <div
+                style="width:20%"
+                align="center"
+              >Double counted exports from repeated border crossing</div>
+            </div>
+            <div class="bracketLeft"></div>
+            <div class="bracketRight"></div>
+            <div class="textLeft font-content">{{displayExportingEconomy}}'s valued-added in exports</div>
+            <div class="textRight font-content">GVC releated exports</div>
           </div>
         </div>
-      </div>
-      <hr />
 
-      <!-- What happends to ... exports to ...? -->
-      <div style="height:30px" id="structure"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isStructureChart">
-          <q-spinner-pie color="primary" size="100px" />
+        <!-- Key policy question -->
+        <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
+          <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
+          <div class="q-px-md font-content">
+            <div v-scroll-to="'#structure'" class="cursor-pointer">
+              1.
+              <u>What happens to {{displayExportingEconomy}}’s exports to a selected importer?</u>
+            </div>
+            <div class="cursor-pointer" v-scroll-to="'#comparison'">
+              2.
+              <!-- TODO SOUTH EAST ASIAN เขียนฟังชันหาทวีป FIND -->
+              <u>What happens to {{continent}} economics’s exports to a selected imported?</u>
+            </div>
+            <div class="cursor-pointer" v-scroll-to="'#measuring'">
+              3.
+              <u>How does {{displayExportingEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+            </div>
+          </div>
         </div>
-        <div v-show="isStructureChart">
-          <div id="container"></div>
-        </div>
-      </div>
-      <hr />
+        <hr />
 
-      <!-- What happens to ... econmics' exports to...? -->
-      <div id="comparison" style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
-          <q-spinner-pie color="primary" size="100px" />
+        <!-- What happends to ... exports to ...? -->
+        <div style="height:30px" id="structure"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isStructureChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isStructureChart">
+            <div id="container"></div>
+          </div>
         </div>
-        <div v-show="isComparisonChart">
-          <div id="container1"></div>
-        </div>
-      </div>
-      <hr />
+        <hr />
 
-      <!-- How does ... gross and domestic value-added trade balance with ... differ? -->
-      <div id="measuring" style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
-          <q-spinner-pie color="primary" size="100px" />
+        <!-- What happens to ... econmics' exports to...? -->
+        <div id="comparison" style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isComparisonChart">
+            <div id="container1"></div>
+          </div>
         </div>
-        <div v-show="isMeasuringChart">
-          <div id="container2"></div>
-        </div>
-      </div>
+        <hr />
 
-      <div style="height:30px"></div>
+        <!-- How does ... gross and domestic value-added trade balance with ... differ? -->
+        <div id="measuring" style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isMeasuringChart">
+            <div id="container2"></div>
+          </div>
+        </div>
+
+        <div style="height:30px"></div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -170,6 +175,7 @@ export default {
   },
   data() {
     return {
+      isShowPage: false,
       countryOptions: [],
       importingEconomy: "",
 
@@ -204,6 +210,16 @@ export default {
     };
   },
   methods: {
+    checkShowPage() {
+      if (
+        this.displayExportingEconomy != "" &&
+        this.displayYear != "" &&
+        this.displayImportingEconomy != "" &&
+        this.displaySector != ""
+      ) {
+        this.isShowPage = true;
+      }
+    },
     // Get Emit Data
     getEmitData(val) {
       // Exporting Economy

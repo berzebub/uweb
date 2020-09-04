@@ -148,3 +148,10 @@ body {
   min-width:1000px;
   margin: auto;
 }
+
+.bg-loading {
+  background-image: url("../../public/world.png");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}

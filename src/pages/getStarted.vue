@@ -1,18 +1,18 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:100px">
+  <q-page
+    class="container"
+    :class="!isShowContent ? 'bg-loading' : 'bg-white'"
+    style="padding-bottom:100px"
+  >
     <!-- @yearSelected="getEmitYear" -->
+    <div
+      v-if="!isShowContent"
+      class="absolute-center font-graph"
+    >Please choose your exporting economy and year of interest.</div>
 
     <app-bar @countrySelected="getEmitData" :isShowLogo="true" class="shadow-2"></app-bar>
 
     <div v-if="isShowContent">
-      <div class="relative-position q-my-md">
-        <p
-          class="font-page"
-          align="center"
-          id="keyGVC"
-        >{{ displayCountry.name }}'s key GVC relationships</p>
-      </div>
-
       <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
         <q-spinner-pie color="primary" size="100px" />
       </div>
@@ -23,32 +23,48 @@
         style="width:90%; margin:auto; max-width:1200px;"
         v-show="isGraphGVC"
       >
-        <!-- <q-btn-group style="width:100%" class="row justify-between"> -->
-        <!-- <q-btn label="Overview" />
-          <q-btn label="By exporting sector" />
-          <q-btn label="By partnet economy" />
-        </q-btn-group>
-        <div style="height:20px"></div>-->
         <div class="row justify-center q-py-md">
           <div class="col-4">
-            <q-btn v-scroll-to="'#keyGVC'" style="width:90%;margin:auto" label="Overview" no-caps></q-btn>
+            <q-btn
+              v-scroll-to="'#keyGVC'"
+              outline
+              style="width:90%;margin:auto"
+              no-caps
+              color="indigo-10"
+            >
+              <span class="text-black">Overview</span>
+            </q-btn>
           </div>
           <div class="col-4">
             <q-btn
               v-scroll-to="'#exportingSector'"
+              outline
+              color="indigo-10"
               style="width:90%;margin:auto"
-              label="By exporting sector"
               no-caps
-            ></q-btn>
+            >
+              <span class="text-black">By exporting sector</span>
+            </q-btn>
           </div>
           <div class="col-4">
             <q-btn
               v-scroll-to="'#byEconomy'"
+              outline
+              color="indigo-10"
               style="width:90%;margin:auto"
-              label="By partner economy"
               no-caps
-            ></q-btn>
+            >
+              <span class="text-black">By partner economy</span>
+            </q-btn>
           </div>
+        </div>
+
+        <div class="relative-position q-my-md">
+          <p
+            class="font-page"
+            align="center"
+            id="keyGVC"
+          >{{ displayCountry.name }}'s key GVC relationships</p>
         </div>
         <p>
           <b>

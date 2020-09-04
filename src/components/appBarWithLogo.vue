@@ -64,9 +64,6 @@ export default {
         (x) => x.value == this.countrySelected
       )[0];
 
-      this.$q.sessionStorage.set("cid", this.countrySelected);
-      this.$q.sessionStorage.set("yid", this.yearSelected);
-
       this.$emit("countrySelected", {
         name: countrySelected.label,
         region: countrySelected.region,
@@ -74,7 +71,6 @@ export default {
         year: this.yearSelected,
       });
     },
-    // ----------------------------------------------
     async loadYear() {
       this.getCountryList();
 
@@ -86,8 +82,6 @@ export default {
       this.yearSelected = this.$q.sessionStorage.has("yid")
         ? this.$q.sessionStorage.getItem("yid")
         : "";
-
-      this.selectData();
     },
   },
 

@@ -59,27 +59,11 @@ Vue.mixin({
       tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
 
       this.countryOptions = tempOptions;
-
-      if (!this.$q.sessionStorage.has("cid")) {
-        this.countrySelected = ""
-      } else {
-        this.countrySelected = this.$q.sessionStorage.getItem("cid");
-      }
-
-      if (!this.$q.sessionStorage.has("impEcId")) {
-        this.importingEconomy = tempOptions[1].value;
-      } else {
-        this.importingEconomy = this.$q.sessionStorage.getItem("impEcId");
-      }
-
-      if (!this.$q.sessionStorage.has("sourcEcId")) {
-        this.sourceEconomy = ""
-      } else {
-        this.sourceEconomy = this.$q.sessionStorage.getItem("sourcEcId");
-      }
+      this.countrySelected = ""
+      this.importingEconomy = ""
+      this.sourceEconomy = ""
     },
     getSectorList() {
-      // secId = sector id
       let tempOptions = [];
       sectorJson.forEach(element => {
         let data = {
@@ -89,11 +73,7 @@ Vue.mixin({
         tempOptions.push(data);
       });
       this.sectorOptions = tempOptions;
-      if (!this.$q.sessionStorage.has("secId")) {
-        this.sectorSelected = ""
-      } else {
-        this.sectorSelected = this.$q.sessionStorage.getItem("secId");
-      }
+      this.sectorSelected = ""
     },
     notifyGreen(message) {
       this.$q.notify({
