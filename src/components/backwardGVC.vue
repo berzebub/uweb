@@ -193,7 +193,7 @@ export default {
 .backward-box {
   position: relative;
   width: 500px;
-  height: 700px;
+  height: 800px;
   background-color: #fff;
 
   .test {
