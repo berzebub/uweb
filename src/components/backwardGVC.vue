@@ -1,176 +1,57 @@
 <template>
-  <div class="brx">
+  <div>
     <!--  -->
-    <div class="backward-box brx q-pa-md">
-      <div class="test">
-        <div class="relative-position">
-          <div class="backward-line-pink" id="arrow-line">
+    <div class="backward-box q-pa-md">
+      <div class="graph-position">
+        <div class="relative-position" v-for="(item,index) in data" :key="index">
+          <div
+            :class="{'backward-line-pink':index == 0,'backward-line-yellow':index == 1,'backward-line-green':index == 2,'backward-line-blue':index == 3,'backward-line-purple':index == 4}"
+          >
             <div class="border-circle">
-              <div class="color-circle-pink" style="width:25px;height:25px;"></div>
+              <div
+                :class="{'color-circle-pink':index == 0,'color-circle-yellow':index == 1,'color-circle-green':index == 2,'color-circle-blue':index == 3,'color-circle-purple':index == 4}"
+                class
+                :style="{width:item.valuepx + 'px',height:item.valuepx + 'px'}"
+              ></div>
               <div class="sub-data relative-position">
-                <div>Electrical eq.</div>
-                <div>30%</div>
-                <div>$17</div>
+                <div>{{item.sector}}</div>
+                <div>{{item.precent}}%</div>
+                <div>${{item.value}}</div>
 
                 <div class="sub-line-1">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
+                  <div
+                    class="sub-circle-pink"
+                    :style="{width:item.val1px + 'px',height:item.val1px + 'px'}"
+                  ></div>
+                  <span class="sub-text">{{item.exp_country1}} ({{item.val1}})</span>
                 </div>
                 <div class="sub-line-2">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
+                  <div
+                    class="sub-circle-pink"
+                    :style="{width:item.val2px + 'px',height:item.val2px + 'px'}"
+                  ></div>
+                  <span class="sub-text">{{item.exp_country2}} ({{item.val2}})</span>
                 </div>
                 <div class="sub-line-3">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
+                  <div
+                    class="sub-circle-pink"
+                    :style="{width:item.val3px + 'px',height:item.val3px + 'px'}"
+                  ></div>
+                  <span class="sub-text">{{item.exp_country3}} ({{item.val3}})</span>
                 </div>
                 <div class="sub-line-4">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
+                  <div
+                    class="sub-circle-pink"
+                    :style="{width:item.val4px + 'px',height:item.val4px + 'px'}"
+                  ></div>
+                  <span class="sub-text">{{item.exp_country4}} ({{item.val4}})</span>
                 </div>
                 <div class="sub-line-5">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative-position">
-          <div class="backward-line-yellow" id="arrow-line">
-            <div class="border-circle">
-              <div class="color-circle-yellow" style="width:25px;height:25px;"></div>
-
-              <div class="sub-data relative-position">
-                <div>Trans Eq.</div>
-                <div>30%</div>
-                <div>$17</div>
-
-                <div class="sub-line-1">
-                  <div class="sub-circle-pink" style="width:10px;height:10px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-2">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-3">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-4">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-5">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative-position">
-          <div class="backward-line-green" id="arrow-line">
-            <div class="border-circle">
-              <div class="color-circle-green" style="width:25px;height:25px;">
-                <div class="sub-data relative-position">
-                  <div>Textiles</div>
-                  <div>30%</div>
-                  <div>$17</div>
-
-                  <div class="sub-line-1">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-2">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-3">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-4">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-5">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative-postion">
-          <div class="backward-line-blue" id="arrow-line">
-            <div class="border-circle">
-              <div class="color-circle-blue" style="width:25px;height:25px;">
-                <div class="sub-data relative-position">
-                  <div>Machinery</div>
-                  <div>30%</div>
-                  <div>$17</div>
-
-                  <div class="sub-line-1">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-2">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-3">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-4">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                  <div class="sub-line-5">
-                    <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                    <span class="sub-text">CHN ($2.5)</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="relative-postion">
-          <div class="backward-line-purple" id="arrow-line">
-            <div class="border-circle">
-              <div class="color-circle-purple" style="width:25px;height:25px;"></div>
-
-              <div class="sub-data relative-position">
-                <div>Chemicals</div>
-                <div>30%</div>
-                <div>$17</div>
-
-                <div class="sub-line-1">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-2">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-3">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-4">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
-                </div>
-                <div class="sub-line-5">
-                  <div class="sub-circle-pink" style="width:17px;height:17px;"></div>
-                  <span class="sub-text">CHN ($2.5)</span>
+                  <div
+                    class="sub-circle-pink"
+                    :style="{width:item.val5px + 'px',height:item.val5px + 'px'}"
+                  ></div>
+                  <span class="sub-text">{{item.exp_country5}} ({{item.val5}})</span>
                 </div>
               </div>
             </div>
@@ -183,6 +64,12 @@
 
 <script>
 export default {
+  props: {
+    data: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {};
   },
@@ -192,11 +79,11 @@ export default {
 <style lang="scss" scoped>
 .backward-box {
   position: relative;
-  width: 500px;
+  width: 450px;
   height: 800px;
   background-color: #fff;
 
-  .test {
+  .graph-position {
     position: absolute;
     right: 150px;
     top: 50%;
@@ -234,6 +121,7 @@ export default {
         color: #fe7d77;
         font-size: 12px;
         font-weight: bold;
+        white-space: nowrap;
         width: 100px;
         left: -15px;
         top: 50%;
@@ -405,15 +293,15 @@ export default {
 
     .border-circle {
       position: relative;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       top: 50%;
       left: 0px;
       transform: translate(-100%, -50%);
       border-radius: 50%;
 
       .color-circle-yellow {
-        position: relative;
+        position: absolute;
         border-radius: 50%;
         left: 50%;
         top: 50%;
@@ -426,10 +314,11 @@ export default {
         color: #fec111;
         font-size: 12px;
         font-weight: bold;
+        white-space: nowrap;
         width: 100px;
         left: 0px;
         top: 10px;
-        transform: translate(-100%, -130%) rotate(-35deg);
+        transform: translate(-100%, -80%) rotate(-35deg);
 
         .sub-line-1 {
           position: absolute;
@@ -605,10 +494,10 @@ export default {
       border-radius: 50%;
 
       .color-circle-green {
-        position: relative;
+        position: absolute;
         border-radius: 50%;
-        top: 50%;
         left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%);
         background-color: #70ae47;
       }
@@ -618,6 +507,7 @@ export default {
         color: #70ae47;
         font-size: 12px;
         font-weight: bold;
+        white-space: nowrap;
         width: 100px;
         left: 0px;
         top: 10px;
@@ -797,10 +687,10 @@ export default {
       border-radius: 50%;
 
       .color-circle-blue {
-        position: relative;
+        position: absolute;
         border-radius: 50%;
-        top: 50%;
         left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%);
         background-color: #5a9bd5;
       }
@@ -810,6 +700,7 @@ export default {
         color: #5a9bd5;
         font-size: 12px;
         font-weight: bold;
+        white-space: nowrap;
         width: 100px;
         left: -10px;
         top: 10px;
@@ -989,10 +880,10 @@ export default {
       border-radius: 50%;
 
       .color-circle-purple {
-        position: relative;
+        position: absolute;
         border-radius: 50%;
-        top: 50%;
         left: 50%;
+        top: 50%;
         transform: translate(-50%, -50%);
         background-color: #6c2c9c;
       }
@@ -1002,10 +893,11 @@ export default {
         color: #6c2c9c;
         font-size: 12px;
         font-weight: bold;
+        white-space: nowrap;
         width: 100px;
         left: -10px;
         top: -10px;
-        transform: translate(-130%, 0%) rotate(80deg);
+        transform: translate(-120%, 45%) rotate(80deg);
 
         .sub-line-1 {
           position: absolute;
