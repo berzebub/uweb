@@ -46,6 +46,7 @@
     <div v-if="isShowPage" class="relative-position">
       <!-- Error Page -->
       <error-page
+        class="q-pt-md"
         v-show="isShowErrorWarning"
         displayText="The exporting economy must not be the same as the 
 importing economy."
@@ -158,11 +159,6 @@ export default {
       let sectorData = this.sectorOptions.filter(
         (x) => x.value == this.sectorSelected
       )[0];
-
-      // this.displayImportingEconomy = countryData.label;
-      // this.imp_country = countryData.iso;
-      // this.displaySector = sectorData.label;
-      // this.sector = sectorData.value;
 
       if (countryData) {
         this.displayImportingEconomy = countryData.label;

@@ -1,7 +1,7 @@
 <template>
   <q-page
     class="container"
-    :class="!isShowPage ? 'bg-loading' : 'bg-white'"
+    :class="!isShowPage || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
     style="padding-bottom:100px"
   >
     <!-- App Bar -->
@@ -44,14 +44,14 @@
       v-if="!isShowPage"
     >Please choose your exporting economy, year of interest importing economy and sector.</div>
 
-    <div v-if="isShowPage">
-      <!-- Error Page -->
-      <error-page
-        v-show="isShowErrorWarning"
-        displayText="The exporting economy cannot be the same as the 
+    <!-- Error Page -->
+    <error-page
+      class="q-pt-md"
+      v-show="isShowErrorWarning"
+      displayText="The exporting economy cannot be the same as the 
 importing economy"
-      ></error-page>
-
+    ></error-page>
+    <div v-if="isShowPage">
       <!-- Show Content -->
       <div v-show="!isShowErrorWarning">
         <!-- table of content -->

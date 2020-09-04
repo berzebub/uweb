@@ -1,109 +1,112 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:120px">
+  <q-page
+    class="container"
+    :class="!isShowPage || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
+    style="padding-bottom:120px"
+  >
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
-    <header-menu :activeMenu="3"></header-menu>
+    <div class="bg-white">
+      <header-menu :activeMenu="3"></header-menu>
 
-    <!-- <source-select @importingEconomy="importingEconomyChanged" @sourcingEconomy="sourceChanged"></source-select> -->
+      <!-- Importing Economy -->
+      <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
+        <div class="col-6 q-px-md">
+          <span>Importing economy</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="countryOptions"
+            v-model="importingEconomy"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
 
-    <!-- Importing Economy -->
-    <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
-      <div class="col-6 q-px-md">
-        <span>Importing economy</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="countryOptions"
-          v-model="importingEconomy"
-          emit-value
-          map-options
-        ></q-select>
-      </div>
-
-      <div class="col-6 q-px-md">
-        <span>Source economy</span>
-        <q-select
-          @input="getStructureOfValue()"
-          dense
-          outlined
-          :options="countryOptions"
-          v-model="sourceEconomy"
-          emit-value
-          map-options
-        ></q-select>
+        <div class="col-6 q-px-md">
+          <span>Source economy</span>
+          <q-select
+            @input="getStructureOfValue()"
+            dense
+            outlined
+            :options="countryOptions"
+            v-model="sourceEconomy"
+            emit-value
+            map-options
+          ></q-select>
+        </div>
       </div>
     </div>
 
+    <div
+      class="absolute-center font-content"
+      v-if="!isShowPage"
+    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+
     <error-page
+      class="q-pt-md"
       v-show="isShowErrorWarning"
       displayText="The exporting economy, the importing economy and the source economy cannot be the same."
     ></error-page>
 
-    <div v-show="!isShowErrorWarning">
-      <!-- Title box -->
-      <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
-        <div class="q-pa-md" style="border-radius:5px;border:2px solid">
-          <p class="font-graph" align="center">Where does imported content come from?</p>
-          <p
-            class="font-content"
-            align="center"
-          >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
-          <p class="font-content" align="center">
-            <span class="q-pr-lg">Source economy</span>
+    <div v-if="isShowPage">
+      <div v-show="!isShowErrorWarning">
+        <!-- Title box -->
+        <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
+          <div class="q-pa-md" style="border-radius:5px;border:2px solid">
+            <p class="font-graph" align="center">Where does imported content come from?</p>
+            <p
+              class="font-content"
+              align="center"
+            >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
+            <p class="font-content" align="center">
+              <span class="q-pr-lg">Source economy</span>
 
-            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
-            <span class="q-px-lg text-weight-bold">:</span>
-            <span class="q-pr-lg">Sector</span>
-            <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-            <span class="q-pl-lg">Importing economy</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
+              <span class="q-px-lg text-weight-bold">:</span>
+              <span class="q-pr-lg">Sector</span>
+              <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
+              <span class="q-pl-lg">Importing economy</span>
+            </p>
+          </div>
+
+          <!-- Key policy questions -->
+          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+            1.
+            <u>Which sectors in {{ displayExportingEconomy }} rely the most on imported content for exports to a selected importer?</u>
+          </p>
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+            2.
+            <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
           </p>
         </div>
 
-        <!-- Key policy questions -->
-        <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
-          1.
-          <u>Which sectors in {{ displayExportingEconomy }} rely the most on imported content for exports to a selected importer?</u>
-        </p>
-        <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
-          2.
-          <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
-        </p>
-      </div>
+        <div style="height:30px"></div>
+        <hr />
 
-      <div style="height:30px"></div>
-      <hr />
+        <!-- กราฟ -->
+        <div id="importedcountry" style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isChart">
+            <div id="container"></div>
+          </div>
+        </div>
+        <div style="height:30px"></div>
+        <hr />
 
-      <!-- <div align="center" id="importedcountry" style="height:30px"></div>
-      <div align="center" style="width:900px; margin:auto;">
-        <div align="center" style="width:900px; margin:auto;">
-          <div id="container"></div>
-        </div>
-      </div>
-      <div style="height:30px"></div>
-      <hr />-->
-
-      <!-- กราฟ -->
-      <div id="importedcountry" style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isChart">
-          <q-spinner-pie color="primary" size="100px" />
-        </div>
-        <div v-show="isChart">
-          <div id="container"></div>
-        </div>
-      </div>
-      <div style="height:30px"></div>
-      <hr />
-
-      <div style="height:30px"></div>
-      <div style="width:90%;margin:auto;max-width:1200px">
-        <div align="center" class="q-pa-lg" v-if="!isChart1">
-          <q-spinner-pie color="primary" size="100px" />
-        </div>
-        <div v-show="isChart1" id="importedregion">
-          <div id="container1"></div>
+        <div style="height:30px"></div>
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isChart1">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isChart1" id="importedregion">
+            <div id="container1"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -148,10 +151,23 @@ export default {
       countryList: [],
       isChart: false,
       isChart1: false,
+      isShowPage: false,
     };
   },
   methods: {
-    // Function Test
+    checkShowPage() {
+      if (
+        this.displayExportingEconomy != "" &&
+        this.displayYear != "" &&
+        this.displayImportingEconomy != "" &&
+        this.displaySourceEconomy != ""
+      ) {
+        this.isShowPage = true;
+        return true;
+      } else {
+        return false;
+      }
+    },
     getEmitData(val) {
       // Exporting Economy
       this.displayExportingEconomy = val.name;
@@ -173,28 +189,32 @@ export default {
         (x) => x.value == this.sourceEconomy
       )[0];
 
-      this.displayImportingEconomy = countryData.label;
-      this.imp_country = countryData.iso;
+      // this.displayImportingEconomy = countryData.label;
+      // this.imp_country = countryData.iso;
 
-      this.displaySourceEconomy = sourceData.label;
-      this.source_country = sourceData.iso;
-
-      this.$q.sessionStorage.set("impEcId", countryData.value);
-
-      this.$q.sessionStorage.set("sourcEcId", sourceData.value);
-
-      if (
-        this.displayImportingEconomy == this.displayExportingEconomy ||
-        this.displayImportingEconomy == this.displaySourceEconomy ||
-        this.displaySourceEconomy == this.displayExportingEconomy
-      ) {
-        this.isShowErrorWarning = true;
-        return;
+      if (countryData) {
+        this.displayImportingEconomy = countryData.label;
+        this.imp_country = countryData.iso;
       }
 
-      this.isShowErrorWarning = false;
+      if (sourceData) {
+        this.displaySourceEconomy = sourceData.label;
+        this.source_country = sourceData.iso;
+      }
 
-      this.renderGraph(); // Render Graph
+      let check = this.checkShowPage();
+      if (check) {
+        if (
+          this.displayImportingEconomy == this.displayExportingEconomy ||
+          this.displayImportingEconomy == this.displaySourceEconomy ||
+          this.displaySourceEconomy == this.displayExportingEconomy
+        ) {
+          this.isShowErrorWarning = true;
+          return;
+        }
+        this.isShowErrorWarning = false;
+        this.renderGraph(); // Render Graph
+      }
     },
 
     renderGraph() {
