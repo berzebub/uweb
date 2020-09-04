@@ -1,14 +1,15 @@
 <template>
   <div class="bg-white q-py-sm">
     <q-toolbar class>
-      <q-btn v-if="!isShowLogo" to="/" class="color4" flat round size="35px" dense icon="home" />
-      <q-img
+      <q-btn to="/" class="color4" flat round size="35px" dense icon="home" />
+      <!-- <q-img
         @click="$router.push('/')"
         style="max-width:300px;width:100%"
         v-else
         class="cursor-pointer"
         src="../../public/logoAppbar.png"
-      ></q-img>
+      ></q-img>-->
+      <!-- <q-btn v-else class="color4" flat round size="35px" dense icon="home" to="/" /> -->
       <q-space></q-space>
       <div class="row q-py-sm">
         <div>
@@ -41,7 +42,6 @@
 </template>
 
 <script>
-import json from "../../public/country_list.json";
 import Axios from "axios";
 export default {
   props: {
@@ -59,7 +59,6 @@ export default {
     };
   },
   methods: {
-    // Function Test
     selectData() {
       let countrySelected = this.countryOptions.filter(
         (x) => x.value == this.countrySelected
@@ -86,7 +85,7 @@ export default {
       this.yearOptions = getYear.data;
       this.yearSelected = this.$q.sessionStorage.has("yid")
         ? this.$q.sessionStorage.getItem("yid")
-        : this.yearOptions[0];
+        : "";
 
       this.selectData();
     },

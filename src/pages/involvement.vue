@@ -4,6 +4,10 @@
       @countrySelected="(val) => displayCountry = val "
       @yearSelected="(val) => displayYear = val "
     ></app-bar>
+
+    <div class="absolute" style="top:30px;left:100px">
+      <q-btn class="bg4" @click="$router.push('/getStarted')" label="Key GVC links" no-caps></q-btn>
+    </div>
     <p
       class="font-page q-py-md"
       align="center"

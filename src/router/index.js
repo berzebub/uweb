@@ -18,7 +18,7 @@ Vue.component('downloadCsv', JsonCSV)
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -61,19 +61,19 @@ Vue.mixin({
       this.countryOptions = tempOptions;
 
       if (!this.$q.sessionStorage.has("cid")) {
-        this.countrySelected = tempOptions[0].value;
+        this.countrySelected = ""
       } else {
         this.countrySelected = this.$q.sessionStorage.getItem("cid");
       }
 
       if (!this.$q.sessionStorage.has("impEcId")) {
-        this.importingEconomy = tempOptions[0].value;
+        this.importingEconomy = tempOptions[1].value;
       } else {
         this.importingEconomy = this.$q.sessionStorage.getItem("impEcId");
       }
 
       if (!this.$q.sessionStorage.has("sourcEcId")) {
-        this.sourceEconomy = tempOptions[0].value;
+        this.sourceEconomy = ""
       } else {
         this.sourceEconomy = this.$q.sessionStorage.getItem("sourcEcId");
       }
@@ -90,7 +90,7 @@ Vue.mixin({
       });
       this.sectorOptions = tempOptions;
       if (!this.$q.sessionStorage.has("secId")) {
-        this.sectorSelected = tempOptions[0].value;
+        this.sectorSelected = ""
       } else {
         this.sectorSelected = this.$q.sessionStorage.getItem("secId");
       }

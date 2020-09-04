@@ -189,6 +189,13 @@ export default {
       displaySector: "",
       sector: "",
 
+      dataChart1Percent: {
+        imp_cons: 0,
+        imp_exp: 0,
+        dom_cons: 0,
+        double: 0,
+        imp_cont: 0,
+      },
       isStructureChart: false,
       isComparisonChart: false,
       isMeasuringChart: false,
@@ -224,7 +231,7 @@ export default {
       this.displaySector = sectorData.label;
       this.sector = sectorData.value;
 
-      this.$q.sessionStorage.set("impEcId", countryData.value);
+      this.$q.sessionStorage.set("impEcId", this.importingEconomy);
 
       this.$q.sessionStorage.set("secId", sectorData.value);
 
@@ -253,6 +260,55 @@ export default {
       let getData = await Axios.get(urlLink);
 
       getData = getData.data;
+      this.dataChart1Percent.imp_cons = (
+        (getData.imp_cons /
+          (getData.imp_cons +
+            getData.imp_exp +
+            getData.dom_cons +
+            getData.double +
+            getData.imp_cont)) *
+        100
+      ).toFixed(2);
+
+      this.dataChart1Percent.imp_exp = (
+        (getData.imp_exp /
+          (getData.imp_cons +
+            getData.imp_exp +
+            getData.dom_cons +
+            getData.double +
+            getData.imp_cont)) *
+        100
+      ).toFixed(2);
+
+      this.dataChart1Percent.dom_cons = (
+        (getData.dom_cons /
+          (getData.imp_cons +
+            getData.imp_exp +
+            getData.dom_cons +
+            getData.double +
+            getData.imp_cont)) *
+        100
+      ).toFixed(2);
+
+      this.dataChart1Percent.double = (
+        (getData.double /
+          (getData.imp_cons +
+            getData.imp_exp +
+            getData.dom_cons +
+            getData.double +
+            getData.imp_cont)) *
+        100
+      ).toFixed(2);
+
+      this.dataChart1Percent.imp_cont = (
+        (getData.imp_cont /
+          (getData.imp_cons +
+            getData.imp_exp +
+            getData.dom_cons +
+            getData.double +
+            getData.imp_cont)) *
+        100
+      ).toFixed(2);
 
       this.isStructureChart = true;
 
@@ -267,32 +323,32 @@ export default {
             layoutAlgorithm: "strip",
             data: [
               {
-                name: `Imp. cons. (${getData.imp_cons}%)`,
+                name: `Imp. cons. (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
                 label: `Used in ${this.displayImportingEconomy}’s comsumption`,
               },
               {
-                name: `imp. exp. (${getData.imp_exp}%)`,
+                name: `imp. exp. (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
                 label: `Used in ${this.displayImportingEconomy}’s export production`,
               },
               {
-                name: `Dom. cons (${getData.dom_cons}%)`,
+                name: `Dom. cons (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
                 label: `Used in ${this.displayExportingEconomy}’s domestic <br>comsumption`,
               },
               {
-                name: `Double (${getData.double}%)`,
+                name: `Double (${this.dataChart1Percent.double}%)`,
                 value: getData.double,
                 color: "#2D9687",
                 label:
                   "Double counted exports <br>from repeated border crossings",
               },
               {
-                name: `Imp. cont. (${getData.imp_cont}%)`,
+                name: `Imp. cont. (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
                 label: "Imported content",
@@ -361,7 +417,7 @@ export default {
     async setStackChart2() {
       this.isComparisonChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
 
       let getData = await Axios.get(urlLink);
 

@@ -5,10 +5,10 @@
 
       <div style="background-color:#020B3B;" class="container q-py-md absolute-bottom">
         <q-toolbar class="q-px-sm items-center">
-          <div class="q-mx-lg" style="max-width:180px">
+          <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
             <q-img style="width:162px" src="../../public/logo.png"></q-img>
           </div>
-          <div class="q-mx-lg" style="max-width:180px">
+          <div class="q-mx-lg cursor-pointer" @click="toFealac()" style="max-width:180px">
             <q-img style="width:162px" src="../../public/fealac.png"></q-img>
           </div>
           <q-space />
@@ -67,14 +67,22 @@
                   class="text-white cursor-pointer"
                   style="text-decoration:none;"
                 >
-                  <span>ESCAP Trade</span>
+                  <span>
+                    <q-tooltip content-class="bg-indigo">
+                      <span class="text-subtitle1">ESCAP Trade, Investment and Innovation Division</span>
+                    </q-tooltip>ESCAP TIID
+                  </span>
                 </div>
                 <div
                   @click="toTradeEtoolsPolicy()"
                   class="text-white cursor-pointer"
                   style="text-decoration:none;"
                 >
-                  <span>ESCAP Trade Policy</span>
+                  <span>
+                    <q-tooltip content-class="bg-indigo" style="font-size:14px">
+                      <span class="text-subtitle1">ESCAP Trade Policy and Integration</span>
+                    </q-tooltip>ESCAP TPI
+                  </span>
                 </div>
                 <div
                   @click="showTermOfUseDialog()"
@@ -90,19 +98,16 @@
       </div>
 
       <q-dialog v-model="isShowAboutDialog">
-        <q-card style="width:100%;min-width:750px;border-radius:30px">
+        <q-card style="width:100%;min-width:750px;border-radius:15px">
           <q-card-section>
-            <div
-              class="row justify-center items-center bg-white q-pa-md text-h3"
-              style="border-radius:10px;"
-              align="center"
-            >
+            <div class="bg-white q-pa-md" style="border-radius:10px;" align="center">
               <div>
                 <p class="font-graph">About</p>
-                <div style="width:50%;border-bottom:2px solid #283891"></div>
-                <p
-                  class="font-content q-pt-md"
-                >This online data visualization and distribution platform has been developed – with financial support from the Forum for East Asia-Latin America Cooperation and raw data provided by the Asian Development Bank from their Multi-Regional Input-Output database – with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies, in addition to more broadly understanding value-chain linkages between economies around the world.</p>
+                <div style="width:90%;border-bottom:2px solid #283891"></div>
+                <div style="height:20px"></div>
+                <span
+                  class="font-content"
+                >This online data visualization and distribution platform has been developed with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies,in addition to more broadly understanding value-chain linkages between economies around the world.</span>
               </div>
             </div>
           </q-card-section>
@@ -110,16 +115,16 @@
       </q-dialog>
 
       <q-dialog v-model="isShowTermOfUseDialog">
-        <q-card style="width:100%;min-width:750px;border-radius:30px">
+        <q-card style="width:100%;min-width:750px;border-radius:15px">
           <q-card-section>
             <div
-              class="row justify-center items-center bg-white q-pa-md text-h3"
+              class="row justify-center items-center bg-white q-pa-md"
               style="border-radius:10px;"
               align="center"
             >
               <div>
                 <p class="font-graph">Terms of use</p>
-                <div style="width:50%;border-bottom:2px solid #283891"></div>
+                <div style="width:90%;border-bottom:2px solid #283891"></div>
                 <p
                   class="font-content q-pt-md"
                   align="left"
@@ -154,6 +159,12 @@ export default {
     };
   },
   methods: {
+    toFealac() {
+      window.open("https://www.fealac.org/new/m/index.do");
+    },
+    toUnescap() {
+      window.open("https://www.unescap.org");
+    },
     showAboutDialog() {
       this.isShowAboutDialog = true;
     },
@@ -182,18 +193,14 @@ export default {
       );
     },
     toEscapTrade() {
-      window.open("https://artnet.unescap.org/databases", "_blank");
+      window.open("https://unescap.org/our-work/trade-investment-innovation");
     },
     toTradeEtools() {
-      window.open(
-        "https://www.unescap.org/our-work/trade-investment-innovation",
-        "_blank"
-      );
+      window.open("https://artnet.unescap.org/databases");
     },
     toTradeEtoolsPolicy() {
       window.open(
-        "https://www.unescap.org/our-work/trade-investment-innovation",
-        "_blank"
+        "https://www.unescap.org/our-work/trade-investment-innovation/trade-policy"
       );
     },
   },
