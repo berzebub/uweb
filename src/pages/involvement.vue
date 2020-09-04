@@ -5,9 +5,6 @@
       @yearSelected="(val) => displayYear = val "
     ></app-bar>
 
-    <div class="absolute" style="top:30px;left:100px">
-      <q-btn class="bg4" @click="$router.push('/getStarted')" label="Key GVC links" no-caps></q-btn>
-    </div>
     <p
       class="font-page q-py-md"
       align="center"
@@ -107,8 +104,8 @@ export default {
   },
   data() {
     return {
-      displayCountry: "",
-      displayYear: "",
+      displayCountry: this.$q.sessionStorage.getItem("cselec"),
+      displayYear: this.$q.sessionStorage.getItem("cselec").year,
     };
   },
 };

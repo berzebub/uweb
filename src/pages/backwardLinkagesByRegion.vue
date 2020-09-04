@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-6 q-px-md">
-          <span>Sector</span>
+          <span>Exporting Sector</span>
           <q-select
             @input="getStructureOfValue()"
             dense
@@ -67,7 +67,7 @@
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
               <span class="q-px-lg text-weight-bold">:</span>
-              <span class="q-pr-lg">Sector</span>
+              <span class="q-pr-lg color4">Exporting Sector</span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Importing economy</span>
             </p>
