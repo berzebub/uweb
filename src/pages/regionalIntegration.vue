@@ -1,35 +1,34 @@
 <template>
-  <q-page class="row items-start" style="background-color:#f2f2f2;padding-bottom:100px;">
+  <q-page class="bg relative-position" style="padding-bottom:100px;">
     <!-- Regional Integration -->
-    <div class="col-12 row q-pa-sm bg-white">
-      <div class="col-4 self-center q-pa-xs">
-        <q-img src="../../public/images/1.png" style="height:calc(50vh - 80px);object-fit: cover;"></q-img>
-      </div>
 
-      <div class="col-8 row q-pa-md q-py-md">
-        <div class="col-12 q-mb-md q-pt-md q-pl-md">
-          <span class="text-h4 text-bold">Regional Integration</span>
-          <div class="q-mt-xs font-content">
-            <span>ESCAP DigiSRII provides insights on the structure and progress of regional integration in Asia-Pacific</span>
+    <div class="absolute-bottom q-pa-md" style="bottom:120px;width:80%;margin:auto;">
+      <div style="background-color:#020B3B;border-radius:5px" class="q-py-md">
+        <div align="center" class="text-white font-graph">Regional Integration</div>
+        <div class="text-white font-content" align="center">
+          ESCAP DigiSRII provides insights on the structure and
+          <br />progress of regional integration in Asia-Pacific
+        </div>
+        <div class="q-pt-md">
+          <div class="row justify-center">
+            <div>
+              <q-btn
+                label="Get started"
+                no-caps
+                class="text-white font-content"
+                style="width:192px;background-color:#283891;border-radius:10px"
+              ></q-btn>
+            </div>
+            <div class="q-px-md"></div>
+            <div>
+              <q-btn
+                label="Download data"
+                no-caps
+                class="text-white font-content"
+                style="width:192px;background-color:#283891;border-radius:10px"
+              ></q-btn>
+            </div>
           </div>
-        </div>
-        <div class="col-4" align="center">
-          <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
-            style="border-radius:10px;width:200px;"
-            label="Get started"
-            disable
-            no-caps
-          ></q-btn>
-        </div>
-        <div class="col-4" align="center">
-          <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
-            style="border-radius:10px;width:200px;"
-            label="Download data"
-            disable
-            no-caps
-          ></q-btn>
         </div>
       </div>
     </div>
@@ -41,4 +40,10 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.bg {
+  background-image: url("../../public/bg-regional-page1.png");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
 </style>

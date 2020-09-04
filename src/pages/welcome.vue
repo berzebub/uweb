@@ -10,7 +10,7 @@
         <div>
           <span style="font-size:24px">Regional Integration</span>
           <div style="height:15px"></div>
-          <div style="font-size:18px">
+          <div style="font-size:18px;letter-spacing:0.2px">
             ESCAP DigiSRII provies insights on the
             <br />structure and progress of regional
             <br />integration in Asia-Pacific
@@ -30,7 +30,7 @@
         <div>
           <span style="font-size:24px">Global Value Chains</span>
           <div style="height:15px"></div>
-          <div style="font-size:18px">
+          <div style="font-size:18px;letter-spacing:0.2px">
             Gain insight into your economy’s
             <br />participation in GVCs. Uncover sources
             <br />of intermediate inputs and destinations

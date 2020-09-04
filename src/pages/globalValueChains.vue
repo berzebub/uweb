@@ -1,44 +1,45 @@
 <template>
-  <q-page class="row items-start" style="background-color:#f2f2f2;padding-bottom:100px;">
+  <q-page class="bg relative-position" style="padding-bottom:100px;">
     <!-- Global value chains -->
-    <div class="col-12 row q-pa-sm bg-white" style="margin-top:10px;">
-      <div class="col-4 self-center q-pa-xs">
-        <q-img src="../../public/test.png" style="height:calc(50vh - 80px);object-fit: cover;"></q-img>
-      </div>
+    <div class="absolute-bottom q-pa-md" style="bottom:120px;width:80%;margin:auto;">
+      <div style="background-color:#020B3B;border-radius:5px" class="q-py-md">
+        <div align="center" class="text-white font-graph">Global Value Chains</div>
+        <div class="text-white font-content" align="center">
+          Gain insight into your economy’s participation in GVCs. Uncover sources of
+          <br />intermediate inputs and destinations of domestic value-added
+        </div>
+        <div class="q-pt-md">
+          <div class="row justify-center">
+            <div>
+              <q-btn
+                to="/getStarted"
+                label="Get started"
+                no-caps
+                class="text-white font-content"
+                style="width:192px;background-color:#283891;border-radius:10px"
+              ></q-btn>
+            </div>
 
-      <div class="col-8 row q-pa-md q-py-md">
-        <div class="col-12 q-mb-md q-pt-md q-pl-md">
-          <span class="text-h4 text-bold">Global value chains</span>
-          <div class="q-mt-xs font-content">
-            <span>Gain insight into your economy's participation in GVCs. Uncover the sources of intermediate inputs and the destinations of domestic value-added</span>
+            <div class="q-px-lg">
+              <q-btn
+                to="/download"
+                label="Download data"
+                no-caps
+                class="text-white font-content"
+                style="width:192px;background-color:#283891;border-radius:10px"
+              ></q-btn>
+            </div>
+
+            <div>
+              <q-btn
+                to="/countrybriefs"
+                label="Country briefs"
+                no-caps
+                class="text-white font-content"
+                style="width:192px;background-color:#283891;border-radius:10px"
+              ></q-btn>
+            </div>
           </div>
-        </div>
-        <div class="col-4" align="center">
-          <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
-            style="border-radius:10px;width:200px;"
-            label="Get started"
-            no-caps
-            to="/getStarted"
-          ></q-btn>
-        </div>
-        <div class="col-4" align="center">
-          <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
-            style="border-radius:10px;width:200px;"
-            label="Download data"
-            no-caps
-            to="/download"
-          ></q-btn>
-        </div>
-        <div class="col-4" align="center">
-          <q-btn
-            class="bg4 text-white q-mr-sm q-mt-sm q-py-xs font-content"
-            style="border-radius:10px;width:200px;"
-            label="Country briefs"
-            no-caps
-            to="countrybriefs"
-          ></q-btn>
         </div>
       </div>
     </div>
@@ -50,4 +51,10 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
+.bg {
+  background-image: url("../../public/bg-global-page.png");
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
 </style>
