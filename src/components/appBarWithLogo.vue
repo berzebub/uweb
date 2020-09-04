@@ -2,14 +2,13 @@
   <div class="bg-white q-py-sm">
     <q-toolbar class>
       <q-btn to="/" class="color4" flat round size="35px" dense icon="home" />
-      <!-- <q-img
-        @click="$router.push('/')"
-        style="max-width:300px;width:100%"
-        v-else
-        class="cursor-pointer"
-        src="../../public/logoAppbar.png"
-      ></q-img>-->
-      <!-- <q-btn v-else class="color4" flat round size="35px" dense icon="home" to="/" /> -->
+      <span style="font-size:30px" class="color4">
+        <b v-if="isShowTitle">Key GVC relationships</b>
+      </span>
+
+      <div style="top:30px;left:100px" v-if="isShowKeyGVCBtn">
+        <q-btn class="bg4" @click="$router.push('/getStarted')" label="Key GVC links" no-caps></q-btn>
+      </div>
       <q-space></q-space>
       <div class="row q-py-sm">
         <div>
@@ -45,6 +44,14 @@
 import Axios from "axios";
 export default {
   props: {
+    isShowKeyGVCBtn: {
+      type: Boolean,
+      default: true,
+    },
+    isShowTitle: {
+      type: Boolean,
+      default: false,
+    },
     isShowLogo: {
       type: Boolean,
       default: true,

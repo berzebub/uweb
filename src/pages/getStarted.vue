@@ -10,7 +10,13 @@
       class="absolute-center font-graph"
     >Please choose your exporting economy and year of interest.</div>
 
-    <app-bar @countrySelected="getEmitData" :isShowLogo="true" class="shadow-2"></app-bar>
+    <app-bar
+      :isShowKeyGVCBtn="false"
+      :isShowTitle="true"
+      @countrySelected="getEmitData"
+      :isShowLogo="true"
+      class="shadow-2"
+    ></app-bar>
 
     <div v-if="isShowContent">
       <div align="center" class="q-pa-lg" v-if="!isGraphGVC">

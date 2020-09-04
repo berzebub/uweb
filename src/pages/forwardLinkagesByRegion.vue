@@ -8,7 +8,7 @@
     <div class="bg-white">
       <header-menu :activeMenu="4"></header-menu>
       <div class="q-px-md q-py-lg" style="width:500px;margin:auto">
-        <span>Sector</span>
+        <span>Exporting sector</span>
         <q-select
           @input="getStructureOfValue()"
           dense
@@ -26,7 +26,7 @@
         <div class="q-pa-md" style="border-radius:5px;border:2px solid">
           <p class="font-graph" align="center">
             Where does {{ displayExportingEconomy }} contribute towards export
-            production
+            production?
           </p>
           <p class="font-content" align="center">
             Some part of {{ displayExportingEconomy }}’s gross exports consist of
@@ -36,7 +36,7 @@
           <p class="font-content" align="center">
             <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
             <span class="q-pr-md text-weight-bold">:</span>
-            <span class="q-pr-lg">Sector</span>
+            <span class="q-pr-lg color4">Exporting Sector</span>
 
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
             <span class="q-px-lg">Importing economy</span>
@@ -587,7 +587,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies contribute the most towards export production?`,
+          text: `Where do ${this.continent} economies's contribute the most towards export production?`,
         },
       });
     },

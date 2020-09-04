@@ -25,7 +25,7 @@
         </div>
 
         <div class="col-6 q-px-md">
-          <span>Sector</span>
+          <span>Exporting Sector</span>
           <q-select
             @input="getStructureOfValue()"
             dense
