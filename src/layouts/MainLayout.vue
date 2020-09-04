@@ -98,21 +98,16 @@
       </div>
 
       <q-dialog v-model="isShowAboutDialog">
-        <q-card style="width:100%;min-width:750px;border-radius:30px">
+        <q-card style="width:100%;min-width:750px;border-radius:15px">
           <q-card-section>
-            <div
-              class="row justify-center items-center bg-white q-pa-md text-h3"
-              style="border-radius:10px;"
-              align="center"
-            >
+            <div class="bg-white q-pa-md" style="border-radius:10px;" align="center">
               <div>
                 <p class="font-graph">About</p>
-                <div style="width:50%;border-bottom:2px solid #283891"></div>
-                <p class="font-content q-pt-md">
-                  This online data visualization and distribution platform has been developed
-                  with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies,
-                  in addition to more broadly understanding value-chain linkages between economies around the world.
-                </p>
+                <div style="width:90%;border-bottom:2px solid #283891"></div>
+                <div style="height:20px"></div>
+                <span
+                  class="font-content"
+                >This online data visualization and distribution platform has been developed with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies,in addition to more broadly understanding value-chain linkages between economies around the world.</span>
               </div>
             </div>
           </q-card-section>
@@ -120,16 +115,16 @@
       </q-dialog>
 
       <q-dialog v-model="isShowTermOfUseDialog">
-        <q-card style="width:100%;min-width:750px;border-radius:30px">
+        <q-card style="width:100%;min-width:750px;border-radius:15px">
           <q-card-section>
             <div
-              class="row justify-center items-center bg-white q-pa-md text-h3"
+              class="row justify-center items-center bg-white q-pa-md"
               style="border-radius:10px;"
               align="center"
             >
               <div>
                 <p class="font-graph">Terms of use</p>
-                <div style="width:50%;border-bottom:2px solid #283891"></div>
+                <div style="width:90%;border-bottom:2px solid #283891"></div>
                 <p
                   class="font-content q-pt-md"
                   align="left"
