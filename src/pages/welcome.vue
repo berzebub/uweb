@@ -1,15 +1,42 @@
 <template>
   <q-page class="bg">
-    <div class="absolute-center">
-      <q-btn @click="goToRegional()" class="text-indigo-12 bg-white" no-caps>
-        <div>Regional Integration</div>
-        <div>ESCAP DigiSRII provies insights on the structure and progress of regional integration in Asia-Pacific</div>
+    <div style="padding-top:20px;padding-left:20px">
+      <q-btn
+        @click="goToRegional()"
+        style="background-color:#020B3B"
+        class="text-white q-pa-md"
+        no-caps
+      >
+        <div>
+          <span style="font-size:24px">Regional Integration</span>
+          <div style="height:15px"></div>
+          <div style="font-size:18px">
+            ESCAP DigiSRII provies insights on the
+            <br />structure and progress of regional
+            <br />integration in Asia-Pacific
+          </div>
+        </div>
       </q-btn>
+    </div>
 
-      <div style="height:20px"></div>
-      <q-btn @click="goToGlobal()" class="text-indigo-12 bg-white" no-caps>
-        <div>Global Value Chains</div>
-        <div>Gain insight into your economy's participation in GVCs. Uncover sources of intermediate inputs and destinations of domestic value-added</div>
+    <div style="height:20px"></div>
+    <div class="absolute-bottom" style="padding-bottom:110px;padding-right:20px" align="right">
+      <q-btn
+        @click="goToGlobal()"
+        style="background-color:#020B3B"
+        class="text-white q-pa-md"
+        no-caps
+      >
+        <div>
+          <span style="font-size:24px">Global Value Chains</span>
+          <div style="height:15px"></div>
+          <div style="font-size:18px">
+            Gain insight into your economy’s
+            <br />participation in GVCs. Uncover sources
+            <br />of intermediate inputs and destinations
+            <br />of domestic value-added
+          </div>
+        </div>
       </q-btn>
     </div>
   </q-page>
@@ -30,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg2-1.jpg");
+  background-image: url("../../public/bg-landing.png");
   background-size: cover;
   background-position: center;
 }
