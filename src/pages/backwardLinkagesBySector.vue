@@ -39,9 +39,10 @@
     </div>
 
     <div
-      class="absolute-center font-content"
+      class="absolute-center font-graph"
       v-if="!isShowPage"
-    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your exporting economy, year of interest, importing economy and source economy.</div>
 
     <error-page
       class="q-pt-md"

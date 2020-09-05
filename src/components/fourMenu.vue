@@ -24,7 +24,7 @@
               clickable
               v-close-popup
             >
-              <q-item-section>By region</q-item-section>
+              <q-item-section>Select by Exporting sector</q-item-section>
             </q-item>
             <q-item
               :class="$route.name == 'backwardLinkagesSector' ? 'bg4' :null"
@@ -32,7 +32,7 @@
               clickable
               v-close-popup
             >
-              <q-item-section>By sector</q-item-section>
+              <q-item-section>Select by Source economy</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
@@ -48,7 +48,7 @@
               clickable
               v-close-popup
             >
-              <q-item-section>By region</q-item-section>
+              <q-item-section>Select by Exporting economy</q-item-section>
             </q-item>
             <q-item
               :class="$route.name == 'forwardLinkagesSector' ? 'bg4' :null"
@@ -56,7 +56,7 @@
               clickable
               v-close-popup
             >
-              <q-item-section>By sector</q-item-section>
+              <q-item-section>Select by Importing economy</q-item-section>
             </q-item>
           </q-list>
         </q-menu>
