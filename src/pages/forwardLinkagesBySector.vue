@@ -46,7 +46,7 @@
               <span class="q-px-lg text-weight-bold">:</span>
               <span class="q-pr-lg">Sector</span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-              <span class="q-px-lg">Importing economy</span>
+              <span class="q-px-lg color4">Importing economy</span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Third economies</span>
             </div>
@@ -295,7 +295,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Contribution to ${this.displayImportingEconomy} export production: $${getDataSub.contributionto} / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}`,
+          text: `Contribution to ${this.displayImportingEconomy}'s export production: $${getDataSub.contributionto}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}B`,
           align: "left",
         },
       });

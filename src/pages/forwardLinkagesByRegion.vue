@@ -536,7 +536,6 @@ export default {
         },
 
         tooltip: {
-          headerFormat: "<b>{point.x}</pimported><br/>",
           pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
@@ -587,7 +586,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies's contribute the most towards export production?`,
+          text: `Where do ${this.continent} economies contribute the most towards export production?`,
         },
       });
     },
