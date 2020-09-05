@@ -80,14 +80,14 @@
             1.
             <u>
               Where does {{ displayExportingEconomy }}’s imported content come
-              from in exports to a selected importer ?
+              from in exports to a selected importer?
             </u>
           </p>
           <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
             2.
             <u>
               Where do {{ continent }} economies’ imported content come from in
-              exports to a selected importer ?
+              exports to a selected importer?
             </u>
           </p>
         </div>
