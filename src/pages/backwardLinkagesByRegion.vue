@@ -364,7 +364,33 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.ImportedContent}* billion is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>imported content in exports to ${this.displayImportingEconomy}: $${getDataSub.ImportedContent}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.grossExport}B`,
+          text: `Gross exports of ${this.displayExportingEconomy} in ${
+            this.displaySector
+          } sector(s) to ${this.displayImportingEconomy} amount to *$${(
+            getDataSub.grossExport / 1000
+          ).toFixed(2)}* billion in *year*. Of these exports, *$${(
+            getDataSub.ImportedContent / 1000
+          ).toFixed(
+            2
+          )}* billion is imported content that comes from other economies, mainly ${
+            graphOneDetailsList[0].name
+          } (*${graphOneDetailsList[0].sum}*%), ${
+            graphOneDetailsList[1].name
+          } (*${graphOneDetailsList[1].sum}*%), ${
+            graphOneDetailsList[2].name
+          } (*${graphOneDetailsList[2].sum}*%), ${
+            graphOneDetailsList[3].name
+          } (*${graphOneDetailsList[3].sum}*%) and ${
+            graphOneDetailsList[4].name
+          } (*${
+            graphOneDetailsList[4].sum
+          }*%). <br><br>imported content in exports to ${
+            this.displayImportingEconomy
+          }: $${(getDataSub.ImportedContent / 1000).toFixed(
+            2
+          )}B / Gross exports to ${this.displayImportingEconomy}: $${(
+            getDataSub.grossExport / 1000
+          ).toFixed(2)}B`,
           align: "center",
         },
       });
@@ -621,7 +647,6 @@ export default {
         },
 
         tooltip: {
-          headerFormat: "<b>{point.x}</pimported><br/>",
           pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
@@ -672,7 +697,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies contribute the most towards export production?`,
+          text: `Where do ${this.continent} economies' imported content in exports to ${this.displayImportingEconomy} come from?`,
         },
       });
     },
