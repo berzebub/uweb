@@ -107,7 +107,7 @@
                 <div style="height:20px"></div>
                 <span
                   class="font-content"
-                >This online data visualization and distribution platform has been developed with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies,in addition to more broadly understanding value-chain linkages between economies around the world.</span>
+                >This online data visualization and distribution platform has been developed with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies, in addition to more broadly understanding value-chain linkages between economies around the world.</span>
               </div>
             </div>
           </q-card-section>

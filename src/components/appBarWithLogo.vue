@@ -2,7 +2,7 @@
   <div class="bg-white q-py-sm">
     <q-toolbar class>
       <q-btn to="/" class="color4" flat round size="35px" dense icon="home" />
-      <span style="font-size:30px" class="color4">
+      <span style="font-size:30px" class="black">
         <b v-if="isShowTitle">Key GVC relationships</b>
       </span>
 
