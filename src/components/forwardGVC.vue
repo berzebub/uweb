@@ -5,18 +5,18 @@
       <div class="graph-position">
         <div class="relative-position" v-for="(item,index) in data" :key="index">
           <div
-            :class="{'forward-line-grey':index == 0,'forward-line-orange':index == 1,'forward-line-brown':index == 2,'forward-line-green':index == 3,'forward-line-purple':index == 4}"
+            :class="{'forward-line-grey':index == 2,'forward-line-orange':index == 1,'forward-line-brown':index == 3,'forward-line-green':index == 4,'forward-line-purple':index == 0}"
           >
             <div class="border-circle">
               <div
-                :class="{'color-circle-grey':index == 0,'color-circle-orange':index == 1,'color-circle-brown':index == 2,'color-circle-green':index == 3,'color-circle-purple':index == 4}"
+                :class="{'color-circle-grey':index == 2,'color-circle-orange':index == 1,'color-circle-brown':index == 3,'color-circle-green':index == 4,'color-circle-purple':index == 0}"
                 class
                 :style="{width:item.valuepx + 'px',height:item.valuepx + 'px'}"
               ></div>
               <div class="sub-data relative-position">
-                <div>{{item.sector}}</div>
-                <div>{{item.precent}}%</div>
-                <div>${{item.value}}</div>
+                <div style="direction: rtl;">{{item.a}}</div>
+                <div style="text-align: right;">{{item.precent}}%</div>
+                <div style="text-align: right;">${{item.value}}</div>
 
                 <div class="sub-line-1">
                   <div class="sub-circle">
@@ -24,7 +24,12 @@
                       class="sub-color-circle"
                       :style="{width:item.val1px + 'px',height:item.val1px + 'px'}"
                     ></div>
-                    <span class="sub-text">{{item.exp_country1}} ({{item.val1}})</span>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b1}} ({{item.val1}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b1}} ({{item.val1}})</span>
+                      </q-tooltip>
+                    </span>
                   </div>
                 </div>
                 <div class="sub-line-2">
@@ -33,7 +38,12 @@
                       class="sub-color-circle"
                       :style="{width:item.val2px + 'px',height:item.val2px + 'px'}"
                     ></div>
-                    <span class="sub-text">{{item.exp_country2}} ({{item.val2}})</span>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b2}} ({{item.val2}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b2}} ({{item.val2}})</span>
+                      </q-tooltip>
+                    </span>
                   </div>
                 </div>
                 <div class="sub-line-3">
@@ -42,7 +52,12 @@
                       class="sub-color-circle"
                       :style="{width:item.val3px + 'px',height:item.val3px + 'px'}"
                     ></div>
-                    <span class="sub-text">{{item.exp_country3}} ({{item.val3}})</span>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b3}} ({{item.val3}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b3}} ({{item.val3}})</span>
+                      </q-tooltip>
+                    </span>
                   </div>
                 </div>
                 <div class="sub-line-4">
@@ -51,7 +66,12 @@
                       class="sub-color-circle"
                       :style="{width:item.val4px + 'px',height:item.val4px + 'px'}"
                     ></div>
-                    <span class="sub-text">{{item.exp_country4}} ({{item.val4}})</span>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b4}} ({{item.val4}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b4}} ({{item.val4}})</span>
+                      </q-tooltip>
+                    </span>
                   </div>
                 </div>
                 <div class="sub-line-5">
@@ -60,7 +80,12 @@
                       class="sub-color-circle"
                       :style="{width:item.val5px + 'px',height:item.val5px + 'px'}"
                     ></div>
-                    <span class="sub-text">{{item.exp_country5}} ({{item.val5}})</span>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b5}} ({{item.val5}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b5}} ({{item.val5}})</span>
+                      </q-tooltip>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -103,7 +128,7 @@ export default {
     .forward-line-grey {
       position: absolute;
       transform-origin: left;
-      width: 120px;
+      width: 110px;
       height: 2px;
       background-color: #ababab;
 
@@ -112,7 +137,7 @@ export default {
         width: 25px;
         height: 25px;
         top: 50%;
-        right: -150px;
+        right: -145px;
         transform: translate(-100%, -50%);
         border-radius: 50%;
 
@@ -132,9 +157,11 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
+          height: 60px;
           left: 140px;
           top: 50%;
           transform: translate(-100%, -50%);
+          padding-right: 10px;
 
           .sub-line-1 {
             position: absolute;
@@ -151,10 +178,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -166,11 +192,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 5px;
-                top: -45px;
-                transform: translate(-120%, 0%) rotate(-120deg);
+                left: 17px;
+                top: -56px;
+                transform: translate(-100%, 0%) rotate(-120deg);
               }
             }
           }
@@ -190,10 +217,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -205,11 +231,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0%;
-                top: -30px;
-                transform: translate(-135%, 0%) rotate(-150deg);
+                left: -0px;
+                top: -35px;
+                transform: translate(-100%, 0%) rotate(-150deg);
               }
             }
           }
@@ -229,10 +256,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -244,10 +270,11 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -27px;
-                top: 50%;
+                left: -10px;
+                top: 40%;
                 transform: translate(-100%, -50%) rotate(-180deg);
               }
             }
@@ -268,10 +295,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -283,11 +309,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0%;
-                top: 15px;
-                transform: translate(-135%, 0%) rotate(150deg);
+                left: -2px;
+                top: 32px;
+                transform: translate(-100%, 0%) rotate(150deg);
               }
             }
           }
@@ -307,10 +334,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -322,11 +348,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0px;
-                top: 35px;
-                transform: translate(-120%, 0%) rotate(120deg);
+                left: 17px;
+                top: 55px;
+                transform: translate(-100%, 0%) rotate(120deg);
               }
             }
           }
@@ -352,7 +379,7 @@ export default {
     .forward-line-orange {
       position: absolute;
       transform-origin: left;
-      width: 120px;
+      width: 110px;
       height: 2px;
       background-color: #ff920f;
       transform: rotate(-35deg);
@@ -364,7 +391,7 @@ export default {
         width: 25px;
         height: 25px;
         top: 50%;
-        right: -150px;
+        right: -145px;
         transform: translate(-100%, -50%);
         border-radius: 50%;
 
@@ -384,9 +411,11 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
+          height: 60px;
           left: 145px;
           top: 5px;
           transform: translate(-100%, -50%) rotate(35deg);
+          padding-right: 10px;
 
           .sub-line-1 {
             position: absolute;
@@ -403,10 +432,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -418,11 +446,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 5px;
-                top: -45px;
-                transform: translate(-120%, 0%) rotate(-120deg);
+                left: 17px;
+                top: -56px;
+                transform: translate(-100%, 0%) rotate(-120deg);
               }
             }
           }
@@ -442,10 +471,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -457,11 +485,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0%;
-                top: -30px;
-                transform: translate(-135%, 0%) rotate(-150deg);
+                left: -0px;
+                top: -35px;
+                transform: translate(-100%, 0%) rotate(-150deg);
               }
             }
           }
@@ -481,10 +510,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -496,10 +524,11 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -27px;
-                top: 50%;
+                left: -10px;
+                top: 40%;
                 transform: translate(-100%, -50%) rotate(-180deg);
               }
             }
@@ -520,10 +549,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -535,11 +563,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0%;
-                top: 15px;
-                transform: translate(-135%, 0%) rotate(150deg);
+                left: -2px;
+                top: 32px;
+                transform: translate(-100%, 0%) rotate(150deg);
               }
             }
           }
@@ -559,10 +588,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -574,11 +602,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0px;
-                top: 35px;
-                transform: translate(-120%, 0%) rotate(120deg);
+                left: 17px;
+                top: 55px;
+                transform: translate(-100%, 0%) rotate(120deg);
               }
             }
           }
@@ -604,7 +633,7 @@ export default {
     .forward-line-brown {
       position: absolute;
       transform-origin: left;
-      width: 120px;
+      width: 110px;
       height: 2px;
       background-color: #965213;
       transform: rotate(35deg);
@@ -616,7 +645,7 @@ export default {
         width: 25px;
         height: 25px;
         top: 50%;
-        right: -150px;
+        right: -145px;
         transform: translate(-100%, -50%);
         border-radius: 50%;
 
@@ -636,9 +665,11 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
+          height: 60px;
           left: 144px;
           top: 20px;
           transform: translate(-100%, -50%) rotate(-35deg);
+          padding-right: 10px;
 
           .sub-line-1 {
             position: absolute;
@@ -655,10 +686,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -670,11 +700,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0px;
-                top: -40px;
-                transform: translate(-120%, 0%) rotate(-120deg);
+                left: 17px;
+                top: -56px;
+                transform: translate(-100%, 0%) rotate(-120deg);
               }
             }
           }
@@ -694,10 +725,9 @@ export default {
               width: 17px;
               height: 17px;
               top: 50%;
-              right: 0px;
+              right: -5px;
               transform: translate(-100%, -50%);
               border-radius: 50%;
-              border: 1px solid#f00;
 
               .sub-color-circle {
                 position: absolute;
@@ -709,11 +739,12 @@ export default {
               }
 
               .sub-text {
+                width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: 0%;
-                top: -30px;
-                transform: translate(-135%, 0%) rotate(-150deg);
+                left: -0px;
+                top: -35px;
+                transform: translate(-100%, 0%) rotate(-150deg);
               }
             }
           }
@@ -728,21 +759,32 @@ export default {
             height: 2px;
             background-color: #965213;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #965213;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(-180deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #965213;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -10px;
+                top: 40%;
+                transform: translate(-100%, -50%) rotate(-180deg);
+              }
             }
           }
 
@@ -756,21 +798,32 @@ export default {
             height: 2px;
             background-color: #965213;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #965213;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: 0%;
-              top: 15px;
-              transform: translate(-135%, 0%) rotate(150deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #965213;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -2px;
+                top: 32px;
+                transform: translate(-100%, 0%) rotate(150deg);
+              }
             }
           }
 
@@ -784,21 +837,32 @@ export default {
             height: 2px;
             background-color: #965213;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #965213;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: 35px;
-              transform: translate(-120%, 0%) rotate(120deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #965213;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: 17px;
+                top: 55px;
+                transform: translate(-100%, 0%) rotate(120deg);
+              }
             }
           }
         }
@@ -823,7 +887,7 @@ export default {
     .forward-line-green {
       position: absolute;
       transform-origin: left;
-      width: 120px;
+      width: 110px;
       height: 2px;
       background-color: #70ae47;
       transform: rotate(80deg);
@@ -835,7 +899,7 @@ export default {
         width: 25px;
         height: 25px;
         top: 50%;
-        right: -150px;
+        right: -145px;
         transform: translate(-100%, -50%);
         border-radius: 50%;
 
@@ -855,9 +919,11 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
+          height: 60px;
           left: 150px;
           top: 59px;
           transform: translate(-100%, -100%) rotate(-80deg);
+          padding-right: 10px;
 
           .sub-line-1 {
             position: absolute;
@@ -869,21 +935,32 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: -45px;
-              transform: translate(-120%, 0%) rotate(-120deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: 17px;
+                top: -56px;
+                transform: translate(-100%, 0%) rotate(-120deg);
+              }
             }
           }
 
@@ -897,21 +974,32 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: 0%;
-              top: -30px;
-              transform: translate(-135%, 0%) rotate(-150deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -0px;
+                top: -35px;
+                transform: translate(-100%, 0%) rotate(-150deg);
+              }
             }
           }
 
@@ -925,21 +1013,32 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(-180deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -10px;
+                top: 40%;
+                transform: translate(-100%, -50%) rotate(-180deg);
+              }
             }
           }
 
@@ -953,21 +1052,32 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: 15px;
-              transform: translate(-135%, 0%) rotate(150deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -2px;
+                top: 32px;
+                transform: translate(-100%, 0%) rotate(150deg);
+              }
             }
           }
 
@@ -981,21 +1091,32 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: 30px;
-              transform: translate(-120%, 0%) rotate(120deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: 17px;
+                top: 55px;
+                transform: translate(-100%, 0%) rotate(120deg);
+              }
             }
           }
         }
@@ -1020,7 +1141,7 @@ export default {
     .forward-line-purple {
       position: absolute;
       transform-origin: left;
-      width: 120px;
+      width: 110px;
       height: 2px;
       background-color: #702fa0;
       transform: rotate(-80deg);
@@ -1032,7 +1153,7 @@ export default {
         width: 25px;
         height: 25px;
         top: 50%;
-        right: -150px;
+        right: -145px;
         transform: translate(-100%, -50%);
         border-radius: 50%;
 
@@ -1052,9 +1173,11 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
+          height: 60px;
           left: 152px;
           top: 20px;
           transform: translate(-100%, -100%) rotate(80deg);
+          padding-right: 10px;
 
           .sub-line-1 {
             position: absolute;
@@ -1066,21 +1189,32 @@ export default {
             height: 2px;
             background-color: #702fa0;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #702fa0;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: -45px;
-              transform: translate(-120%, 0%) rotate(-120deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #702fa0;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: 17px;
+                top: -56px;
+                transform: translate(-100%, 0%) rotate(-120deg);
+              }
             }
           }
 
@@ -1094,21 +1228,32 @@ export default {
             height: 2px;
             background-color: #702fa0;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #702fa0;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: 0%;
-              top: -30px;
-              transform: translate(-135%, 0%) rotate(-150deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #702fa0;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -0px;
+                top: -35px;
+                transform: translate(-100%, 0%) rotate(-150deg);
+              }
             }
           }
 
@@ -1122,21 +1267,32 @@ export default {
             height: 2px;
             background-color: #702fa0;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #702fa0;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(-180deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #702fa0;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -10px;
+                top: 40%;
+                transform: translate(-100%, -50%) rotate(-180deg);
+              }
             }
           }
 
@@ -1150,21 +1306,32 @@ export default {
             height: 2px;
             background-color: #702fa0;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #702fa0;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: 15px;
-              transform: translate(-135%, 0%) rotate(150deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #702fa0;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: -2px;
+                top: 32px;
+                transform: translate(-100%, 0%) rotate(150deg);
+              }
             }
           }
 
@@ -1178,21 +1345,32 @@ export default {
             height: 2px;
             background-color: #702fa0;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #702fa0;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -0px;
-              top: 30px;
-              transform: translate(-120%, 0%) rotate(120deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #702fa0;
+              }
+
+              .sub-text {
+                width: 100px;
+                position: absolute;
+                white-space: nowrap;
+                left: 17px;
+                top: 55px;
+                transform: translate(-100%, 0%) rotate(120deg);
+              }
             }
           }
         }

@@ -5,53 +5,88 @@
       <div class="graph-position">
         <div class="relative-position" v-for="(item,index) in data" :key="index">
           <div
-            :class="{'backward-line-pink':index == 0,'backward-line-yellow':index == 1,'backward-line-green':index == 2,'backward-line-blue':index == 3,'backward-line-purple':index == 4}"
+            :class="{'backward-line-pink':index == 2,'backward-line-yellow':index == 1,'backward-line-green':index == 3,'backward-line-blue':index == 0,'backward-line-purple':index == 4}"
           >
             <div class="border-circle">
               <div
-                :class="{'color-circle-pink':index == 0,'color-circle-yellow':index == 1,'color-circle-green':index == 2,'color-circle-blue':index == 3,'color-circle-purple':index == 4}"
+                :class="{'color-circle-pink':index == 2,'color-circle-yellow':index == 1,'color-circle-green':index == 3,'color-circle-blue':index == 0,'color-circle-purple':index == 4}"
                 class
                 :style="{width:item.valuepx + 'px',height:item.valuepx + 'px'}"
               ></div>
               <div class="sub-data relative-position">
-                <div>{{item.sector}}</div>
+                <div>{{item.a}}</div>
                 <div>{{item.precent}}%</div>
                 <div>${{item.value}}</div>
 
                 <div class="sub-line-1">
-                  <div
-                    class="sub-color-circle"
-                    :style="{width:item.val1px + 'px',height:item.val1px + 'px'}"
-                  ></div>
-                  <span class="sub-text">{{item.exp_country1}} ({{item.val1}})</span>
+                  <div class="sub-circle">
+                    <div
+                      class="sub-color-circle"
+                      :style="{width:item.val1px + 'px',height:item.val1px + 'px'}"
+                    ></div>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b1}} ({{item.val1}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b1}} ({{item.val1}})</span>
+                      </q-tooltip>
+                    </span>
+                  </div>
                 </div>
                 <div class="sub-line-2">
-                  <div
-                    class="sub-color-circle"
-                    :style="{width:item.val2px + 'px',height:item.val2px + 'px'}"
-                  ></div>
-                  <span class="sub-text">{{item.exp_country2}} ({{item.val2}})</span>
+                  <div class="sub-circle">
+                    <div
+                      class="sub-color-circle"
+                      :style="{width:item.val2px + 'px',height:item.val2px + 'px'}"
+                    ></div>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b2}} ({{item.val2}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b2}} ({{item.val2}})</span>
+                      </q-tooltip>
+                    </span>
+                  </div>
                 </div>
                 <div class="sub-line-3">
-                  <div
-                    class="sub-color-circle"
-                    :style="{width:item.val3px + 'px',height:item.val3px + 'px'}"
-                  ></div>
-                  <span class="sub-text">{{item.exp_country3}} ({{item.val3}})</span>
+                  <div class="sub-circle">
+                    <div
+                      class="sub-color-circle"
+                      :style="{width:item.val3px + 'px',height:item.val3px + 'px'}"
+                    ></div>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b3}} ({{item.val3}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b3}} ({{item.val3}})</span>
+                      </q-tooltip>
+                    </span>
+                  </div>
                 </div>
                 <div class="sub-line-4">
-                  <div
-                    class="sub-color-circle"
-                    :style="{width:item.val4px + 'px',height:item.val4px + 'px'}"
-                  ></div>
-                  <span class="sub-text">{{item.exp_country4}} ({{item.val4}})</span>
+                  <div class="sub-circle">
+                    <div
+                      class="sub-color-circle"
+                      :style="{width:item.val4px + 'px',height:item.val4px + 'px'}"
+                    ></div>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b4}} ({{item.val4}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b4}} ({{item.val4}})</span>
+                      </q-tooltip>
+                    </span>
+                  </div>
                 </div>
                 <div class="sub-line-5">
-                  <div
-                    class="sub-color-circle"
-                    :style="{width:item.val5px + 'px',height:item.val5px + 'px'}"
-                  ></div>
-                  <span class="sub-text">{{item.exp_country5}} ({{item.val5}})</span>
+                  <div class="sub-circle">
+                    <div
+                      class="sub-color-circle"
+                      :style="{width:item.val5px + 'px',height:item.val5px + 'px'}"
+                    ></div>
+                    <span class="sub-text cursor-pointer">
+                      {{item.b5}} ({{item.val5}})
+                      <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
+                        <span style="font-size:12px;">{{item.b5}} ({{item.val5}})</span>
+                      </q-tooltip>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -136,21 +171,34 @@ export default {
             height: 2px;
             background-color: #fe7d77;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fe7d77;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: 30px;
-              transform: translate(-100%, 0%) rotate(-60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fe7d77;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 13px;
+                top: 53px;
+                transform: translate(-100%, 0%) rotate(-60deg);
+              }
             }
           }
 
@@ -164,21 +212,34 @@ export default {
             height: 2px;
             background-color: #fe7d77;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fe7d77;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: 15px;
-              transform: translate(-100%, 0%) rotate(-30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fe7d77;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: 31px;
+                transform: translate(-100%, 0%) rotate(-30deg);
+              }
             }
           }
           .sub-line-3 {
@@ -191,21 +252,34 @@ export default {
             height: 2px;
             background-color: #fe7d77;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fe7d77;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(0deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fe7d77;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -10px;
+                top: 55%;
+                transform: translate(-100%, -50%) rotate(0deg);
+              }
             }
           }
           .sub-line-4 {
@@ -218,21 +292,34 @@ export default {
             height: 2px;
             background-color: #fe7d77;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fe7d77;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: -30px;
-              transform: translate(-100%, 0%) rotate(30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fe7d77;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: -31px;
+                transform: translate(-100%, 0%) rotate(30deg);
+              }
             }
           }
           .sub-line-5 {
@@ -245,21 +332,34 @@ export default {
             height: 2px;
             background-color: #fe7d77;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fe7d77;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: -45px;
-              transform: translate(-100%, 0%) rotate(60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fe7d77;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 11px;
+                top: -57px;
+                transform: translate(-100%, 0%) rotate(60deg);
+              }
             }
           }
         }
@@ -329,21 +429,34 @@ export default {
             height: 2px;
             background-color: #fec111;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fec111;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: 30px;
-              transform: translate(-100%, 0%) rotate(-60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fec111;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 13px;
+                top: 53px;
+                transform: translate(-100%, 0%) rotate(-60deg);
+              }
             }
           }
 
@@ -357,21 +470,34 @@ export default {
             height: 2px;
             background-color: #fec111;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fec111;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: 15px;
-              transform: translate(-100%, 0%) rotate(-30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fec111;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: 31px;
+                transform: translate(-100%, 0%) rotate(-30deg);
+              }
             }
           }
           .sub-line-3 {
@@ -384,21 +510,34 @@ export default {
             height: 2px;
             background-color: #fec111;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fec111;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(0deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fec111;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -10px;
+                top: 55%;
+                transform: translate(-100%, -50%) rotate(0deg);
+              }
             }
           }
           .sub-line-4 {
@@ -411,21 +550,34 @@ export default {
             height: 2px;
             background-color: #fec111;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fec111;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: -30px;
-              transform: translate(-100%, 0%) rotate(30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fec111;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: -31px;
+                transform: translate(-100%, 0%) rotate(30deg);
+              }
             }
           }
           .sub-line-5 {
@@ -438,21 +590,34 @@ export default {
             height: 2px;
             background-color: #fec111;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #fec111;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: -45px;
-              transform: translate(-100%, 0%) rotate(60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fec111;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 11px;
+                top: -57px;
+                transform: translate(-100%, 0%) rotate(60deg);
+              }
             }
           }
         }
@@ -522,21 +687,34 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: 30px;
-              transform: translate(-100%, 0%) rotate(-60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 13px;
+                top: 53px;
+                transform: translate(-100%, 0%) rotate(-60deg);
+              }
             }
           }
 
@@ -550,21 +728,34 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: 15px;
-              transform: translate(-100%, 0%) rotate(-30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: 31px;
+                transform: translate(-100%, 0%) rotate(-30deg);
+              }
             }
           }
           .sub-line-3 {
@@ -577,21 +768,34 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(0deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -10px;
+                top: 55%;
+                transform: translate(-100%, -50%) rotate(0deg);
+              }
             }
           }
           .sub-line-4 {
@@ -604,21 +808,34 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: -30px;
-              transform: translate(-100%, 0%) rotate(30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: -31px;
+                transform: translate(-100%, 0%) rotate(30deg);
+              }
             }
           }
           .sub-line-5 {
@@ -631,21 +848,34 @@ export default {
             height: 2px;
             background-color: #70ae47;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #70ae47;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: -45px;
-              transform: translate(-100%, 0%) rotate(60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #70ae47;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 11px;
+                top: -57px;
+                transform: translate(-100%, 0%) rotate(60deg);
+              }
             }
           }
         }
@@ -715,21 +945,34 @@ export default {
             height: 2px;
             background-color: #5a9bd5;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #5a9bd5;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: 30px;
-              transform: translate(-100%, 0%) rotate(-60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #5a9bd5;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 13px;
+                top: 53px;
+                transform: translate(-100%, 0%) rotate(-60deg);
+              }
             }
           }
 
@@ -743,21 +986,34 @@ export default {
             height: 2px;
             background-color: #5a9bd5;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #5a9bd5;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: 15px;
-              transform: translate(-100%, 0%) rotate(-30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #5a9bd5;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: 31px;
+                transform: translate(-100%, 0%) rotate(-30deg);
+              }
             }
           }
           .sub-line-3 {
@@ -770,21 +1026,34 @@ export default {
             height: 2px;
             background-color: #5a9bd5;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #5a9bd5;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(0deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #5a9bd5;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -10px;
+                top: 55%;
+                transform: translate(-100%, -50%) rotate(0deg);
+              }
             }
           }
           .sub-line-4 {
@@ -797,21 +1066,34 @@ export default {
             height: 2px;
             background-color: #5a9bd5;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #5a9bd5;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: -30px;
-              transform: translate(-100%, 0%) rotate(30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #5a9bd5;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: -31px;
+                transform: translate(-100%, 0%) rotate(30deg);
+              }
             }
           }
           .sub-line-5 {
@@ -824,21 +1106,34 @@ export default {
             height: 2px;
             background-color: #5a9bd5;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #5a9bd5;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: -45px;
-              transform: translate(-100%, 0%) rotate(60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #5a9bd5;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 11px;
+                top: -57px;
+                transform: translate(-100%, 0%) rotate(60deg);
+              }
             }
           }
         }
@@ -908,21 +1203,34 @@ export default {
             height: 2px;
             background-color: #6c2c9c;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #6c2c9c;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: 30px;
-              transform: translate(-100%, 0%) rotate(-60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #6c2c9c;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 13px;
+                top: 53px;
+                transform: translate(-100%, 0%) rotate(-60deg);
+              }
             }
           }
 
@@ -936,21 +1244,34 @@ export default {
             height: 2px;
             background-color: #6c2c9c;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #6c2c9c;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: 15px;
-              transform: translate(-100%, 0%) rotate(-30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #6c2c9c;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: 31px;
+                transform: translate(-100%, 0%) rotate(-30deg);
+              }
             }
           }
           .sub-line-3 {
@@ -963,21 +1284,35 @@ export default {
             height: 2px;
             background-color: #6c2c9c;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #6c2c9c;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -27px;
-              top: 50%;
-              transform: translate(-100%, -50%) rotate(0deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #6c2c9c;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                text-align: right;
+                left: -10px;
+                top: 55%;
+                transform: translate(-100%, -50%) rotate(0deg);
+              }
             }
           }
           .sub-line-4 {
@@ -990,21 +1325,34 @@ export default {
             height: 2px;
             background-color: #6c2c9c;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #6c2c9c;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -20px;
-              top: -30px;
-              transform: translate(-100%, 0%) rotate(30deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #6c2c9c;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: -2px;
+                top: -31px;
+                transform: translate(-100%, 0%) rotate(30deg);
+              }
             }
           }
           .sub-line-5 {
@@ -1017,21 +1365,34 @@ export default {
             height: 2px;
             background-color: #6c2c9c;
 
-            .sub-color-circle {
+            .sub-circle {
               position: relative;
-              border-radius: 50%;
+              width: 17px;
+              height: 17px;
               top: 50%;
-              left: 0;
+              right: -5px;
               transform: translate(-100%, -50%);
-              background-color: #6c2c9c;
-            }
+              border-radius: 50%;
 
-            .sub-text {
-              position: absolute;
-              white-space: nowrap;
-              left: -10px;
-              top: -45px;
-              transform: translate(-100%, 0%) rotate(60deg);
+              .sub-color-circle {
+                position: relative;
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #6c2c9c;
+              }
+
+              .sub-text {
+                position: absolute;
+                white-space: nowrap;
+                text-align: right;
+                direction: rtl;
+                width: 100px;
+                left: 11px;
+                top: -57px;
+                transform: translate(-100%, 0%) rotate(60deg);
+              }
             }
           }
         }
