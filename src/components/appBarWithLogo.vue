@@ -71,17 +71,20 @@ export default {
         (x) => x.value == this.countrySelected
       )[0];
 
-      this.$emit("countrySelected", {
+      let selectedData = {
         name: countrySelected.label,
         region: countrySelected.region,
         iso: countrySelected.iso,
         year: this.yearSelected,
-      });
+      };
+
+      this.$emit("countrySelected", selectedData);
+
+      this.$q.sessionStorage.set("cselec", selectedData);
     },
     async loadYear() {
       this.getCountryList();
 
-      // if (this.$route.name == "involvement") {
       this.yearSelected = this.$q.sessionStorage.has("cselec")
         ? this.$q.sessionStorage.getItem("cselec").year
         : "";
@@ -94,10 +97,7 @@ export default {
       this.countrySelected = this.$q.sessionStorage.has("cselec")
         ? countryId[0].value
         : "";
-      // } else {
-      //   this.countrySelected = "";
-      //   this.yearSelected = "";
-      // }
+
 
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
