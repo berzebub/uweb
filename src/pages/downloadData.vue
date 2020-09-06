@@ -120,10 +120,7 @@
       >
         <div style="width:150px" class="self-center q-pa-md" align="center">
           <div>
-            <span class="font-content">
-              Source economy
-              <br />(For FVA only)
-            </span>
+            <span class="font-content">Source economy</span>
           </div>
         </div>
         <div class="col q-px-md">
