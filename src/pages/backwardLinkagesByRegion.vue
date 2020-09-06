@@ -146,13 +146,19 @@ export default {
       sectorOptions: [],
       sectorSelected: "",
 
-      continent: "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "",
 
-      displayYear: "",
-
-      displayExportingEconomy: "",
-      exp_country: "",
-
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "",
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "",
       displayImportingEconomy: "",
       imp_country: "",
 
