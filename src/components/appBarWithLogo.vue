@@ -81,17 +81,23 @@ export default {
     async loadYear() {
       this.getCountryList();
 
-      if (this.$route.name == "involvement") {
-        this.yearSelected = this.$q.sessionStorage.getItem("cselec").year;
-        let countryId = this.countryOptions.filter(
-          (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
-        );
+      // if (this.$route.name == "involvement") {
+      this.yearSelected = this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "";
+      let countryId = this.$q.sessionStorage.has("cselec")
+        ? this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
+          )
+        : "";
 
-        this.countrySelected = countryId[0].value;
-      } else {
-        this.countrySelected = "";
-        this.yearSelected = "";
-      }
+      this.countrySelected = this.$q.sessionStorage.has("cselec")
+        ? countryId[0].value
+        : "";
+      // } else {
+      //   this.countrySelected = "";
+      //   this.yearSelected = "";
+      // }
 
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
