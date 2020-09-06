@@ -101,11 +101,11 @@ export default {
 
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
-      if(this.$route.name == "getStarted"){
-        this.countrySelected = "",
-        this.yearSelected = ""
-        this.$q.sessionStorage.clear()
-      }
+      // if(this.$route.name == "getStarted"){
+      //   this.countrySelected = "",
+      //   this.yearSelected = ""
+      //   this.$q.sessionStorage.clear()
+      // }
 
       let getYear = await Axios.get(url);
 
