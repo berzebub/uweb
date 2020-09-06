@@ -572,18 +572,10 @@ export default {
 
       this.isGraphGVCEconomy = true;
     },
-    checkExistData(){
-      if(this.$q.sessionStorage.has("cselec")){
-        this.displayCountry = this.$q.sessionStorage.getItem("cselec")
-        this.displayYear = this.$q.sessionStorage.getItem("cselec").year
-        this.getEmitData(this.displayCountry)
-      }
-    },
   },
 
   mounted() {
     this.checkPlatform();
-    this.checkExistData()
   },
 };
 </script>
