@@ -113,10 +113,19 @@ export default {
     return {
       isShowPage: false,
       countryOptions: [],
-      displayExportingEconomy: "", //ชื่อเต็มประเทศส่งออก
-      exp_country: "", //ชื่อ 3 ตัวประเทศส่งออก
-      continent: "", //กลุ่มประเทศ
-      displayYear: "", //ปี
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "", //ชื่อเต็มประเทศส่งออก
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "", //ชื่อ 3 ตัวประเทศส่งออก
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      //กลุ่มประเทศ
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "", //ปี
       imp_country: "", //ชื่อ 3 ตัวประเทศนำเข้า
       importingEconomy: "",
       displayImportingEconomy: "", //ชื่อเต็มประเทศนำเข้า
