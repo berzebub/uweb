@@ -6,8 +6,8 @@
         <q-btn class="color4" flat round size="35px" dense icon="home" to="/" />
       </div>
       <q-space />
-      <div class="col" align="center">
-        <span class="font-header text-black">Country Briefs</span>
+      <div class="col q-pr-md" align="right">
+        <span class="font-header text-black">Country briefs</span>
       </div>
     </q-toolbar>
 

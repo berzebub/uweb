@@ -23,7 +23,7 @@
         <div class="col q-px-md">
           <div class="border">
             <div class="q-pa-sm bg4">
-              <span>Selected Indicator (Max 5 indicators)</span>
+              <span>Selected Indicator (max 5 indicators)</span>
             </div>
             <q-scroll-area visible style="height: 200px;" class>
               <div
@@ -54,7 +54,7 @@
         <div class="col q-px-md">
           <div class="border">
             <div class="q-pa-sm bg4">
-              <span>Selected exporting economy (Max 5 economies)</span>
+              <span>Selected exporting economy (max 5 economies)</span>
             </div>
             <q-scroll-area visible style="height: 200px;" class>
               <div
@@ -86,7 +86,7 @@
         <div class="col q-px-md">
           <div class="border">
             <div class="q-pa-sm bg4">
-              <span>Selected importing economy (Max 5 economies)</span>
+              <span>Selected importing economy (max 5 economies)</span>
             </div>
             <q-scroll-area visible style="height: 200px;" class>
               <div
@@ -126,7 +126,7 @@
         <div class="col q-px-md">
           <div class="border">
             <div class="q-pa-sm bg4 relative-position">
-              <span>Selected Source economy (Max 5 economies)</span>
+              <span>Selected Source economy (max 5 economies)</span>
               <span
                 class="absolute-right flex flex-center q-pr-md"
                 align="right"
@@ -259,7 +259,7 @@
       <div class="row justify-center">
         <!-- Modify Type -->
         <div class="col-11 q-pa-sm">
-          <span class="font-graph">{{ modifyContent }}</span>
+          <span class="font-graph">{{ modifyContent }} {{ modifySubText }}</span>
         </div>
         <div class="col-5">
           <!-- Select Form -->
@@ -273,7 +273,7 @@
             :label="modifySelectFormText"
           >
             <q-card class="border text-black">
-              <q-scroll-area visible style="height: 200px;" class>
+              <q-scroll-area visible style="height: 400px;" class>
                 <div
                   v-ripple
                   class="relative-position cursor-pointer"
@@ -363,6 +363,7 @@ export default {
       errorExceededQuotaMessage: "",
       sectorOptions: "",
       isModify: false,
+      modifySubText: "",
       modifyType: "",
       modifyContent: "",
       modifySelectFormText: "",
@@ -602,6 +603,7 @@ export default {
         });
         return temp;
       }
+
       this.modifyContent = name;
 
       this.modifyType = type;
@@ -618,6 +620,7 @@ export default {
       if (type == "exportting") {
         this.modifyDraftList = [...this.exportList];
         this.modifyDataList = getCountry();
+        this.modifySubText = "(max 5 economies)";
 
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected exporting economy";
@@ -625,6 +628,7 @@ export default {
       } else if (type == "importing") {
         this.modifyDraftList = [...this.importingList];
         this.modifyDataList = getCountry();
+        this.modifySubText = "(max 5 economies)";
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected importing economy";
         displayCorrectRelativeData();
@@ -632,7 +636,7 @@ export default {
         this.modifyDraftList = [...this.sourceList];
         this.modifyDataList = getCountry();
         displayCorrectRelativeData();
-
+        this.modifySubText = "(max 5 economies)";
         this.modifySelectFormText = "Select from Individual Contries:";
         this.modifySelectDraftText = "Selected source economy";
       } else if (type == "sector") {
@@ -648,6 +652,7 @@ export default {
 
         this.modifyDataList = finalData;
         displayCorrectRelativeData();
+        this.modifySubText = "(max 5 sectors)";
         this.modifySelectFormText = "Select from sector";
         this.modifySelectDraftText = "Selected sector(s)";
       } else if (type == "indicator") {
@@ -655,12 +660,13 @@ export default {
         this.modifyDataList = [...this.dataIndicatorList];
         displayCorrectRelativeData();
         this.modifySelectFormText = "indicator";
+        this.modifySubText = "(max 5 indicators)";
         this.modifySelectDraftText = "Selected indicator";
       } else {
         this.modifyDraftList = [...this.yearList];
         this.modifyDataList = [...this.dataYearList];
         displayCorrectRelativeData();
-
+        this.modifySubText = "";
         this.modifySelectFormText = "year";
         this.modifySelectDraftText = "Selected Year(s)";
       }

@@ -42,7 +42,7 @@
       class="absolute-center font-graph"
       v-if="!isShowPage"
       style="width:90%; margin:auto; max-width:700px; text-align:center "
-    >Please choose your exporting economy, year of interest, importing economy and source economy.</div>
+    >Please choose importing economy and source economy.</div>
 
     <error-page
       class="q-pt-md"
@@ -61,7 +61,9 @@
               align="center"
             >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
             <p class="font-content" align="center">
-              <span class="q-pr-lg color4">Source economy</span>
+              <span class="q-pr-lg color4">
+                <b>Source economy</b>
+              </span>
 
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>

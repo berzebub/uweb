@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-6 q-px-md">
-          <span>Exporting Sector</span>
+          <span>Exporting sector</span>
           <q-select
             @input="getStructureOfValue()"
             dense
@@ -42,7 +42,7 @@
       class="absolute-center font-graph"
       v-if="!isShowPage"
       style="width:90%; margin:auto; max-width:700px; text-align:center "
-    >Please choose your exporting economy, year of interest, importing economy and exporting sector.</div>
+    >Please choose your importing economy and exporting sector.</div>
 
     <!-- Error Page -->
     <error-page
@@ -68,7 +68,9 @@
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
               <span class="q-px-lg text-weight-bold">:</span>
-              <span class="q-pr-lg color4">Exporting Sector</span>
+              <span class="q-pr-lg color4">
+                <b>Exporting Sector</b>
+              </span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Importing economy</span>
             </p>

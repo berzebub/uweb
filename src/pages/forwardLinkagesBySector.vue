@@ -46,7 +46,9 @@
               <span class="q-px-lg text-weight-bold">:</span>
               <span class="q-pr-lg">Sector</span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-              <span class="q-px-lg color4">Importing economy</span>
+              <span class="q-px-lg color4">
+                <b>Importing economy</b>
+              </span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Third economies</span>
             </div>

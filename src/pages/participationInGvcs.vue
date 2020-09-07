@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-6 q-px-md">
-          <span>Sector</span>
+          <span>Exporting sector</span>
           <q-select
             @input="getStructureOfValue()"
             dense
@@ -42,7 +42,7 @@
       class="absolute-center font-graph"
       v-if="!isShowPage"
       style="width:90%; margin:auto; max-width:700px; text-align:center "
-    >Please choose your exporting economy, year of interest, importing economy and sector.</div>
+    >Please choose your importing economy and exporting sector.</div>
 
     <div v-if="isShowPage" class="relative-position">
       <!-- Error Page -->

@@ -36,7 +36,9 @@
           <p class="font-content" align="center">
             <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
             <span class="q-pr-md text-weight-bold">:</span>
-            <span class="q-pr-lg color4">Exporting Sector</span>
+            <span class="q-pr-lg color4">
+              <b>Exporting Sector</b>
+            </span>
 
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
             <span class="q-px-lg">Importing economy</span>
