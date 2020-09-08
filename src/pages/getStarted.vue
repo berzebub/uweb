@@ -38,7 +38,7 @@
               no-caps
               color="indigo-10"
             >
-              <span class="text-black">Overview</span>
+              <span class="indigo-10 font-content">Overview</span>
             </q-btn>
           </div>
           <div class="col-4">
@@ -49,7 +49,7 @@
               style="width:90%;margin:auto"
               no-caps
             >
-              <span class="text-black">By exporting sector</span>
+              <span class="indigo-10 font-content">By exporting sector</span>
             </q-btn>
           </div>
           <div class="col-4">
@@ -60,7 +60,7 @@
               style="width:90%;margin:auto"
               no-caps
             >
-              <span class="text-black">By partner economy</span>
+              <span class="indigo-10 font-content">By partner economy</span>
             </q-btn>
           </div>
         </div>
@@ -70,7 +70,7 @@
             class="font-page"
             align="center"
             id="keyGVC"
-          >{{ displayCountry.name }}'s key GVC relationships</p>
+          >{{ displayCountry.name }}'s key GVC relationships: Overview</p>
         </div>
         <p>
           <b>
@@ -139,7 +139,9 @@
                 <td align="center" style="width:160px;">
                   <q-img src="../../public/arrow-right-red.png" v-if="graphGVC.redsize"></q-img>
                 </td>
-                <td style="font-size:24px; width:290px;" align="center">{{ displayCountry.name }}</td>
+                <td style="font-size:24px; width:290px;" class="text-black" align="center">
+                  <b>{{ displayCountry.name }}</b>
+                </td>
                 <td align="center" style="width:160px;">
                   <q-img
                     v-if="graphGVC.greensize"
@@ -165,11 +167,9 @@
 
       <!-- Key GVC relationships by sector -->
       <div style="height:20px;"></div>
-      <p
-        id="exportingSector"
-        class="font-graph q-py-md"
-        align="center"
-      >key GVC relationships by sector</p>
+      <p id="exportingSector" class="font-graph q-py-md" align="center">
+        <b>key GVC relationships: by exporting sector</b>
+      </p>
       <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
         <div class="col-5">
           <div class="color4 font-content">
@@ -205,7 +205,9 @@
             <backward-graph-gvc :data="graphBackwardGVCSector"></backward-graph-gvc>
           </div>
         </div>
-        <div align="center" class="font-graph col-2" style="width:300px;">{{ displayCountry.name }}</div>
+        <div align="center" class="font-graph col-2" style="width:300px;">
+          <b>{{ displayCountry.name }}</b>
+        </div>
         <div class="col">
           <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
             <q-spinner-pie color="primary" size="100px" />
@@ -222,7 +224,9 @@
       <div style="height:20px"></div>
 
       <!-- Key GVC relationships by economy -->
-      <p class="font-graph q-py-md" id="byEconomy" align="center">key GVC relationships by economy</p>
+      <p class="font-graph q-py-md" id="byEconomy" align="center">
+        <b>key GVC relationships: by partner economy</b>
+      </p>
 
       <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
         <div class="col-5">
@@ -260,7 +264,9 @@
             <backward-graph-gvc :data="graphBackwardGVCEconomy"></backward-graph-gvc>
           </div>
         </div>
-        <div align="center" class="font-graph col-2" style="width:300px;">{{ displayCountry.name }}</div>
+        <div align="center" class="font-graph col-2" style="width:300px;">
+          <b>{{ displayCountry.name }}</b>
+        </div>
         <div class="col">
           <div align="center" class="q-pa-lg" v-if="!isGraphGVCEconomy">
             <q-spinner-pie color="primary" size="100px" />

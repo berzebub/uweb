@@ -25,9 +25,9 @@
                       :style="{width:item.val1px + 'px',height:item.val1px + 'px'}"
                     ></div>
                     <span class="sub-text cursor-pointer">
-                      {{item.b1}} ({{item.val1}})
+                      {{item.b1}} (${{item.val1}})
                       <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                        <span style="font-size:12px;">{{item.b1}} ({{item.val1}})</span>
+                        <span style="font-size:12px;">{{item.b1}} (${{item.val1}})</span>
                       </q-tooltip>
                     </span>
                   </div>
@@ -39,9 +39,9 @@
                       :style="{width:item.val2px + 'px',height:item.val2px + 'px'}"
                     ></div>
                     <span class="sub-text cursor-pointer">
-                      {{item.b2}} ({{item.val2}})
+                      {{item.b2}} (${{item.val2}})
                       <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                        <span style="font-size:12px;">{{item.b2}} ({{item.val2}})</span>
+                        <span style="font-size:12px;">{{item.b2}} (${{item.val2}})</span>
                       </q-tooltip>
                     </span>
                   </div>
@@ -53,9 +53,9 @@
                       :style="{width:item.val3px + 'px',height:item.val3px + 'px'}"
                     ></div>
                     <span class="sub-text cursor-pointer">
-                      {{item.b3}} ({{item.val3}})
+                      {{item.b3}} (${{item.val3}})
                       <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                        <span style="font-size:12px;">{{item.b3}} ({{item.val3}})</span>
+                        <span style="font-size:12px;">{{item.b3}} (${{item.val3}})</span>
                       </q-tooltip>
                     </span>
                   </div>
@@ -67,9 +67,9 @@
                       :style="{width:item.val4px + 'px',height:item.val4px + 'px'}"
                     ></div>
                     <span class="sub-text cursor-pointer">
-                      {{item.b4}} ({{item.val4}})
+                      {{item.b4}} (${{item.val4}})
                       <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                        <span style="font-size:12px;">{{item.b4}} ({{item.val4}})</span>
+                        <span style="font-size:12px;">{{item.b4}} (${{item.val4}})</span>
                       </q-tooltip>
                     </span>
                   </div>
@@ -81,9 +81,9 @@
                       :style="{width:item.val5px + 'px',height:item.val5px + 'px'}"
                     ></div>
                     <span class="sub-text cursor-pointer">
-                      {{item.b5}} ({{item.val5}})
+                      {{item.b5}} (${{item.val5}})
                       <q-tooltip anchor="top middle" self="bottom middle" :offset="[10, 10]">
-                        <span style="font-size:12px;">{{item.b5}} ({{item.val5}})</span>
+                        <span style="font-size:12px;">{{item.b5}} (${{item.val5}})</span>
                       </q-tooltip>
                     </span>
                   </div>

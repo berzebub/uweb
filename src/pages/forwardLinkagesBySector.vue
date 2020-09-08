@@ -22,6 +22,12 @@
       </div>
     </div>
 
+    <div
+      class="absolute-center font-graph"
+      v-if="!isShowPage"
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your Importing economy and Exporting sector.</div>
+
     <error-page
       v-show="isShowErrorWarning"
       class="q-pt-md"
@@ -46,7 +52,9 @@
               <span class="q-px-lg text-weight-bold">:</span>
               <span class="q-pr-lg">Sector</span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
-              <span class="q-px-lg">Importing economy</span>
+              <span class="q-px-lg color4">
+                <b>Importing economy</b>
+              </span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Third economies</span>
             </div>
@@ -113,10 +121,19 @@ export default {
     return {
       isShowPage: false,
       countryOptions: [],
-      displayExportingEconomy: "", //ชื่อเต็มประเทศส่งออก
-      exp_country: "", //ชื่อ 3 ตัวประเทศส่งออก
-      continent: "", //กลุ่มประเทศ
-      displayYear: "", //ปี
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "", //ชื่อเต็มประเทศส่งออก
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "", //ชื่อ 3 ตัวประเทศส่งออก
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      //กลุ่มประเทศ
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "", //ปี
       imp_country: "", //ชื่อ 3 ตัวประเทศนำเข้า
       importingEconomy: "",
       displayImportingEconomy: "", //ชื่อเต็มประเทศนำเข้า
@@ -295,7 +312,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Contribution to ${this.displayImportingEconomy} export production: $${getDataSub.contributionto} / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}`,
+          text: `Contribution to ${this.displayImportingEconomy}'s export production: $${getDataSub.contributionto}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}B`,
           align: "left",
         },
       });

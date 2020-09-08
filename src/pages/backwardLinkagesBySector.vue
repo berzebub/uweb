@@ -39,9 +39,10 @@
     </div>
 
     <div
-      class="absolute-center font-content"
+      class="absolute-center font-graph"
       v-if="!isShowPage"
-    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose importing economy and source economy.</div>
 
     <error-page
       class="q-pt-md"
@@ -60,7 +61,9 @@
               align="center"
             >Some part of {{ displayExportingEconomy }}’s gross exports consist of imported inputs that originate in other source economies.</p>
             <p class="font-content" align="center">
-              <span class="q-pr-lg color4">Source economy</span>
+              <span class="q-pr-lg color4">
+                <b>Source economy</b>
+              </span>
 
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
@@ -132,13 +135,19 @@ export default {
 
       sourceEconomy: "",
 
-      continent: "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "",
 
-      displayYear: "",
-
-      displayExportingEconomy: "",
-      exp_country: "",
-
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "",
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "",
       displaySourceEconomy: "",
       source_country: "",
 
@@ -344,6 +353,13 @@ export default {
           },
           text: `Imported content from ${this.displaySourceEconomy} in exports to ${this.displayImportingEconomy} : $${getDataSub.fromsource}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}B`,
           align: "left",
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },
@@ -635,6 +651,13 @@ export default {
             color: "#1564C0",
           },
         ],
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
   },

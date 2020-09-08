@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-6 q-px-md">
-          <span>Exporting Sector</span>
+          <span>Exporting sector</span>
           <q-select
             @input="getStructureOfValue()"
             dense
@@ -39,9 +39,10 @@
     </div>
 
     <div
-      class="absolute-center font-content"
+      class="absolute-center font-graph"
       v-if="!isShowPage"
-    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your importing economy and exporting sector.</div>
 
     <!-- Error Page -->
     <error-page
@@ -67,7 +68,9 @@
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
               <span class="q-px-lg text-weight-bold">:</span>
-              <span class="q-pr-lg color4">Exporting Sector</span>
+              <span class="q-pr-lg color4">
+                <b>Exporting Sector</b>
+              </span>
               <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
               <span class="q-pl-lg">Importing economy</span>
             </p>
@@ -79,14 +82,14 @@
             1.
             <u>
               Where does {{ displayExportingEconomy }}’s imported content come
-              from in exports to a selected importer ?
+              from in exports to a selected importer?
             </u>
           </p>
           <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
             2.
             <u>
               Where do {{ continent }} economies’ imported content come from in
-              exports to a selected importer ?
+              exports to a selected importer?
             </u>
           </p>
         </div>
@@ -145,13 +148,19 @@ export default {
       sectorOptions: [],
       sectorSelected: "",
 
-      continent: "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "",
 
-      displayYear: "",
-
-      displayExportingEconomy: "",
-      exp_country: "",
-
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "",
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "",
       displayImportingEconomy: "",
       imp_country: "",
 
@@ -363,8 +372,41 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to ${this.displayImportingEconomy} amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.ImportedContent}* billion is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>imported content in exports to ${this.displayImportingEconomy}: $${getDataSub.ImportedContent}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.grossExport}B`,
+          text: `Gross exports of ${this.displayExportingEconomy} in ${
+            this.displaySector
+          } sector(s) to ${this.displayImportingEconomy} amount to *$${(
+            getDataSub.grossExport / 1000
+          ).toFixed(2)}* billion in *year*. Of these exports, *$${(
+            getDataSub.ImportedContent / 1000
+          ).toFixed(
+            2
+          )}* billion is imported content that comes from other economies, mainly ${
+            graphOneDetailsList[0].name
+          } (*${graphOneDetailsList[0].sum}*%), ${
+            graphOneDetailsList[1].name
+          } (*${graphOneDetailsList[1].sum}*%), ${
+            graphOneDetailsList[2].name
+          } (*${graphOneDetailsList[2].sum}*%), ${
+            graphOneDetailsList[3].name
+          } (*${graphOneDetailsList[3].sum}*%) and ${
+            graphOneDetailsList[4].name
+          } (*${
+            graphOneDetailsList[4].sum
+          }*%). <br><br>imported content in exports to ${
+            this.displayImportingEconomy
+          }: $${(getDataSub.ImportedContent / 1000).toFixed(
+            2
+          )}B / Gross exports to ${this.displayImportingEconomy}: $${(
+            getDataSub.grossExport / 1000
+          ).toFixed(2)}B`,
           align: "center",
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },
@@ -620,7 +662,6 @@ export default {
         },
 
         tooltip: {
-          headerFormat: "<b>{point.x}</pimported><br/>",
           pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
@@ -671,7 +712,14 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies contribute the most towards export production?`,
+          text: `Where do ${this.continent} economies' imported content in exports to ${this.displayImportingEconomy} come from?`,
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },

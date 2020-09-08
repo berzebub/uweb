@@ -8,10 +8,10 @@
         no-caps
       >
         <div>
-          <span style="font-size:24px">Regional Integration</span>
+          <span style="font-size:28px">Regional Integration</span>
           <div style="height:15px"></div>
           <div style="font-size:18px;letter-spacing:0.2px">
-            ESCAP DigiSRII provies insights on the
+            ESCAP DigiSRII provides insights on the
             <br />structure and progress of regional
             <br />integration in Asia-Pacific
           </div>
@@ -28,7 +28,7 @@
         no-caps
       >
         <div>
-          <span style="font-size:24px">Global Value Chains</span>
+          <span style="font-size:28px">Global Value Chains</span>
           <div style="height:15px"></div>
           <div style="font-size:18px;letter-spacing:0.2px">
             Gain insight into your economy’s
@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg-landing.png");
+  background-image: url("../../public/bg-world.jpg");
   background-size: cover;
   background-position: center;
 }

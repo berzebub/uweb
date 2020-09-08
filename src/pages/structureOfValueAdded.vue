@@ -40,9 +40,10 @@
     </div>
 
     <div
-      class="absolute-center font-content"
+      class="absolute-center font-graph"
       v-if="!isShowPage"
-    >Please choose your exporting economy, year of interest importing economy and sector.</div>
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your Importing economy and Exporting sector.</div>
 
     <!-- Error Page -->
     <error-page
@@ -61,7 +62,7 @@ importing economy"
             <div class="q-pa-md font-content">
               <div v-scroll-to="'#key'" class="cursor-pointer">
                 1.
-                <u>Key policy question</u>
+                <u>Key policy questions</u>
               </div>
               <div class="q-pt-md cursor-pointer" v-scroll-to="'#structure'">
                 2.
@@ -114,7 +115,7 @@ importing economy"
             <div class="cursor-pointer" v-scroll-to="'#comparison'">
               2.
               <!-- TODO SOUTH EAST ASIAN เขียนฟังชันหาทวีป FIND -->
-              <u>What happens to {{continent}} economics’s exports to a selected imported?</u>
+              <u>What happens to {{continent}} economics’ exports to a selected imported?</u>
             </div>
             <div class="cursor-pointer" v-scroll-to="'#measuring'">
               3.
@@ -187,15 +188,23 @@ export default {
       sectorOptions: [],
       sectorSelected: "",
 
-      continent: "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
 
-      displayYear: "",
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "",
 
       displayImportingEconomy: "",
       imp_country: "",
 
-      displayExportingEconomy: "",
-      exp_country: "",
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "",
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "",
 
       displaySector: "",
       sector: "",
@@ -358,7 +367,7 @@ export default {
                 name: `imp. exp. (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
-                label: `Used in ${this.displayImportingEconomy}’s export production`,
+                label: `Used in ${this.displayImportingEconomy}’s export <br>production`,
               },
               {
                 name: `Dom. cons (${this.dataChart1Percent.dom_cons}%)`,
@@ -425,6 +434,11 @@ export default {
         },
 
         exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
           width: "1280px",
           chartOptions: {
             legend: {
@@ -525,7 +539,8 @@ export default {
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat:
+            "{series.name}: ${point.y}<br/>Total: ${point.stackTotal}",
         },
         plotOptions: {
           column: {
@@ -542,7 +557,7 @@ export default {
             color: "#2381B8",
           },
           {
-            name: `Used in ${this.displayImportingEconomy}'s export production`,
+            name: `Used in ${this.displayImportingEconomy}'s export <br> production`,
             data: imp_exp,
             color: "#EB1E63",
           },
@@ -565,19 +580,7 @@ export default {
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: [
-                "printChart",
-                "separator",
-                // "downloadPNG",
-                // "downloadJPEG",
-                "downloadPDF",
-                // "downloadSVG",
-                // "separator",
-                "downloadCSV",
-                // "downloadXLS",
-                //"viewData",
-                // "openInCloud",
-              ],
+              menuItems: ["downloadCSV", "downloadXLS"],
             },
           },
           width: "1280px",
@@ -660,6 +663,13 @@ export default {
             color: "#EB1E63",
           },
         ],
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
   },

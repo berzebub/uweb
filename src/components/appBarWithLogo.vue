@@ -2,7 +2,7 @@
   <div class="bg-white q-py-sm">
     <q-toolbar class>
       <q-btn to="/" class="color4" flat round size="35px" dense icon="home" />
-      <span style="font-size:30px" class="color4">
+      <span style="font-size:30px" class="text-black">
         <b v-if="isShowTitle">Key GVC relationships</b>
       </span>
 
@@ -71,29 +71,41 @@ export default {
         (x) => x.value == this.countrySelected
       )[0];
 
-      this.$emit("countrySelected", {
+      let selectedData = {
         name: countrySelected.label,
         region: countrySelected.region,
         iso: countrySelected.iso,
         year: this.yearSelected,
-      });
+      };
+
+      this.$emit("countrySelected", selectedData);
+
+      this.$q.sessionStorage.set("cselec", selectedData);
     },
     async loadYear() {
       this.getCountryList();
 
-      if (this.$route.name == "involvement") {
-        this.yearSelected = this.$q.sessionStorage.getItem("cselec").year;
-        let countryId = this.countryOptions.filter(
-          (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
-        );
+      this.yearSelected = this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "";
+      let countryId = this.$q.sessionStorage.has("cselec")
+        ? this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
+          )
+        : "";
 
-        this.countrySelected = countryId[0].value;
-      } else {
-        this.countrySelected = "";
-        this.yearSelected = "";
-      }
+      this.countrySelected = this.$q.sessionStorage.has("cselec")
+        ? countryId[0].value
+        : "";
+
 
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
+
+      if(this.$route.name == "getStarted"){
+        this.countrySelected = "",
+        this.yearSelected = ""
+        this.$q.sessionStorage.clear()
+      }
 
       let getYear = await Axios.get(url);
 

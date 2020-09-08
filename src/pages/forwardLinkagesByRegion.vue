@@ -21,6 +21,12 @@
       </div>
     </div>
 
+    <div
+      class="absolute-center font-graph"
+      v-if="!isShowPage"
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your Importing economy and Exporting sector.</div>
+
     <div v-if="isShowPage">
       <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
         <div class="q-pa-md" style="border-radius:5px;border:2px solid">
@@ -36,7 +42,9 @@
           <p class="font-content" align="center">
             <span class="q-px-lg">Exporting economy ({{ displayExportingEconomy }})</span>
             <span class="q-pr-md text-weight-bold">:</span>
-            <span class="q-pr-lg color4">Exporting Sector</span>
+            <span class="q-pr-lg color4">
+              <b>Exporting Sector</b>
+            </span>
 
             <q-img style="width:66px" src="../../public/arrow-right.png"></q-img>
             <span class="q-px-lg">Importing economy</span>
@@ -112,11 +120,19 @@ export default {
       sectorOptions: [],
       sectorSelected: "",
 
-      continent: "",
-      displayYear: "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
+      displayYear: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").year
+        : "",
 
-      displayExportingEconomy: "",
-      exp_country: "",
+      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").name
+        : "",
+      exp_country: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").iso
+        : "",
 
       displaySector: "",
       sector: "",
@@ -302,6 +318,13 @@ export default {
           },
           text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to World amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.contribution}* billion is ${this.displayExportingEconomy}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
           align: "center",
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },
@@ -536,7 +559,6 @@ export default {
         },
 
         tooltip: {
-          headerFormat: "<b>{point.x}</pimported><br/>",
           pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
@@ -587,7 +609,14 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Where do ${this.continent} economies's contribute the most towards export production?`,
+          text: `Where do ${this.continent} economies contribute the most towards export production?`,
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },
