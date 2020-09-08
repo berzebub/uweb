@@ -600,128 +600,133 @@ export default {
 
       this.isChart1 = true;
 
-      Highcharts.chart("container1", {
-        chart: {
-          type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" },
-        },
+      Highcharts.chart(
+        "container1",
+        {
+          chart: {
+            type: "column",
+            height: (9 / 16) * 100 + "%", // 16:9 ratio
+            style: { fontFamily: "roboto" },
+          },
 
-        xAxis: {
-          labels: {
-            rotation: -90,
+          xAxis: {
+            labels: {
+              rotation: -90,
+            },
+            type: "category",
+            // categories: [
+            //   "Brunei Darussalam",
+            //   "Cambodia",
+            //   "Indonesia",
+            //   "Lao PDR",
+            //   "Malaysia",
+            //   "Philippines",
+            //   "Singapore",
+            //   "Thailand",
+            //   "Vietnam",
+            // ],
           },
-          type: "category",
-          // categories: [
-          //   "Brunei Darussalam",
-          //   "Cambodia",
-          //   "Indonesia",
-          //   "Lao PDR",
-          //   "Malaysia",
-          //   "Philippines",
-          //   "Singapore",
-          //   "Thailand",
-          //   "Vietnam",
-          // ],
-        },
-        credits: {
-          enabled: false,
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: "% of gross exports to world",
-          },
-          stackLabels: {
+          credits: {
             enabled: false,
-            style: {
-              fontWeight: "bold",
-              color:
-                // theme
-                (Highcharts.defaultOptions.title.style &&
-                  Highcharts.defaultOptions.title.style.color) ||
-                "gray",
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: "% of gross exports to world",
             },
-          },
-        },
-        legend: {
-          useHTML: true,
-          itemStyle: {
-            fontSize: "14px",
-            fontWeight: "medium",
-            fontFamily: "roboto",
-            color: "#00000",
-          },
-          align: "right",
-          verticalAlign: "middle",
-          width: 200,
-          itemMarginTop: 25,
-          symbolHeight: 15,
-          symbolWidth: 50,
-          symbolRadius: 0,
-        },
-
-        tooltip: {
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
-        },
-        plotOptions: {
-          column: {
-            stacking: "normal",
-            dataLabels: {
+            stackLabels: {
               enabled: false,
+              style: {
+                fontWeight: "bold",
+                color:
+                  // theme
+                  (Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color) ||
+                  "gray",
+              },
             },
           },
-        },
+          legend: {
+            useHTML: true,
+            itemStyle: {
+              fontSize: "14px",
+              fontWeight: "medium",
+              fontFamily: "roboto",
+              color: "#00000",
+            },
+            align: "right",
+            verticalAlign: "middle",
+            width: 200,
+            itemMarginTop: 25,
+            symbolHeight: 15,
+            symbolWidth: 50,
+            symbolRadius: 0,
+          },
 
-        series: [
-          {
-            name: "Asia-Pacific",
-            data: this.chart2AsiaPacific,
-            color: "#2381B8",
+          tooltip: {
+            pointFormat:
+              "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
           },
-          {
-            name: "Europe",
-            data: this.chart2Europe,
-            color: "#EB1E63",
+          plotOptions: {
+            column: {
+              stacking: "normal",
+              dataLabels: {
+                enabled: false,
+              },
+            },
           },
-          {
-            name: "North America",
-            data: this.chart2NorthAmerica,
-            color: "#f99704",
+
+          series: [
+            {
+              name: "Asia-Pacific",
+              data: this.chart2AsiaPacific,
+              color: "#2381B8",
+            },
+            {
+              name: "Europe",
+              data: this.chart2Europe,
+              color: "#EB1E63",
+            },
+            {
+              name: "North America",
+              data: this.chart2NorthAmerica,
+              color: "#f99704",
+            },
+            {
+              name: "Latin America",
+              data: this.chart2LatinAmerica,
+              color: "#2D9687",
+            },
+            {
+              name: "Rest of the world",
+              data: this.chart2RestOfTheWorld,
+              color: "#9C26B3",
+            },
+          ],
+          drilldown: {
+            activeDataLabelStyle: {
+              color: "white",
+              textShadow: "0 0 2px black, 0 0 2px black",
+            },
+            showInLegend: false,
+            series: this.chart2DrillDown,
           },
-          {
-            name: "Latin America",
-            data: this.chart2LatinAmerica,
-            color: "#2D9687",
+          title: {
+            style: {
+              fontSize: "24px",
+            },
+            text: `Where do ${this.continent} economies' imported content in exports to ${this.displayImportingEconomy} come from?`,
           },
-          {
-            name: "Rest of the world",
-            data: this.chart2RestOfTheWorld,
-            color: "#9C26B3",
-          },
-        ],
-        drilldown: {
-          activeDataLabelStyle: {
-            color: "white",
-            textShadow: "0 0 2px black, 0 0 2px black",
-          },
-          showInLegend: false,
-          series: this.chart2DrillDown,
-        },
-        title: {
-          style: {
-            fontSize: "24px",
-          },
-          text: `Where do ${this.continent} economies' imported content in exports to ${this.displayImportingEconomy} come from?`,
-        },
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
+          exporting: {
+            buttons: {
+              contextButton: {
+                menuItems: ["downloadCSV", "downloadXLS"],
+              },
             },
           },
         },
-      });
+        (Highcharts.Tick.prototype.drillable = function () {})
+      );
     },
   },
   async mounted() {

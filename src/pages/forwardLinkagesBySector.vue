@@ -315,6 +315,13 @@ export default {
           text: `Contribution to ${this.displayImportingEconomy}'s export production: $${getDataSub.contributionto}B / Gross exports to ${this.displayImportingEconomy}: $${getDataSub.exportto}B`,
           align: "left",
         },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
     // Graph Two
@@ -605,6 +612,13 @@ export default {
             color: "#1564C0",
           },
         ],
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
   },
