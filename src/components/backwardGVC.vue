@@ -158,7 +158,7 @@ export default {
           white-space: nowrap;
           width: 100px;
           left: -15px;
-          top: 50%;
+          top: 11px;
           transform: translate(-100%, -50%);
 
           .sub-line-1 {
@@ -195,8 +195,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 13px;
-                top: 53px;
+                left: 17px;
+                top: 56px;
                 transform: translate(-100%, 0%) rotate(-60deg);
               }
             }
@@ -236,8 +236,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: 31px;
+                left: 3px;
+                top: 32px;
                 transform: translate(-100%, 0%) rotate(-30deg);
               }
             }
@@ -282,6 +282,7 @@ export default {
               }
             }
           }
+
           .sub-line-4 {
             position: absolute;
             left: -10%;
@@ -316,12 +317,13 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: -31px;
+                left: 2px;
+                top: -32px;
                 transform: translate(-100%, 0%) rotate(30deg);
               }
             }
           }
+
           .sub-line-5 {
             position: absolute;
             left: -10%;
@@ -356,7 +358,7 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 11px;
+                left: 15px;
                 top: -57px;
                 transform: translate(-100%, 0%) rotate(60deg);
               }
@@ -415,9 +417,9 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
-          left: 0px;
-          top: 10px;
-          transform: translate(-100%, -80%) rotate(-35deg);
+          left: 18px;
+          top: -10px;
+          transform: translate(-100%, -50%) rotate(-35deg);
 
           .sub-line-1 {
             position: absolute;
@@ -453,8 +455,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 13px;
-                top: 53px;
+                left: 17px;
+                top: 56px;
                 transform: translate(-100%, 0%) rotate(-60deg);
               }
             }
@@ -494,8 +496,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: 31px;
+                left: 3px;
+                top: 32px;
                 transform: translate(-100%, 0%) rotate(-30deg);
               }
             }
@@ -574,8 +576,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: -31px;
+                left: 2px;
+                top: -32px;
                 transform: translate(-100%, 0%) rotate(30deg);
               }
             }
@@ -614,7 +616,7 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 11px;
+                left: 15px;
                 top: -57px;
                 transform: translate(-100%, 0%) rotate(60deg);
               }
@@ -673,7 +675,7 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
-          left: -5px;
+          left: 15px;
           top: 7px;
           transform: translate(-100%, 0%) rotate(35deg);
 
@@ -711,8 +713,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 13px;
-                top: 53px;
+                left: 17px;
+                top: 56px;
                 transform: translate(-100%, 0%) rotate(-60deg);
               }
             }
@@ -752,8 +754,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: 31px;
+                left: 3px;
+                top: 32px;
                 transform: translate(-100%, 0%) rotate(-30deg);
               }
             }
@@ -832,8 +834,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: -31px;
+                left: 2px;
+                top: -32px;
                 transform: translate(-100%, 0%) rotate(30deg);
               }
             }
@@ -872,7 +874,7 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 11px;
+                left: 15px;
                 top: -57px;
                 transform: translate(-100%, 0%) rotate(60deg);
               }
@@ -931,8 +933,8 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
-          left: -10px;
-          top: 10px;
+          left: -38px;
+          top: 20px;
           transform: translate(-120%, -100%) rotate(-80deg);
 
           .sub-line-1 {
@@ -969,8 +971,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 13px;
-                top: 53px;
+                left: 17px;
+                top: 56px;
                 transform: translate(-100%, 0%) rotate(-60deg);
               }
             }
@@ -1010,8 +1012,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: 31px;
+                left: 3px;
+                top: 32px;
                 transform: translate(-100%, 0%) rotate(-30deg);
               }
             }
@@ -1090,8 +1092,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: -31px;
+                left: 2px;
+                top: -32px;
                 transform: translate(-100%, 0%) rotate(30deg);
               }
             }
@@ -1130,7 +1132,7 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 11px;
+                left: 15px;
                 top: -57px;
                 transform: translate(-100%, 0%) rotate(60deg);
               }
@@ -1189,9 +1191,9 @@ export default {
           font-weight: bold;
           white-space: nowrap;
           width: 100px;
-          left: -10px;
-          top: -10px;
-          transform: translate(-120%, 45%) rotate(80deg);
+          left: -54px;
+          top: -22px;
+          transform: translate(-100%, 50%) rotate(80deg);
 
           .sub-line-1 {
             position: absolute;
@@ -1227,8 +1229,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 13px;
-                top: 53px;
+                left: 17px;
+                top: 56px;
                 transform: translate(-100%, 0%) rotate(-60deg);
               }
             }
@@ -1268,8 +1270,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: 31px;
+                left: 3px;
+                top: 32px;
                 transform: translate(-100%, 0%) rotate(-30deg);
               }
             }
@@ -1308,7 +1310,6 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                text-align: right;
                 left: -10px;
                 top: 55%;
                 transform: translate(-100%, -50%) rotate(0deg);
@@ -1349,8 +1350,8 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: -2px;
-                top: -31px;
+                left: 2px;
+                top: -32px;
                 transform: translate(-100%, 0%) rotate(30deg);
               }
             }
@@ -1389,7 +1390,7 @@ export default {
                 text-align: right;
                 direction: rtl;
                 width: 100px;
-                left: 11px;
+                left: 15px;
                 top: -57px;
                 transform: translate(-100%, 0%) rotate(60deg);
               }
