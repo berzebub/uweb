@@ -274,7 +274,7 @@ export default {
                 position: absolute;
                 white-space: nowrap;
                 left: -10px;
-                top: 40%;
+                top: 47%;
                 transform: translate(-100%, -50%) rotate(-180deg);
               }
             }
@@ -312,7 +312,7 @@ export default {
                 width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -2px;
+                left: 0px;
                 top: 32px;
                 transform: translate(-100%, 0%) rotate(150deg);
               }
@@ -412,8 +412,8 @@ export default {
           white-space: nowrap;
           width: 100px;
           height: 60px;
-          left: 145px;
-          top: 5px;
+          left: 110px;
+          top: -14px;
           transform: translate(-100%, -50%) rotate(35deg);
           padding-right: 10px;
 
@@ -566,7 +566,7 @@ export default {
                 width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -2px;
+                left: 0px;
                 top: 32px;
                 transform: translate(-100%, 0%) rotate(150deg);
               }
@@ -666,8 +666,8 @@ export default {
           white-space: nowrap;
           width: 100px;
           height: 60px;
-          left: 144px;
-          top: 20px;
+          left: 108px;
+          top: 38px;
           transform: translate(-100%, -50%) rotate(-35deg);
           padding-right: 10px;
 
@@ -820,7 +820,7 @@ export default {
                 width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -2px;
+                left: 0px;
                 top: 32px;
                 transform: translate(-100%, 0%) rotate(150deg);
               }
@@ -920,8 +920,8 @@ export default {
           white-space: nowrap;
           width: 100px;
           height: 60px;
-          left: 150px;
-          top: 59px;
+          left: 180px;
+          top: 67px;
           transform: translate(-100%, -100%) rotate(-80deg);
           padding-right: 10px;
 
@@ -1074,7 +1074,7 @@ export default {
                 width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -2px;
+                left: 0px;
                 top: 32px;
                 transform: translate(-100%, 0%) rotate(150deg);
               }
@@ -1174,8 +1174,8 @@ export default {
           white-space: nowrap;
           width: 100px;
           height: 60px;
-          left: 152px;
-          top: 20px;
+          left: 180px;
+          top: 18px;
           transform: translate(-100%, -100%) rotate(80deg);
           padding-right: 10px;
 
@@ -1328,7 +1328,7 @@ export default {
                 width: 100px;
                 position: absolute;
                 white-space: nowrap;
-                left: -2px;
+                left: 0px;
                 top: 32px;
                 transform: translate(-100%, 0%) rotate(150deg);
               }
