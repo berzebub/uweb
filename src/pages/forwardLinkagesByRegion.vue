@@ -319,6 +319,13 @@ export default {
           text: `Gross exports of ${this.displayExportingEconomy} in ${this.displaySector} sector(s) to World amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.contribution}* billion is ${this.displayExportingEconomy}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
           align: "center",
         },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
     async setStackChart() {
@@ -603,6 +610,13 @@ export default {
             fontSize: "24px",
           },
           text: `Where do ${this.continent} economies contribute the most towards export production?`,
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },

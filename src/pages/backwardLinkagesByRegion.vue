@@ -401,6 +401,13 @@ export default {
           ).toFixed(2)}B`,
           align: "center",
         },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
 
@@ -706,6 +713,13 @@ export default {
             fontSize: "24px",
           },
           text: `Where do ${this.continent} economies' imported content in exports to ${this.displayImportingEconomy} come from?`,
+        },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
         },
       });
     },

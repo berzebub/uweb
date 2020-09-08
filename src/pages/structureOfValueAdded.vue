@@ -434,6 +434,11 @@ export default {
         },
 
         exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
           width: "1280px",
           chartOptions: {
             legend: {
@@ -575,19 +580,7 @@ export default {
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: [
-                "printChart",
-                "separator",
-                // "downloadPNG",
-                // "downloadJPEG",
-                "downloadPDF",
-                // "downloadSVG",
-                // "separator",
-                "downloadCSV",
-                // "downloadXLS",
-                //"viewData",
-                // "openInCloud",
-              ],
+              menuItems: ["downloadCSV", "downloadXLS"],
             },
           },
           width: "1280px",
@@ -670,6 +663,13 @@ export default {
             color: "#EB1E63",
           },
         ],
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
   },

@@ -305,6 +305,13 @@ export default {
           },
           text: `How much of ${this.displayExportingEconomy}’s exports to ${this.displayImportingEconomy} are GVC related <br>compared to other ${this.continent} economies?`,
         },
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ["downloadCSV", "downloadXLS"],
+            },
+          },
+        },
       });
     },
   },
