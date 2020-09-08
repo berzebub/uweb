@@ -57,7 +57,7 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg-landing.png");
+  background-image: url("../../public/bg-world.jpg");
   background-size: cover;
   background-position: center;
 }

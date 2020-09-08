@@ -780,11 +780,73 @@ export default {
           this.yearList.length == 0 ||
           this.sectorList.length == 0
         ) {
-          this.$q.notify({
-            message: "Incorrect input data.",
-            color: "red",
-            position: "top",
-          });
+          // PLEASE ADD INDICATOR
+          if (this.indicatorList.length == 0) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add an indicator</div>",
+              color: "red",
+              position: "top",
+              html: true,
+            });
+          }
+          if (this.exportList.length == 0) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add an exporting economy</div>",
+              color: "red",
+              position: "top",
+              classes: "notify-width",
+              html: true,
+            });
+          }
+          if (this.importingList.length == 0) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add an importing economy</div>",
+              color: "red",
+              position: "top",
+              classes: "notify-width",
+              html: true,
+            });
+          }
+          if (this.yearList.length == 0) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add a year</div>",
+              color: "red",
+              position: "top",
+              classes: "notify-width",
+              html: true,
+            });
+          }
+          if (this.sectorList.length == 0) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add a sector</div>",
+              color: "red",
+              position: "top",
+              classes: "notify-width",
+              html: true,
+            });
+          }
+          if (
+            this.indicatorList.findIndex(
+              (x) =>
+                x.label ==
+                "Backward linkages, all exporting sectors (Back_link_sector)"
+            ) >= 0
+          ) {
+            this.$q.notify({
+              message:
+                "<div style='width:250px' align='center'>Please add a source economy</div>",
+              color: "red",
+              position: "top",
+              classes: "notify-width",
+              html: true,
+            });
+          }
+
           this.loadingHide();
           return;
         }
@@ -1016,5 +1078,8 @@ export default {
 
 .disable-source {
   opacity: 0.5;
+}
+.notify-width {
+  width: 200px;
 }
 </style>

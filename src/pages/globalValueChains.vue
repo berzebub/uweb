@@ -53,9 +53,9 @@ export default {};
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg-global-page.png");
+  background-image: url("../../public/global-value-bg.jpg");
   background-size: cover;
-  background-position: bottom;
+  background-position: center;
   background-repeat: no-repeat;
 }
 </style>

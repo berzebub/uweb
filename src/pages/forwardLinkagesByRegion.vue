@@ -21,6 +21,12 @@
       </div>
     </div>
 
+    <div
+      class="absolute-center font-graph"
+      v-if="!isShowPage"
+      style="width:90%; margin:auto; max-width:700px; text-align:center "
+    >Please choose your Importing economy and Exporting sector.</div>
+
     <div v-if="isShowPage">
       <div class="q-px-md" style="margin:auto; max-width:1050px;width:95%;">
         <div class="q-pa-md" style="border-radius:5px;border:2px solid">

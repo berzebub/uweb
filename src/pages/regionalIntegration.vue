@@ -43,7 +43,7 @@ export default {};
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg-regional-page1.png");
+  background-image: url("../../public/regional-bg.jpg");
   background-size: cover;
   background-position: bottom;
   background-repeat: no-repeat;
