@@ -27,7 +27,7 @@
             </div>
             <q-scroll-area visible style="height: 200px;" class>
               <div
-                class="q-pa-sm"
+                class="border-bottom q-pa-sm"
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in indicatorList"
                 :key="index"
