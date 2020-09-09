@@ -501,11 +501,12 @@ export default {
         },
         yAxis: {
           min: 0,
+          max: 100,
           title: {
             text: `% of gross exports to ${this.displayImportingEconomy}`,
           },
           stackLabels: {
-            enabled: true,
+            enabled: false,
             style: {
               fontWeight: "bold",
               color:
@@ -540,7 +541,7 @@ export default {
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "{series.name}: ${point.y}<br/>Total: ${point.stackTotal}",
+            "{series.name}: {point.y}%<br/>Total: {point.stackTotal}%",
         },
         plotOptions: {
           column: {
