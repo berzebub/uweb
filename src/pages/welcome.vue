@@ -1,5 +1,17 @@
 <template>
   <q-page class="bg">
+    <!-- <q-parallax class="brx">
+      <template v-slot:media>
+        <video poster="https://cdn.quasar.dev/img/polina.jpg" autoplay loop muted>
+          <source type="video/webm" src="https://cdn.quasar.dev/img/polina.webm" />
+        </video>
+      </template>
+    </q-parallax>-->
+
+    <video id="myVideo" autoplay loop muted>
+      <source type="video/webm" src="../../public/vdo.webm" />
+    </video>
+
     <div style="padding-top:20px;padding-left:20px">
       <q-btn
         @click="goToRegional()"
@@ -60,5 +72,12 @@ export default {
   background-image: url("../../public/bg-world.jpg");
   background-size: cover;
   background-position: center;
+}
+#myVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
 }
 </style>
