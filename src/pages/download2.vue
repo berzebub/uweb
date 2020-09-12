@@ -24,6 +24,7 @@
     <!-- importing country -->
     <div>
       <q-select
+        v-show="indicator!='Forward_link_country'"
         v-model="importing"
         :options="countryList"
         label="Importing Country"
@@ -35,9 +36,22 @@
     <!-- Sector -->
     <div>
       <q-select
+        v-show="indicator!='Back_link_sector' && indicator!='Forward_link_sector' "
         v-model="sector"
         :options="sectorList"
         label="Sector"
+        multiple
+        emit-value
+        map-options
+      />
+    </div>
+    <!-- Source country -->
+    <div>
+      <q-select
+        v-show="indicator=='Back_link_sector'"
+        v-model="source"
+        :options="countryList"
+        label="Source Country"
         multiple
         emit-value
         map-options
@@ -76,8 +90,57 @@ export default {
           label:
             "Grooss exports used in importer's export production (Imp_exp)",
         },
+        {
+          value: "Dom_cons",
+          label:
+            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)",
+        },
+        {
+          value: "Double",
+          label:
+            "Double counted exports from repeated border crossing (Double)",
+        },
+        {
+          value: "Imp_cont",
+          label: "Imported content in gross exports (Imp_cont)",
+        },
+        {
+          value: "DVA_tradebalance",
+          label: "Domestice value-added trade balance (DVA_tradebalance)",
+        },
+        {
+          value: "Gross_tradebalance",
+          label: "Gross trade balance (Gross_tradebalance)",
+        },
+        {
+          value: "GVC_participation",
+          label: "GVC participation",
+        },
+        {
+          value: "Back_link_country",
+          label: "Backward linkages, all source countries (Back_link_country)",
+        },
+        {
+          value: "Back_link_sector",
+          label: "Backward linkages, all exporting sectors (Back_link_sector)",
+        },
+        {
+          value: "Forward_link_country",
+          label:
+            "Forward linkages, all importing countries (Forward_link_country)",
+        },
+        {
+          value: "Forward_link_sector",
+          label:
+            "Forward linkages, all exporting sectors (Forward_link_sector)",
+        },
+        {
+          value: "Gross_exports",
+          label: "Gross exports",
+        },
       ],
       countryList: [],
+      source: null,
       exporting: null,
       importing: null,
       sector: null,
@@ -96,6 +159,7 @@ export default {
         };
         this.countryList.push(tempCountryList);
       });
+      this.countryList.sort((a, b) => (a.label < b.label ? -1 : 1));
     },
     loadSectorList() {
       this.sectorList = [];
@@ -123,24 +187,83 @@ export default {
       this.indicator = "Imp_cons";
     },
     async runBtn() {
-      this.sector.sort();
-      let obj = {
-        exporting: this.exporting,
-        importing: this.importing,
-        sector: this.sector,
-        year: this.year,
-      };
-      if (this.indicator == "Imp_cons") {
-        let url =
-          "https://api.winner-english.com/u_api/indicator_imp_cons2.php";
-        let data = await Axios.post(url, obj);
-        console.log(data.data);
-      } else if (this.indicator == "Imp_exp") {
-        let url =
-          "https://api.winner-english.com/u_api/indicator_imp_cont2.php";
-        let data = await Axios.post(url, obj);
-        console.log(data.data);
+      let obj;
+      if (
+        !(
+          this.indicator == "Back_link_sector" ||
+          this.indicator == "Forward_link_country" ||
+          this.indicator == "Forward_link_sector"
+        )
+      ) {
+        this.sector.sort();
+        obj = {
+          exporting: this.exporting,
+          importing: this.importing,
+          sector: this.sector,
+          year: this.year,
+        };
+      } else if (this.indicator == "Back_link_sector") {
+        obj = {
+          exporting: this.exporting,
+          importing: this.importing,
+          source: this.source,
+          year: this.year,
+        };
+      } else if (this.indicator == "Forward_link_country") {
+        obj = {
+          exporting: this.exporting,
+          sector: this.sector,
+          year: this.year,
+        };
+      } else if (this.indicator == "Forward_link_sector") {
+        obj = {
+          exporting: this.exporting,
+          importing: this.importing,
+          year: this.year,
+        };
       }
+
+      let url = "";
+      if (this.indicator == "Imp_cons") {
+        url = "https://api.winner-english.com/u_api/indicator_imp_cons2.php";
+      } else if (this.indicator == "Imp_exp") {
+        url = "https://api.winner-english.com/u_api/indicator_imp_exp2.php";
+      } else if (this.indicator == "Dom_cons") {
+        url = "https://api.winner-english.com/u_api/indicator_dom_cons2.php";
+      } else if (this.indicator == "Double") {
+        url = "https://api.winner-english.com/u_api/indicator_double2.php";
+      } else if (this.indicator == "Imp_cont") {
+        url = "https://api.winner-english.com/u_api/indicator_imp_cont2.php";
+      } else if (this.indicator == "DVA_tradebalance") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_dva_tradebalance2.php";
+      } else if (this.indicator == "Gross_tradebalance") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gross_tradebalance2.php";
+      } else if (this.indicator == "GVC_participation") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gvc_participation2.php";
+      } else if (this.indicator == "Back_link_country") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_back_link_country2.php";
+      } else if (this.indicator == "Back_link_sector") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_back_link_sector2.php";
+      } else if (this.indicator == "Forward_link_country") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_forward_link_country2.php";
+      } else if (this.indicator == "Forward_link_sector") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_forward_link_sector2.php";
+      } else if (this.indicator == "Forward_link_sector") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_forward_link_sector2.php";
+      } else if (this.indicator == "Gross_exports") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gross_exports2.php";
+      }
+      let data = await Axios.post(url, obj);
+      console.log(data.data);
     },
   },
   mounted() {
