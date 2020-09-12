@@ -123,19 +123,21 @@ export default {
       this.indicator = "Imp_cons";
     },
     async runBtn() {
+      this.sector.sort();
       let obj = {
         exporting: this.exporting,
         importing: this.importing,
         sector: this.sector,
         year: this.year,
       };
-      obj = {
-        exporting: "test2",
-      };
-      console.log(obj);
       if (this.indicator == "Imp_cons") {
         let url =
           "https://api.winner-english.com/u_api/indicator_imp_cons2.php";
+        let data = await Axios.post(url, obj);
+        console.log(data.data);
+      } else if (this.indicator == "Imp_exp") {
+        let url =
+          "https://api.winner-english.com/u_api/indicator_imp_cont2.php";
         let data = await Axios.post(url, obj);
         console.log(data.data);
       }
