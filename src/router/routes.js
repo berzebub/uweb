@@ -5,9 +5,16 @@ const routes = [
     name: "not-support"
   },
   {
+    path: "/download2",
+    component: () => import("pages/download2.vue"),
+    name: "download2"
+
+  },
+  {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
+
       {
         path: "/global-value-chains",
         component: () => import("pages/globalValueChains"),
