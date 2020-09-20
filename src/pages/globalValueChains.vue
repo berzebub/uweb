@@ -1,8 +1,8 @@
 <template>
-  <q-page class="bg relative-position" style="padding-bottom:100px;">
+  <q-page class="bg relative-position">
     <q-btn to="/" color="white" flat round size="35px" dense icon="home" />
     <!-- Global value chains -->
-    <div class="absolute-bottom q-pa-md" style="bottom:120px;width:80%;margin:auto;">
+    <div class="absolute-bottom q-pa-md" style="bottom:20px;width:80%;margin:auto;">
       <div style="background-color:#020B3B;border-radius:5px" class="q-py-md">
         <div align="center" class="text-white font-page q-pb-md">Global Value Chains</div>
         <div class="text-white font-content" align="center">
