@@ -3,8 +3,24 @@
     <q-page-container class="relative-position">
       <router-view class="container shadow-10" />
 
-      <div style="background-color:#020B3B;" class="container q-py-md absolute-bottom">
-        <q-toolbar class="q-px-sm items-center">
+      <div class="absolute-bottom footer-bg container">
+        <div style="height:55px;background-color:rgba(0,0,0,0.45);border-bottom:2px solid white">
+          <div class="row q-pr-lg justify-end items-center fit">
+            <div style="width:90px" align="right">
+              <img style="width:32px" src="../../public/fb-ico.png" alt />
+            </div>
+            <div style="width:90px" align="right">
+              <img style="width:32px" src="../../public/twitter-ico.png" alt />
+            </div>
+            <div style="width:90px" align="right">
+              <img style="width:32px" src="../../public/linkin-ico.png" alt />
+            </div>
+          </div>
+        </div>
+        <q-toolbar
+          style="border-bottom:1px solid white"
+          class="q-px-sm q-pb-sm q-pt-sm items-center"
+        >
           <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
             <q-img style="width:162px" src="../../public/logo.png"></q-img>
           </div>
@@ -13,42 +29,6 @@
           </div>
           <q-space />
           <div class="row full-width" align="right">
-            <div class="col-12 q-col-gutter-md text-white" align="right">
-              <q-icon
-                class="cursor-pointer"
-                size="30px"
-                name="fab fa-twitter"
-                @click="twitterLink()"
-              ></q-icon>
-              <q-icon
-                class="cursor-pointer"
-                size="30px"
-                name="fab fa-facebook-f"
-                @click="facebookLink()"
-              ></q-icon>
-              <q-icon
-                class="cursor-pointer"
-                size="30px"
-                name="fab fa-youtube"
-                @click="youtubeLink()"
-              ></q-icon>
-              <q-icon
-                class="cursor-pointer"
-                size="30px"
-                name="fab fa-instagram"
-                @click="instragramLink()"
-              ></q-icon>
-              <q-icon class="cursor-pointer" size="30px" name="fab fa-flickr" @click="flickrLink()"></q-icon>
-              <q-icon
-                class="cursor-pointer"
-                size="30px"
-                name="fab fa-invision"
-                @click="linkedinLink()"
-              ></q-icon>
-            </div>
-            <div class="col-12 q-py-sm q-px-md">
-              <q-separator color="white"></q-separator>
-            </div>
             <div class="col-12 q-px-md">
               <div class="row justify-between">
                 <div class="text-white" @click="showAboutDialog()" style="text-decoration:none;">
@@ -95,6 +75,24 @@
             </div>
           </div>
         </q-toolbar>
+        <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.45)">
+          <div class="row text-white q-py-sm" style="padding-left:35px">
+            <div class="col-6">
+              <div class="font-footer">CONTACT US</div>
+              <div style="font-size:12px">
+                The Trade, Investment and Innovation Division of the United Nations Economic
+                and Social Commission for Asia and the Pacific, located in Bangkok, Thailand. For questions, please contact us at escap-xxx@un.org or visit www.unescap.org
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="font-footer">DESCLAIMER</div>
+              <div style="font-size:12px">
+                This portal is currently in a testing-phase and is best viewed on desktop devices in
+                modern web browsers such as Firefox and Chrome with JavaScript enabled.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <q-dialog v-model="isShowAboutDialog">
@@ -213,5 +211,10 @@ export default {
 <style >
 .brx {
   border: 1px solid red;
+}
+.footer-bg {
+  background-image: url("../../public/footer.png");
+  background-size: inherit;
+  background-position: bottom;
 }
 </style>
