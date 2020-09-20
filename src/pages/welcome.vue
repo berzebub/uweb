@@ -1,55 +1,66 @@
 <template>
   <q-page class="bg">
-    <!-- <q-parallax class="brx">
-      <template v-slot:media>
-        <video poster="https://cdn.quasar.dev/img/polina.jpg" autoplay loop muted>
-          <source type="video/webm" src="https://cdn.quasar.dev/img/polina.webm" />
-        </video>
-      </template>
-    </q-parallax>-->
-
     <video id="myVideo" autoplay loop muted>
       <source type="video/webm" src="../../public/vdo.webm" />
     </video>
 
-    <div style="padding-top:20px;padding-left:20px">
-      <q-btn
-        @click="goToRegional()"
-        style="background-color:#020B3B"
-        class="text-white q-pa-md"
-        no-caps
-      >
-        <div>
-          <span style="font-size:28px">Regional Integration</span>
+    <div style="padding-top:20px;padding-left:20px" class="absolute">
+      <div style="background-color:rgba(2,11,59,0.8);width:450px;" class="text-white row">
+        <div style="width:100%">
+          <div style="height:15px">&nbsp;</div>
+          <div style="font-size:28px" align="center">Regional Integration</div>
           <div style="height:15px"></div>
-          <div style="font-size:18px;letter-spacing:0.2px">
+          <div style="font-size:18px;letter-spacing:0.2px" align="center">
             ESCAP DigiSRII provides insights on the
             <br />structure and progress of regional
             <br />integration in Asia-Pacific
           </div>
         </div>
-      </q-btn>
+        <div align="center" class="col-12 q-pt-md">
+          <q-btn
+            @click.stop="goToRegional()"
+            style="width:180px;background-color:#324195;border:1px solid white"
+            label="Get started"
+            class="font-content"
+            no-caps
+          ></q-btn>
+        </div>
+        <div style="height:15px">&nbsp;</div>
+      </div>
     </div>
 
     <div style="height:20px"></div>
     <div class="absolute-bottom" style="padding-bottom:110px;padding-right:20px" align="right">
-      <q-btn
+      <div
         @click="goToGlobal()"
-        style="background-color:#020B3B"
-        class="text-white q-pa-md"
-        no-caps
+        style="background-color:rgba(2,11,59,0.8);width:450px;"
+        class="text-white row"
       >
-        <div>
-          <span style="font-size:28px">Global Value Chains</span>
+        <div class style="width:100%">
+          <div style="height:15px">&nbsp;</div>
+          <div align="center" style="font-size:28px">Global Value Chains</div>
           <div style="height:15px"></div>
-          <div style="font-size:18px;letter-spacing:0.2px">
+          <div align="center" style="font-size:18px;letter-spacing:0.2px">
             Gain insight into your economy’s
-            <br />participation in GVCs. Uncover sources
-            <br />of intermediate inputs and destinations
-            <br />of domestic value-added
+            participation
+            <br />in GVCs. Uncover sources
+            of intermediate
+            <br />inputs and destinations
+            of domestic
+            <br />value-added
           </div>
         </div>
-      </q-btn>
+        <div align="center" class="col-12 q-pt-md">
+          <q-btn
+            @click.stop
+            style="width:180px;background-color:#324195;border:1px solid white"
+            label="Get started"
+            class="font-content"
+            no-caps
+          ></q-btn>
+        </div>
+        <div style="height:15px">&nbsp;</div>
+      </div>
     </div>
   </q-page>
 </template>
