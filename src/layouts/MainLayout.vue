@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" style="height:100%">
     <q-footer class="bg-transparent" reveal>
       <div class="footer-bg container">
         <div style="height:55px;background-color:rgba(0,0,0,0.45);border-bottom:2px solid white">
@@ -93,6 +93,7 @@
         </div>
       </div>
     </q-footer>
+
     <q-page-container class="relative-position">
       <router-view class="container shadow-10" />
     </q-page-container>
