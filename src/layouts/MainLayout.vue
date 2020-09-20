@@ -2,23 +2,20 @@
   <q-layout view="lHh Lpr lFf" style="height:100%">
     <q-footer class="bg-transparent" reveal>
       <div class="footer-bg container">
-        <div style="height:55px;background-color:rgba(0,0,0,0.45);border-bottom:2px solid white">
+        <div style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
           <div class="row q-pr-lg justify-end items-center fit">
             <div style="width:90px" align="right">
-              <img style="width:32px" src="../../public/fb-ico.png" alt />
+              <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
             </div>
             <div style="width:90px" align="right">
-              <img style="width:32px" src="../../public/twitter-ico.png" alt />
+              <img style="width:32px" src="../../public/twitter-ico.png" alt class="cursor-pointer" />
             </div>
             <div style="width:90px" align="right">
-              <img style="width:32px" src="../../public/linkin-ico.png" alt />
+              <img style="width:32px" src="../../public/linkin-ico.png" alt class="cursor-pointer" />
             </div>
           </div>
         </div>
-        <q-toolbar
-          style="border-bottom:1px solid white"
-          class="q-px-sm q-pb-sm q-pt-sm items-center"
-        >
+        <q-toolbar class="q-px-sm q-pb-sm q-pt-sm items-center">
           <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
             <q-img style="width:162px" src="../../public/logo.png"></q-img>
           </div>
@@ -26,7 +23,7 @@
             <q-img style="width:162px" src="../../public/fealac.png"></q-img>
           </div>
           <q-space />
-          <div class="row full-width" align="right">
+          <div class="row full-width font-content" align="right">
             <div class="col-12 q-px-md">
               <div class="row justify-between">
                 <div class="text-white" @click="showAboutDialog()" style="text-decoration:none;">
@@ -73,16 +70,17 @@
             </div>
           </div>
         </q-toolbar>
-        <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.45)">
+        <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.70)">
           <div class="row text-white q-py-sm" style="padding-left:35px">
-            <div class="col-6">
+            <div class="col-5">
               <div class="font-footer">CONTACT US</div>
               <div style="font-size:12px">
                 The Trade, Investment and Innovation Division of the United Nations Economic
                 and Social Commission for Asia and the Pacific, located in Bangkok, Thailand. For questions, please contact us at escap-xxx@un.org or visit www.unescap.org
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-2"></div>
+            <div class="col-5 q-pr-md">
               <div class="font-footer">DESCLAIMER</div>
               <div style="font-size:12px">
                 This portal is currently in a testing-phase and is best viewed on desktop devices in
@@ -214,7 +212,7 @@ export default {
   border: 1px solid red;
 }
 .footer-bg {
-  background-image: url("../../public/footer.png");
+  background-image: url("../../public/footer.jpg");
   background-size: inherit;
   background-position: bottom;
 }
