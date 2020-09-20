@@ -7,7 +7,7 @@
       </span>
 
       <div style="top:30px;left:100px" v-if="isShowKeyGVCBtn">
-        <q-btn class="bg4" @click="$router.push('/getStarted')" label="Key GVC links" no-caps></q-btn>
+        <q-btn class="bg4" @click="$router.push('/gvc-links')" label="Key GVC links" no-caps></q-btn>
       </div>
       <q-space></q-space>
       <div class="row q-py-sm">
@@ -98,14 +98,12 @@ export default {
         ? countryId[0].value
         : "";
 
-
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
 
-      if(this.$route.name == "getStarted"){
-        this.countrySelected = "",
-        this.yearSelected = ""
-        this.$q.sessionStorage.clear()
-      }
+      // if (this.$route.name == "getStarted") {
+      //   (this.countrySelected = ""), (this.yearSelected = "");
+      //   this.$q.sessionStorage.clear();
+      // }
 
       let getYear = await Axios.get(url);
 

@@ -8,24 +8,20 @@ const routes = [
     path: "/download2",
     component: () => import("pages/download2.vue"),
     name: "download2"
-
   },
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
-
       {
         path: "/global-value-chains",
         component: () => import("pages/globalValueChains"),
         name: "globalValueChains"
-
       },
       {
         path: "/regional-integration",
         component: () => import("pages/regionalIntegration"),
         name: "regionalIntegration"
-
       },
       {
         path: "",
@@ -68,9 +64,9 @@ const routes = [
         name: "countrybriefs"
       },
       {
-        path: "/getStarted",
-        component: () => import("pages/getStarted.vue"),
-        name: "getStarted"
+        path: "/gvc-links",
+        component: () => import("pages/gvcLinks.vue"),
+        name: "gvcLinks"
       },
       {
         path: "/structure-of-value-added",

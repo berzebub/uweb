@@ -53,7 +53,7 @@
             style="border-radius:10px;width:200px;"
             label="Get started"
             no-caps
-            to="/getStarted"
+            to="/gvc-links"
           ></q-btn>
         </div>
         <div class="col-4" align="center">

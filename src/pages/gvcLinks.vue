@@ -1,6 +1,9 @@
 <template>
 <q-page>
      <global-value-chains-header></global-value-chains-header>
+     <!-- MENU -->
+     <global-value-chains-menu :activeMenu=0></global-value-chains-menu>
+     
 </q-page>
   <!-- <q-page
     class="container"
@@ -302,13 +305,18 @@ import backwardGraphGvc from "../components/backwardGVC.vue";
 import forwardGraphGvc from "../components/forwardGVC.vue";
 import appBar from "../components/appBarWithLogo";
 import Axios from "axios";
+
+// NEW
 import globalValueChainsHeader from "../components/globalValueChainsHeader"
+import globalValueChainsMenu from "../components/menu"
+
 export default {
   components: {
     appBar,
     backwardGraphGvc,
     forwardGraphGvc,
       globalValueChainsHeader,
+      globalValueChainsMenu,
   },
   data() {
     return {

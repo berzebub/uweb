@@ -1,15 +1,21 @@
 <template>
-  <q-page
+
+<q-page>
+     <global-value-chains-header></global-value-chains-header>
+    
+     <global-value-chains-menu :activeMenu=1></global-value-chains-menu>
+</q-page>
+  <!-- <q-page
     class="container"
     :class="!isShowPage || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
     style="padding-bottom:100px"
   >
-    <!-- App Bar -->
+   
     <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
 
     <div class="bg-white">
       <header-menu></header-menu>
-      <!-- Importing Economy -->
+     
       <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
         <div class="col-6 q-px-md">
           <span>Importing economy</span>
@@ -45,7 +51,7 @@
       style="width:90%; margin:auto; max-width:700px; text-align:center "
     >Please choose your Importing economy and Exporting sector.</div>
 
-    <!-- Error Page -->
+   
     <error-page
       class="q-pt-md"
       v-show="isShowErrorWarning"
@@ -53,9 +59,9 @@
 importing economy"
     ></error-page>
     <div v-if="isShowPage">
-      <!-- Show Content -->
+     
       <div v-show="!isShowErrorWarning">
-        <!-- table of content -->
+       
         <div class="row" style="margin:auto; max-width:1050px;width:95%;">
           <div class="divLeft col">
             <div class="font-graph q-pt-md" align="center">Table of contents:</div>
@@ -104,7 +110,7 @@ importing economy"
           </div>
         </div>
 
-        <!-- Key policy question -->
+       
         <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
           <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
           <div class="q-px-md font-content">
@@ -114,7 +120,7 @@ importing economy"
             </div>
             <div class="cursor-pointer" v-scroll-to="'#comparison'">
               2.
-              <!-- TODO SOUTH EAST ASIAN เขียนฟังชันหาทวีป FIND -->
+             
               <u>What happens to {{continent}} economics’ exports to a selected imported?</u>
             </div>
             <div class="cursor-pointer" v-scroll-to="'#measuring'">
@@ -125,7 +131,7 @@ importing economy"
         </div>
         <hr />
 
-        <!-- What happends to ... exports to ...? -->
+       
         <div style="height:30px" id="structure"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isStructureChart">
@@ -137,7 +143,7 @@ importing economy"
         </div>
         <hr />
 
-        <!-- What happens to ... econmics' exports to...? -->
+       
         <div id="comparison" style="height:30px"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
@@ -149,7 +155,7 @@ importing economy"
         </div>
         <hr />
 
-        <!-- How does ... gross and domestic value-added trade balance with ... differ? -->
+       
         <div id="measuring" style="height:30px"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
@@ -163,7 +169,7 @@ importing economy"
         <div style="height:30px"></div>
       </div>
     </div>
-  </q-page>
+  </q-page> -->
 </template>
 
 <script>
@@ -172,12 +178,17 @@ import headerMenu from "../components/fourMenu";
 import importingSelect from "../components/importEconomySelect";
 import Axios from "axios";
 import errorPage from "../components/error-page";
+// new
+import globalValueChainsHeader from "../components/globalValueChainsHeader"
+import globalValueChainsMenu from "../components/menu"
 export default {
   components: {
     appBar,
     headerMenu,
     importingSelect,
     errorPage,
+    globalValueChainsHeader,
+    globalValueChainsMenu,
   },
   data() {
     return {
