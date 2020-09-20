@@ -153,6 +153,8 @@ export default {
     return {
       isShowAboutDialog: false,
       isShowTermOfUseDialog: false,
+      showNavbar: true,
+      lastScrollPosition: 0,
     };
   },
   methods: {
@@ -203,6 +205,7 @@ export default {
   },
   mounted() {
     this.checkPlatform();
+    window.addEventListener("scroll", this.onScroll);
   },
 };
 </script>
