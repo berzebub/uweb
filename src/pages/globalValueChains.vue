@@ -72,16 +72,66 @@
     </div>
     <!-- MENU -->
     <div class="q-pa-md">
-      <div class="row">
-        <div class="col-4 q-pa-md" align="center" v-for="i in 50" :key="i">
-          <div class="menu-card shadow-5">
+      <div class="row q-pb-md">
+        <div
+          @mouseenter="hoverOnCard(index)"
+          @mouseleave="deactiveHoverCard()"
+          v-for="(card,index) in cardList1"
+          :key="index"
+          class="col-4 cursor-pointer q-pa-md"
+          align="center"
+        >
+          <div
+            style="padding:30px"
+            class="menu-card card-color shadow-5"
+            v-show="hoverActiveIndex != index"
+          >
             <div align="center" class>
               <q-icon size="76px" name="far fa-user-circle"></q-icon>
             </div>
-            <div class="q-pt-lg font-16" align="center">
-              What about key GVC
-              <br />relationships?
+            <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
+          </div>
+
+          <div
+            class="q-pa-md menu-card card-hover-color shadow-5"
+            v-show="hoverActiveIndex == index"
+          >
+            <div class="font-20 text-white" align="center">{{card.text}}</div>
+
+            <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+          </div>
+        </div>
+      </div>
+
+      <q-separator color="black" />
+
+      <div class="row q-pt-md">
+        <div
+          v-for="(card,index) in cardList2"
+          :key="index"
+          class="col-4 cursor-pointer q-pa-md"
+          align="center"
+          @mouseenter="hoverOnCard2(index)"
+          @mouseleave="deactiveHoverCard()"
+        >
+          <div
+            class="menu-card card-color shadow-5"
+            style="padding:30px"
+            v-show="hoverActiveIndex2 != index"
+          >
+            <div align="center" class>
+              <q-icon size="76px" name="far fa-user-circle"></q-icon>
             </div>
+            <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
+          </div>
+
+          <div
+            class="q-pa-md menu-card card-hover-color shadow-5"
+            v-show="hoverActiveIndex2 == index"
+          >
+            <div class="font-20 text-white" align="center">{{card.text}}</div>
+
+            <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
           </div>
         </div>
       </div>
@@ -90,7 +140,74 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      hoverActiveIndex: null,
+      hoverActiveIndex2: null,
+      cardList1: [
+        {
+          icon: "",
+          text: "What about key GVC relationships?",
+          hover:
+            "Get an overview of key backward and forward linkages for your economy of choice.",
+        },
+        {
+          icon: "",
+          text: "What about content of exports",
+          hover:
+            "Get an overview of value-added export structure for your economy of choice. See how this changes perception of bilateral trade balances",
+        },
+        {
+          icon: "",
+          text: "What about participation in GVCs",
+          hover:
+            "Get an overview of value-added export structure for your economy of choice. See how this changes perception of bilateral trade balances",
+        },
+        {
+          icon: "",
+          text: "What about backward linkages?",
+          hover:
+            "Find out where imported content used in exports comes from for your economy of choice. Examine this by region and sector. Compare across sub-regional partners ",
+        },
+        {
+          icon: "",
+          text: "What about forward linkages?",
+          hover:
+            "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
+        },
+      ],
+      cardList2: [
+        {
+          icon: "",
+          text: "Download data",
+          hover:
+            "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
+        },
+        {
+          icon: "",
+          text: "Country briefs",
+          hover:
+            "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
+        },
+      ],
+    };
+  },
+  methods: {
+    hoverOnCard(index) {
+      console.log("ON");
+      this.hoverActiveIndex = index;
+    },
+    deactiveHoverCard() {
+      console.log("OUT");
+      this.hoverActiveIndex = null;
+      this.hoverActiveIndex2 = null;
+    },
+    hoverOnCard2(index) {
+      this.hoverActiveIndex2 = index;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,14 +223,15 @@ export default {};
 }
 .menu-card {
   min-width: 270px;
-  width: 95%;
+  width: 100%;
   margin: auto;
   height: 227px;
-  background-color: #e5e1e1;
-  padding: 30px;
   border-radius: 5px;
 }
-.menu-card :hover {
-  cursor: pointer;
+.card-color {
+  background-color: #e5e1e1;
+}
+.card-hover-color {
+  background: #020b3b;
 }
 </style>
