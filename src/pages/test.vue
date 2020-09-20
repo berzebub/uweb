@@ -1,6 +1,11 @@
 <template>
-  <q-page class="container bg-white" style="padding-bottom:100px">
-    <q-btn ref="testGetApi" @click="testGetApi()" label="testGetApi"></q-btn>
+  <q-page class="container bg-white">
+    <q-select @input="(val) => changeFlag(val)" outlined v-model="model" :options="options"  >
+        <template v-slot:prepend>
+          <q-img style="width:30px" :src="activeFlag"></q-img>
+          <!-- <img style="width:30px" :src="activeFlag" alt=""> -->
+        </template>
+      </q-select>
   </q-page>
 </template>
 
@@ -9,25 +14,30 @@ import Axios from "axios";
 
 export default {
   data() {
-    return {};
+    return {
+      model : "Argentina",
+      activeFlag : "https://teerapornclinic.com/wp-content/uploads/2017/07/usa-flag.jpg",
+      options : [
+        {
+          value : "Argentina",
+          label : "Argentina",
+          flag : "https://teerapornclinic.com/wp-content/uploads/2017/07/usa-flag.jpg"
+        },
+        {
+          value : "Australia",
+          label : "Australia",
+          flag : "https://static.dezeen.com/uploads/2020/06/mississippi-state-flag-design-dezeen-2364-hero.jpg"
+        }
+      ]
+    };
   },
   methods: {
-    async testGetApi() {
-      console.log("123123");
-      // let indicator = [];
-
-      // let url =
-      //   "https://thaiawesomedev.com/u_api/indicator_imp_cons.php?imp_country=CHN&exp_country=THA&year=2017&sector=0";
-      // console.time("timestart");
-      // for (let i = 0; i < 2000; i++) {
-      //   let data = await Axios.get(url);
-      //   indicator.push(data.data);
-      // }
-      // console.timeEnd("timestart");
-    },
+   changeFlag(val){
+     console.log(val);
+     this.activeFlag = val.flag
+   }
   },
   mounted() {
-    this.$refs.testGetApi.click();
   },
 };
 </script>
