@@ -32,11 +32,7 @@
 
       <div style="height:20px"></div>
       <div class="absolute-bottom" style="padding-bottom:230px;padding-right:20px" align="right">
-        <div
-          @click="goToGlobal()"
-          style="background-color:rgba(2,11,59,0.8);width:450px;"
-          class="text-white row"
-        >
+        <div style="background-color:rgba(2,11,59,0.8);width:450px;" class="text-white row">
           <div class style="width:100%">
             <div style="height:15px">&nbsp;</div>
             <div align="center" style="font-size:28px">Global Value Chains</div>
@@ -53,7 +49,7 @@
           </div>
           <div align="center" class="col-12 q-pt-md">
             <q-btn
-              @click.stop
+              @click="goToGlobal()"
               style="width:180px;background-color:#324195;border:1px solid white"
               label="Get started"
               class="font-content"
