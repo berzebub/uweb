@@ -31,7 +31,7 @@
       </div>
 
       <div style="height:20px"></div>
-      <div class="absolute-bottom" style="padding-bottom:20px;padding-right:20px" align="right">
+      <div class="absolute-bottom" style="padding-bottom:230px;padding-right:20px" align="right">
         <div style="background-color:rgba(2,11,59,0.8);width:450px;" class="text-white row">
           <div class style="width:100%">
             <div style="height:15px">&nbsp;</div>
@@ -60,11 +60,16 @@
         </div>
       </div>
     </div>
+    <my-footer class="absolute-bottom"></my-footer>
   </q-page>
 </template>
 
 <script>
+import myFooter from "../components/footer";
 export default {
+  components: {
+    myFooter,
+  },
   methods: {
     goToRegional() {
       this.$router.push("/regional-integration");
