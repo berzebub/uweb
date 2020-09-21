@@ -1,10 +1,4 @@
 <template>
-<q-page>
-     <global-value-chains-header></global-value-chains-header>
-     <!-- MENU -->
-     <global-value-chains-menu :activeMenu=0></global-value-chains-menu>
-     
-</q-page>
   <!-- <q-page
     class="container"
     :class="!isShowContent ? 'bg-loading' : 'bg-white'"
@@ -297,7 +291,272 @@
 
       <div style="height:20px"></div>
     </div>
-  </q-page> -->
+  </q-page>-->
+
+  <q-page>
+    <global-value-chains-header></global-value-chains-header>
+    <!-- MENU -->
+    <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
+
+    <div class="row justify-center bg12 q-pa-md">
+      <div class="col-6 row" style="width:400px;">
+        <div class="col q-pa-sm">
+          <span>Exporting economy</span>
+          <q-select
+            v-model="exporting"
+            :options="exportingOptions"
+            outlined
+            bg-color="white"
+            class="q-mt-xs"
+            dense
+            emit-value
+            map-options
+            @input="selectedExporting"
+          >
+            <template v-slot:selected-item="props">
+              <q-img :src="props.opt.flag" width="30px" />
+              <span class="q-mx-sm">{{props.opt.label}}</span>
+            </template>
+          </q-select>
+        </div>
+
+        <div class="col-5 q-pa-sm">
+          <span>Year</span>
+          <q-select
+            v-model="year"
+            :options="yearOptions"
+            outlined
+            bg-color="white"
+            class="q-mt-xs"
+            dense
+            @input="selectedYear"
+          ></q-select>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-center q-pa-md">
+      <div class="col-12 row font-content" style="width:900px;" align="center">
+        <div class="col q-pr-lg">
+          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+            <span class="font-content">Overview</span>
+          </q-btn>
+        </div>
+        <div class="col q-mx-lg q-px-lg">
+          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+            <span class="font-content" no-caps>By exporting sector</span>
+          </q-btn>
+        </div>
+        <div class="col q-pl-lg">
+          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+            <span class="font-content">By partner economy</span>
+          </q-btn>
+        </div>
+      </div>
+    </div>
+
+    <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+    <div class="q-pa-md">
+      <div align="center" class="q-my-lg">
+        <span class="font-title">{{overviewCountry.label}}'s key GVC relationships: Overview</span>
+      </div>
+
+      <div class="q-mt-xl">
+        <div class="row justify-center">
+          <div class="col-10">
+            <p
+              class="font-content"
+            >{{overviewCountry.label}}’s GVC exports amount to 22% ($4 billion) of its gross exports in 2017</p>
+            <p class="font-content">Imported content comprising 14% ($2 billion) of gross exports</p>
+            <p
+              class="font-content"
+            >Export of intermediates used in further export production comprising 8% ($1 billion) of gross exports</p>
+          </div>
+
+          <div class="col-10 row q-my-xl q-pb-xl">
+            <!-- Imported Content  -->
+            <div class="col row font-content" align="center">
+              <div class="col-12 self-start c-blue">
+                <div>
+                  Imported content used in exports
+                  <br />(Backward linkages)
+                </div>
+
+                <div class="q-mt-sm" align="center">
+                  Share: 8% of gross exports
+                  <br />Value: $1 billion
+                </div>
+              </div>
+
+              <div class="col-12 self-end">
+                <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
+                  <q-img
+                    class="absolute-center"
+                    width="200px"
+                    :src="require('../../public/arrow/arrow-blue-big.png')"
+                  ></q-img>
+                </div>
+              </div>
+            </div>
+
+            <!-- Country Content -->
+            <div class="col-3 self-end" align="center">
+              <div>
+                <q-img :src="overviewCountry.flag" width="80px" />
+              </div>
+              <div class="relative-position q-mt-md">
+                <span class="absolute-center font-title text-no-wrap">{{overviewCountry.label}}</span>
+              </div>
+            </div>
+
+            <!-- Export Content  -->
+            <div class="col font-content" align="center">
+              <div class="col-12 self-start c-red">
+                <div>
+                  <span>Export of intermediates used in</span>
+                  <br />
+                  <span class="text-no-wrap">export production (Forward linkages)</span>
+                </div>
+
+                <div class="q-mt-sm" align="center">
+                  <span>Share: 8% of gross exports</span>
+                  <br />
+                  <span>Value: $1 billion</span>
+                </div>
+              </div>
+
+              <div class="col-12 self-end">
+                <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
+                  <q-img
+                    class="absolute-center"
+                    width="200px"
+                    :src="require('../../public/arrow/arrow-red-small.png')"
+                  ></q-img>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+    <div class="q-pa-md">
+      <div align="center" class="q-my-lg">
+        <span class="font-title">key GVC relationships: by exporting sector</span>
+      </div>
+
+      <div class="row justify-center">
+        <div class="col-10 row">
+          <div class="col q-pa-md">
+            <div class="c-blue font-footer">
+              <span class="font-content text-bold">Backward linkages</span>
+              <br />
+              <span class="text-bold">Sector</span>
+              <br />
+              <span>Share of foreign value-added in sectoral gross exports (%)</span>
+              <br />
+              <span>Foreign value-added ($)</span>
+            </div>
+          </div>
+          <!-- Country Content -->
+          <div class="col-3 self-center" align="center"></div>
+          <div class="col q-pa-md">
+            <div class="c-red font-footer">
+              <span class="font-content text-bold">Forward linkages</span>
+              <br />
+              <span class="text-bold">Sector</span>
+              <br />
+              <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
+              <br />
+              <span>Contribution to partner exports ($)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 row q-py-xl">
+          <div class="col q-pa-md"></div>
+          <!-- Country Content -->
+          <div class="col-3 self-center" align="center">
+            <div>
+              <q-img :src="overviewCountry.flag" width="80px" />
+            </div>
+            <div class="relative-position">
+              <span class="font-title">{{overviewCountry.label }}</span>
+            </div>
+          </div>
+          <div class="col q-pa-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+    <div class="q-pa-md">
+      <div align="center" class="q-my-lg">
+        <span class="font-title">key GVC relationships: by partner economy</span>
+      </div>
+
+      <div class="row justify-center">
+        <div class="col-10 row">
+          <div class="col q-pa-md">
+            <div class="c-blue font-footer">
+              <span class="font-content text-bold">Backward linkages</span>
+              <br />
+              <span class="text-bold">Source economy</span>
+              <br />
+              <span>Share of foreign value-added in gross exports (%)</span>
+              <br />
+              <span>Foreign value-added ($)</span>
+            </div>
+          </div>
+          <!-- Country Content -->
+          <div class="col-3 self-center" align="center"></div>
+          <div class="col q-pa-md">
+            <div class="c-red font-footer">
+              <span class="font-content text-bold">Forward linkages</span>
+              <br />
+              <span class="text-bold">Improting economy</span>
+              <br />
+              <span>Share of contribution to partner exports, in gross exports (%)</span>
+              <br />
+              <span>Contribution to partner exports ($)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10 row q-py-xl">
+          <div class="col q-pa-md"></div>
+          <!-- Country Content -->
+          <div class="col-3 self-center" align="center">
+            <div>
+              <q-img :src="overviewCountry.flag" width="80px" />
+            </div>
+            <div class="relative-position">
+              <span class="font-title">{{overviewCountry.label }}</span>
+            </div>
+          </div>
+          <div class="col q-pa-md"></div>
+        </div>
+      </div>
+    </div>
+
+    <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+    <div class="q-py-xl" align="center">
+      <q-btn
+        no-caps
+        outline
+        class="q-pa-sm"
+        style="width:250px;border-radius:0px;"
+        label="Continue"
+      ></q-btn>
+    </div>
+
+    <footer-menu></footer-menu>
+  </q-page>
 </template>
 
 <script>
@@ -307,19 +566,56 @@ import appBar from "../components/appBarWithLogo";
 import Axios from "axios";
 
 // NEW
-import globalValueChainsHeader from "../components/globalValueChainsHeader"
-import globalValueChainsMenu from "../components/menu"
+import globalValueChainsHeader from "../components/globalValueChainsHeader";
+import globalValueChainsMenu from "../components/menu";
+import footerMenu from "../components/footer";
 
 export default {
   components: {
     appBar,
     backwardGraphGvc,
     forwardGraphGvc,
-      globalValueChainsHeader,
-      globalValueChainsMenu,
+    globalValueChainsHeader,
+    globalValueChainsMenu,
+    footerMenu,
   },
   data() {
     return {
+      // ------------------- New Pattern -------------------
+      exporting: "",
+      year: "",
+
+      exportingOptions: [
+        {
+          label: "Argentina",
+          value: "ARG",
+          flag:
+            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png",
+        },
+
+        {
+          label: "United State",
+          value: "USA",
+          flag:
+            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png",
+        },
+      ],
+      yearOptions: [
+        "2007",
+        "2008",
+        "2009",
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015",
+        "2016",
+        "2017",
+      ],
+
+      // ------------------- End Pattern -------------------
+
       displayCountry: "",
       displayYear: "",
       graphGVC: {},
@@ -340,12 +636,40 @@ export default {
     };
   },
 
+  computed: {
+    overviewCountry() {
+      let res = this.exportingOptions.filter(
+        (x) => x.value == this.exporting
+      )[0];
+
+      return res;
+    },
+  },
   methods: {
+    selectedExporting(val) {
+      let year = this.year || "NONE";
+
+      this.$q.sessionStorage.set("expe", val);
+
+      this.$router.push("/gvc-links/" + val + "/" + year);
+    },
+
+    selectedYear(val) {
+      let expe = this.exporting || "NONE";
+
+      this.$q.sessionStorage.set("year", val);
+
+      this.$router.push("/gvc-links/" + expe + "/" + val);
+    },
+
+    // ------------------------- END -------------------------
+
     toInvolvement() {
       this.$router.push("/involvement");
       // cselec  = country and year that user selected
       this.$q.sessionStorage.set("cselec", this.displayCountry);
     },
+
     getEmitData(val) {
       this.displayCountry = val;
       this.displayYear = val.year;
@@ -357,7 +681,6 @@ export default {
         this.loadGVCGraphEconomy();
       }
     },
-    // -----------------------------------------
 
     async loadGVCGraph() {
       this.isGraphGVC = false;
@@ -588,10 +911,45 @@ export default {
   },
 
   mounted() {
+    // Check Session and Params Year
+    if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
+      let year =
+        this.$route.params.year != "NONE"
+          ? this.$route.params.year
+          : this.$q.sessionStorage.has("year")
+          ? this.$q.sessionStorage.getItem("year")
+          : "";
+
+      this.year = year;
+    }
+
+    // Check Session and Params Exporting
+    if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
+      let expe =
+        this.$route.params.expe != "NONE"
+          ? this.$route.params.expe
+          : this.$q.sessionStorage.has("expe")
+          ? this.$q.sessionStorage.getItem("expe")
+          : "";
+
+      this.exporting = expe;
+    }
+
     // this.checkPlatform();
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.box-border {
+  border: 1px solid;
+}
+
+.c-blue {
+  color: #283891;
+}
+
+.c-red {
+  color: #8d273d;
+}
 </style>
