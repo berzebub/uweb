@@ -55,7 +55,7 @@ const routes = [
       },
       {
         path: "/download",
-        component: () => import("pages/downloaddata.vue"),
+        component: () => import("pages/download2.vue"),
         name: "downloaddata"
       },
       {

@@ -1,82 +1,124 @@
 <template>
-  <div style="width:500px; margin:auto;">
-    <!-- indicator -->
-    <div>
-      <q-select
-        v-model="indicator"
-        :options="indicatorList"
-        label="indicator"
-        emit-value
-        map-options
-      />
-    </div>
-    <!-- exporting country -->
-    <div>
-      <q-select
-        v-model="exporting"
-        :options="countryList"
-        label="Exporting Country"
-        multiple
-        emit-value
-        map-options
-      />
-    </div>
-    <!-- importing country -->
-    <div>
-      <q-select
-        v-show="indicator!='Forward_link_country'"
-        v-model="importing"
-        :options="countryList"
-        label="Importing Country"
-        multiple
-        emit-value
-        map-options
-      />
-    </div>
-    <!-- Sector -->
-    <div>
-      <q-select
-        v-show="indicator!='Back_link_sector' && indicator!='Forward_link_sector' "
-        v-model="sector"
-        :options="sectorList"
-        label="Sector"
-        multiple
-        emit-value
-        map-options
-      />
-    </div>
-    <!-- Source country -->
-    <div>
-      <q-select
-        v-show="indicator=='Back_link_sector'"
-        v-model="source"
-        :options="countryList"
-        label="Source Country"
-        multiple
-        emit-value
-        map-options
-      />
-    </div>
-    <!-- year -->
-    <div>
-      <q-select v-model="year" :options="yearList" label="Year" multiple />
-    </div>
-    <div class="row q-mt-md">
-      <div class="col-6" align="center">
-        <q-btn label="Clear All" glossy style="width:150px;" @click="clearBtn()" />
+  <q-page>
+    <global-value-chains-header></global-value-chains-header>
+    <div class="row">
+      <!-- indicator -->
+      <div style="width:235px" class>
+        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
-      <div class="col-6" align="center">
-        <q-btn label="Download" glossy style="width:150px;" color="secondary" @click="runBtn()" />
+      <div class="col q-pa-lg" style="background-color:#E5E1E1">
+        <div>
+          <p align="center" class="font-24">Download data</p>
+          <p>Mauris accuml dia in lacus edipiscng aliqIn pdei quetsit amet euis inuctor ut liguliquamapibus tincidurent justo dolor loboed ant sagittis euismod tincidurent justo dolor loboed ant sagittis euismod.</p>
+        </div>
+
+        <div class="bg-white q-py-lg q-px-xl rounded-borders">
+          <div>
+            <q-select
+              v-model="indicator"
+              :options="indicatorList"
+              label="indicator"
+              emit-value
+              map-options
+            />
+          </div>
+          <!-- exporting country -->
+          <div>
+            <q-select
+              v-model="exporting"
+              :options="countryList"
+              label="Exporting Country"
+              multiple
+              emit-value
+              map-options
+              use-chips
+            />
+          </div>
+          <!-- importing country -->
+          <div>
+            <q-select
+              v-show="indicator!='Forward_link_country'"
+              v-model="importing"
+              :options="countryList"
+              label="Importing Country"
+              multiple
+              emit-value
+              map-options
+              use-chips
+            />
+          </div>
+          <!-- Sector -->
+          <div>
+            <q-select
+              v-show="indicator!='Back_link_sector' && indicator!='Forward_link_sector' "
+              v-model="sector"
+              :options="sectorList"
+              label="Sector"
+              multiple
+              emit-value
+              map-options
+              use-chips
+            />
+          </div>
+          <!-- Source country -->
+          <div>
+            <q-select
+              v-show="indicator=='Back_link_sector'"
+              v-model="source"
+              :options="countryList"
+              label="Source Country"
+              multiple
+              emit-value
+              map-options
+              use-chips
+            />
+          </div>
+          <!-- year -->
+          <div>
+            <q-select v-model="year" use-chips :options="yearList" label="Year" multiple />
+          </div>
+          <div class="row q-mt-md">
+            <div class="col-12 row justify-center q-col-gutter-md" align="center">
+              <div>
+                <q-btn label="Clear All" outline style="width:150px;" @click="clearBtn()" />
+              </div>
+              <div>
+                <download-csv
+                  v-if="isShowDownloadBtn"
+                  class="bg-secondary font-content text-white cursor-pointer"
+                  style="width:150px;border-radius:10px;height:35px;line-height:35px;"
+                  :data="downloadData"
+                  ref="downloadData"
+                >Download Data</download-csv>
+
+                <q-btn
+                  v-else
+                  label="Generate"
+                  style="width:150px;background-color:#2C2F30;"
+                  class="text-white"
+                  @click="runBtn()"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+    <my-footer></my-footer>
+  </q-page>
 </template>
 
 <script>
 import Axios from "axios";
 import countryJson from "../../public/country_list.json";
 import sectorJson from "../../public/sector.json";
+import globalValueChainsHeader from "../components/globalValueChainsHeader";
+import myFooter from "../components/footer";
 export default {
+  components: {
+    myFooter,
+    globalValueChainsHeader,
+  },
   data() {
     return {
       indicator: "Imp_cons",
@@ -147,6 +189,8 @@ export default {
       sectorList: [],
       year: null,
       yearList: [],
+      isShowDownloadBtn: false,
+      downloadData: null,
     };
   },
   methods: {
@@ -185,6 +229,7 @@ export default {
       this.sector = null;
       this.year = null;
       this.indicator = "Imp_cons";
+      this.isShowDownloadBtn = false;
     },
     async runBtn() {
       let obj;
@@ -263,6 +308,9 @@ export default {
           "https://api.winner-english.com/u_api/indicator_gross_exports2.php";
       }
       let data = await Axios.post(url, obj);
+
+      this.downloadData = data.data;
+      this.isShowDownloadBtn = true;
       console.log(data.data);
     },
   },
