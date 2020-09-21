@@ -103,12 +103,7 @@ export default {
   name: "MainLayout",
 
   data() {
-    return {
-      isShowAboutDialog: false,
-      isShowTermOfUseDialog: false,
-      showNavbar: true,
-      lastScrollPosition: 0,
-    };
+    return {};
   },
   methods: {},
   mounted() {
