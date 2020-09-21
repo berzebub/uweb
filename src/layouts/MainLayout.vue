@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" style="height:100%">
-    <q-footer class="bg-transparent" reveal>
+    <q-footer class="bg-transparent" reveal id="footerBar" v-show="showNavbar">
       <div class="footer-bg container">
         <div style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
           <div class="row q-pr-lg justify-end items-center fit">
@@ -202,10 +202,44 @@ export default {
         "https://www.unescap.org/our-work/trade-investment-innovation/trade-policy"
       );
     },
+    onScroll() {
+      // const currentScrollPosition =
+      //   window.pageYOffset || document.documentElement.scrollTop;
+      // // if (currentScrollPosition < 0) {
+      // //   return;
+      // // }
+      // // Stop executing this function if the difference between
+      // // current scroll position and last scroll position is less than some offset
+      // if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
+      //   return;
+      // }
+      // this.showNavbar = currentScrollPosition < this.lastScrollPosition;
+      // this.lastScrollPosition = currentScrollPosition;
+    },
   },
   mounted() {
     this.checkPlatform();
-    window.addEventListener("scroll", this.onScroll);
+    // window.addEventListener("scroll", this.onScroll);
+    let _this = this;
+    // window.onscroll = function () {
+    //   let currentScrollPos = window.pageYOffset;
+    //   if (100 > currentScrollPos) {
+    //     // document.getElementById("userBar").style.top = "0";
+    //     document.getElementById("footerBar").style.transitionDuration = "0.1s";
+
+    //     document.getElementById("footerBar").style.display = "block";
+    //     // _this.showNavbar = true;
+
+    //     // document.getElementById("userBar").style.transitionDuration = "0.1s";
+    //   } else {
+    //     // document.getElementById("userBar").style.top = "-100px";
+    //     // document.getElementById("userBar").style.transitionDuration = ".5s";
+
+    //     document.getElementById("footerBar").style.display = "none";
+    //     document.getElementById("footerBar").style.transitionDuration = ".5s";
+    //     // _this.showNavbar = false;
+    //   }
+    // };
   },
 };
 </script>

@@ -119,13 +119,12 @@
 </template>
 
 <script>
-import globalValueChainsHeader from "../components/globalValueChainsHeader"
-export default {  
+import globalValueChainsHeader from "../components/globalValueChainsHeader";
+export default {
   components: {
-      globalValueChainsHeader,
-    },
+    globalValueChainsHeader,
+  },
   data() {
-  
     return {
       hoverActiveIndex: null,
       hoverActiveIndex2: null,
@@ -212,10 +211,7 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
 }
-.text-stroke {
-  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000,
-    2px 1px 0 #000;
-}
+
 .menu-card {
   min-width: 270px;
   width: 100%;
