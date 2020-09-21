@@ -64,7 +64,7 @@ const routes = [
         name: "countrybriefs"
       },
       {
-        path: "/gvc-links",
+        path: "/gvc-links/:expe?/:year?",
         component: () => import("pages/gvcLinks.vue"),
         name: "gvcLinks"
       },
