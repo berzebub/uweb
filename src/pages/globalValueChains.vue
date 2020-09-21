@@ -115,14 +115,17 @@
         </div>
       </div>
     </div>
+    <myFooter></myFooter>
   </q-page>
 </template>
 
 <script>
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
+import myFooter from "../components/footer";
 export default {
   components: {
     globalValueChainsHeader,
+    myFooter,
   },
   data() {
     return {

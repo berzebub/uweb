@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf" style="height:100%">
-    <q-footer class="bg-transparent" reveal id="footerBar" v-show="showNavbar">
+    <!-- <q-footer class="bg-transparent" reveal id="footerBar" v-show="showNavbar">
       <div class="footer-bg container">
         <div style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
           <div class="row q-pr-lg justify-end items-center fit">
@@ -90,58 +90,11 @@
           </div>
         </div>
       </div>
-    </q-footer>
+    </q-footer>-->
 
     <q-page-container class="relative-position">
       <router-view class="container shadow-10" />
     </q-page-container>
-    <q-dialog v-model="isShowAboutDialog">
-      <q-card style="width:100%;min-width:750px;border-radius:15px">
-        <q-card-section>
-          <div class="bg-white q-pa-md" style="border-radius:10px;" align="center">
-            <div>
-              <p class="font-graph">About</p>
-              <div style="width:90%;border-bottom:2px solid #283891"></div>
-              <div style="height:20px"></div>
-              <span
-                class="font-content"
-              >This online data visualization and distribution platform has been developed with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies, in addition to more broadly understanding value-chain linkages between economies around the world.</span>
-            </div>
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
-
-    <q-dialog v-model="isShowTermOfUseDialog">
-      <q-card style="width:100%;min-width:750px;border-radius:15px">
-        <q-card-section>
-          <div
-            class="row justify-center items-center bg-white q-pa-md"
-            style="border-radius:10px;"
-            align="center"
-          >
-            <div>
-              <p class="font-graph">Terms of use</p>
-              <div style="width:90%;border-bottom:2px solid #283891"></div>
-              <p
-                class="font-content q-pt-md"
-                align="left"
-              >All users may publish information taken directly or derived from the platform, on the condition that:</p>
-              <ul class="font-content" align="left">
-                <li>The platform is acknowledged, cited as ESCAP-FEALAC Global Value Chain Portal, accessed (month year), available at https://</li>
-                <li>Any conclusions or analyses based on the data and visualizations provided are accompanied by a disclaimer stating that they are the responsibility of the authors and do not necessarily represent the opinion of the United Nations.</li>
-                <li>Any re-dissemination by third parties of the data based on data downloads which goes beyond the purpose of publication of analytical work must be approved by the United Nations Secretariat prior to such re-dissemination.</li>
-              </ul>
-              <div class="font-content" align="left">
-                Requests can be sent to:
-                <br />Trade, Investment and Innovation Division,
-                <br />United Nations ESCAP, Email: escap-tiid@un.org
-              </div>
-            </div>
-          </div>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
   </q-layout>
 </template>
 
@@ -150,96 +103,12 @@ export default {
   name: "MainLayout",
 
   data() {
-    return {
-      isShowAboutDialog: false,
-      isShowTermOfUseDialog: false,
-      showNavbar: true,
-      lastScrollPosition: 0,
-    };
+    return {};
   },
-  methods: {
-    toFealac() {
-      window.open("https://www.fealac.org/new/m/index.do");
-    },
-    toUnescap() {
-      window.open("https://www.unescap.org");
-    },
-    showAboutDialog() {
-      this.isShowAboutDialog = true;
-    },
-    showTermOfUseDialog() {
-      this.isShowTermOfUseDialog = true;
-    },
-    twitterLink() {
-      window.open("https://twitter.com/unescap", "_blank");
-    },
-    facebookLink() {
-      window.open("https://www.facebook.com/UNESCAP", "_blank");
-    },
-    youtubeLink() {
-      window.open("https://www.youtube.com/user/unescap", "_blank");
-    },
-    instragramLink() {
-      window.open("https://www.instagram.com/unitednationsescap/", "_blank");
-    },
-    flickrLink() {
-      window.open("https://www.flickr.com/photos/unitednationsescap", "_blank");
-    },
-    linkedinLink() {
-      window.open(
-        "https://www.linkedin.com/company/united-nations-escap/",
-        "_blank"
-      );
-    },
-    toEscapTrade() {
-      window.open("https://unescap.org/our-work/trade-investment-innovation");
-    },
-    toTradeEtools() {
-      window.open("https://artnet.unescap.org/databases");
-    },
-    toTradeEtoolsPolicy() {
-      window.open(
-        "https://www.unescap.org/our-work/trade-investment-innovation/trade-policy"
-      );
-    },
-    onScroll() {
-      // const currentScrollPosition =
-      //   window.pageYOffset || document.documentElement.scrollTop;
-      // // if (currentScrollPosition < 0) {
-      // //   return;
-      // // }
-      // // Stop executing this function if the difference between
-      // // current scroll position and last scroll position is less than some offset
-      // if (Math.abs(currentScrollPosition - this.lastScrollPosition) < 60) {
-      //   return;
-      // }
-      // this.showNavbar = currentScrollPosition < this.lastScrollPosition;
-      // this.lastScrollPosition = currentScrollPosition;
-    },
-  },
+  methods: {},
   mounted() {
     this.checkPlatform();
     // window.addEventListener("scroll", this.onScroll);
-    let _this = this;
-    // window.onscroll = function () {
-    //   let currentScrollPos = window.pageYOffset;
-    //   if (100 > currentScrollPos) {
-    //     // document.getElementById("userBar").style.top = "0";
-    //     document.getElementById("footerBar").style.transitionDuration = "0.1s";
-
-    //     document.getElementById("footerBar").style.display = "block";
-    //     // _this.showNavbar = true;
-
-    //     // document.getElementById("userBar").style.transitionDuration = "0.1s";
-    //   } else {
-    //     // document.getElementById("userBar").style.top = "-100px";
-    //     // document.getElementById("userBar").style.transitionDuration = ".5s";
-
-    //     document.getElementById("footerBar").style.display = "none";
-    //     document.getElementById("footerBar").style.transitionDuration = ".5s";
-    //     // _this.showNavbar = false;
-    //   }
-    // };
   },
 };
 </script>
