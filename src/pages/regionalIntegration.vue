@@ -13,6 +13,14 @@
         </div>
       </div>
     </q-img>
+
+    <div class="q-py-xl" align="center">
+      <img src="../../public/underconstruction.png" style="width:50%" alt />
+      <div align="center">
+        <p class="font-header">UNDER CONSTRUCTION</p>
+        <p class="font-content">PLEASE COME BACK LATER</p>
+      </div>
+    </div>
   </q-page>
   <!-- <q-page class="bg relative-position" style="padding-bottom:100px;">
     <q-btn to="/" color="white" flat round size="35px" dense icon="home" />
