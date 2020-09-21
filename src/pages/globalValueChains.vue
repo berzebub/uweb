@@ -188,11 +188,9 @@ export default {
   },
   methods: {
     hoverOnCard(index) {
-      console.log("ON");
       this.hoverActiveIndex = index;
     },
     deactiveHoverCard() {
-      console.log("OUT");
       this.hoverActiveIndex = null;
       this.hoverActiveIndex2 = null;
     },
