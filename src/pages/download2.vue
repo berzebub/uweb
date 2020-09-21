@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <q-page>
     <global-value-chains-header></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
-      <div style="width:235px">
-        <img style="width:100%" src="../../public/download-side.png" alt />
+      <div style="width:235px" class>
+        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div>
@@ -105,7 +105,7 @@
       </div>
     </div>
     <my-footer></my-footer>
-  </div>
+  </q-page>
 </template>
 
 <script>
@@ -229,6 +229,7 @@ export default {
       this.sector = null;
       this.year = null;
       this.indicator = "Imp_cons";
+      this.isShowDownloadBtn = false;
     },
     async runBtn() {
       let obj;
