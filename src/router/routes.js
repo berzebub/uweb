@@ -99,6 +99,18 @@ const routes = [
         name: "forwardLinkagesSector"
       },
 
+      // NEW DESIGN STRUCTURE
+      {
+        path: "/backward-linkages",
+        component: () => import("pages/backwardLinkages.vue"),
+        name: "backwardLinkages"
+      },
+      {
+        path: "/forward-linkages",
+        component: () => import("pages/forwardLinkages.vue"),
+        name: "forwardLinkages"
+      },
+
       // NOTE : Page test
       {
         path: "/test",
