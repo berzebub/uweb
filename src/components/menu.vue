@@ -7,7 +7,7 @@
         :class="{'text-yellow' : activeMenu == 0}"
         class="relative-position col text-white fit flex flex-center cursor-pointer font-20"
         align="center"
-      >GVC Links</div>
+      >Key GVC relationships</div>
       <div
         v-ripple
         @click="toStructure()"
@@ -41,31 +41,32 @@
 </template>
 
 <script>
-export default {
-  props: {
-    activeMenu: {
-      type: Number,
-      default: 0,
-    },
-  },
-  methods: {
-    toGVC() {
-      this.$router.push("/gvc-links");
-    },
-    toStructure() {
-      this.$router.push("/structure-of-value-added");
-    },
-    toParticipation() {
-      this.$router.push("/participation-in-gvcs");
-    },
-    toBackward() {
-      this.$router.push("/backward-linkages");
-    },
-    toForward() {
-      this.$router.push("/forward-linkages");
-    },
-  },
-};
+    export default {
+        props: {
+            activeMenu: {
+                type: Number,
+                default: 0
+            },
+        },
+        methods: {
+            toGVC() {
+                this.$router.push("/gvc-links")
+            },
+            toStructure(){
+                 this.$router.push("/structure-of-value-added")
+            },
+            toParticipation(){
+                 this.$router.push("/participation-in-gvcs")
+            },
+            toBackward(){
+                //  this.$router.push("/gvc-links")
+            },
+            toForward(){
+                //  this.$router.push("/gvc-links")
+            }
+        },
+        
+    }
 </script>
 
 <style lang="scss" scoped>
