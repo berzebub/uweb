@@ -56,7 +56,7 @@
           @click="cardClick(card.router)"
           v-for="(card,index) in cardList1"
           :key="index"
-          class="col-4 cursor-pointer q-pa-md"
+          class="col-md-4 col-xl-3 col-sm-6 cursor-pointer q-pa-md"
           align="center"
         >
           <div
@@ -64,19 +64,23 @@
             class="menu-card card-color shadow-5"
             v-show="hoverActiveIndex != index"
           >
-            <div align="center" class>
-              <q-icon size="76px" name="far fa-user-circle"></q-icon>
+            <div class="q-pt-md">
+              <div align="center" class>
+                <q-icon size="76px" name="far fa-user-circle"></q-icon>
+              </div>
+              <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
             </div>
-            <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
           </div>
 
           <div
             class="q-pa-md menu-card card-hover-color shadow-5"
             v-show="hoverActiveIndex == index"
           >
-            <div class="font-20 text-white" align="center">{{card.text}}</div>
+            <div class="q-pt-md q-px-sm">
+              <div class="font-20 text-white" align="center">{{card.text}}</div>
 
-            <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+              <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +91,7 @@
         <div
           v-for="(card,index) in cardList2"
           :key="index"
-          class="col-4 cursor-pointer q-pa-md"
+          class="col-md-4 col-xl-3 col-sm-6 cursor-pointer q-pa-md"
           align="center"
           @mouseenter="hoverOnCard2(index)"
           @mouseleave="deactiveHoverCard()"
@@ -98,19 +102,22 @@
             style="padding:30px"
             v-show="hoverActiveIndex2 != index"
           >
-            <div align="center" class>
-              <q-icon size="76px" name="far fa-user-circle"></q-icon>
+            <div class="q-pt-md">
+              <div align="center" class>
+                <q-icon size="76px" name="far fa-user-circle"></q-icon>
+              </div>
+              <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
             </div>
-            <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
           </div>
 
           <div
             class="q-pa-md menu-card card-hover-color shadow-5"
             v-show="hoverActiveIndex2 == index"
           >
-            <div class="font-20 text-white" align="center">{{card.text}}</div>
-
-            <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+            <div class="q-pt-md q-px-sm">
+              <div class="font-20 text-white" align="center">{{card.text}}</div>
+              <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+            </div>
           </div>
         </div>
       </div>

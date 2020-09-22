@@ -7,12 +7,15 @@
         <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
-        <div>
+        <div style="width:90%;max-width:1200px; margin:auto;">
           <p align="center" class="font-24">Download data</p>
           <p>Mauris accuml dia in lacus edipiscng aliqIn pdei quetsit amet euis inuctor ut liguliquamapibus tincidurent justo dolor loboed ant sagittis euismod tincidurent justo dolor loboed ant sagittis euismod.</p>
         </div>
 
-        <div class="bg-white q-py-lg q-px-xl rounded-borders">
+        <div
+          class="bg-white q-py-lg q-px-xl rounded-borders"
+          style="width:90%;max-width:1200px; margin:auto;"
+        >
           <div>
             <q-select
               v-model="indicator"
@@ -80,13 +83,13 @@
           <div class="row q-mt-md">
             <div class="col-12 row justify-center q-col-gutter-md" align="center">
               <div>
-                <q-btn label="Clear All" outline style="width:150px;" @click="clearBtn()" />
+                <q-btn label="Clear All" outline no-caps style="width:150px;" @click="clearBtn()" />
               </div>
               <div>
                 <download-csv
                   v-if="isShowDownloadBtn"
-                  class="bg-secondary font-content text-white cursor-pointer"
-                  style="width:150px;border-radius:10px;height:35px;line-height:35px;"
+                  class="bg-secondary text-white cursor-pointer"
+                  style="width:150px;border-radius:3px;height:35px;line-height:35px;"
                   :data="downloadData"
                   ref="downloadData"
                 >Download Data</download-csv>
@@ -94,6 +97,7 @@
                 <q-btn
                   v-else
                   label="Generate"
+                  no-caps
                   style="width:150px;background-color:#2C2F30;"
                   class="text-white"
                   @click="runBtn()"
@@ -311,7 +315,6 @@ export default {
 
       this.downloadData = data.data;
       this.isShowDownloadBtn = true;
-      console.log(data.data);
     },
   },
   mounted() {
