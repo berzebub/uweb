@@ -134,14 +134,14 @@ export default {
           icon: "",
           text: "Download data",
           hover:
-            "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
+            "Query and download detailed data on value-added trade indicators for your economies, sectors and years of interest",
           router: "/download",
         },
         {
           icon: "",
           text: "Country briefs",
           hover:
-            "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
+            "Get a summary of involvement in value-chains for your economy of choice",
           router: "",
         },
       ],
