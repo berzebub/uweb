@@ -91,15 +91,40 @@
         <div class="col-3 full-height">
           <q-img class src="../../public/images/image-56.png"></q-img>
         </div>
-        <div class="col q-py-lg" style="background-color:#E5E1E1">
-          <p align="center" class="font-24">Why does GVC participation matter?</p>
+        <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
+          <p
+            align="center"
+            class="font-24"
+          >Where does Argentina contribute towards export production?</p>
           <div align="center" class="q-px-lg">
-            <p
-              align="left"
-            >GVC participation matters for development. GVCs support efficient production and technology diffusion, and access to capital and inputs thereby increasing productivity and income growth, and reducing poverty.</p>
-            <p
-              align="left"
-            >In addition, recent developments in digital technology are set to support integration of SMEs into GVCs, further amplifying sustainable outcomes from participation.</p>
+            <div align="center" class="q-px-lg">
+              <p
+                align="center"
+              >Some part of Argentina’s gross exports consist of imported inputs that originate in other source economies.</p>
+
+              <div class="row justify-around q-pt-md" style="max-width:750px">
+                <div>Source economy</div>
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Exporting economy
+                  <div>Argentina</div>
+                </div>
+                <div>:</div>
+                <div>
+                  Exporting sector
+                  <div>All</div>
+                </div>
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Importing economy
+                  <div>Australia</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
