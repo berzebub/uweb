@@ -335,224 +335,476 @@
       </div>
     </div>
 
-    <div class="row justify-center q-pa-md">
-      <div class="col-12 row font-content" style="width:900px;" align="center">
-        <div class="col q-pr-lg">
-          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
-            <span class="font-content">Overview</span>
-          </q-btn>
-        </div>
-        <div class="col q-mx-lg q-px-lg">
-          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
-            <span class="font-content" no-caps>By exporting sector</span>
-          </q-btn>
-        </div>
-        <div class="col q-pl-lg">
-          <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
-            <span class="font-content">By partner economy</span>
-          </q-btn>
-        </div>
-      </div>
-    </div>
-
-    <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-    <div class="q-pa-md">
-      <div align="center" class="q-my-lg">
-        <span class="font-title">{{overviewCountry.label}}'s key GVC relationships: Overview</span>
-      </div>
-
-      <div class="q-mt-xl">
-        <div class="row justify-center">
-          <div class="col-10">
-            <p
-              class="font-content"
-            >{{overviewCountry.label}}’s GVC exports amount to 22% ($4 billion) of its gross exports in 2017</p>
-            <p class="font-content">Imported content comprising 14% ($2 billion) of gross exports</p>
-            <p
-              class="font-content"
-            >Export of intermediates used in further export production comprising 8% ($1 billion) of gross exports</p>
+    <div v-if="exporting && year">
+      <div class="row justify-center q-pa-md">
+        <div class="col-12 row font-content" style="width:900px;" align="center">
+          <div class="col q-pr-lg">
+            <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+              <span class="font-content">Overview</span>
+            </q-btn>
           </div>
+          <div class="col q-mx-lg q-px-lg">
+            <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+              <span class="font-content" no-caps>By exporting sector</span>
+            </q-btn>
+          </div>
+          <div class="col q-pl-lg">
+            <q-btn class="q-py-md fit" outline no-caps style="border-radius:0px;">
+              <span class="font-content">By partner economy</span>
+            </q-btn>
+          </div>
+        </div>
+      </div>
 
-          <div class="col-10 row q-my-xl q-pb-xl">
-            <!-- Imported Content  -->
-            <div class="col row font-content" align="center">
-              <div class="col-12 self-start c-blue">
-                <div>
-                  Imported content used in exports
-                  <br />(Backward linkages)
+      <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+      <div class="q-pa-md">
+        <div align="center" class="q-my-lg">
+          <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
+        </div>
+
+        <div class="q-mt-xl">
+          <div class="row justify-center">
+            <div class="col-10">
+              <p
+                class="font-content"
+              >{{ }}’s GVC exports amount to 22% ($4 billion) of its gross exports in 2017</p>
+              <p class="font-content">Imported content comprising 14% ($2 billion) of gross exports</p>
+              <p
+                class="font-content"
+              >Export of intermediates used in further export production comprising 8% ($1 billion) of gross exports</p>
+            </div>
+
+            <div class="col-10 row q-my-xl q-pb-xl">
+              <!-- Imported Content  -->
+              <div class="col row font-content" align="center">
+                <div class="col-12 self-start c-blue">
+                  <div>
+                    Imported content used in exports
+                    <br />(Backward linkages)
+                  </div>
+
+                  <div class="q-mt-sm" align="center">
+                    Share: 8% of gross exports
+                    <br />Value: $1 billion
+                  </div>
                 </div>
 
-                <div class="q-mt-sm" align="center">
-                  Share: 8% of gross exports
-                  <br />Value: $1 billion
+                <div class="col-12 self-end">
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
+                    <q-img
+                      class="absolute-center"
+                      width="200px"
+                      :src="require('../../public/arrow/arrow-blue-big.png')"
+                    ></q-img>
+                  </div>
                 </div>
               </div>
 
-              <div class="col-12 self-end">
-                <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
-                  <q-img
-                    class="absolute-center"
-                    width="200px"
-                    :src="require('../../public/arrow/arrow-blue-big.png')"
-                  ></q-img>
+              <!-- Country Content -->
+              <div class="col-3 self-end" align="center">
+                <div>
+                  <q-img :src="overviewCountry.flag" width="80px" />
                 </div>
+                <div class="relative-position q-mt-md">
+                  <span class="absolute-center font-title text-no-wrap">{{ overviewCountry.label }}</span>
+                </div>
+              </div>
+
+              <!-- Export Content  -->
+              <div class="col font-content" align="center">
+                <div class="col-12 self-start c-red">
+                  <div>
+                    <span>Export of intermediates used in</span>
+                    <br />
+                    <span class="text-no-wrap">export production (Forward linkages)</span>
+                  </div>
+
+                  <div class="q-mt-sm" align="center">
+                    <span>Share: 8% of gross exports</span>
+                    <br />
+                    <span>Value: $1 billion</span>
+                  </div>
+                </div>
+
+                <div class="col-12 self-end">
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
+                    <q-img
+                      class="absolute-center"
+                      width="200px"
+                      :src="require('../../public/arrow/arrow-red-small.png')"
+                    ></q-img>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+      <div class="q-pa-md">
+        <div align="center" class="q-my-lg">
+          <span class="font-title">key GVC relationships: by exporting sector</span>
+        </div>
+
+        <div class="row justify-center">
+          <div class="col-10 row">
+            <div class="col q-pa-md">
+              <div class="c-blue font-footer">
+                <span class="font-content text-bold">Backward linkages</span>
+                <br />
+                <span class="text-bold">Sector</span>
+                <br />
+                <span>Share of foreign value-added in sectoral gross exports (%)</span>
+                <br />
+                <span>Foreign value-added ($)</span>
               </div>
             </div>
 
             <!-- Country Content -->
-            <div class="col-3 self-end" align="center">
+            <div class="col-3 self-center" align="center"></div>
+            <div class="col q-pa-md">
+              <div class="c-red font-footer">
+                <span class="font-content text-bold">Forward linkages</span>
+                <br />
+                <span class="text-bold">Sector</span>
+                <br />
+                <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
+                <br />
+                <span>Contribution to partner exports ($)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-10 row q-py-xl">
+            <div class="col q-py-md">
+              <div class="relative-position" style="height:500px;">
+                <div class="absolute" style="right:0;top:0;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:7%;left:10%;"
+                    >
+                      <div class="text-white">transport equipment</div>
+                      <div class="text-white">26.91% , $410M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;top:100px;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:11%;left:10%;"
+                    >
+                      <div class="text-white">food and beverage</div>
+                      <div class="text-white">4.42% , $180M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div style="right:0;" class="graph-arrow-center">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:22%;left:10%;"
+                    >
+                      <div class="text-white">Chemicals</div>
+                      <div class="text-white">4.00% , $160M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;bottom:100px;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
+                    >
+                      <div class="text-white">Agriculture</div>
+                      <div class="text-white">3.31% , $91M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;bottom:0;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
+                    >
+                      <div class="text-white">Inland transport</div>
+                      <div class="text-white">8.06% , $8.6M</div>
+                    </span>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+            <!-- Country Content -->
+            <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
                 <q-img :src="overviewCountry.flag" width="80px" />
               </div>
-              <div class="relative-position q-mt-md">
-                <span class="absolute-center font-title text-no-wrap">{{overviewCountry.label}}</span>
+              <div class="relative-position">
+                <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-
-            <!-- Export Content  -->
-            <div class="col font-content" align="center">
-              <div class="col-12 self-start c-red">
-                <div>
-                  <span>Export of intermediates used in</span>
-                  <br />
-                  <span class="text-no-wrap">export production (Forward linkages)</span>
+            <div class="col q-py-md">
+              <div class="relative-position" style="height:500px;">
+                <div class="absolute" style="left:0;top:0;">
+                  <q-img width="500px" src="../../public/arrow/red-graph-1.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:7%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Agriculture</div>
+                      <div class="text-white">22.85%, $59M</div>
+                    </span>
+                  </q-img>
                 </div>
-
-                <div class="q-mt-sm" align="center">
-                  <span>Share: 8% of gross exports</span>
-                  <br />
-                  <span>Value: $1 billion</span>
+                <div style="left:0;top:100px;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-2.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:11%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Food and beverage</div>
+                      <div class="text-white">13.85%, $29M</div>
+                    </span>
+                  </q-img>
                 </div>
-              </div>
-
-              <div class="col-12 self-end">
-                <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
-                  <q-img
-                    class="absolute-center"
-                    width="200px"
-                    :src="require('../../public/arrow/arrow-red-small.png')"
-                  ></q-img>
+                <div style="left:0;" class="graph-arrow-center">
+                  <q-img width="500px" src="../../public/arrow/red-graph-3.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:22%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Metals</div>
+                      <div class="text-white">26.14%. $25M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;bottom:100px;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-4.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:11%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Other business activites</div>
+                      <div class="text-white">19.34%. $21M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;bottom:0;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-5.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:7%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Chemicals</div>
+                      <div class="text-white">17.61%. $15M</div>
+                    </span>
+                  </q-img>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+
+      <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+      <div class="q-pa-md">
+        <div align="center" class="q-my-lg">
+          <span class="font-title">key GVC relationships: by partner economy</span>
+        </div>
+
+        <div class="row justify-center">
+          <div class="col-10 row">
+            <div class="col q-pa-md">
+              <div class="c-blue font-footer">
+                <span class="font-content text-bold">Backward linkages</span>
+                <br />
+                <span class="text-bold">Source economy</span>
+                <br />
+                <span>Share of foreign value-added in gross exports (%)</span>
+                <br />
+                <span>Foreign value-added ($)</span>
+              </div>
+            </div>
+            <!-- Country Content -->
+            <div class="col-3 self-center" align="center"></div>
+            <div class="col q-pa-md">
+              <div class="c-red font-footer">
+                <span class="font-content text-bold">Forward linkages</span>
+                <br />
+                <span class="text-bold">Improting economy</span>
+                <br />
+                <span>Share of contribution to partner exports, in gross exports (%)</span>
+                <br />
+                <span>Contribution to partner exports ($)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-10 row q-py-xl">
+            <div class="col q-py-md">
+              <div class="relative-position" style="height:500px;">
+                <div class="absolute" style="right:0;top:0;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:7%;left:10%;"
+                    >
+                      <div class="text-white">Brazil</div>
+                      <div class="text-white">1.23% , $202M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;top:100px;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:11%;left:10%;"
+                    >
+                      <div class="text-white">United states</div>
+                      <div class="text-white">1.22% , $201M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div style="right:0;" class="graph-arrow-center">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:22%;left:10%;"
+                    >
+                      <div class="text-white">China</div>
+                      <div class="text-white">0.9% , $153M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;bottom:100px;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
+                    >
+                      <div class="text-white">India</div>
+                      <div class="text-white">0.81% , $142M</div>
+                    </span>
+                  </q-img>
+                </div>
+
+                <div class="absolute" style="right:0;bottom:0;">
+                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
+                    >
+                      <div class="text-white">Denmark</div>
+                      <div class="text-white">0.45% , $4.6M</div>
+                    </span>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+            <!-- Country Content -->
+            <div class="col-3 self-center" style="width:150px;" align="center">
+              <div>
+                <q-img :src="overviewCountry.flag" width="80px" />
+              </div>
+              <div class="relative-position">
+                <span class="font-title">{{ overviewCountry.label }}</span>
+              </div>
+            </div>
+            <div class="col q-py-md">
+              <div class="relative-position" style="height:500px;">
+                <div class="absolute" style="left:0;top:0;">
+                  <q-img width="500px" src="../../public/arrow/red-graph-1.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:7%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Chile</div>
+                      <div class="text-white">22.85%, $59M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;top:100px;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-2.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:11%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">China</div>
+                      <div class="text-white">14.36%, $36M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;" class="graph-arrow-center">
+                  <q-img width="500px" src="../../public/arrow/red-graph-3.png">
+                    <span
+                      class="absolute-right"
+                      style="width:fit-content;height:fit-content;top:22%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Japan</div>
+                      <div class="text-white">10.32%, $24M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;bottom:100px;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-4.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:11%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">Spain</div>
+                      <div class="text-white">12.23%, $14M</div>
+                    </span>
+                  </q-img>
+                </div>
+                <div style="left:0;bottom:0;" class="absolute">
+                  <q-img width="500px" src="../../public/arrow/red-graph-5.png">
+                    <span
+                      class="absolute-bottom-right"
+                      style="width:fit-content;height:fit-content;bottom:7%;right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">India</div>
+                      <div class="text-white">8.83%, $6M</div>
+                    </span>
+                  </q-img>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+      <div class="q-py-xl" align="center">
+        <q-btn
+          no-caps
+          outline
+          class="q-pa-sm font-content"
+          style="width:250px;border-radius:0px;"
+          label="Continue"
+        ></q-btn>
       </div>
     </div>
 
-    <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-    <div class="q-pa-md">
-      <div align="center" class="q-my-lg">
-        <span class="font-title">key GVC relationships: by exporting sector</span>
-      </div>
-
-      <div class="row justify-center">
-        <div class="col-10 row">
-          <div class="col q-pa-md">
-            <div class="c-blue font-footer">
-              <span class="font-content text-bold">Backward linkages</span>
-              <br />
-              <span class="text-bold">Sector</span>
-              <br />
-              <span>Share of foreign value-added in sectoral gross exports (%)</span>
-              <br />
-              <span>Foreign value-added ($)</span>
-            </div>
-          </div>
-          <!-- Country Content -->
-          <div class="col-3 self-center" align="center"></div>
-          <div class="col q-pa-md">
-            <div class="c-red font-footer">
-              <span class="font-content text-bold">Forward linkages</span>
-              <br />
-              <span class="text-bold">Sector</span>
-              <br />
-              <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
-              <br />
-              <span>Contribution to partner exports ($)</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-10 row q-py-xl">
-          <div class="col q-pa-md"></div>
-          <!-- Country Content -->
-          <div class="col-3 self-center" align="center">
-            <div>
-              <q-img :src="overviewCountry.flag" width="80px" />
-            </div>
-            <div class="relative-position">
-              <span class="font-title">{{overviewCountry.label }}</span>
-            </div>
-          </div>
-          <div class="col q-pa-md"></div>
-        </div>
-      </div>
-    </div>
-
-    <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-    <div class="q-pa-md">
-      <div align="center" class="q-my-lg">
-        <span class="font-title">key GVC relationships: by partner economy</span>
-      </div>
-
-      <div class="row justify-center">
-        <div class="col-10 row">
-          <div class="col q-pa-md">
-            <div class="c-blue font-footer">
-              <span class="font-content text-bold">Backward linkages</span>
-              <br />
-              <span class="text-bold">Source economy</span>
-              <br />
-              <span>Share of foreign value-added in gross exports (%)</span>
-              <br />
-              <span>Foreign value-added ($)</span>
-            </div>
-          </div>
-          <!-- Country Content -->
-          <div class="col-3 self-center" align="center"></div>
-          <div class="col q-pa-md">
-            <div class="c-red font-footer">
-              <span class="font-content text-bold">Forward linkages</span>
-              <br />
-              <span class="text-bold">Improting economy</span>
-              <br />
-              <span>Share of contribution to partner exports, in gross exports (%)</span>
-              <br />
-              <span>Contribution to partner exports ($)</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-10 row q-py-xl">
-          <div class="col q-pa-md"></div>
-          <!-- Country Content -->
-          <div class="col-3 self-center" align="center">
-            <div>
-              <q-img :src="overviewCountry.flag" width="80px" />
-            </div>
-            <div class="relative-position">
-              <span class="font-title">{{overviewCountry.label }}</span>
-            </div>
-          </div>
-          <div class="col q-pa-md"></div>
-        </div>
-      </div>
-    </div>
-
-    <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-    <div class="q-py-xl" align="center">
-      <q-btn
-        no-caps
-        outline
-        class="q-pa-sm"
-        style="width:250px;border-radius:0px;"
-        label="Continue"
-      ></q-btn>
+    <div v-else>
+      <q-img src="../../public/waiting.png" width="100%">
+        <span class="absolute-center font-graph" style="width:500px;" align="center">
+          Please choose exporting economy and year
+          from the drop down menus above
+        </span>
+      </q-img>
     </div>
 
     <footer-menu></footer-menu>
@@ -638,11 +890,13 @@ export default {
 
   computed: {
     overviewCountry() {
-      let res = this.exportingOptions.filter(
-        (x) => x.value == this.exporting
-      )[0];
+      if (this.exporting) {
+        let res = this.exportingOptions.filter(
+          (x) => x.value == this.exporting
+        )[0];
 
-      return res;
+        return res;
+      }
     },
   },
   methods: {
@@ -951,5 +1205,16 @@ export default {
 
 .c-red {
   color: #8d273d;
+}
+
+// Graph left
+
+.graph-arrow-center {
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+  -moz-transform: translate(0%, -50%);
+  -webkit-transform: translate(0%, -50%);
+  -o-transform: translate(0%, -50%);
 }
 </style>
