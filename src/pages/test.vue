@@ -2,7 +2,6 @@
   <q-page class="container bg-white">
     <q-select @input="(val) => changeFlag(val)" outlined v-model="model" :options="options"  >
         <template v-slot:prepend>
-          <q-img style="width:30px" :src="activeFlag"></q-img>
           <!-- <img style="width:30px" :src="activeFlag" alt=""> -->
         </template>
       </q-select>
@@ -16,7 +15,7 @@ export default {
   data() {
     return {
       model : "Argentina",
-      activeFlag : "https://teerapornclinic.com/wp-content/uploads/2017/07/usa-flag.jpg",
+      activeFlag : "/public/test/flag1.png",
       options : [
         {
           value : "Argentina",
