@@ -6,7 +6,7 @@
       <global-value-chains-menu :activeMenu="3"></global-value-chains-menu>
 
       <!-- DROPDOWN SELECTION -->
-      <div class="bg12" style="height:180px">
+      <div class="bg12" style="height:290px">
         <div class="row q-pt-md justify-center">
           <div class="col-3 q-px-md">
             <div>Exporting economy</div>
@@ -68,6 +68,21 @@
                 outlined
               ></q-select>
             </div>
+          </div>
+        </div>
+
+        <div class="q-pt-md row justify-center">
+          <div class="col-3 q-px-md" align="center">
+            <q-btn no-caps style="background-color:#2C2F30" class="text-white fit font-20">
+              select by Exporting
+              <br />sector
+            </q-btn>
+          </div>
+          <div class="col-3 q-px-md">
+            <q-btn no-caps style="background-color:#2C2F30" class="text-white fit font-20">
+              select by Source
+              <br />economy
+            </q-btn>
           </div>
         </div>
       </div>
