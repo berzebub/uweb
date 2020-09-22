@@ -23,6 +23,7 @@
               label="indicator"
               emit-value
               map-options
+              @input="resetDownloadState()"
             />
           </div>
           <!-- exporting country -->
@@ -35,6 +36,7 @@
               emit-value
               map-options
               use-chips
+              @input="resetDownloadState()"
             />
           </div>
           <!-- importing country -->
@@ -48,6 +50,7 @@
               emit-value
               map-options
               use-chips
+              @input="resetDownloadState()"
             />
           </div>
           <!-- Sector -->
@@ -61,6 +64,7 @@
               emit-value
               map-options
               use-chips
+              @input="resetDownloadState()"
             />
           </div>
           <!-- Source country -->
@@ -74,11 +78,19 @@
               emit-value
               map-options
               use-chips
+              @input="resetDownloadState()"
             />
           </div>
           <!-- year -->
           <div>
-            <q-select v-model="year" use-chips :options="yearList" label="Year" multiple />
+            <q-select
+              @input="resetDownloadState()"
+              v-model="year"
+              use-chips
+              :options="yearList"
+              label="Year"
+              multiple
+            />
           </div>
           <div class="row q-mt-md">
             <div class="col-12 row justify-center q-col-gutter-md" align="center">
@@ -92,6 +104,7 @@
                   style="width:150px;border-radius:3px;height:35px;line-height:35px;"
                   :data="downloadData"
                   ref="downloadData"
+                  @click="test()"
                 >Download Data</download-csv>
 
                 <q-btn
@@ -198,6 +211,12 @@ export default {
     };
   },
   methods: {
+    test() {
+      console.log("123123");
+    },
+    resetDownloadState() {
+      this.isShowDownloadBtn = false;
+    },
     loadCountryList() {
       this.countryList = [];
       countryJson.forEach((data) => {
