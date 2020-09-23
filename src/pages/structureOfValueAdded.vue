@@ -19,7 +19,7 @@
             >
               <template v-slot:selected-item="props">
                 <q-img :src="props.opt.flag" width="30px" />
-                <span class="q-mx-sm">{{props.opt.label}}</span>
+                <span class="q-mx-sm">{{ props.opt.label }}</span>
               </template>
             </q-select>
           </div>
@@ -46,12 +46,12 @@
               bg-color="white"
               v-model="importingSelected"
               dense
-              :options="exportingOptions"
+              :options="importing"
               outlined
             >
               <template v-slot:selected-item="props">
                 <q-img :src="props.opt.flag" width="30px" />
-                <span class="q-mx-sm">{{props.opt.label}}</span>
+                <span class="q-mx-sm">{{ props.opt.label }}</span>
               </template>
             </q-select>
           </div>
@@ -77,28 +77,36 @@
           style="border:1px solid;height:60px"
           class="flex flex-center cursor-pointer relative-position"
           v-ripple
-        >Key policy questions</div>
+        >
+          Key policy questions
+        </div>
       </div>
       <div class="col q-px-md" align="center">
         <div
           style="border:1px solid;height:60px"
           class="flex flex-center cursor-pointer relative-position"
           v-ripple
-        >Structure of value-added</div>
+        >
+          Structure of value-added
+        </div>
       </div>
       <div class="col q-px-md" align="center">
         <div
           style="border:1px solid;height:60px"
           class="flex flex-center cursor-pointer relative-position"
           v-ripple
-        >Measuring trade balance</div>
+        >
+          Measuring trade balance
+        </div>
       </div>
       <div class="col q-px-md" align="center">
         <div
           style="border:1px solid;height:60px"
           class="flex flex-center cursor-pointer relative-position"
           v-ripple
-        >Comparison with sub-regional partners</div>
+        >
+          Comparison with sub-regional partners
+        </div>
       </div>
     </div>
     <!--  -->
@@ -106,27 +114,39 @@
       <div class="col-3">
         <q-img src="../../public/images/image-58.png"></q-img>
       </div>
-      <div class="col flex flex-center" align="center" style="background-color:#E5E1E1">
+      <div
+        class="col flex flex-center"
+        align="center"
+        style="background-color:#E5E1E1"
+      >
         <div class="divRight">
-          <p class="font-24" align="center">How do you disaggregate value-added in gross exports?</p>
+          <p class="font-24" align="center">
+            How do you disaggregate value-added in gross exports?
+          </p>
 
-          <div
-            class="font-content q-pb-sm"
-            align="center"
-          >Argentina's gross exports can be divided into five major parts:</div>
+          <div class="font-content q-pb-sm" align="center">
+            Argentina's gross exports can be divided into five major parts:
+          </div>
           <div class="row q-pt-md" style="width:95%; margin:auto;">
-            <div style="width:20%" align="center">Used in importer's comsumption</div>
-            <div style="width:20%" align="center">Used in domestic comsumption</div>
-            <div style="width:20%" align="center">Used in importer's export production</div>
+            <div style="width:20%" align="center">
+              Used in importer's comsumption
+            </div>
+            <div style="width:20%" align="center">
+              Used in domestic comsumption
+            </div>
+            <div style="width:20%" align="center">
+              Used in importer's export production
+            </div>
             <div style="width:20%" align="center">Imported content</div>
-            <div
-              style="width:20%"
-              align="center"
-            >Double counted exports from repeated border crossing</div>
+            <div style="width:20%" align="center">
+              Double counted exports from repeated border crossing
+            </div>
           </div>
           <div class="bracketLeft"></div>
           <div class="bracketRight"></div>
-          <div class="textLeft font-content">Argentina's valued-added in exports</div>
+          <div class="textLeft font-content">
+            Argentina's valued-added in exports
+          </div>
           <div class="textRight font-content">GVC releated exports</div>
         </div>
       </div>
@@ -138,15 +158,24 @@
       <div class="font-content" style="padding :0px 60px">
         <div v-scroll-to="'#structure'" class="cursor-pointer">
           1.
-          <u>What happens to {{displayExportingEconomy}}’s exports to a selected importer?</u>
+          <u
+            >What happens to {{ displayExportingEconomy }}’s exports to a
+            selected importer?</u
+          >
         </div>
         <div class="cursor-pointer q-py-sm" v-scroll-to="'#comparison'">
           2.
-          <u>What happens to {{continent}} economics’ exports to a selected imported?</u>
+          <u
+            >What happens to {{ continent }} economics’ exports to a selected
+            imported?</u
+          >
         </div>
         <div class="cursor-pointer" v-scroll-to="'#measuring'">
           3.
-          <u>How does {{displayExportingEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+          <u
+            >How does {{ displayExportingEconomy }}’s domestic value-added and
+            gross trade balance with the selected imported differ?</u
+          >
         </div>
       </div>
     </div>
@@ -372,7 +401,7 @@ export default {
     errorPage,
     globalValueChainsHeader,
     globalValueChainsMenu,
-    myFooter,
+    myFooter
   },
   data() {
     return {
@@ -382,15 +411,15 @@ export default {
           label: "Argentina",
           value: "ARG",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png",
+            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png"
         },
 
         {
           label: "United State",
           value: "USA",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png",
-        },
+            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png"
+        }
       ],
       exportingSelected: "",
       yearSelected: "",
@@ -431,13 +460,13 @@ export default {
         imp_exp: 0,
         dom_cons: 0,
         double: 0,
-        imp_cont: 0,
+        imp_cont: 0
       },
       isStructureChart: false,
       isComparisonChart: false,
       isMeasuringChart: false,
 
-      isShowErrorWarning: false,
+      isShowErrorWarning: false
     };
   },
   methods: {
@@ -469,11 +498,11 @@ export default {
     async getStructureOfValue() {
       // Importing Economy
       let countryData = this.countryOptions.filter(
-        (x) => x.value == this.importingEconomy
+        x => x.value == this.importingEconomy
       )[0];
 
       let sectorData = this.sectorOptions.filter(
-        (x) => x.value == this.sectorSelected
+        x => x.value == this.sectorSelected
       )[0];
 
       if (countryData) {
@@ -567,7 +596,7 @@ export default {
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" },
+          style: { fontFamily: "roboto" }
         },
         series: [
           {
@@ -578,37 +607,37 @@ export default {
                 name: `Imp. cons. (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
-                label: `Used in ${this.displayImportingEconomy}’s comsumption`,
+                label: `Used in ${this.displayImportingEconomy}’s comsumption`
               },
               {
                 name: `imp. exp. (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
-                label: `Used in ${this.displayImportingEconomy}’s export <br>production`,
+                label: `Used in ${this.displayImportingEconomy}’s export <br>production`
               },
               {
                 name: `Dom. cons (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.displayExportingEconomy}’s domestic <br>comsumption`,
+                label: `Used in ${this.displayExportingEconomy}’s domestic <br>comsumption`
               },
               {
                 name: `Double (${this.dataChart1Percent.double}%)`,
                 value: getData.double,
                 color: "#2D9687",
                 label:
-                  "Double counted exports <br>from repeated border crossings",
+                  "Double counted exports <br>from repeated border crossings"
               },
               {
                 name: `Imp. cont. (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
-                label: "Imported content",
-              },
+                label: "Imported content"
+              }
             ],
             showInLegend: true,
-            legendType: "point",
-          },
+            legendType: "point"
+          }
         ],
         legend: {
           useHTML: true,
@@ -616,7 +645,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
 
           align: "right",
@@ -627,34 +656,34 @@ export default {
           symbolHeight: 15,
           symbolRadius: 0,
 
-          labelFormatter: function () {
+          labelFormatter: function() {
             return this.label;
-          },
+          }
         },
         title: {
           style: {
-            fontSize: "24px",
+            fontSize: "24px"
           },
           text:
             "What happens to " +
             this.displayExportingEconomy +
             "'s exports to " +
             this.displayImportingEconomy +
-            "?",
+            "?"
         },
         subtitle: {
           text: `Gross exports to ${this.displayImportingEconomy}: $${getData.text_export_to_import_country}B / Gross exports to World: $${getData.text_export_to_world}B`,
-          align: "left",
+          align: "left"
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
 
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
+              menuItems: ["downloadCSV", "downloadXLS"]
+            }
           },
           width: "1280px",
           chartOptions: {
@@ -664,11 +693,11 @@ export default {
                 fontSize: "7px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-          },
-        },
+                color: "#00000"
+              }
+            }
+          }
+        }
       });
     },
     async setStackChart2() {
@@ -687,7 +716,7 @@ export default {
       let dom_cons = [];
       let double = [];
 
-      getData.map((x) => {
+      getData.map(x => {
         country.push(x.imp_country);
         imp_cons.push(x.imp_cons);
         imp_exp.push(x.imp_exp);
@@ -701,26 +730,26 @@ export default {
       Highcharts.chart("container1", {
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 16) * 100 + "%" // 16:9 ratio
         },
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto",
+            fontFamily: "roboto"
           },
-          text: `What happens to ${this.continent} economies’ exports to ${this.displayImportingEconomy}?`,
+          text: `What happens to ${this.continent} economies’ exports to ${this.displayImportingEconomy}?`
         },
         xAxis: {
           labels: {
-            rotation: -90,
+            rotation: -90
           },
-          categories: country,
+          categories: country
         },
         yAxis: {
           min: 0,
           max: 100,
           title: {
-            text: `% of gross exports to ${this.displayImportingEconomy}`,
+            text: `% of gross exports to ${this.displayImportingEconomy}`
           },
           stackLabels: {
             enabled: false,
@@ -730,12 +759,12 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray",
-            },
-          },
+                "gray"
+            }
+          }
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
         legend: {
           useHTML: true,
@@ -743,7 +772,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
           width: 300,
           layout: "vertical",
@@ -753,53 +782,53 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "{series.name}: {point.y}%<br/>Total: {point.stackTotal}%",
+            "{series.name}: {point.y}%<br/>Total: {point.stackTotal}%"
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false,
-            },
-          },
+              enabled: false
+            }
+          }
         },
         series: [
           {
             name: `Used in ${this.displayImportingEconomy}'s comsumption`,
             data: imp_cons,
-            color: "#2381B8",
+            color: "#2381B8"
           },
           {
             name: `Used in ${this.displayImportingEconomy}'s export <br> production`,
             data: imp_exp,
-            color: "#EB1E63",
+            color: "#EB1E63"
           },
           {
             name: `Used in ${this.displayExportingEconomy}'s domestic <br>comsumption`,
             data: dom_cons,
-            color: "#f99704",
+            color: "#f99704"
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
             data: double,
-            color: "#2D9687",
+            color: "#2D9687"
           },
           {
             name: "Imported content",
             data: imp_cont,
-            color: "#9C26B3",
-          },
+            color: "#9C26B3"
+          }
         ],
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
+              menuItems: ["downloadCSV", "downloadXLS"]
+            }
           },
           width: "1280px",
           chartOptions: {
@@ -809,11 +838,11 @@ export default {
                 fontSize: "7px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-          },
-        },
+                color: "#00000"
+              }
+            }
+          }
+        }
       });
     },
     async setStackChart3() {
@@ -834,7 +863,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
           layout: "vertical",
           align: "right",
@@ -844,61 +873,61 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 16) * 100 + "%" // 16:9 ratio
         },
 
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto",
+            fontFamily: "roboto"
           },
-          text: `How does ${this.displayExportingEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
+          text: `How does ${this.displayExportingEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`
         },
         xAxis: {
-          categories: ["", ""],
+          categories: ["", ""]
         },
         yAxis: {
           title: {
-            text: `% of gross exports to ${this.displayImportingEconomy}`,
-          },
+            text: `% of gross exports to ${this.displayImportingEconomy}`
+          }
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
         series: [
           {
             name: "Domestic value-added trade balance",
             data: [getData.blue],
-            color: "#2381B8",
+            color: "#2381B8"
           },
           {
             name: "Gross trade balance",
             data: [getData.red],
-            color: "#EB1E63",
-          },
+            color: "#EB1E63"
+          }
         ],
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-        },
+              menuItems: ["downloadCSV", "downloadXLS"]
+            }
+          }
+        }
       });
-    },
+    }
   },
   async mounted() {
     await this.getCountryList();
     await this.getSectorList();
-  },
+  }
 };
 </script>
 
-<style >
+<style>
 .divLeft {
   /* height: 300px; */
   border: 2px solid black;
