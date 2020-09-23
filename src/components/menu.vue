@@ -41,32 +41,31 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            activeMenu: {
-                type: Number,
-                default: 0
-            },
-        },
-        methods: {
-            toGVC() {
-                this.$router.push("/gvc-links")
-            },
-            toStructure(){
-                 this.$router.push("/structure-of-value-added")
-            },
-            toParticipation(){
-                 this.$router.push("/participation-in-gvcs")
-            },
-            toBackward(){
-                //  this.$router.push("/gvc-links")
-            },
-            toForward(){
-                //  this.$router.push("/gvc-links")
-            }
-        },
-        
-    }
+export default {
+  props: {
+    activeMenu: {
+      type: Number,
+      default: 0,
+    },
+  },
+  methods: {
+    toGVC() {
+      this.$router.push("/gvc-links");
+    },
+    toStructure() {
+      this.$router.push("/structure-of-value-added");
+    },
+    toParticipation() {
+      this.$router.push("/participation-in-gvcs");
+    },
+    toBackward() {
+      this.$router.push("/backward-linkages");
+    },
+    toForward() {
+      this.$router.push("/forward-linkages");
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
