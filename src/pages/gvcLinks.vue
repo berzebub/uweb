@@ -406,7 +406,9 @@
 
       <div class="q-pa-md">
         <div align="center" class="q-my-lg">
-          <!-- <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span> -->
+          <span class="font-title"
+            >{{ overviewCountry.label }}'s key GVC relationships: Overview</span
+          >
         </div>
 
         <div class="q-mt-xl">
@@ -457,10 +459,16 @@
               <!-- Country Content -->
               <div class="col-3 self-end" align="center">
                 <div>
-                  <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
+                  <gb-flag
+                    v-if="overviewCountry.code"
+                    :code="overviewCountry.code"
+                    height="100px"
+                  />
                 </div>
                 <div class="relative-position q-mt-md">
-                  <!-- <span class="absolute-center font-title text-no-wrap">{{ overviewCountry.label }}</span> -->
+                  <span class="absolute-center font-title text-no-wrap">{{
+                    overviewCountry.label
+                  }}</span>
                 </div>
               </div>
 
@@ -626,10 +634,14 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
+                <gb-flag
+                  v-if="overviewCountry.code"
+                  :code="overviewCountry.code"
+                  height="100px"
+                />
               </div>
               <div class="relative-position">
-                <!-- <span class="font-title">{{ overviewCountry.label }}</span> -->
+                <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
             <div class="col q-py-md">
@@ -817,10 +829,14 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
+                <gb-flag
+                  v-if="overviewCountry.code"
+                  :code="overviewCountry.code"
+                  height="100px"
+                />
               </div>
               <div class="relative-position">
-                <!-- <span class="font-title">{{ overviewCountry.label }}</span> -->
+                <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
             <div class="col q-py-md">
