@@ -298,29 +298,46 @@
     <!-- MENU -->
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
 
+    <!-- <img src="../../public/flags/fr.svg" alt /> -->
+
     <div class="row justify-center bg12 q-pa-md">
-      <div class="col-6 row" style="width:400px;">
+      <div class="col-5 row" style="width:600px">
         <div class="col q-pa-sm">
           <span>Exporting economy</span>
           <q-select
             v-model="exporting"
-            :options="exportingOptions"
+            :options="countryOptionsShow"
             outlined
             bg-color="white"
             class="q-mt-xs"
             dense
             emit-value
             map-options
+            use-input
+            fill-input
+            hide-selected
+            @filter="filterCountry"
             @input="selectedExporting"
           >
-            <template v-slot:selected-item="props">
-              <q-img :src="props.opt.flag" width="30px" />
-              <span class="q-mx-sm">{{props.opt.label}}</span>
+            <template v-slot:prepend>
+              <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
+            </template>
+
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                <q-item-section avatar>
+                  <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label v-html="scope.opt.label" />
+                  <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+                </q-item-section>
+              </q-item>
             </template>
           </q-select>
         </div>
 
-        <div class="col-5 q-pa-sm">
+        <div class="col q-pa-sm">
           <span>Year</span>
           <q-select
             v-model="year"
@@ -360,7 +377,7 @@
 
       <div class="q-pa-md">
         <div align="center" class="q-my-lg">
-          <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
+          <!-- <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span> -->
         </div>
 
         <div class="q-mt-xl">
@@ -404,10 +421,10 @@
               <!-- Country Content -->
               <div class="col-3 self-end" align="center">
                 <div>
-                  <q-img :src="overviewCountry.flag" width="80px" />
+                  <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
                 </div>
                 <div class="relative-position q-mt-md">
-                  <span class="absolute-center font-title text-no-wrap">{{ overviewCountry.label }}</span>
+                  <!-- <span class="absolute-center font-title text-no-wrap">{{ overviewCountry.label }}</span> -->
                 </div>
               </div>
 
@@ -545,10 +562,10 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <q-img :src="overviewCountry.flag" width="80px" />
+                <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
               </div>
               <div class="relative-position">
-                <span class="font-title">{{ overviewCountry.label }}</span>
+                <!-- <span class="font-title">{{ overviewCountry.label }}</span> -->
               </div>
             </div>
             <div class="col q-py-md">
@@ -716,10 +733,10 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <q-img :src="overviewCountry.flag" width="80px" />
+                <!-- <q-img :src="overviewCountry.flag" width="80px" /> -->
               </div>
               <div class="relative-position">
-                <span class="font-title">{{ overviewCountry.label }}</span>
+                <!-- <span class="font-title">{{ overviewCountry.label }}</span> -->
               </div>
             </div>
             <div class="col q-py-md">
@@ -837,21 +854,7 @@ export default {
       exporting: "",
       year: "",
 
-      exportingOptions: [
-        {
-          label: "Argentina",
-          value: "ARG",
-          flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png",
-        },
-
-        {
-          label: "United State",
-          value: "USA",
-          flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png",
-        },
-      ],
+      countryOptions: [],
       yearOptions: [
         "2007",
         "2008",
@@ -885,13 +888,14 @@ export default {
       isShowContent: false,
 
       test: [],
+      countryOptionsShow: [],
     };
   },
 
   computed: {
     overviewCountry() {
       if (this.exporting) {
-        let res = this.exportingOptions.filter(
+        let res = this.countryOptions.filter(
           (x) => x.value == this.exporting
         )[0];
 
@@ -900,6 +904,13 @@ export default {
     },
   },
   methods: {
+    filterCountry(val, update) {
+      update(async () => {
+        this.countryOptionsShow = this.countryOptions.filter(
+          (x) => x.label.indexOf(val) > -1
+        );
+      });
+    },
     selectedExporting(val) {
       let year = this.year || "NONE";
 
@@ -1166,6 +1177,9 @@ export default {
 
   mounted() {
     // Check Session and Params Year
+
+    this.getCountryList();
+
     if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
       let year =
         this.$route.params.year != "NONE"
@@ -1187,6 +1201,7 @@ export default {
           : "";
 
       this.exporting = expe;
+      this.countryOptionsShow = this.countryOptions;
     }
 
     // this.checkPlatform();

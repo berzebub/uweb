@@ -3,12 +3,20 @@ import HighchartsVue from "highcharts-vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
 import JsonCSV from 'vue-json-csv'
+import CountryFlag from 'vue-country-flag'
+
+import VueFlags from "@growthbunker/vueflags";
 var VueScrollTo = require("vue-scrollto");
 
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);
 Vue.component('downloadCsv', JsonCSV)
+Vue.component('country-flag', CountryFlag)
+Vue.use(VueFlags, {
+  // Specify the path of the folder where the flags are stored.
+  iconPath: '../flags',
+});
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -52,16 +60,17 @@ Vue.mixin({
           value: element.id,
           region: element.region,
           iso: element.iso,
-          index: element.id
+          index: element.id,
+          code: element.code
         };
         tempOptions.push(data);
       });
       tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
 
       this.countryOptions = tempOptions;
-      this.countrySelected = ""
-      this.importingEconomy = ""
-      this.sourceEconomy = ""
+      // this.countrySelected = ""
+      // this.importingEconomy = ""
+      // this.sourceEconomy = ""
     },
     getSectorList() {
       let tempOptions = [];

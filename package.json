@@ -12,6 +12,7 @@
     "heroku-postbuild": "yarn && yarn build"
   },
   "dependencies": {
+    "@growthbunker/vueflags": "^0.1.9",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "connect-history-api-fallback": "^1.6.0",
@@ -21,6 +22,7 @@
     "highcharts-vue": "^1.3.5",
     "quasar": "^1.0.0",
     "serve-static": "^1.14.1",
+    "vue-country-flag": "^2.0.1",
     "vue-i18n": "^8.0.0",
     "vue-json-csv": "^1.2.11",
     "vue-scrollto": "^2.18.2"

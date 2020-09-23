@@ -3,438 +3,511 @@
         "id": "2",
         "name": "Argentina",
         "region": "Latin America and the Caribbean",
-        "iso": "ARG"
+        "iso": "ARG",
+        "code": "AR"
     },
     {
         "id": "3",
         "name": "Australia",
         "region": "Pacific",
-        "iso": "AUS"
+        "iso": "AUS",
+        "code": "AU"
     },
     {
         "id": "4",
         "name": "Austria",
         "region": "Western Europe",
-        "iso": "AUT"
+        "iso": "AUT",
+        "code": "AT"
     },
     {
         "id": "5",
         "name": "Bangladesh",
         "region": "South and South-West Asia",
-        "iso": "BGD"
+        "iso": "BGD",
+        "code": "BD"
     },
     {
         "id": "6",
         "name": "Belgium",
         "region": "Western Europe",
-        "iso": "BEL"
+        "iso": "BEL",
+        "code": "BE"
     },
     {
         "id": "7",
         "name": "Bulgaria",
         "region": "Eastern Europe",
-        "iso": "BGR"
+        "iso": "BGR",
+        "code": "BG"
     },
     {
         "id": "8",
         "name": "Bhutan",
         "region": "South and South-West Asia",
-        "iso": "BTN"
+        "iso": "BTN",
+        "code": "BT"
     },
     {
         "id": "9",
         "name": "Bolivia",
         "region": "Latin America and the Caribbean",
-        "iso": "BOL"
+        "iso": "BOL",
+        "code": "BO"
     },
     {
         "id": "10",
         "name": "Brazil",
         "region": "Latin America and the Caribbean",
-        "iso": "BRA"
+        "iso": "BRA",
+        "code": "BR"
     },
     {
         "id": "11",
         "name": "Brunei Darussalam",
         "region": "South-East Asia",
-        "iso": "BRN"
+        "iso": "BRN",
+        "code": "BN"
     },
     {
         "id": "12",
         "name": "Cambodia",
         "region": "South-East Asia",
-        "iso": "KHM"
+        "iso": "KHM",
+        "code": "KH"
     },
     {
         "id": "13",
         "name": "Canada",
         "region": "North America",
-        "iso": "CAN"
+        "iso": "CAN",
+        "code": "CA"
     },
     {
         "id": "14",
         "name": "Chile",
         "region": "Latin America and the Caribbean",
-        "iso": "CHL"
+        "iso": "CHL",
+        "code": "CL"
     },
     {
         "id": "15",
         "name": "Colombia",
         "region": "Latin America and the Caribbean",
-        "iso": "COL"
+        "iso": "COL",
+        "code": "CO"
     },
     {
         "id": "16",
         "name": "Cyprus",
         "region": "Southern Europe",
-        "iso": "CYP"
+        "iso": "CYP",
+        "code": "CY"
     },
     {
         "id": "17",
         "name": "Czech Republic",
         "region": "Eastern Europe",
-        "iso": "CZE"
+        "iso": "CZE",
+        "code": "CZ"
     },
     {
         "id": "18",
         "name": "Denmark",
         "region": "Northern Europe",
-        "iso": "DNK"
+        "iso": "DNK",
+        "code": "DK"
     },
     {
         "id": "19",
         "name": "Ecuador",
         "region": "Latin America and the Caribbean",
-        "iso": "ECU"
+        "iso": "ECU",
+        "code": "EC"
     },
     {
         "id": "20",
         "name": "Estonia",
         "region": "Northern Europe",
-        "iso": "EST"
+        "iso": "EST",
+        "code": "EE"
     },
     {
         "id": "21",
         "name": "Fiji",
         "region": "Pacific",
-        "iso": "FJI"
+        "iso": "FJI",
+        "code": "FJ"
     },
     {
         "id": "22",
         "name": "Finland",
         "region": "Northern Europe",
-        "iso": "FIN"
+        "iso": "FIN",
+        "code": "FI"
     },
     {
         "id": "23",
         "name": "France",
         "region": "Western Europe",
-        "iso": "FRA"
+        "iso": "FRA",
+        "code": "FR"
     },
     {
         "id": "24",
         "name": "Germany",
         "region": "Western Europe",
-        "iso": "DEU"
+        "iso": "DEU",
+        "code": "DE"
     },
     {
         "id": "25",
         "name": "Greece",
         "region": "Southern Europe",
-        "iso": "GRC"
+        "iso": "GRC",
+        "code": "GR"
     },
     {
         "id": "26",
         "name": "Hong Kong, China",
         "region": "East and North-East Asia",
-        "iso": "HKG"
+        "iso": "HKG",
+        "code": "HK"
     },
     {
         "id": "27",
         "name": "Croatia",
         "region": "Southern Europe",
-        "iso": "HRV"
+        "iso": "HRV",
+        "code": "HR"
     },
     {
         "id": "28",
         "name": "Hungary",
         "region": "Eastern Europe",
-        "iso": "HUN"
+        "iso": "HUN",
+        "code": "HU"
     },
     {
         "id": "29",
         "name": "India",
         "region": "South and South-West Asia",
-        "iso": "IND"
+        "iso": "IND",
+        "code": "IN"
     },
     {
         "id": "30",
         "name": "Indonesia",
         "region": "South-East Asia",
-        "iso": "IDN"
+        "iso": "IDN",
+        "code": "ID"
     },
     {
         "id": "31",
         "name": "Ireland",
         "region": "Northern Europe",
-        "iso": "IRL"
+        "iso": "IRL",
+        "code": "IE"
     },
     {
         "id": "32",
         "name": "Italy",
         "region": "Southern Europe",
-        "iso": "ITA"
+        "iso": "ITA",
+        "code": "IT"
     },
     {
         "id": "33",
         "name": "Japan",
         "region": "East and North-East Asia",
-        "iso": "JPN"
+        "iso": "JPN",
+        "code": "JP"
     },
     {
         "id": "34",
         "name": "Kazakhstan",
         "region": "North and Central Asia",
-        "iso": "KAZ"
+        "iso": "KAZ",
+        "code": "KZ"
     },
     {
         "id": "35",
         "name": "Kyrgyzstan",
         "region": "North and Central Asia",
-        "iso": "KGZ"
+        "iso": "KGZ",
+        "code": "KG"
     },
     {
         "id": "36",
         "name": "Republic of Korea",
         "region": "East and North-East Asia",
-        "iso": "KOR"
+        "iso": "KOR",
+        "code": "KR"
     },
     {
         "id": "37",
         "name": "Lao PDR",
         "region": "South-East Asia",
-        "iso": "LAO"
+        "iso": "LAO",
+        "code": "LA"
     },
     {
         "id": "38",
         "name": "Lithuania",
         "region": "Northern Europe",
-        "iso": "LTU"
+        "iso": "LTU",
+        "code": "LT"
     },
     {
         "id": "39",
         "name": "Luxembourg",
         "region": "Western Europe",
-        "iso": "LUX"
+        "iso": "LUX",
+        "code": "LU"
     },
     {
         "id": "40",
         "name": "Latvia",
         "region": "Northern Europe",
-        "iso": "LVA"
+        "iso": "LVA",
+        "code": "LV"
     },
     {
         "id": "41",
         "name": "Malaysia",
         "region": "South-East Asia",
-        "iso": "MYS"
+        "iso": "MYS",
+        "code": "MY"
     },
     {
         "id": "42",
         "name": "Mexico",
         "region": "Latin America and the Caribbean",
-        "iso": "MEX"
+        "iso": "MEX",
+        "code": "MX"
     },
     {
         "id": "43",
         "name": "Maldives",
         "region": "South and South-West Asia",
-        "iso": "MDV"
+        "iso": "MDV",
+        "code": "MV"
     },
     {
         "id": "44",
         "name": "Malta",
         "region": "Southern Europe",
-        "iso": "MLT"
+        "iso": "MLT",
+        "code": "MT"
     },
     {
         "id": "45",
         "name": "Mongolia",
         "region": "East and North-East Asia",
-        "iso": "MNG"
+        "iso": "MNG",
+        "code": "MN"
     },
     {
         "id": "46",
         "name": "Nepal",
         "region": "South and South-West Asia",
-        "iso": "NPL"
+        "iso": "NPL",
+        "code": "NP"
     },
     {
         "id": "47",
         "name": "Netherlands",
         "region": "Western Europe",
-        "iso": "NLD"
+        "iso": "NLD",
+        "code": "NL"
     },
     {
         "id": "48",
         "name": "Norway",
         "region": "Northern Europe",
-        "iso": "NOR"
+        "iso": "NOR",
+        "code": "NO"
     },
     {
         "id": "49",
         "name": "Pakistan",
         "region": "South and South-West Asia",
-        "iso": "PAK"
+        "iso": "PAK",
+        "code": "PK"
     },
     {
         "id": "50",
         "name": "Paraguay",
         "region": "Latin America and the Caribbean",
-        "iso": "PRY"
+        "iso": "PRY",
+        "code": "PY"
     },
     {
         "id": "51",
         "name": "Peru",
         "region": "Latin America and the Caribbean",
-        "iso": "PER"
+        "iso": "PER",
+        "code": "PE"
     },
     {
         "id": "52",
         "name": "Philippines",
         "region": "South-East Asia",
-        "iso": "PHL"
+        "iso": "PHL",
+        "code": "PH"
     },
     {
         "id": "53",
         "name": "Poland",
         "region": "Eastern Europe",
-        "iso": "POL"
+        "iso": "POL",
+        "code": "PL"
     },
     {
         "id": "54",
         "name": "Portugal",
         "region": "Southern Europe",
-        "iso": "PRT"
+        "iso": "PRT",
+        "code": "PT"
     },
     {
         "id": "55",
         "name": "China",
         "region": "East and North-East Asia",
-        "iso": "CHN"
+        "iso": "CHN",
+        "code": "CN"
     },
     {
         "id": "56",
         "name": "Rest of the Latin American Countries",
         "region": "Latin America and the Caribbean",
-        "iso": "RoLAC"
+        "iso": "RoLAC",
+        "code": ""
     },
     {
         "id": "57",
         "name": "Romania",
         "region": "Eastern Europe",
-        "iso": "ROU"
+        "iso": "ROU",
+        "code": "RO"
     },
     {
         "id": "58",
         "name": "Rest of the World",
         "region": "-",
-        "iso": "RoW"
+        "iso": "RoW",
+        "code": ""
     },
     {
         "id": "59",
         "name": "Russia Federation",
         "region": "North and Central Asia",
-        "iso": "RUS"
+        "iso": "RUS",
+        "code": "RU"
     },
     {
         "id": "60",
         "name": "Singapore",
         "region": "South-East Asia",
-        "iso": "SGP"
+        "iso": "SGP",
+        "code": "SG"
     },
     {
         "id": "61",
         "name": "Spain",
         "region": "Southern Europe",
-        "iso": "ESP"
+        "iso": "ESP",
+        "code": "ES"
     },
     {
         "id": "62",
         "name": "Sri Lanka",
         "region": "South and South-West Asia",
-        "iso": "LKA"
+        "iso": "LKA",
+        "code": "LK"
     },
     {
         "id": "63",
         "name": "Slovak Republic",
         "region": "Eastern Europe",
-        "iso": "SVK"
+        "iso": "SVK",
+        "code": "SK"
     },
     {
         "id": "64",
         "name": "Slovenia",
         "region": "Southern Europe",
-        "iso": "SVN"
+        "iso": "SVN",
+        "code": "SI"
     },
     {
         "id": "65",
         "name": "Sweden",
         "region": "Northern Europe",
-        "iso": "SWE"
+        "iso": "SWE",
+        "code": "SE"
     },
     {
         "id": "66",
         "name": "Switzerland",
         "region": "Western Europe",
-        "iso": "CHE"
+        "iso": "CHE",
+        "code": "CH"
     },
     {
         "id": "67",
         "name": "Taiwan Province of China",
         "region": "East and North-East Asia",
-        "iso": "TWN"
+        "iso": "TWN",
+        "code": "TW"
     },
     {
         "id": "68",
         "name": "Thailand",
         "region": "South-East Asia",
-        "iso": "THA"
+        "iso": "THA",
+        "code": "TH"
     },
     {
         "id": "69",
         "name": "Turkey",
         "region": "South and South-West Asia",
-        "iso": "TUR"
+        "iso": "TUR",
+        "code": "TR"
     },
     {
         "id": "70",
         "name": "United Kingdom",
         "region": "Northern Europe",
-        "iso": "GBR"
+        "iso": "GBR",
+        "code": "GB"
     },
     {
         "id": "71",
         "name": "Uruguay",
         "region": "Latin America and the Caribbean",
-        "iso": "URY"
+        "iso": "URY",
+        "code": "UY"
     },
     {
         "id": "72",
         "name": "United States",
         "region": "North America",
-        "iso": "USA"
+        "iso": "USA",
+        "code": "US"
     },
     {
         "id": "73",
         "name": "Venezuela",
         "region": "Latin America and the Caribbean",
-        "iso": "VEN"
+        "iso": "VEN",
+        "code": "VE"
     },
     {
         "id": "74",
         "name": "Viet Nam",
         "region": "South-East Asia",
-        "iso": "VNM"
+        "iso": "VNM",
+        "code": "VN"
     }
 ]
