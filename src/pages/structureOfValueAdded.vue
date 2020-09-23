@@ -63,7 +63,7 @@
               bg-color="white"
               v-model="sectorSelected"
               dense
-              :options="exportingOptions"
+              :options="sectorOptions"
               outlined
             ></q-select>
           </div>
