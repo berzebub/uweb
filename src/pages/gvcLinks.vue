@@ -319,7 +319,7 @@
             @filter="filterCountry"
             @input="selectedExporting"
           >
-            <template v-slot:prepend>
+            <template v-slot:prepend v-if="overviewCountry">
               <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
             </template>
 
@@ -1181,26 +1181,16 @@ export default {
     this.getCountryList();
 
     if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
-      let year =
-        this.$route.params.year != "NONE"
-          ? this.$route.params.year
-          : this.$q.sessionStorage.has("year")
-          ? this.$q.sessionStorage.getItem("year")
-          : "";
-
-      this.year = year;
+      this.year = this.$route.params.year
+        ? this.$route.params.year
+        : this.$q.sessionStorage.getItem("year");
     }
 
     // Check Session and Params Exporting
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
-      let expe =
-        this.$route.params.expe != "NONE"
-          ? this.$route.params.expe
-          : this.$q.sessionStorage.has("expe")
-          ? this.$q.sessionStorage.getItem("expe")
-          : "";
-
-      this.exporting = expe;
+      this.exporting = this.$route.params.expe
+        ? this.$route.params.expe
+        : this.$q.sessionStorage.getItem("expe");
       this.countryOptionsShow = this.countryOptions;
     }
 
