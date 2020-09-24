@@ -303,19 +303,17 @@
         <div class="col q-pa-sm">
           <span>Exporting economy</span>
           <q-select
-            v-model="exporting"
+            v-model="displayCountry"
             :options="countryOptionsShow"
             outlined
             bg-color="white"
             class="q-mt-xs"
             dense
-            emit-value
-            map-options
             use-input
             fill-input
             hide-selected
             @filter="filterCountry"
-            @input="selectedExporting"
+            @input="selectedCountryAndYear"
           >
             <template v-slot:prepend v-if="overviewCountry">
               <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
@@ -342,19 +340,19 @@
         <div class="col q-pa-sm">
           <span>Year</span>
           <q-select
-            v-model="year"
+            v-model="displayYear"
             :options="yearOptions"
             outlined
             bg-color="white"
             class="q-mt-xs"
             dense
-            @input="selectedYear"
+            @input="selectedCountryAndYear"
           ></q-select>
         </div>
       </div>
     </div>
 
-    <div v-if="exporting && year">
+    <div v-if="displayCountry && displayYear">
       <div class="row justify-center q-pa-md">
         <div class="col-12 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
@@ -377,7 +375,11 @@
 
       <q-separator class="no-margin bg-grey-5 shadow-1" />
 
-      <div class="q-pa-md">
+      <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
+        <q-spinner-pie color="primary" size="100px" />
+      </div>
+
+      <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
           <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
         </div>
@@ -386,13 +388,15 @@
           <div class="row justify-center">
             <div class="col-10">
               <p class="font-content">
-                {{}}’s GVC exports amount to 22% ($4 billion) of its gross
+                {{overviewCountry.label}}’s GVC exports amount to {{graphGVC.total_percent}}% (${{graphGVC.total_value}} billion) of its gross
                 exports in 2017
               </p>
-              <p class="font-content">Imported content comprising 14% ($2 billion) of gross exports</p>
+              <p
+                class="font-content"
+              >Imported content comprising {{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion) of gross exports</p>
               <p class="font-content">
                 Export of intermediates used in further export production
-                comprising 8% ($1 billion) of gross exports
+                comprising {{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion) of gross exports
               </p>
             </div>
 
@@ -406,18 +410,27 @@
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    Share: 8% of gross exports
-                    <br />Value: $1 billion
+                    Share: {{graphGVC.export_percent}}% of gross exports
+                    <br />
+                    Value: ${{graphGVC.export_value}} billion
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
                   <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
+                      v-if="graphGVC.export_value > graphGVC.import_value  "
                       class="absolute-center"
-                      width="200px"
+                      width="100%"
                       :src="require('../../public/arrow/arrow-blue-big.png')"
                     ></q-img>
+                    <q-img
+                      v-if="graphGVC.export_value < graphGVC.import_value"
+                      class="absolute-center"
+                      width="100%"
+                      :src="require('../../public/arrow/arrow-blue-small.png')"
+                    ></q-img>
+                    <!-- graphGVC.import_value -->
                   </div>
                 </div>
               </div>
@@ -425,12 +438,7 @@
               <!-- Country Content -->
               <div class="col-3 self-end q-py-md" align="center">
                 <div class>
-                  <gb-flag
-                    v-if="overviewCountry.code"
-                    :code="overviewCountry.code"
-                    height="100px"
-                    style="border:1px solid"
-                  />
+                  <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
                 </div>
                 <div class="relative-position q-pt-md">
                   <span class="absolute-center font-title text-no-wrap">
@@ -451,17 +459,24 @@
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    <span>Share: 8% of gross exports</span>
+                    <span>Share: {{graphGVC.import_percent}}% of gross exports</span>
                     <br />
-                    <span>Value: $1 billion</span>
+                    <span>Value: ${{graphGVC.import_value}} billion</span>
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
                   <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
+                      v-if="graphGVC.import_value > graphGVC.export_value"
                       class="absolute-center"
-                      width="200px"
+                      width="100%"
+                      :src="require('../../public/arrow/arrow-red-big.png')"
+                    ></q-img>
+                    <q-img
+                      v-if="graphGVC.import_value < graphGVC.export_value"
+                      class="absolute-center"
+                      width="100%"
                       :src="require('../../public/arrow/arrow-red-small.png')"
                     ></q-img>
                   </div>
@@ -474,7 +489,11 @@
 
       <q-separator class="no-margin bg-grey-5 shadow-1" />
 
-      <div class="q-pa-md">
+      <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
+        <q-spinner-pie color="primary" size="100px" />
+      </div>
+
+      <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
           <span class="font-title">key GVC relationships: by exporting sector</span>
         </div>
@@ -517,62 +536,24 @@
           <div class="col-10 row q-py-xl">
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
-                <div class="absolute" style="right:0;top:0;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
+                <div
+                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
+                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  style="right:0;"
+                  v-for="(item,index) in graphBackwardGVCSector"
+                  :key="index"
+                >
+                  <q-img
+                    width="500px"
+                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + '.png')"
+                  >
                     <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:7%;left:10%;"
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="left:10%;"
                     >
-                      <div class="text-white">transport equipment</div>
-                      <div class="text-white">26.91% , $410M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;top:95px;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:11%;left:10%;"
-                    >
-                      <div class="text-white">food and beverage</div>
-                      <div class="text-white">4.42% , $180M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div style="right:0;" class="graph-arrow-center">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:22%;left:10%;"
-                    >
-                      <div class="text-white">Chemicals</div>
-                      <div class="text-white">4.00% , $160M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;bottom:95px;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
-                    >
-                      <div class="text-white">Agriculture</div>
-                      <div class="text-white">3.31% , $91M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;bottom:0;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
-                    >
-                      <div class="text-white">Inland transport</div>
-                      <div class="text-white">8.06% , $8.6M</div>
+                      <div class="text-white">{{item.sector}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
                 </div>
@@ -589,58 +570,24 @@
             </div>
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
-                <div class="absolute" style="left:0;top:0;">
-                  <q-img width="500px" src="../../public/arrow/red-graph-1.png">
+                <div
+                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
+                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  style="left:0;"
+                  v-for="(item,index) in graphForwardGVCSector"
+                  :key="index"
+                >
+                  <q-img
+                    width="500px"
+                    :src="require('../../public/arrow/red-graph-' + (index + 1) + '.png')"
+                  >
                     <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:7%;right:10%;direction: rtl;"
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-right':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="right:10%;direction: rtl;"
                     >
-                      <div class="text-white">Agriculture</div>
-                      <div class="text-white">22.85%, $59M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;top:95px;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-2.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:11%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Food and beverage</div>
-                      <div class="text-white">13.85%, $29M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;" class="graph-arrow-center">
-                  <q-img width="500px" src="../../public/arrow/red-graph-3.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:22%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Metals</div>
-                      <div class="text-white">26.14%. $25M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;bottom:95px;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-4.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:11%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Other business activites</div>
-                      <div class="text-white">19.34%. $21M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;bottom:0;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-5.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:7%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Chemicals</div>
-                      <div class="text-white">17.61%. $15M</div>
+                      <div class="text-white">{{item.sector}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
                 </div>
@@ -652,7 +599,11 @@
 
       <q-separator class="no-margin bg-grey-5 shadow-1" />
 
-      <div class="q-pa-md">
+      <div align="center" class="q-pa-lg" v-if="!isGraphGVCEconomy">
+        <q-spinner-pie color="primary" size="100px" />
+      </div>
+
+      <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
           <span class="font-title">key GVC relationships: by partner economy</span>
         </div>
@@ -691,62 +642,24 @@
           <div class="col-10 row q-py-xl">
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
-                <div class="absolute" style="right:0;top:0;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
+                <div
+                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
+                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  style="right:0;"
+                  v-for="(item,index) in graphBackwardGVCEconomy"
+                  :key="index"
+                >
+                  <q-img
+                    width="500px"
+                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + '.png')"
+                  >
                     <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:7%;left:10%;"
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="left:10%;"
                     >
-                      <div class="text-white">Brazil</div>
-                      <div class="text-white">1.23% , $202M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;top:95px;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:11%;left:10%;"
-                    >
-                      <div class="text-white">United states</div>
-                      <div class="text-white">1.22% , $201M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div style="right:0;" class="graph-arrow-center">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:22%;left:10%;"
-                    >
-                      <div class="text-white">China</div>
-                      <div class="text-white">0.9% , $153M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;bottom:95px;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
-                    >
-                      <div class="text-white">India</div>
-                      <div class="text-white">0.81% , $142M</div>
-                    </span>
-                  </q-img>
-                </div>
-
-                <div class="absolute" style="right:0;bottom:0;">
-                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
-                    >
-                      <div class="text-white">Denmark</div>
-                      <div class="text-white">0.45% , $4.6M</div>
+                      <div class="text-white">{{item.country}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
                 </div>
@@ -763,58 +676,24 @@
             </div>
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
-                <div class="absolute" style="left:0;top:0;">
-                  <q-img width="500px" src="../../public/arrow/red-graph-1.png">
+                <div
+                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
+                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  style="left:0;"
+                  v-for="(item,index) in graphForwardGVCEconomy"
+                  :key="index"
+                >
+                  <q-img
+                    width="500px"
+                    :src="require('../../public/arrow/red-graph-' + (index + 1) + '.png')"
+                  >
                     <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:7%;right:10%;direction: rtl;"
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-right':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="right:10%;direction: rtl;"
                     >
-                      <div class="text-white">Chile</div>
-                      <div class="text-white">22.85%, $59M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;top:95px;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-2.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:11%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">China</div>
-                      <div class="text-white">14.36%, $36M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;" class="graph-arrow-center">
-                  <q-img width="500px" src="../../public/arrow/red-graph-3.png">
-                    <span
-                      class="absolute-right"
-                      style="width:fit-content;height:fit-content;top:22%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Japan</div>
-                      <div class="text-white">10.32%, $24M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;bottom:95px;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-4.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:11%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">Spain</div>
-                      <div class="text-white">12.23%, $14M</div>
-                    </span>
-                  </q-img>
-                </div>
-                <div style="left:0;bottom:0;" class="absolute">
-                  <q-img width="500px" src="../../public/arrow/red-graph-5.png">
-                    <span
-                      class="absolute-bottom-right"
-                      style="width:fit-content;height:fit-content;bottom:7%;right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">India</div>
-                      <div class="text-white">8.83%, $6M</div>
+                      <div class="text-white">{{item.country}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
                 </div>
@@ -822,18 +701,18 @@
             </div>
           </div>
         </div>
-      </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
+        <q-separator class="no-margin bg-grey-5 shadow-1" />
 
-      <div class="q-py-xl" align="center">
-        <q-btn
-          no-caps
-          outline
-          class="q-pa-sm font-content"
-          style="width:250px;border-radius:0px;"
-          label="Continue"
-        ></q-btn>
+        <div class="q-py-xl" align="center">
+          <q-btn
+            no-caps
+            outline
+            class="q-pa-sm font-content"
+            style="width:250px;border-radius:0px;"
+            label="Continue"
+          ></q-btn>
+        </div>
       </div>
     </div>
 
@@ -872,10 +751,6 @@ export default {
   },
   data() {
     return {
-      // ------------------- New Pattern -------------------
-      exporting: "",
-      year: "",
-
       countryOptions: [],
       yearOptions: [
         "2007",
@@ -890,8 +765,6 @@ export default {
         "2016",
         "2017",
       ],
-
-      // ------------------- End Pattern -------------------
 
       displayCountry: "",
       displayYear: "",
@@ -916,9 +789,9 @@ export default {
 
   computed: {
     overviewCountry() {
-      if (this.exporting) {
+      if (this.displayCountry) {
         let res = this.countryOptions.filter(
-          (x) => x.value == this.exporting
+          (x) => x.value == this.displayCountry.value
         )[0];
 
         return res;
@@ -933,20 +806,18 @@ export default {
         );
       });
     },
-    selectedExporting(val) {
-      let year = this.year || "NONE";
 
-      this.$q.sessionStorage.set("expe", val);
+    selectedCountryAndYear() {
+      if (this.displayCountry != "" && this.year != "") {
+        this.$q.sessionStorage.set("expe", this.displayCountry);
+        this.$q.sessionStorage.set("year", this.displayYear);
 
-      this.$router.push("/gvc-links/" + val + "/" + year);
-    },
+        this.loadGVCGraph();
 
-    selectedYear(val) {
-      let expe = this.exporting || "NONE";
+        this.loadGVCGraphSector();
 
-      this.$q.sessionStorage.set("year", val);
-
-      this.$router.push("/gvc-links/" + expe + "/" + val);
+        this.loadGVCGraphEconomy();
+      }
     },
 
     // ------------------------- END -------------------------
@@ -955,18 +826,6 @@ export default {
       this.$router.push("/involvement");
       // cselec  = country and year that user selected
       this.$q.sessionStorage.set("cselec", this.displayCountry);
-    },
-
-    getEmitData(val) {
-      this.displayCountry = val;
-      this.displayYear = val.year;
-      if (this.displayCountry != "" && this.displayYear != "") {
-        this.isShowContent = true;
-        this.loadGVCGraph();
-
-        this.loadGVCGraphSector();
-        this.loadGVCGraphEconomy();
-      }
     },
 
     async loadGVCGraph() {
@@ -981,8 +840,6 @@ export default {
         import_value: 0,
         export_percent: 0,
         export_value: 0,
-        redsize: 0,
-        greensize: 0,
       };
 
       let getData = await Axios.get(url);
@@ -995,93 +852,14 @@ export default {
     async loadGVCGraphSector() {
       this.isGraphGVCSector = false;
 
-      let urlLinkBackward = `https://api.winner-english.com/u_api/cal_gvc_graph1_back.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
 
-      let urlLinkForward = `https://api.winner-english.com/u_api/cal_gvc_graph1_forward.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let getData = await Axios.get(urlLink);
 
-      let getDataBackward = await Axios.get(urlLinkBackward);
+      getData = [...getData.data];
 
-      let getDataForward = await Axios.get(urlLinkForward);
-
-      let backwardData = getDataBackward.data;
-      let forwardData = getDataForward.data;
-
-      let valueArr = [];
-      let valArr = [];
-
-      let resultVal = "";
-      let resultValue = "";
-
-      backwardData.forEach((x) => {
-        valueArr.push(x.value);
-        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
-      });
-
-      forwardData.forEach((x) => {
-        valueArr.push(x.value);
-        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
-      });
-
-      resultValue = Math.max(...valueArr);
-
-      resultVal = Math.max(...valArr);
-
-      backwardData.forEach((x) => {
-        x.valuepx =
-          (x.value * 25) / resultValue < 10
-            ? "10"
-            : ((x.value * 25) / resultValue).toFixed(0);
-        x.val1px =
-          (x.val1 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val1 * 17) / resultVal).toFixed(0);
-        x.val2px =
-          (x.val2 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val2 * 17) / resultVal).toFixed(0);
-        x.val3px =
-          (x.val3 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val3 * 17) / resultVal).toFixed(0);
-        x.val4px =
-          (x.val4 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val4 * 17) / resultVal).toFixed(0);
-        x.val5px =
-          (x.val5 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val5 * 17) / resultVal).toFixed(0);
-      });
-
-      forwardData.forEach((x) => {
-        x.valuepx =
-          (x.value * 25) / resultValue < 10
-            ? "10"
-            : ((x.value * 25) / resultValue).toFixed(0);
-        x.val1px =
-          (x.val1 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val1 * 17) / resultVal).toFixed(0);
-        x.val2px =
-          (x.val2 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val2 * 17) / resultVal).toFixed(0);
-        x.val3px =
-          (x.val3 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val3 * 17) / resultVal).toFixed(0);
-        x.val4px =
-          (x.val4 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val4 * 17) / resultVal).toFixed(0);
-        x.val5px =
-          (x.val5 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val5 * 17) / resultVal).toFixed(0);
-      });
-
-      this.graphBackwardGVCSector = backwardData;
-      this.graphForwardGVCSector = forwardData;
+      this.graphBackwardGVCSector = getData.slice(0, 5);
+      this.graphForwardGVCSector = getData.slice(5, 10);
 
       this.isGraphGVCSector = true;
     },
@@ -1089,109 +867,14 @@ export default {
     async loadGVCGraphEconomy() {
       this.isGraphGVCEconomy = false;
 
-      let urlLinkBackward = `https://api.winner-english.com/u_api/cal_gvc_graph2_back.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
 
-      let urlLinkForward = `https://api.winner-english.com/u_api/cal_gvc_graph2_forward.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let getData = await Axios.get(urlLink);
 
-      let getDataBackward = await Axios.get(urlLinkBackward);
+      getData = [...getData.data];
 
-      let getDataForward = await Axios.get(urlLinkForward);
-
-      let backwardData = getDataBackward.data;
-      let forwardData = getDataForward.data;
-
-      let valueArr = [];
-      let valArr = [];
-
-      let resultVal = "";
-      let resultValue = "";
-
-      backwardData.forEach((x) => {
-        valueArr.push(x.value);
-        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
-      });
-
-      forwardData.forEach((x) => {
-        valueArr.push(x.value);
-        valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
-      });
-
-      resultValue = Math.max(...valueArr);
-
-      resultVal = Math.max(...valArr);
-
-      backwardData.forEach((x) => {
-        // x.exp_country1 = x.exp_sector1;
-        // x.exp_country2 = x.exp_sector2;
-        // x.exp_country3 = x.exp_sector3;
-        // x.exp_country4 = x.exp_sector4;
-        // x.exp_country5 = x.exp_sector5;
-
-        x.sector = x.source_country;
-
-        x.valuepx =
-          (x.value * 25) / resultValue < 10
-            ? "10"
-            : ((x.value * 25) / resultValue).toFixed(0);
-        x.val1px =
-          (x.val1 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val1 * 17) / resultVal).toFixed(0);
-        x.val2px =
-          (x.val2 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val2 * 17) / resultVal).toFixed(0);
-        x.val3px =
-          (x.val3 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val3 * 17) / resultVal).toFixed(0);
-        x.val4px =
-          (x.val4 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val4 * 17) / resultVal).toFixed(0);
-        x.val5px =
-          (x.val5 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val5 * 17) / resultVal).toFixed(0);
-      });
-
-      forwardData.forEach((x) => {
-        // x.exp_country1 = x.exp_sector1;
-        // x.exp_country2 = x.exp_sector2;
-        // x.exp_country3 = x.exp_sector3;
-        // x.exp_country4 = x.exp_sector4;
-        // x.exp_country5 = x.exp_sector5;
-
-        x.sector = x.source_country;
-
-        x.valuepx =
-          (x.value * 25) / resultValue < 10
-            ? "10"
-            : ((x.value * 25) / resultValue).toFixed(0);
-        x.val1px =
-          (x.val1 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val1 * 17) / resultVal).toFixed(0);
-        x.val2px =
-          (x.val2 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val2 * 17) / resultVal).toFixed(0);
-        x.val3px =
-          (x.val3 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val3 * 17) / resultVal).toFixed(0);
-        x.val4px =
-          (x.val4 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val4 * 17) / resultVal).toFixed(0);
-        x.val5px =
-          (x.val5 * 17) / resultVal < 7
-            ? "7"
-            : ((x.val5 * 17) / resultVal).toFixed(0);
-      });
-
-      this.graphBackwardGVCEconomy = backwardData;
-      this.graphForwardGVCEconomy = forwardData;
+      this.graphBackwardGVCEconomy = getData.slice(0, 5);
+      this.graphForwardGVCEconomy = getData.slice(5, 10);
 
       this.isGraphGVCEconomy = true;
     },
@@ -1202,18 +885,21 @@ export default {
 
     this.getCountryList();
 
-    if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
-      this.year = this.$route.params.year
+    if (
+      (this.$q.sessionStorage.has("year") || this.$route.params.year) &&
+      (this.$q.sessionStorage.has("expe") || this.$route.params.expe)
+    ) {
+      this.displayYear = this.$route.params.year
         ? this.$route.params.year
         : this.$q.sessionStorage.getItem("year");
-    }
 
-    // Check Session and Params Exporting
-    if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
-      this.exporting = this.$route.params.expe
+      this.displayCountry = this.$route.params.expe
         ? this.$route.params.expe
         : this.$q.sessionStorage.getItem("expe");
+
       this.countryOptionsShow = this.countryOptions;
+
+      this.selectedCountryAndYear();
     }
 
     // this.checkPlatform();
