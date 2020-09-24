@@ -9,7 +9,7 @@
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div style="width:90%;max-width:1200px; margin:auto;">
           <p align="center" class="font-24">Download data</p>
-          <p>Mauris accuml dia in lacus edipiscng aliqIn pdei quetsit amet euis inuctor ut liguliquamapibus tincidurent justo dolor loboed ant sagittis euismod tincidurent justo dolor loboed ant sagittis euismod.</p>
+          <p>Query and download detailed data on value-added trade indicators for your economies, sectors and years of interest. Please make your desired selection from the menus below.</p>
         </div>
 
         <div
@@ -20,7 +20,7 @@
             <q-select
               v-model="indicator"
               :options="indicatorList"
-              label="indicator"
+              label="indicator (select one)"
               emit-value
               map-options
               @input="resetDownloadState()"
@@ -31,7 +31,7 @@
             <q-select
               v-model="exporting"
               :options="countryList"
-              label="Exporting Country"
+              label="Exporting economy"
               multiple
               emit-value
               map-options
@@ -45,7 +45,7 @@
               v-show="indicator!='Forward_link_country'"
               v-model="importing"
               :options="countryList"
-              label="Importing Country"
+              label="Importing economy"
               multiple
               emit-value
               map-options
@@ -59,7 +59,7 @@
               v-show="indicator!='Back_link_sector' && indicator!='Forward_link_sector' "
               v-model="sector"
               :options="sectorList"
-              label="Sector"
+              label="Exporting sector"
               multiple
               emit-value
               map-options
@@ -73,7 +73,7 @@
               v-show="indicator=='Back_link_sector'"
               v-model="source"
               :options="countryList"
-              label="Source Country"
+              label="Source economy"
               multiple
               emit-value
               map-options
