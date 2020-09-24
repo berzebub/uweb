@@ -8,6 +8,10 @@ import CountryFlag from 'vue-country-flag'
 import VueFlags from "@growthbunker/vueflags";
 var VueScrollTo = require("vue-scrollto");
 
+
+
+
+
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);

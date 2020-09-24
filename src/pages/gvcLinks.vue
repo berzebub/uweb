@@ -293,12 +293,10 @@
     </div>
   </q-page>-->
 
-  <q-page>
+  <q-page style="background-color:white">
     <global-value-chains-header></global-value-chains-header>
     <!-- MENU -->
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
-
-    <!-- <img src="../../public/flags/fr.svg" alt /> -->
 
     <div class="row justify-center bg12 q-pa-md">
       <div class="col-5 row" style="width:600px">
@@ -320,27 +318,21 @@
             @input="selectedExporting"
           >
             <template v-slot:prepend v-if="overviewCountry">
-              <gb-flag
-                v-if="overviewCountry.code"
-                :code="overviewCountry.code"
-                size="small"
-              />
+              <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
             </template>
 
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
-                  <gb-flag
-                    v-if="scope.opt.code"
-                    :code="scope.opt.code"
-                    size="small"
-                  />
+                  <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
-                  <q-item-label caption>{{
+                  <q-item-label caption>
+                    {{
                     scope.opt.description
-                  }}</q-item-label>
+                    }}
+                  </q-item-label>
                 </q-item-section>
               </q-item>
             </template>
@@ -364,38 +356,19 @@
 
     <div v-if="exporting && year">
       <div class="row justify-center q-pa-md">
-        <div
-          class="col-12 row font-content"
-          style="width:900px;"
-          align="center"
-        >
+        <div class="col-12 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
-            <q-btn
-              class="q-py-md fit"
-              outline
-              no-caps
-              style="border-radius:0px;"
-            >
+            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
               <span class="font-content">Overview</span>
             </q-btn>
           </div>
           <div class="col q-mx-lg q-px-lg">
-            <q-btn
-              class="q-py-md fit"
-              outline
-              no-caps
-              style="border-radius:0px;"
-            >
+            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
               <span class="font-content" no-caps>By exporting sector</span>
             </q-btn>
           </div>
           <div class="col q-pl-lg">
-            <q-btn
-              class="q-py-md fit"
-              outline
-              no-caps
-              style="border-radius:0px;"
-            >
+            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
               <span class="font-content">By partner economy</span>
             </q-btn>
           </div>
@@ -406,9 +379,7 @@
 
       <div class="q-pa-md">
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >{{ overviewCountry.label }}'s key GVC relationships: Overview</span
-          >
+          <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
         </div>
 
         <div class="q-mt-xl">
@@ -418,9 +389,7 @@
                 {{}}’s GVC exports amount to 22% ($4 billion) of its gross
                 exports in 2017
               </p>
-              <p class="font-content">
-                Imported content comprising 14% ($2 billion) of gross exports
-              </p>
+              <p class="font-content">Imported content comprising 14% ($2 billion) of gross exports</p>
               <p class="font-content">
                 Export of intermediates used in further export production
                 comprising 8% ($1 billion) of gross exports
@@ -443,10 +412,7 @@
                 </div>
 
                 <div class="col-12 self-end">
-                  <div
-                    class="q-py-lg q-mt-md relative-position"
-                    style="height:120px;"
-                  >
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
                       class="absolute-center"
                       width="200px"
@@ -457,18 +423,21 @@
               </div>
 
               <!-- Country Content -->
-              <div class="col-3 self-end" align="center">
-                <div>
+              <div class="col-3 self-end q-py-md" align="center">
+                <div class>
                   <gb-flag
                     v-if="overviewCountry.code"
                     :code="overviewCountry.code"
                     height="100px"
+                    style="border:1px solid"
                   />
                 </div>
-                <div class="relative-position q-mt-md">
-                  <span class="absolute-center font-title text-no-wrap">{{
+                <div class="relative-position q-pt-md">
+                  <span class="absolute-center font-title text-no-wrap">
+                    {{
                     overviewCountry.label
-                  }}</span>
+                    }}
+                  </span>
                 </div>
               </div>
 
@@ -478,9 +447,7 @@
                   <div>
                     <span>Export of intermediates used in</span>
                     <br />
-                    <span class="text-no-wrap"
-                      >export production (Forward linkages)</span
-                    >
+                    <span class="text-no-wrap">export production (Forward linkages)</span>
                   </div>
 
                   <div class="q-mt-sm" align="center">
@@ -491,10 +458,7 @@
                 </div>
 
                 <div class="col-12 self-end">
-                  <div
-                    class="q-py-lg q-mt-md relative-position"
-                    style="height:120px;"
-                  >
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
                       class="absolute-center"
                       width="200px"
@@ -512,9 +476,7 @@
 
       <div class="q-pa-md">
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >key GVC relationships: by exporting sector</span
-          >
+          <span class="font-title">key GVC relationships: by exporting sector</span>
         </div>
 
         <div class="row justify-center">
@@ -525,10 +487,10 @@
                 <br />
                 <span class="text-bold">Sector</span>
                 <br />
-                <span
-                  >Share of foreign value-added in sectoral gross exports
-                  (%)</span
-                >
+                <span>
+                  Share of foreign value-added in sectoral gross exports
+                  (%)
+                </span>
                 <br />
                 <span>Foreign value-added ($)</span>
               </div>
@@ -542,10 +504,10 @@
                 <br />
                 <span class="text-bold">Sector</span>
                 <br />
-                <span
-                  >Share of contribution to partner exports, in sectoral gross
-                  exports (%)</span
-                >
+                <span>
+                  Share of contribution to partner exports, in sectoral gross
+                  exports (%)
+                </span>
                 <br />
                 <span>Contribution to partner exports ($)</span>
               </div>
@@ -556,10 +518,7 @@
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
                 <div class="absolute" style="right:0;top:0;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-1.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:7%;left:10%;"
@@ -571,10 +530,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;top:95px;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-2.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:11%;left:10%;"
@@ -586,10 +542,7 @@
                 </div>
 
                 <div style="right:0;" class="graph-arrow-center">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-3.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:22%;left:10%;"
@@ -601,10 +554,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;bottom:95px;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-4.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
                     <span
                       class="absolute-bottom-right"
                       style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
@@ -616,10 +566,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;bottom:0;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-5.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
                     <span
                       class="absolute-bottom-right"
                       style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
@@ -634,11 +581,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <gb-flag
-                  v-if="overviewCountry.code"
-                  :code="overviewCountry.code"
-                  height="100px"
-                />
+                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
@@ -711,9 +654,7 @@
 
       <div class="q-pa-md">
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >key GVC relationships: by partner economy</span
-          >
+          <span class="font-title">key GVC relationships: by partner economy</span>
         </div>
 
         <div class="row justify-center">
@@ -737,10 +678,10 @@
                 <br />
                 <span class="text-bold">Improting economy</span>
                 <br />
-                <span
-                  >Share of contribution to partner exports, in gross exports
-                  (%)</span
-                >
+                <span>
+                  Share of contribution to partner exports, in gross exports
+                  (%)
+                </span>
                 <br />
                 <span>Contribution to partner exports ($)</span>
               </div>
@@ -751,10 +692,7 @@
             <div class="col q-py-md">
               <div class="relative-position" style="height:460px;">
                 <div class="absolute" style="right:0;top:0;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-1.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-1.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:7%;left:10%;"
@@ -766,10 +704,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;top:95px;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-2.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-2.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:11%;left:10%;"
@@ -781,10 +716,7 @@
                 </div>
 
                 <div style="right:0;" class="graph-arrow-center">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-3.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-3.png">
                     <span
                       class="absolute-right"
                       style="width:fit-content;height:fit-content;top:22%;left:10%;"
@@ -796,10 +728,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;bottom:95px;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-4.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-4.png">
                     <span
                       class="absolute-bottom-right"
                       style="width:fit-content;height:fit-content;bottom:11%;left:10%;"
@@ -811,10 +740,7 @@
                 </div>
 
                 <div class="absolute" style="right:0;bottom:0;">
-                  <q-img
-                    width="500px"
-                    src="../../public/arrow/blue-graph-5.png"
-                  >
+                  <q-img width="500px" src="../../public/arrow/blue-graph-5.png">
                     <span
                       class="absolute-bottom-right"
                       style="width:fit-content;height:fit-content;bottom:7%;left:10%;"
@@ -829,11 +755,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
               <div>
-                <gb-flag
-                  v-if="overviewCountry.code"
-                  :code="overviewCountry.code"
-                  height="100px"
-                />
+                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
@@ -917,11 +839,7 @@
 
     <div v-else>
       <q-img src="../../public/waiting.png" width="100%">
-        <span
-          class="absolute-center font-graph"
-          style="width:500px;"
-          align="center"
-        >
+        <span class="absolute-center font-graph" style="width:500px;" align="center">
           Please choose exporting economy and year from the drop down menus
           above
         </span>
@@ -950,7 +868,7 @@ export default {
     forwardGraphGvc,
     globalValueChainsHeader,
     globalValueChainsMenu,
-    footerMenu
+    footerMenu,
   },
   data() {
     return {
@@ -970,7 +888,7 @@ export default {
         "2014",
         "2015",
         "2016",
-        "2017"
+        "2017",
       ],
 
       // ------------------- End Pattern -------------------
@@ -992,24 +910,26 @@ export default {
       isShowContent: false,
 
       test: [],
-      countryOptionsShow: []
+      countryOptionsShow: [],
     };
   },
 
   computed: {
     overviewCountry() {
       if (this.exporting) {
-        let res = this.countryOptions.filter(x => x.value == this.exporting)[0];
+        let res = this.countryOptions.filter(
+          (x) => x.value == this.exporting
+        )[0];
 
         return res;
       }
-    }
+    },
   },
   methods: {
     filterCountry(val, update) {
       update(async () => {
         this.countryOptionsShow = this.countryOptions.filter(
-          x => x.label.indexOf(val) > -1
+          (x) => x.label.indexOf(val) > -1
         );
       });
     },
@@ -1062,7 +982,7 @@ export default {
         export_percent: 0,
         export_value: 0,
         redsize: 0,
-        greensize: 0
+        greensize: 0,
       };
 
       let getData = await Axios.get(url);
@@ -1092,12 +1012,12 @@ export default {
       let resultVal = "";
       let resultValue = "";
 
-      backwardData.forEach(x => {
+      backwardData.forEach((x) => {
         valueArr.push(x.value);
         valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
       });
 
-      forwardData.forEach(x => {
+      forwardData.forEach((x) => {
         valueArr.push(x.value);
         valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
       });
@@ -1106,7 +1026,7 @@ export default {
 
       resultVal = Math.max(...valArr);
 
-      backwardData.forEach(x => {
+      backwardData.forEach((x) => {
         x.valuepx =
           (x.value * 25) / resultValue < 10
             ? "10"
@@ -1133,7 +1053,7 @@ export default {
             : ((x.val5 * 17) / resultVal).toFixed(0);
       });
 
-      forwardData.forEach(x => {
+      forwardData.forEach((x) => {
         x.valuepx =
           (x.value * 25) / resultValue < 10
             ? "10"
@@ -1186,12 +1106,12 @@ export default {
       let resultVal = "";
       let resultValue = "";
 
-      backwardData.forEach(x => {
+      backwardData.forEach((x) => {
         valueArr.push(x.value);
         valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
       });
 
-      forwardData.forEach(x => {
+      forwardData.forEach((x) => {
         valueArr.push(x.value);
         valArr.push(Math.max(...[x.val1, x.val2, x.val3, x.val4, x.val5]));
       });
@@ -1200,7 +1120,7 @@ export default {
 
       resultVal = Math.max(...valArr);
 
-      backwardData.forEach(x => {
+      backwardData.forEach((x) => {
         // x.exp_country1 = x.exp_sector1;
         // x.exp_country2 = x.exp_sector2;
         // x.exp_country3 = x.exp_sector3;
@@ -1235,7 +1155,7 @@ export default {
             : ((x.val5 * 17) / resultVal).toFixed(0);
       });
 
-      forwardData.forEach(x => {
+      forwardData.forEach((x) => {
         // x.exp_country1 = x.exp_sector1;
         // x.exp_country2 = x.exp_sector2;
         // x.exp_country3 = x.exp_sector3;
@@ -1274,7 +1194,7 @@ export default {
       this.graphForwardGVCEconomy = forwardData;
 
       this.isGraphGVCEconomy = true;
-    }
+    },
   },
 
   mounted() {
@@ -1297,7 +1217,7 @@ export default {
     }
 
     // this.checkPlatform();
-  }
+  },
 };
 </script>
 
