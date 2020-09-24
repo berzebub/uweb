@@ -10,19 +10,6 @@
         <div class="col-3 q-px-md">
           <div>Exporting economy</div>
           <div>
-            <!-- <q-select
-              bg-color="white"
-              v-model="exportingSelected"
-              dense
-              :options="exportingOptions"
-              outlined
-            >
-              <template v-slot:selected-item="props">
-                <q-img :src="props.opt.flag" width="30px" />
-                <span class="q-mx-sm">{{ props.opt.label }}</span>
-              </template>
-            </q-select>-->
-
             <q-select
               v-model="exportingSelected"
               :options="countryOptionsShow"
@@ -30,16 +17,14 @@
               bg-color="white"
               class="q-mt-xs"
               dense
-              emit-value
-              map-options
               use-input
               fill-input
               hide-selected
               @filter="filterCountry"
-              @input="selectedExporting"
+              @input="selectedExporting()"
             >
-              <template v-slot:prepend v-if="overviewCountry">
-                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
+              <template v-slot:prepend v-if="exportingSelected.code">
+                <gb-flag :code="exportingSelected.code" size="small" />
               </template>
 
               <template v-slot:option="scope">
@@ -66,9 +51,12 @@
             <q-select
               outlined
               bg-color="white"
-              v-model="yearSelected"
+              v-model="year"
               dense
-              :options="exportingOptions"
+              :options="dataYearList"
+              map-options
+              emit-value
+              @input="changeYear()"
             ></q-select>
           </div>
         </div>
@@ -81,13 +69,34 @@
             <q-select
               bg-color="white"
               v-model="importingSelected"
-              dense
-              :options="importing"
+              :options="countryOptionsShow"
               outlined
+              class="q-mt-xs"
+              dense
+              use-input
+              fill-input
+              hide-selected
+              @filter="filterCountry"
+              @input="selectedImporting()"
             >
-              <template v-slot:selected-item="props">
-                <q-img :src="props.opt.flag" width="30px" />
-                <span class="q-mx-sm">{{ props.opt.label }}</span>
+              <template v-slot:prepend v-if="importingSelected.code">
+                <gb-flag v-if="importingSelected.code" :code="importingSelected.code" size="small" />
+              </template>
+
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section avatar>
+                    <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
+                  </q-item-section>
+                  <q-item-section>
+                    <q-item-label v-html="scope.opt.label" />
+                    <q-item-label caption>
+                      {{
+                      scope.opt.description
+                      }}
+                    </q-item-label>
+                  </q-item-section>
+                </q-item>
               </template>
             </q-select>
           </div>
@@ -101,6 +110,9 @@
               dense
               :options="sectorOptions"
               outlined
+              map-options
+              emit-value
+              @input="selectedSector()"
             ></q-select>
           </div>
         </div>
@@ -168,7 +180,7 @@
       </div>
     </div>
     <!--  -->
-    <div style="padding-top:50px;padding-bottom:50px">
+    <div style="padding-top:90px;padding-bottom:50px">
       <p align="center" class="font-24">Key policy questions</p>
 
       <div class="font-content" style="padding :0px 60px">
@@ -438,9 +450,11 @@ export default {
         },
       ],
       exportingSelected: "",
-      yearSelected: "",
+      year: "",
       importingSelected: "",
       sectorSelected: "",
+      countryOptionsShow: [],
+      dataYearList: [],
 
       // OLD
       isShowPage: false,
@@ -486,6 +500,20 @@ export default {
     };
   },
   methods: {
+    changeYear() {
+      this.$q.sessionStorage.set("year", this.year);
+      this.getStructureOfValue();
+    },
+    selectedExporting() {
+      this.$q.sessionStorage.set("expe", this.exportingSelected);
+      this.getStructureOfValue();
+    },
+    selectedImporting() {
+      this.getStructureOfValue();
+    },
+    selectedSector() {
+      this.getStructureOfValue();
+    },
     // checkShowPage() {
     //   if (
     //     this.displayExportingEconomy != "" &&
@@ -521,25 +549,25 @@ export default {
         (x) => x.value == this.sectorSelected
       )[0];
 
-      if (countryData) {
-        this.displayImportingEconomy = countryData.label;
-        this.imp_country = countryData.iso;
-      }
+      // if (countryData) {
+      //   this.displayImportingEconomy = countryData.label;
+      //   this.imp_country = countryData.iso;
+      // }
 
-      if (sectorData) {
-        this.displaySector = sectorData.label;
-        this.sector = sectorData.value;
-      }
-      let check = this.checkShowPage();
-      if (check) {
-        if (this.displayImportingEconomy == this.displayExportingEconomy) {
-          this.isShowErrorWarning = true;
-          return;
-        }
-        this.isShowErrorWarning = false;
+      // if (sectorData) {
+      //   this.displaySector = sectorData.label;
+      //   this.sector = sectorData.value;
+      // }
+      // let check = this.checkShowPage();
+      // if (check) {
+      //   if (this.displayImportingEconomy == this.displayExportingEconomy) {
+      //     this.isShowErrorWarning = true;
+      //     return;
+      //   }
+      //   this.isShowErrorWarning = false;
 
-        this.renderGraph(); // Render Graph
-      }
+      this.renderGraph(); // Render Graph
+      // }
     },
 
     // Render Graph
@@ -552,9 +580,13 @@ export default {
     async setStackChart() {
       this.isStructureChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
+
+      console.log(urlLink);
 
       let getData = await Axios.get(urlLink);
+
+      console.log(getData.data);
 
       getData = getData.data;
       this.dataChart1Percent.imp_cons = (
@@ -719,7 +751,7 @@ export default {
     async setStackChart2() {
       this.isComparisonChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
 
       let getData = await Axios.get(urlLink);
 
@@ -864,7 +896,7 @@ export default {
     async setStackChart3() {
       this.isMeasuringChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
 
       let getData = await Axios.get(urlLink);
 
@@ -944,17 +976,19 @@ export default {
       });
     },
 
-    selectedExporting(val) {
-      let year = this.year || "NONE";
-
-      this.$q.sessionStorage.set("expe", val);
-
-      this.$router.push("/gvc-links/" + val + "/" + year);
+    async getYear() {
+      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let data = await Axios.get(url);
+      let temp = [];
+      data.data.forEach((element) => {
+        temp.push({ index: Number(element), label: element });
+      });
+      this.dataYearList = temp;
     },
   },
-  mounted() {
-    // await this.getCountryList();
-    // await this.getSectorList();
+  async mounted() {
+    await this.getSectorList();
+    await this.getYear();
     this.getCountryList();
 
     if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
@@ -965,22 +999,11 @@ export default {
 
     // Check Session and Params Exporting
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
-      this.exporting = this.$route.params.expe
-        ? this.$route.params.expe
+      this.exportingSelected = this.$route.params.expe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
         : this.$q.sessionStorage.getItem("expe");
       this.countryOptionsShow = this.countryOptions;
     }
-  },
-  computed: {
-    overviewCountry() {
-      if (this.exporting) {
-        let res = this.countryOptions.filter(
-          (x) => x.value == this.exporting
-        )[0];
-
-        return res;
-      }
-    },
   },
 };
 </script>
