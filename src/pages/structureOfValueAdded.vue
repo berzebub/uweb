@@ -421,6 +421,11 @@ import errorPage from "../components/error-page";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
+let CancelToken = Axios.CancelToken;
+let source = CancelToken.source();
+let cancelGraph1;
+let cancelGraph2;
+let cancelGraph3;
 export default {
   components: {
     appBar,
@@ -434,6 +439,10 @@ export default {
   data() {
     return {
       // NEW
+
+      CancelToken: "",
+      source: "",
+
       exportingOptions: [
         {
           label: "Argentina",
@@ -572,6 +581,8 @@ export default {
 
     // Render Graph
     renderGraph() {
+      // this.source.cancel("Operation canceled by the user.");
+
       this.setStackChart();
       this.setStackChart2();
       this.setStackChart3();
@@ -582,11 +593,17 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
 
-      console.log(urlLink);
+      if (cancelGraph1 !== undefined) {
+        cancelGraph1();
+      }
 
-      let getData = await Axios.get(urlLink);
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph1 = c;
+        }),
+      });
 
-      console.log(getData.data);
+      console.log("graph1", getData.data);
 
       getData = getData.data;
       this.dataChart1Percent.imp_cons = (
@@ -753,9 +770,18 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph2 !== undefined) {
+        cancelGraph2();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph2 = c;
+        }),
+      });
 
       getData = getData.data;
+      console.log("graph2", getData);
 
       let country = [];
       let imp_cons = [];
@@ -898,10 +924,19 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph3 !== undefined) {
+        cancelGraph3();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph3 = c;
+        }),
+      });
 
       getData = getData.data;
 
+      console.log("graph3", getData);
       this.isMeasuringChart = true;
 
       Highcharts.chart("container2", {
