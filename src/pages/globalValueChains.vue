@@ -19,10 +19,10 @@
             v-show="hoverActiveIndex != index"
           >
             <div class="q-pt-md">
-              <div align="center" class>
+              <div align="center" style="height:80px;">
                 <q-img :src="card.icon" style="width:76px"></q-img>
               </div>
-              <div class="q-pt-lg font-14" align="center">{{card.text}}</div>
+              <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
             </div>
           </div>
 
@@ -38,8 +38,9 @@
           </div>
         </div>
       </div>
-
-      <q-separator color="black" />
+      <div class="q-px-md">
+        <q-separator color="grey-5" size="2px" />
+      </div>
 
       <div class="row q-pt-md">
         <div
@@ -51,16 +52,11 @@
           @mouseleave="deactiveHoverCard()"
           @click="cardClick(card.router)"
         >
-          <div
-            class="menu-card card-color shadow-5"
-            style="padding:30px"
-            v-show="hoverActiveIndex2 != index"
-          >
-            <div class="q-pt-md">
-              <div align="center" class>
-                <q-icon size="76px" name="far fa-user-circle"></q-icon>
-              </div>
-              <div class="q-pt-lg font-16" align="center">{{card.text}}</div>
+          <div class="menu-card card-color shadow-5" v-show="hoverActiveIndex2 != index">
+            <div>
+              <q-img :src="card.icon" style="border-radius:5px 5px 0px 0px; height:180px;"></q-img>
+
+              <div class="q-pt-md font-16" align="center">{{card.text}}</div>
             </div>
           </div>
 
@@ -70,7 +66,10 @@
           >
             <div class="q-pt-md q-px-sm">
               <div class="font-20 text-white" align="center">{{card.text}}</div>
-              <div class="font-16 text-white q-pt-md">{{ card.hover }}</div>
+              <div
+                class="font-16 text-white q-pt-md"
+                style="width: 70%; max-width:400px;"
+              >{{ card.hover }}</div>
             </div>
           </div>
         </div>
@@ -102,16 +101,16 @@ export default {
         },
         {
           icon: require("../../public/images/icon02.png"),
-          text: "What about content of exports",
+          text: "What about content of exports?",
           hover:
             "Get an overview of value-added export structure for your economy of choice. See how this changes perception of bilateral trade balances",
           router: "/structure-of-value-added",
         },
         {
           icon: require("../../public/images/icon03.png"),
-          text: "What about participation in GVCs",
+          text: "What about participation in GVCs?",
           hover:
-            "Get an overview of value-added export structure for your economy of choice. See how this changes perception of bilateral trade balances",
+            "Get an overview of GVC related trade for your economy of choice. Compare across sub-regional partners",
           router: "/participation-in-gvcs",
         },
         {
@@ -131,14 +130,14 @@ export default {
       ],
       cardList2: [
         {
-          icon: "",
+          icon: require("../../public/downloaddata.png"),
           text: "Download data",
           hover:
             "Query and download detailed data on value-added trade indicators for your economies, sectors and years of interest",
           router: "/download",
         },
         {
-          icon: "",
+          icon: require("../../public/countrybrief.png"),
           text: "Country briefs",
           hover:
             "Get a summary of involvement in value-chains for your economy of choice",

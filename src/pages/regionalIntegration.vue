@@ -32,11 +32,18 @@
         <p class="font-content">PLEASE COME BACK LATER</p>
       </div>
     </div>
+    <!-- FOOTER -->
+    <my-footer></my-footer>
   </q-page>
 </template>
 
 <script>
-export default {};
+import myFooter from "../components/footer";
+export default {
+  components: {
+    myFooter,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

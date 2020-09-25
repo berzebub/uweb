@@ -6,7 +6,10 @@
       </video>
 
       <div style="padding-top:20px;padding-left:20px" class="absolute">
-        <div style="background-color:rgba(2,11,59,0.8);width:450px;" class="text-white row">
+        <div
+          style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
+          class="text-white row"
+        >
           <div style="width:100%">
             <div style="height:15px">&nbsp;</div>
             <div style="font-size:28px" align="center">Regional Integration</div>
@@ -32,7 +35,10 @@
 
       <div style="height:20px"></div>
       <div class="absolute-bottom" style="padding-bottom:230px;padding-right:20px" align="right">
-        <div style="background-color:rgba(2,11,59,0.8);width:450px;" class="text-white row">
+        <div
+          style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
+          class="text-white row"
+        >
           <div class style="width:100%">
             <div style="height:15px">&nbsp;</div>
             <div align="center" style="font-size:28px">Global Value Chains</div>
