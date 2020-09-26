@@ -581,6 +581,12 @@ export default {
       this.renderGraph();
     }
   },
+
+  beforeDestroy() {
+    if (cancelGraph !== undefined) {
+      cancelGraph();
+    }
+  },
 };
 </script>
 

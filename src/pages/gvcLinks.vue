@@ -605,6 +605,16 @@ import globalValueChainsMenu from "../components/menu";
 import footerMenu from "../components/footer";
 import dataWaiting from "../components/dataWaiting.vue";
 
+let CancelToken = Axios.CancelToken;
+let source = CancelToken.source();
+let cancelGraph1;
+let cancelGraph2;
+let cancelGraph3;
+let cancelGraph4;
+let cancelGraph5;
+let cancelGraph6;
+let cancelGraph7;
+
 export default {
   components: {
     appBar,
@@ -747,7 +757,7 @@ export default {
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
-      let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
 
       let formatData = {
         total_percent: 0,
@@ -758,7 +768,15 @@ export default {
         export_value: 0,
       };
 
-      let getData = await Axios.get(url);
+      if (cancelGraph1 !== undefined) {
+        cancelGraph1();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph1 = c;
+        }),
+      });
 
       this.graphGVC = getData.data == "" ? formatData : getData.data;
 
@@ -770,7 +788,15 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph2 !== undefined) {
+        cancelGraph2();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph2 = c;
+        }),
+      });
 
       getData = [...getData.data];
 
@@ -785,7 +811,15 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph3 !== undefined) {
+        cancelGraph3();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph3 = c;
+        }),
+      });
 
       getData = [...getData.data];
 
@@ -806,10 +840,17 @@ export default {
     async highchartBackwardSector(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
+      if (cancelGraph4 !== undefined) {
+        cancelGraph4();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sector: val.sector,
         year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph4 = c;
+        }),
       });
 
       getData = getData.data;
@@ -932,10 +973,17 @@ export default {
     async highchartForwardSector(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
+      if (cancelGraph5 !== undefined) {
+        cancelGraph5();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sector: val.sector,
         year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph5 = c;
+        }),
       });
 
       getData = getData.data;
@@ -1058,10 +1106,17 @@ export default {
     async highchartBackwardEconomy(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
+      if (cancelGraph6 !== undefined) {
+        cancelGraph6();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sourcing: val.country,
         year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph6 = c;
+        }),
       });
 
       getData = getData.data;
@@ -1179,10 +1234,17 @@ export default {
     async highchartForwardEconomy(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
+      if (cancelGraph7 !== undefined) {
+        cancelGraph7();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sourcing: val.country,
         year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph7 = c;
+        }),
       });
 
       getData = getData.data;
@@ -1332,6 +1394,35 @@ export default {
     }
 
     // this.checkPlatform();
+  },
+  beforeDestroy() {
+    if (cancelGraph1 !== undefined) {
+      cancelGraph1();
+    }
+
+    if (cancelGraph2 !== undefined) {
+      cancelGraph2();
+    }
+
+    if (cancelGraph3 !== undefined) {
+      cancelGraph3();
+    }
+
+    if (cancelGraph4 !== undefined) {
+      cancelGraph4();
+    }
+
+    if (cancelGraph5 !== undefined) {
+      cancelGraph5();
+    }
+
+    if (cancelGraph6 !== undefined) {
+      cancelGraph6();
+    }
+
+    if (cancelGraph7 !== undefined) {
+      cancelGraph7();
+    }
   },
 };
 </script>
