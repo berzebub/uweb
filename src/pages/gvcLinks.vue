@@ -1,298 +1,4 @@
 <template>
-  <!-- <q-page
-    class="container"
-    :class="!isShowContent ? 'bg-loading' : 'bg-white'"
-    style="padding-bottom:100px"
-  >
-    
-    <div
-      v-if="!isShowContent"
-      class="absolute-center font-graph"
-    >Please choose your exporting economy and year of interest.</div>
-
-    <app-bar
-      :isShowKeyGVCBtn="false"
-      :isShowTitle="true"
-      @countrySelected="getEmitData"
-      :isShowLogo="true"
-      class="shadow-2"
-    ></app-bar>
-
-    <div v-if="isShowContent">
-      <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
-        <q-spinner-pie color="primary" size="100px" />
-      </div>
-
-      
-      <div
-        class="font-content q-px-xl q-pt-md"
-        style="width:90%; margin:auto; max-width:1200px;"
-        v-show="isGraphGVC"
-      >
-        <div class="row justify-center q-py-md">
-          <div class="col-4">
-            <q-btn
-              v-scroll-to="'#keyGVC'"
-              outline
-              style="width:90%;margin:auto"
-              no-caps
-              color="indigo-10"
-            >
-              <span class="indigo-10 font-content">Overview</span>
-            </q-btn>
-          </div>
-          <div class="col-4">
-            <q-btn
-              v-scroll-to="'#exportingSector'"
-              outline
-              color="indigo-10"
-              style="width:90%;margin:auto"
-              no-caps
-            >
-              <span class="indigo-10 font-content">By exporting sector</span>
-            </q-btn>
-          </div>
-          <div class="col-4">
-            <q-btn
-              v-scroll-to="'#byEconomy'"
-              outline
-              color="indigo-10"
-              style="width:90%;margin:auto"
-              no-caps
-            >
-              <span class="indigo-10 font-content">By partner economy</span>
-            </q-btn>
-          </div>
-        </div>
-
-        <div class="relative-position q-my-md">
-          <p
-            class="font-page"
-            align="center"
-            id="keyGVC"
-          >{{ displayCountry.name }}'s key GVC relationships: Overview</p>
-        </div>
-        <p>
-          <b>
-            {{ displayCountry.name }}’s GVC exports amount to
-            <span
-              class="text-red"
-            >{{graphGVC.total_percent}}% (${{graphGVC.total_value}} billion)</span>
-            of its gross exports in {{displayYear}}
-          </b>
-        </p>
-        <p>
-          Imported content comprising
-          <span
-            class="text-red"
-          >{{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion)</span> of gross exports
-        </p>
-        <p>
-          Export of intermediates used in further export production comprising
-          <span
-            class="text-red"
-          >{{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion)</span> of gross exports
-        </p>
-
-        <div style="height:50px;"></div>
-        <div style="max-width:1200px;margin:auto" class>
-          <div class="row items-start">
-            <div style="width:300px" align="center">
-              <div class="color1">
-                <b>
-                  Imported content used in exports
-                  (Backward linkages)
-                </b>
-                <br />
-                Share: {{graphGVC.import_percent}}% of gross exports
-                <br />
-                Value: ${{graphGVC.import_value}} billion
-              </div>
-            </div>
-            <div class="col"></div>
-            <div class style="width:300px" align="center">
-              <div class="color2">
-                <b>
-                  Export of intermediates used in
-                  export production
-                  (Forward linkages)
-                </b>
-                <br />
-                Share: {{graphGVC.export_percent}}% of gross exports
-                <br />
-                Value: ${{graphGVC.export_value}} billion
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <table style="max-width:1200px;margin:auto;" class>
-              <tr>
-                <td style="width:120px;">
-                  <div
-                    :style="{width:graphGVC.redsize + 'px',height:graphGVC.redsize + 'px'}"
-                    style="border-radius:50%;"
-                    class="bg1"
-                    v-if="graphGVC.redsize"
-                  ></div>
-                </td>
-                <td align="center" style="width:160px;">
-                  <q-img src="../../public/arrow-right-red.png" v-if="graphGVC.redsize"></q-img>
-                </td>
-                <td style="font-size:24px; width:290px;" class="text-black" align="center">
-                  <b>{{ displayCountry.name }}</b>
-                </td>
-                <td align="center" style="width:160px;">
-                  <q-img
-                    v-if="graphGVC.greensize"
-                    style="width:150px"
-                    src="../../public/arrow-right-green.png"
-                  ></q-img>
-                </td>
-                <td style="width:120px;">
-                  <div
-                    v-if="graphGVC.greensize"
-                    :style="{width:graphGVC.greensize + 'px',height:graphGVC.greensize + 'px'}"
-                    style="border-radius:50%;"
-                    class="bg2"
-                  ></div>
-                </td>
-              </tr>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div style="height:50px;"></div>
-      <hr />
-
-      
-      <div style="height:20px;"></div>
-      <p id="exportingSector" class="font-graph q-py-md" align="center">
-        <b>key GVC relationships: by exporting sector</b>
-      </p>
-      <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
-        <div class="col-5">
-          <div class="color4 font-content">
-            <b>Backward linkages</b>
-          </div>
-          <span class="no-padding">
-            <b>Sector</b>
-          </span>
-          <p>
-            Share of foreign value-added in sectoral gross exports (%)
-            <br />Foreign value-added (billions)
-          </p>
-        </div>
-        <div class="col-5 offset-2">
-          <div class="color4 font-content">
-            <b>Forward linkages</b>
-          </div>
-          <span class="no-padding">
-            <b>Sector</b>
-          </span>
-          <p>
-            Share of contribution to partner exports, in sectoral gross exports (%)
-            <br />Contribution to partner exports (billions)
-          </p>
-        </div>
-      </div>
-      <div class="row justify-center items-center" style="width:1200px;margin:auto;">
-        <div class="col">
-          <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-if="isGraphGVCSector">
-            <backward-graph-gvc :data="graphBackwardGVCSector"></backward-graph-gvc>
-          </div>
-        </div>
-        <div align="center" class="font-graph col-2" style="width:300px;">
-          <b>{{ displayCountry.name }}</b>
-        </div>
-        <div class="col">
-          <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-
-          <div class v-if="isGraphGVCSector">
-            <forward-graph-gvc :data="graphForwardGVCSector"></forward-graph-gvc>
-          </div>
-        </div>
-      </div>
-
-      <div style="height:50px"></div>
-      <hr />
-      <div style="height:20px"></div>
-
-      
-      <p class="font-graph q-py-md" id="byEconomy" align="center">
-        <b>key GVC relationships: by partner economy</b>
-      </p>
-
-      <div class="row q-pa-md" style="width:90%; margin:auto; max-width:1200px;">
-        <div class="col-5">
-          <div class="color4 font-content">
-            <b>Backward linkages</b>
-          </div>
-          <span class="no-padding">
-            <b>Source economy</b>
-          </span>
-          <p>
-            Share of foreign value-added in sectoral gross exports (%)
-            <br />Foreign value-added (billions)
-          </p>
-        </div>
-        <div class="col-5 offset-2">
-          <div class="color4 font-content">
-            <b>Forward linkages</b>
-          </div>
-          <span class="no-padding">
-            <b>Importing economy</b>
-          </span>
-          <p>
-            Share of contribution to partner exports, in sectoral gross exports (%)
-            <br />Contribution to partner exports (billions)
-          </p>
-        </div>
-      </div>
-
-      <div class="row items-center justify-center" style="width:1200px;margin:auto;">
-        <div class="col">
-          <div align="center" class="q-pa-lg" v-if="!isGraphGVCEconomy">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-if="isGraphGVCEconomy">
-            <backward-graph-gvc :data="graphBackwardGVCEconomy"></backward-graph-gvc>
-          </div>
-        </div>
-        <div align="center" class="font-graph col-2" style="width:300px;">
-          <b>{{ displayCountry.name }}</b>
-        </div>
-        <div class="col">
-          <div align="center" class="q-pa-lg" v-if="!isGraphGVCEconomy">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-if="isGraphGVCEconomy">
-            
-            <forward-graph-gvc :data="graphForwardGVCEconomy"></forward-graph-gvc>
-          </div>
-        </div>
-      </div>
-
-      <div style="height:20px"></div>
-      <div class="q-px-md" align="right">
-        <q-btn
-          @click="toInvolvement()"
-          no-caps
-          class="bg4 font-content"
-          style="border-radius:10px;width:200px;"
-          label="Continue"
-        ></q-btn>
-      </div>
-
-      <div style="height:20px"></div>
-    </div>
-  </q-page>-->
-
   <q-page style="background-color:white">
     <global-value-chains-header></global-value-chains-header>
     <!-- MENU -->
@@ -408,21 +114,21 @@
           <div class="row justify-center">
             <div class="col-10">
               <p class="font-content">
-                {{overviewCountry.label}}’s GVC exports amount to {{graphGVC.total_percent}}% (${{graphGVC.total_value}} billion) of its gross
+                {{overviewCountry.label}}’s GVC exports amount to {{graphGVC.total_percent}}% (${{graphGVC.total_value > 1000 ? (graphGVC.total_value/1000).toFixed(2) + ' billion' : graphGVC.total_value + ' millon' }}) of its gross
                 exports in 2017
               </p>
               <p class="font-content">
                 Imported content comprising
                 <span
                   class="c-blue"
-                >{{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion)</span> of gross exports
+                >{{graphGVC.import_percent}}% (${{graphGVC.import_value > 1000 ? (graphGVC.import_value/1000).toFixed(2) + ' billion' : graphGVC.import_value + ' millon' }} )</span> of gross exports
               </p>
               <p class="font-content">
                 Export of intermediates used in further export production
                 comprising
                 <span
                   class="c-red"
-                >{{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion)</span> of gross exports
+                >{{graphGVC.export_percent}}% (${{graphGVC.export_value > 1000 ? (graphGVC.export_value/1000).toFixed(2) + ' billion' : graphGVC.export_value + ' millon'}})</span> of gross exports
               </p>
             </div>
 
@@ -436,22 +142,22 @@
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    Share: {{graphGVC.export_percent}}% of gross exports
+                    Share: {{graphGVC.import_percent}}% of gross exports
                     <br />
-                    Value: ${{graphGVC.export_value}} billion
+                    Value: ${{graphGVC.import_value > 1000 ? (graphGVC.import_value/1000).toFixed(2) + ' billion' : graphGVC.import_value + ' millon'}}
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
                   <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
-                      v-if="graphGVC.export_value > graphGVC.import_value"
+                      v-if="graphGVC.export_value < graphGVC.import_value"
                       class="absolute-center"
                       width="100%"
                       :src="require('../../public/arrow/arrow-blue-big.png')"
                     ></q-img>
                     <q-img
-                      v-if="graphGVC.export_value < graphGVC.import_value"
+                      v-if="graphGVC.export_value > graphGVC.import_value"
                       class="absolute-center"
                       width="100%"
                       :src="require('../../public/arrow/arrow-blue-small.png')"
@@ -485,22 +191,22 @@
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    <span>Share: {{graphGVC.import_percent}}% of gross exports</span>
+                    <span>Share: {{graphGVC.export_percent}}% of gross exports</span>
                     <br />
-                    <span>Value: ${{graphGVC.import_value}} billion</span>
+                    <span>Value: ${{graphGVC.export_value > 1000 ? (graphGVC.export_value/1000).toFixed(2) + ' billion' : graphGVC.export_value + ' millon'}} billion</span>
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
                   <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
-                      v-if="graphGVC.import_value > graphGVC.export_value"
+                      v-if="graphGVC.import_value < graphGVC.export_value"
                       class="absolute-center"
                       width="100%"
                       :src="require('../../public/arrow/arrow-red-big.png')"
                     ></q-img>
                     <q-img
-                      v-if="graphGVC.import_value < graphGVC.export_value"
+                      v-if="graphGVC.import_value > graphGVC.export_value"
                       class="absolute-center"
                       width="100%"
                       :src="require('../../public/arrow/arrow-red-small.png')"
