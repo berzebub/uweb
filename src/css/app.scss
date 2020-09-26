@@ -5,6 +5,10 @@
   src: url(../../public/fonts/Roboto-Regular.ttf);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: roboto;
   width: 100%;

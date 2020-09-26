@@ -356,24 +356,42 @@
       <div class="row justify-center q-pa-md">
         <div class="col-12 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
-            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
+            <q-btn
+              class="bg-white q-py-md fit"
+              v-scroll-to="'#pageOverview'"
+              outline
+              no-caps
+              style="border-radius:0px;"
+            >
               <span class="font-content">Overview</span>
             </q-btn>
           </div>
           <div class="col q-mx-lg q-px-lg">
-            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
+            <q-btn
+              v-scroll-to="'#pageSector'"
+              class="bg-white q-py-md fit"
+              outline
+              no-caps
+              style="border-radius:0px;"
+            >
               <span class="font-content" no-caps>By exporting sector</span>
             </q-btn>
           </div>
           <div class="col q-pl-lg">
-            <q-btn class="bg-white q-py-md fit" outline no-caps style="border-radius:0px;">
+            <q-btn
+              v-scroll-to="'#pageEconomy'"
+              class="bg-white q-py-md fit"
+              outline
+              no-caps
+              style="border-radius:0px;"
+            >
               <span class="font-content">By partner economy</span>
             </q-btn>
           </div>
         </div>
       </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
+      <q-separator class="no-margin bg-grey-5 shadow-1" id="pageOverview" />
 
       <div align="center" class="q-pa-lg" v-if="!isGraphGVC">
         <q-spinner-pie color="primary" size="100px" />
@@ -487,7 +505,7 @@
         </div>
       </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
+      <q-separator class="no-margin bg-grey-5 shadow-1" id="pageSector" />
 
       <div align="center" class="q-pa-lg" v-if="!isGraphGVCSector">
         <q-spinner-pie color="primary" size="100px" />
@@ -534,11 +552,13 @@
           </div>
 
           <div class="col-10 row q-py-xl">
-            <div class="col q-py-md">
-              <div class="relative-position" style="height:460px;">
+            <div class="col q-py-lg" style="height:560px;">
+              <div class="relative-position" style="height:460px;" v-if="backwardSectorLinkToggle">
                 <div
+                  class="cursor-pointer"
+                  @click="highchartBackwardSector(item)"
                   :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  :style="[index == 0 ? {top:'0px',zIndex:'100'} : {},index == 1 ? {top:'95px',zIndex:'300'} : {},index == 2 ? {zIndex:'500'} : {},index == 3 ? {bottom:'95px',zIndex:'300'} : {},index == 4 ? {bottom:'0px',zIndex:'100'} : {}]"
                   style="right:0;"
                   v-for="(item,index) in graphBackwardGVCSector"
                   :key="index"
@@ -558,6 +578,22 @@
                   </q-img>
                 </div>
               </div>
+
+              <div v-show="!backwardSectorLinkToggle">
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
+                  <div id="backwardSector"></div>
+                </div>
+
+                <div class="q-mt-md" align="center">
+                  <q-btn
+                    style="width:160px;"
+                    outline
+                    label="Back to main chart"
+                    no-caps
+                    @click="backwardSectorLinkToggle = !backwardSectorLinkToggle"
+                  ></q-btn>
+                </div>
+              </div>
             </div>
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
@@ -568,11 +604,13 @@
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-            <div class="col q-py-md">
-              <div class="relative-position" style="height:460px;">
+            <div class="col q-py-lg" style="height:560px;">
+              <div class="relative-position" style="height:460px;" v-if="forwardSectorLinkToggle">
                 <div
+                  class="cursor-pointer"
+                  @click="highchartForwardSector(item)"
                   :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  :style="[index == 0 ? {top:'0px',zIndex:'100'} : {},index == 1 ? {top:'95px',zIndex:'300'} : {},index == 2 ? {zIndex:'500'} : {},index == 3 ? {bottom:'95px',zIndex:'300'} : {},index == 4 ? {bottom:'0px',zIndex:'100'} : {}]"
                   style="left:0;"
                   v-for="(item,index) in graphForwardGVCSector"
                   :key="index"
@@ -592,12 +630,28 @@
                   </q-img>
                 </div>
               </div>
+
+              <div v-show="!forwardSectorLinkToggle">
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
+                  <div id="forwardSector"></div>
+                </div>
+
+                <div class="q-mt-md" align="center">
+                  <q-btn
+                    style="width:160px;"
+                    outline
+                    label="Back to main chart"
+                    no-caps
+                    @click="forwardSectorLinkToggle = !forwardSectorLinkToggle"
+                  ></q-btn>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
+      <q-separator class="no-margin bg-grey-5 shadow-1" id="pageEconomy" />
 
       <div align="center" class="q-pa-lg" v-if="!isGraphGVCEconomy">
         <q-spinner-pie color="primary" size="100px" />
@@ -640,11 +694,13 @@
           </div>
 
           <div class="col-10 row q-py-xl">
-            <div class="col q-py-md">
-              <div class="relative-position" style="height:460px;">
+            <div class="col q-py-lg" style="height:560px;">
+              <div class="relative-position" style="height:460px;" v-if="backwardEconomyLinkToggle">
                 <div
+                  class="cursor-pointer"
+                  @click="highchartBackwardEconomy(item)"
                   :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  :style="[index == 0 ? {top:'0px',zIndex:'100'} : {},index == 1 ? {top:'95px',zIndex:'300'} : {},index == 2 ? {zIndex:'500'} : {},index == 3 ? {bottom:'95px',zIndex:'300'} : {},index == 4 ? {bottom:'0px',zIndex:'100'} : {}]"
                   style="right:0;"
                   v-for="(item,index) in graphBackwardGVCEconomy"
                   :key="index"
@@ -664,6 +720,22 @@
                   </q-img>
                 </div>
               </div>
+
+              <div v-show="!backwardEconomyLinkToggle">
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
+                  <div id="backwardEconomy"></div>
+                </div>
+
+                <div class="q-mt-md" align="center">
+                  <q-btn
+                    style="width:160px;"
+                    outline
+                    label="Back to main chart"
+                    no-caps
+                    @click="backwardEconomyLinkToggle = !backwardEconomyLinkToggle"
+                  ></q-btn>
+                </div>
+              </div>
             </div>
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:150px;" align="center">
@@ -674,11 +746,17 @@
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-            <div class="col q-py-md">
-              <div class="relative-position" style="height:460px;">
+            <div class="col q-py-lg" style="height:560px;">
+              <div
+                class="relative-position"
+                style="height:460px;"
+                v-show="forwardEconomyLinkToggle"
+              >
                 <div
+                  class="cursor-pointer"
+                  @click="highchartForwardEconomy(item)"
                   :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[index == 0 ? {top:'0px'} : {},index == 1 ? {top:'95px'} : {},index == 2 ? {} : {},index == 3 ? {bottom:'95px'} : {},index == 4 ? {bottom:'0px'} : {}]"
+                  :style="[index == 0 ? {top:'0px',zIndex:'100'} : {},index == 1 ? {top:'95px',zIndex:'300'} : {},index == 2 ? {zIndex:'500'} : {},index == 3 ? {bottom:'95px',zIndex:'300'} : {},index == 4 ? {bottom:'0px',zIndex:'100'} : {}]"
                   style="left:0;"
                   v-for="(item,index) in graphForwardGVCEconomy"
                   :key="index"
@@ -698,20 +776,24 @@
                   </q-img>
                 </div>
               </div>
+
+              <div v-show="!forwardEconomyLinkToggle" class>
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
+                  <div id="forwardEconomy"></div>
+                </div>
+
+                <div class="q-mt-md" align="center">
+                  <q-btn
+                    style="width:160px;"
+                    outline
+                    label="Back to main chart"
+                    no-caps
+                    @click="forwardEconomyLinkToggle = !forwardEconomyLinkToggle"
+                  ></q-btn>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-
-        <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-        <div class="q-py-xl" align="center">
-          <q-btn
-            no-caps
-            outline
-            class="q-pa-sm font-content"
-            style="width:250px;border-radius:0px;"
-            label="Continue"
-          ></q-btn>
         </div>
       </div>
     </div>
@@ -782,8 +864,13 @@ export default {
 
       isShowContent: false,
 
-      test: [],
       countryOptionsShow: [],
+
+      backwardSectorLinkToggle: true,
+      forwardSectorLinkToggle: true,
+
+      backwardEconomyLinkToggle: true,
+      forwardEconomyLinkToggle: true,
     };
   },
 
@@ -856,7 +943,7 @@ export default {
 
       let getData = await Axios.get(urlLink);
 
-      getData = [...getData.data];
+      getData = getData.data;
 
       this.graphBackwardGVCSector = getData.slice(0, 5);
       this.graphForwardGVCSector = getData.slice(5, 10);
@@ -871,12 +958,464 @@ export default {
 
       let getData = await Axios.get(urlLink);
 
-      getData = [...getData.data];
+      getData = getData.data;
 
       this.graphBackwardGVCEconomy = getData.slice(0, 5);
       this.graphForwardGVCEconomy = getData.slice(5, 10);
 
       this.isGraphGVCEconomy = true;
+    },
+
+    async highchartBackwardSector(val) {
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
+
+      let getData = await Axios.post(urlLink, {
+        exporting: this.displayCountry.iso,
+        sector: val.sector,
+        year: this.displayYear,
+      });
+
+      getData = getData.data;
+
+      let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
+
+      getData.forEach((x, index) => {
+        x.color = setColor[index];
+        x.name = x.country;
+        x.y = x.val;
+      });
+
+      let getValue = getData.map((x) => {
+        return x.val;
+      });
+
+      let setValue = Math.min(...getValue);
+
+      if (setValue > 1000) {
+        getData.forEach((x) => {
+          x.y = x.val / 1000;
+        });
+      } else {
+        getData.forEach((x) => {
+          x.y = x.val;
+        });
+      }
+
+      this.backwardSectorLinkToggle = false;
+
+      Highcharts.chart("backwardSector", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: val.sector,
+        },
+        subtitle: {
+          text: `${val.precent}%, ${val.value}M`,
+        },
+
+        exporting: {
+          enabled: false,
+        },
+        accessibility: {
+          announceNewData: {
+            enabled: true,
+          },
+        },
+        xAxis: {
+          categories: ["", "", "", "", ""],
+        },
+        yAxis: {
+          title: {
+            text: "gross imports ($)",
+          },
+        },
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          width: "500",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          symbolWidth: 0,
+          labelFormatter: function () {
+            return (
+              '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
+              this.color +
+              ';"></div></td><td style="padding-left:12px;">' +
+              this.name +
+              "</td></tr></table></div>"
+            );
+          },
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+          },
+        },
+
+        tooltip: {
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>' +
+            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
+            "</b> of total<br/>",
+        },
+
+        series: [
+          {
+            colorByPoint: true,
+            data: getData,
+            showInLegend: true,
+            legendType: "point",
+          },
+        ],
+      });
+    },
+
+    async highchartForwardSector(val) {
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
+
+      let getData = await Axios.post(urlLink, {
+        exporting: this.displayCountry.iso,
+        sector: val.sector,
+        year: this.displayYear,
+      });
+
+      getData = getData.data;
+
+      let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
+
+      getData.forEach((x, index) => {
+        x.color = setColor[index];
+        x.name = x.country;
+        x.y = x.val;
+      });
+
+      let getValue = getData.map((x) => {
+        return x.val;
+      });
+
+      let setValue = Math.min(...getValue);
+
+      if (setValue > 1000) {
+        getData.forEach((x) => {
+          x.y = x.val / 1000;
+        });
+      } else {
+        getData.forEach((x) => {
+          x.y = x.val;
+        });
+      }
+
+      this.forwardSectorLinkToggle = false;
+
+      Highcharts.chart("forwardSector", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: val.sector,
+        },
+        subtitle: {
+          text: `${val.precent}%, ${val.value}M`,
+        },
+
+        exporting: {
+          enabled: false,
+        },
+        accessibility: {
+          announceNewData: {
+            enabled: true,
+          },
+        },
+        xAxis: {
+          categories: ["", "", "", "", ""],
+        },
+        yAxis: {
+          title: {
+            text: "gross imports ($)",
+          },
+        },
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          width: "500",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          symbolWidth: 0,
+          labelFormatter: function () {
+            return (
+              '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
+              this.color +
+              ';"></div></td><td style="padding-left:12px;">' +
+              this.name +
+              "</td></tr></table></div>"
+            );
+          },
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+          },
+        },
+
+        tooltip: {
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>' +
+            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
+            "</b> of total<br/>",
+        },
+
+        series: [
+          {
+            colorByPoint: true,
+            data: getData,
+            showInLegend: true,
+            legendType: "point",
+          },
+        ],
+      });
+    },
+
+    async highchartBackwardEconomy(val) {
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
+
+      let getData = await Axios.post(urlLink, {
+        exporting: this.displayCountry.iso,
+        sourcing: val.country,
+        year: this.displayYear,
+      });
+
+      getData = getData.data;
+
+      let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
+
+      getData.forEach((x, index) => {
+        x.color = setColor[index];
+        x.name = x.sector;
+        x.y = x.val;
+      });
+
+      let getValue = getData.map((x) => {
+        return x.val;
+      });
+
+      let setValue = Math.min(...getValue);
+
+      if (setValue > 1000) {
+        getData.forEach((x) => {
+          x.y = x.val / 1000;
+        });
+      } else {
+        getData.forEach((x) => {
+          x.y = x.val;
+        });
+      }
+
+      this.backwardEconomyLinkToggle = false;
+
+      Highcharts.chart("backwardEconomy", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: val.country,
+        },
+        subtitle: {
+          text: `${val.precent}%, ${val.value}M`,
+        },
+
+        exporting: {
+          enabled: false,
+        },
+        accessibility: {
+          announceNewData: {
+            enabled: true,
+          },
+        },
+        xAxis: {
+          categories: ["", "", "", "", ""],
+        },
+        yAxis: {
+          title: {
+            text: "gross imports ($)",
+          },
+        },
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          width: "500",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          symbolWidth: 0,
+          labelFormatter: function () {
+            return (
+              '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
+              this.color +
+              ';"></div></td><td style="padding-left:12px;">' +
+              this.name +
+              "</td></tr></table></div>"
+            );
+          },
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+          },
+        },
+
+        tooltip: {
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>' +
+            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
+            "</b> of total<br/>",
+        },
+
+        series: [
+          {
+            colorByPoint: true,
+            data: getData,
+            showInLegend: true,
+            legendType: "point",
+          },
+        ],
+      });
+    },
+
+    async highchartForwardEconomy(val) {
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
+
+      let getData = await Axios.post(urlLink, {
+        exporting: this.displayCountry.iso,
+        sourcing: val.country,
+        year: this.displayYear,
+      });
+
+      getData = getData.data;
+
+      let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
+
+      getData.forEach((x, index) => {
+        x.color = setColor[index];
+        x.name = x.sector;
+        x.y = x.val;
+      });
+
+      let getValue = getData.map((x) => {
+        return x.val;
+      });
+
+      let setValue = Math.min(...getValue);
+
+      if (setValue > 1000) {
+        getData.forEach((x) => {
+          x.y = x.val / 1000;
+        });
+      } else {
+        getData.forEach((x) => {
+          x.y = x.val;
+        });
+      }
+
+      this.forwardEconomyLinkToggle = false;
+
+      Highcharts.chart("forwardEconomy", {
+        chart: {
+          type: "column",
+        },
+        title: {
+          text: val.country,
+        },
+        subtitle: {
+          text: `${val.precent}%, ${val.value}M`,
+        },
+
+        exporting: {
+          enabled: false,
+        },
+
+        xAxis: {
+          categories: ["", "", "", "", ""],
+        },
+        yAxis: {
+          title: {
+            text: "gross imports ($)",
+          },
+        },
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          width: "500",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          symbolWidth: 0,
+          labelFormatter: function () {
+            return (
+              '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
+              this.color +
+              ';"></div></td><td style="padding-left:12px;">' +
+              this.name +
+              "</td></tr></table></div>"
+            );
+          },
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+          },
+        },
+
+        tooltip: {
+          pointFormat:
+            '<span style="color:{point.color}">{point.name}</span>: <b>' +
+            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
+            "</b> of total<br/>",
+        },
+
+        series: [
+          {
+            colorByPoint: true,
+            data: getData,
+            showInLegend: true,
+            legendType: "point",
+          },
+        ],
+      });
     },
   },
 
