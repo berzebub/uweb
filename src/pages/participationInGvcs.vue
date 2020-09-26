@@ -607,6 +607,39 @@ export default {
     await this.getCountryList();
     await this.getSectorList();
     await this.getYear();
+
+    if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
+      this.exp_country = this.$route.params.expe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
+          )[0];
+
+      this.exp_optionsShow = this.countryOptions;
+    }
+
+    if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
+      this.imp_country = this.$route.params.impe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
+          )[0];
+      this.imp_optionsShow = this.countryOptions;
+    }
+
+    if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
+      this.year = this.$route.params.year
+        ? this.$route.params.year
+        : this.$q.sessionStorage.getItem("year");
+    }
+
+    if (this.$q.sessionStorage.has("sector") || this.$route.params.sector) {
+      this.sector = this.$route.params.sector
+        ? this.$route.params.sector
+        : this.$q.sessionStorage.getItem("sector");
+    }
+
+    this.validateSelected();
   },
 };
 </script>
