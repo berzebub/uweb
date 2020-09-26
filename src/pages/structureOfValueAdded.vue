@@ -698,7 +698,44 @@ export default {
             color: "#9C26B3",
           },
         ],
-        exporting: this.exportingGraphOptions,
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: [
+                "downloadPNG",
+                "downloadJPEG",
+                "separator",
+                "downloadCSV",
+                "downloadXLS",
+              ],
+            },
+          },
+          width: "1280px",
+          chartOptions: {
+            legend: {
+              width: 180,
+              itemStyle: {
+                fontSize: "7px",
+                fontWeight: "medium",
+                fontFamily: "roboto",
+                color: "#00000",
+              },
+            },
+            title: {
+              style: { fontSize: "12px" },
+            },
+            subtitle: {
+              style: { fontSize: "8px" },
+            },
+            yAxis: [
+              {
+                title: {
+                  style: { fontSize: "7px" },
+                },
+              },
+            ],
+          },
+        },
       });
     },
     async setStackChart3() {
