@@ -193,7 +193,7 @@
                   <div class="q-mt-sm" align="center">
                     <span>Share: {{graphGVC.export_percent}}% of gross exports</span>
                     <br />
-                    <span>Value: ${{graphGVC.export_value > 1000 ? (graphGVC.export_value/1000).toFixed(2) + ' billion' : graphGVC.export_value + ' millon'}} billion</span>
+                    <span>Value: ${{graphGVC.export_value > 1000 ? (graphGVC.export_value/1000).toFixed(2) + ' billion' : graphGVC.export_value + ' millon'}}</span>
                   </div>
                 </div>
 
@@ -276,10 +276,28 @@
                   style="right:0;"
                   v-for="(item,index) in graphBackwardGVCSector"
                   :key="index"
+                  @mouseenter="hoverSector(index,'backward')"
+                  @mouseleave="outHoverSector(index,'backward')"
                 >
                   <q-img
+                    v-if="backwardSectorHover != index"
                     width="500px"
                     :src="require('../../public/arrow/blue-graph-' + (index + 1) + '.png')"
+                  >
+                    <span
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="left:10%;"
+                    >
+                      <div class="text-white">{{item.sector}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                    </span>
+                  </q-img>
+
+                  <q-img
+                    v-if="backwardSectorHover == index"
+                    width="500px"
+                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + '-hover.png')"
                   >
                     <span
                       :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
@@ -310,7 +328,7 @@
               </div>
             </div>
             <!-- Country Content -->
-            <div class="col-3 self-center" style="width:150px;" align="center">
+            <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
                 <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
@@ -452,7 +470,7 @@
               </div>
             </div>
             <!-- Country Content -->
-            <div class="col-3 self-center" style="width:150px;" align="center">
+            <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
                 <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
@@ -513,10 +531,8 @@
     </div>
 
     <div v-else>
-      <data-waiting
-        text="Please choose exporting economy and year from the drop down menus
-          above"
-      ></data-waiting>
+      <data-waiting text="Please choose exporting economy and year 
+from the drop down menus above"></data-waiting>
     </div>
 
     <footer-menu></footer-menu>
@@ -562,6 +578,8 @@ export default {
         "2017",
       ],
 
+      backwardSectorHover: null,
+
       displayCountry: "",
       displayYear: "",
       graphGVC: {},
@@ -600,6 +618,24 @@ export default {
     },
   },
   methods: {
+    hoverSector(index, type) {
+      if (type == "backward") {
+        this.backwardSectorHover = index;
+      }
+
+      if (type == "forward") {
+        this.hoverForwardSector[index] = true;
+      }
+    },
+    outHoverSector(index, type) {
+      if (type == "backward") {
+        this.backwardSectorHover = null;
+      }
+
+      if (type == "forward") {
+        this.hoverForwardSector[index] = false;
+      }
+    },
     filterCountry(val, update) {
       update(async () => {
         this.countryOptionsShow = this.countryOptions.filter(
@@ -787,6 +823,9 @@ export default {
             (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
             "</b> of total<br/>",
         },
+        credits: {
+          enabled: false,
+        },
 
         series: [
           {
@@ -906,6 +945,9 @@ export default {
             (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
             "</b> of total<br/>",
         },
+        credits: {
+          enabled: false,
+        },
 
         series: [
           {
@@ -987,7 +1029,6 @@ export default {
           layout: "horizontal",
           align: "right",
           verticalAlign: "bottom",
-          borderWidth: 1,
           width: "500",
 
           symbolWidth: 0.1,
@@ -1025,6 +1066,9 @@ export default {
             (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
             "</b> of total<br/>",
         },
+        credits: {
+          enabled: false,
+        },
 
         series: [
           {
@@ -1051,6 +1095,8 @@ export default {
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
       getData.forEach((x, index) => {
+        console.log(x);
+
         x.color = setColor[index];
         x.name = x.sector;
         x.y = x.val;
@@ -1139,6 +1185,9 @@ export default {
             '<span style="color:{point.color}">{point.name}</span>: <b>' +
             (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
             "</b> of total<br/>",
+        },
+        credits: {
+          enabled: false,
         },
 
         series: [
