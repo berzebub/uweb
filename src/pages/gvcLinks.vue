@@ -411,12 +411,18 @@
                 {{overviewCountry.label}}’s GVC exports amount to {{graphGVC.total_percent}}% (${{graphGVC.total_value}} billion) of its gross
                 exports in 2017
               </p>
-              <p
-                class="font-content"
-              >Imported content comprising {{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion) of gross exports</p>
+              <p class="font-content">
+                Imported content comprising
+                <span
+                  class="c-blue"
+                >{{graphGVC.import_percent}}% (${{graphGVC.import_value}} billion)</span> of gross exports
+              </p>
               <p class="font-content">
                 Export of intermediates used in further export production
-                comprising {{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion) of gross exports
+                comprising
+                <span
+                  class="c-red"
+                >{{graphGVC.export_percent}}% (${{graphGVC.export_value}} billion)</span> of gross exports
               </p>
             </div>
 
