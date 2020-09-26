@@ -394,7 +394,7 @@ export default {
         this.$q.sessionStorage.set("expe", this.exp_country.iso);
         this.$q.sessionStorage.set("impe", this.imp_country.iso);
         this.$q.sessionStorage.set("year", this.year);
-        this.$q.sessionStorage.set("sector", this.sector);
+        this.$q.sessionStorage.set("esec", this.sector);
 
         this.renderGraph();
       }
