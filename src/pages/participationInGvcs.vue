@@ -224,7 +224,7 @@ importing economy."
       </div>
 
       <!-- Details -->
-      <div v-else>
+      <div class="bg-white" v-else>
         <div class="row">
           <div class="col-3">
             <q-img src="../../public/images/image-55.png"></q-img>
@@ -245,14 +245,14 @@ importing economy."
         </div>
         <!-- GRAPH -->
         <div style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px">
+        <div class="q-py-xl" style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isChart">
             <q-spinner-pie color="primary" size="100px" />
           </div>
 
           <!-- Graph -->
           <div v-show="isChart">
-            <div id="container1"></div>
+            <div id="container"></div>
           </div>
         </div>
       </div>
@@ -325,9 +325,9 @@ export default {
       sectorOptions: [],
       sector: "",
 
-      // continent: this.$q.sessionStorage.has("cselec")
-      //   ? this.$q.sessionStorage.getItem("cselec").region
-      //   : "",
+      continent: this.$q.sessionStorage.has("cselec")
+        ? this.$q.sessionStorage.getItem("cselec").region
+        : "",
 
       // displayYear: this.$q.sessionStorage.has("cselec")
       //   ? this.$q.sessionStorage.getItem("cselec").year
@@ -496,7 +496,7 @@ export default {
 
       this.isChart = true;
 
-      Highcharts.chart("container1", {
+      Highcharts.chart("container", {
         chart: {
           type: "column",
           height: (9 / 16) * 100 + "%", // 16:9 ratio
@@ -580,6 +580,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
+
           text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br>compared to other ${this.continent} economies?`,
         },
         exporting: {
