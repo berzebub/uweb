@@ -255,6 +255,59 @@ export default {
       this.isShowDownloadBtn = false;
     },
     async runBtn() {
+      let _this = this;
+      function validateInput() {
+        if (
+          !_this.exporting ||
+          !_this.importing ||
+          !_this.sectorList ||
+          !_this.year
+        ) {
+          if (!_this.exporting) {
+            _this.$q.notify({
+              message: "Please add an exporting economy",
+              color: "red",
+              position: "top",
+            });
+          }
+          if (!_this.importing) {
+            _this.$q.notify({
+              message: "Please add an importing economy",
+              color: "red",
+              position: "top",
+            });
+          }
+          if (!_this.sector) {
+            _this.$q.notify({
+              message: "Please add a sector",
+              color: "red",
+              position: "top",
+            });
+          }
+          if (!_this.year) {
+            _this.$q.notify({
+              message: "Please add a year",
+              color: "red",
+              position: "top",
+            });
+          }
+          return;
+        }
+      }
+
+      if (this.indicator == "Back_link_sector") {
+        if (!this.source) {
+          this.$q.notify({
+            message: "Please add an source economy",
+            color: "red",
+            position: "top",
+          });
+        }
+        validateInput();
+      } else {
+        validateInput();
+      }
+
       let obj;
       if (
         !(
