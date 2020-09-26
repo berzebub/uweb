@@ -571,15 +571,6 @@ export default {
         : this.$q.sessionStorage.getItem("year");
     }
 
-<<<<<<< HEAD
-    if (this.$q.sessionStorage.has("sector") || this.$route.params.sector) {
-      this.sector = this.$route.params.sector
-        ? this.$route.params.sector
-        : this.$q.sessionStorage.getItem("sector");
-    }
-
-    this.validateSelected();
-=======
     if (this.$q.sessionStorage.has("esec") || this.$route.params.esec) {
       this.sector = this.$route.params.esec
         ? this.$route.params.esec
@@ -589,7 +580,6 @@ export default {
     if (this.validateSelected()) {
       this.renderGraph();
     }
->>>>>>> master
   },
 };
 </script>
