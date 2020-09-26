@@ -430,7 +430,7 @@
               <!-- Imported Content  -->
               <div class="col row font-content" align="center">
                 <div class="col-12 self-start c-blue">
-                  <div>
+                  <div class="text-bold">
                     Imported content used in exports
                     <br />(Backward linkages)
                   </div>
@@ -478,7 +478,7 @@
               <!-- Export Content  -->
               <div class="col font-content" align="center">
                 <div class="col-12 self-start c-red">
-                  <div>
+                  <div class="text-bold">
                     <span>Export of intermediates used in</span>
                     <br />
                     <span class="text-no-wrap">export production (Forward linkages)</span>
