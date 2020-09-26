@@ -9,8 +9,8 @@
         <div class="col q-pa-sm">
           <span>Exporting economy</span>
           <q-select
-            v-model="displayCountry"
-            :options="countryOptionsShow"
+            v-model="exp_country"
+            :options="exp_optionsShow"
             outlined
             bg-color="white"
             class="q-mt-xs"
@@ -19,7 +19,7 @@
             fill-input
             hide-selected
             @filter="filterCountry"
-            @input="selectedCountryAndYear"
+            @input="selectedExpCountry"
           >
             <template v-slot:prepend v-if="overviewCountry">
               <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
@@ -46,7 +46,7 @@
         <div class="col q-pa-sm">
           <span>Year</span>
           <q-select
-            v-model="displayYear"
+            v-model="year"
             :options="yearOptions"
             outlined
             bg-color="white"
@@ -54,13 +54,13 @@
             emit-value
             map-options
             dense
-            @input="selectedCountryAndYear"
+            @input="selectedYear"
           ></q-select>
         </div>
       </div>
     </div>
 
-    <div v-if="displayCountry && displayYear">
+    <div v-if="exp_country && year">
       <div class="row justify-center q-pa-md">
         <div class="col-12 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
@@ -276,8 +276,8 @@
                   style="right:0;"
                   v-for="(item,index) in graphBackwardGVCSector"
                   :key="index"
-                  @mouseenter="hoverSector(index,'backward')"
-                  @mouseleave="outHoverSector(index,'backward')"
+                  @mouseenter="hoverSector(index,'backwardSector')"
+                  @mouseleave="outHoverSector(index,'backwardSector')"
                 >
                   <q-img
                     v-if="backwardSectorHover != index"
@@ -297,7 +297,7 @@
                   <q-img
                     v-if="backwardSectorHover == index"
                     width="500px"
-                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + '-hover.png')"
+                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + 'a.png')"
                   >
                     <span
                       :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
@@ -346,10 +346,28 @@
                   style="left:0;"
                   v-for="(item,index) in graphForwardGVCSector"
                   :key="index"
+                  @mouseenter="hoverSector(index,'forwardSector')"
+                  @mouseleave="outHoverSector(index,'forwardSector')"
                 >
                   <q-img
+                    v-if="forwardSectorHover != index"
                     width="500px"
                     :src="require('../../public/arrow/red-graph-' + (index + 1) + '.png')"
+                  >
+                    <span
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-right':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">{{item.sector}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                    </span>
+                  </q-img>
+
+                  <q-img
+                    v-if="forwardSectorHover == index"
+                    width="500px"
+                    :src="require('../../public/arrow/red-graph-' + (index + 1) + 'a.png')"
                   >
                     <span
                       :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-right':index == 3 || index == 4}"
@@ -436,8 +454,11 @@
                   style="right:0;"
                   v-for="(item,index) in graphBackwardGVCEconomy"
                   :key="index"
+                  @mouseenter="hoverSector(index,'backwardEconomy')"
+                  @mouseleave="outHoverSector(index,'backwardEconomy')"
                 >
                   <q-img
+                    v-if="backwardEconomyHover != index"
                     width="500px"
                     :src="require('../../public/arrow/blue-graph-' + (index + 1) + '.png')"
                   >
@@ -446,7 +467,22 @@
                       :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
                       style="left:10%;"
                     >
-                      <div class="text-white">{{item.country}}</div>
+                      <div class="text-white">{{item.fullName}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                    </span>
+                  </q-img>
+
+                  <q-img
+                    v-if="backwardEconomyHover == index"
+                    width="500px"
+                    :src="require('../../public/arrow/blue-graph-' + (index + 1) + 'a.png')"
+                  >
+                    <span
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-left':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="left:10%;"
+                    >
+                      <div class="text-white">{{item.fullName}}</div>
                       <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
@@ -492,8 +528,11 @@
                   style="left:0;"
                   v-for="(item,index) in graphForwardGVCEconomy"
                   :key="index"
+                  @mouseenter="hoverSector(index,'forwardEconomy')"
+                  @mouseleave="outHoverSector(index,'forwardEconomy')"
                 >
                   <q-img
+                    v-if="forwardEconomyHover != index"
                     width="500px"
                     :src="require('../../public/arrow/red-graph-' + (index + 1) + '.png')"
                   >
@@ -502,7 +541,22 @@
                       :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
                       style="right:10%;direction: rtl;"
                     >
-                      <div class="text-white">{{item.country}}</div>
+                      <div class="text-white">{{item.fullName}}</div>
+                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                    </span>
+                  </q-img>
+
+                  <q-img
+                    v-if="forwardEconomyHover == index"
+                    width="500px"
+                    :src="require('../../public/arrow/red-graph-' + (index + 1) + 'a.png')"
+                  >
+                    <span
+                      :class="{'absolute':index == 0 || index == 1 || index == 2,'absolute-bottom-right':index == 3 || index == 4}"
+                      :style="[index == 0 ? {top:'7%'} : {},index == 1 ? {top:'11%'} : {},index == 2 ? {top:'22%'} : {},index == 3 ? {bottom:'11%'} : {},index == 4 ? {bottom:'7%'} : {}]"
+                      style="right:10%;direction: rtl;"
+                    >
+                      <div class="text-white">{{item.fullName}}</div>
                       <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
                     </span>
                   </q-img>
@@ -564,24 +618,20 @@ export default {
   data() {
     return {
       countryOptions: [],
-      yearOptions: [
-        "2007",
-        "2008",
-        "2009",
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015",
-        "2016",
-        "2017",
-      ],
+
+      exp_optionsShow: [],
+
+      exp_country: "",
+
+      yearOptions: [],
+      year: "",
 
       backwardSectorHover: null,
+      forwardSectorHover: null,
 
-      displayCountry: "",
-      displayYear: "",
+      backwardEconomyHover: null,
+      forwardEconomyHover: null,
+
       graphGVC: {},
 
       graphBackwardGVCSector: [],
@@ -596,8 +646,6 @@ export default {
 
       isShowContent: false,
 
-      countryOptionsShow: [],
-
       backwardSectorLinkToggle: true,
       forwardSectorLinkToggle: true,
 
@@ -608,9 +656,9 @@ export default {
 
   computed: {
     overviewCountry() {
-      if (this.displayCountry) {
+      if (this.exp_country) {
         let res = this.countryOptions.filter(
-          (x) => x.value == this.displayCountry.value
+          (x) => x.value == this.exp_country.value
         )[0];
 
         return res;
@@ -619,42 +667,73 @@ export default {
   },
   methods: {
     hoverSector(index, type) {
-      if (type == "backward") {
+      if (type == "backwardSector") {
         this.backwardSectorHover = index;
       }
 
-      if (type == "forward") {
-        this.hoverForwardSector[index] = true;
+      if (type == "forwardSector") {
+        this.forwardSectorHover = index;
+      }
+
+      if (type == "backwardEconomy") {
+        this.backwardEconomyHover = index;
+      }
+
+      if (type == "forwardEconomy") {
+        this.forwardEconomyHover = index;
       }
     },
     outHoverSector(index, type) {
-      if (type == "backward") {
+      if (type == "backwardSector") {
         this.backwardSectorHover = null;
       }
 
-      if (type == "forward") {
-        this.hoverForwardSector[index] = false;
+      if (type == "forwardSector") {
+        this.forwardSectorHover = null;
+      }
+
+      if (type == "backwardEconomy") {
+        this.backwardEconomyHover = null;
+      }
+
+      if (type == "forwardEconomy") {
+        this.forwardEconomyHover = null;
       }
     },
     filterCountry(val, update) {
       update(async () => {
-        this.countryOptionsShow = this.countryOptions.filter(
+        this.exp_optionsShow = this.countryOptions.filter(
           (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
+    selectedExpCountry() {
+      this.$q.sessionStorage.set("expe", this.exp_country.iso);
 
-    selectedCountryAndYear() {
-      if (this.displayCountry != "" && this.displayYear != "") {
-        this.$q.sessionStorage.set("expe", this.displayCountry);
-        this.$q.sessionStorage.set("year", this.displayYear);
-
-        this.loadGVCGraph();
-
-        this.loadGVCGraphSector();
-
-        this.loadGVCGraphEconomy();
+      if (this.validateSelected()) {
+        this.renderGraph();
       }
+    },
+    selectedYear() {
+      this.$q.sessionStorage.set("year", this.year);
+
+      if (this.validateSelected()) {
+        this.renderGraph();
+      }
+    },
+
+    validateSelected() {
+      if (this.exp_country != "" && this.year != "") {
+        return true;
+      } else {
+        false;
+      }
+    },
+
+    renderGraph() {
+      this.loadGVCGraph();
+      this.loadGVCGraphSector();
+      this.loadGVCGraphEconomy();
     },
 
     // ------------------------- END -------------------------
@@ -662,13 +741,13 @@ export default {
     toInvolvement() {
       this.$router.push("/involvement");
       // cselec  = country and year that user selected
-      this.$q.sessionStorage.set("cselec", this.displayCountry);
+      this.$q.sessionStorage.set("cselec", this.exp_country);
     },
 
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
-      let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
 
       let formatData = {
         total_percent: 0,
@@ -689,7 +768,7 @@ export default {
     async loadGVCGraphSector() {
       this.isGraphGVCSector = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       let getData = await Axios.get(urlLink);
 
@@ -704,11 +783,19 @@ export default {
     async loadGVCGraphEconomy() {
       this.isGraphGVCEconomy = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.displayCountry.iso}&year=${this.displayYear}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       let getData = await Axios.get(urlLink);
 
       getData = [...getData.data];
+
+      getData.forEach((x) => {
+        let newCountry = this.countryOptions.filter(
+          (xx) => xx.iso == x.country
+        )[0].label;
+
+        x.fullName = newCountry;
+      });
 
       this.graphBackwardGVCEconomy = getData.slice(0, 5);
       this.graphForwardGVCEconomy = getData.slice(5, 10);
@@ -720,9 +807,9 @@ export default {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
       let getData = await Axios.post(urlLink, {
-        exporting: this.displayCountry.iso,
+        exporting: this.exp_country.iso,
         sector: val.sector,
-        year: this.displayYear,
+        year: this.year,
       });
 
       getData = getData.data;
@@ -730,8 +817,12 @@ export default {
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
       getData.forEach((x, index) => {
+        let newCountry = this.countryOptions.filter(
+          (xx) => xx.iso == x.country
+        )[0].label;
+
         x.color = setColor[index];
-        x.name = x.country;
+        x.name = newCountry;
         x.y = x.val;
       });
 
@@ -842,9 +933,9 @@ export default {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
       let getData = await Axios.post(urlLink, {
-        exporting: this.displayCountry.iso,
+        exporting: this.exp_country.iso,
         sector: val.sector,
-        year: this.displayYear,
+        year: this.year,
       });
 
       getData = getData.data;
@@ -852,8 +943,12 @@ export default {
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
       getData.forEach((x, index) => {
+        let newCountry = this.countryOptions.filter(
+          (xx) => xx.iso == x.country
+        )[0].label;
+
         x.color = setColor[index];
-        x.name = x.country;
+        x.name = newCountry;
         x.y = x.val;
       });
 
@@ -964,9 +1059,9 @@ export default {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
       let getData = await Axios.post(urlLink, {
-        exporting: this.displayCountry.iso,
+        exporting: this.exp_country.iso,
         sourcing: val.country,
-        year: this.displayYear,
+        year: this.year,
       });
 
       getData = getData.data;
@@ -1085,9 +1180,9 @@ export default {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
       let getData = await Axios.post(urlLink, {
-        exporting: this.displayCountry.iso,
+        exporting: this.exp_country.iso,
         sourcing: val.country,
-        year: this.displayYear,
+        year: this.year,
       });
 
       getData = getData.data;
@@ -1095,8 +1190,6 @@ export default {
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
       getData.forEach((x, index) => {
-        console.log(x);
-
         x.color = setColor[index];
         x.name = x.sector;
         x.y = x.val;
@@ -1218,21 +1311,24 @@ export default {
     await this.getCountryList();
     await this.getYear();
 
-    if (
-      (this.$q.sessionStorage.has("year") || this.$route.params.year) &&
-      (this.$q.sessionStorage.has("expe") || this.$route.params.expe)
-    ) {
-      this.displayYear = this.$route.params.year
+    if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
+      this.year = this.$route.params.year
         ? this.$route.params.year
         : this.$q.sessionStorage.getItem("year");
+    }
 
-      this.displayCountry = this.$route.params.expe
-        ? this.$route.params.expe
-        : this.$q.sessionStorage.getItem("expe");
+    if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
+      this.exp_country = this.$route.params.expe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
+          )[0];
 
-      this.countryOptionsShow = this.countryOptions;
+      this.exp_optionsShow = this.countryOptions;
+    }
 
-      this.selectedCountryAndYear();
+    if (this.validateSelected()) {
+      this.renderGraph();
     }
 
     // this.checkPlatform();

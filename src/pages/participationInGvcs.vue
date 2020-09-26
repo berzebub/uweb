@@ -106,7 +106,7 @@ importing economy."
               fill-input
               hide-selected
               @filter="filterExpCountry"
-              @input="selectedData()"
+              @input="selectedExpCountry()"
             >
               <template v-slot:prepend v-if="expCountry">
                 <gb-flag
@@ -145,7 +145,7 @@ importing economy."
               bg-color="white"
               class="q-mt-xs"
               dense
-              @input="selectedData()"
+              @input="selectedYear()"
             ></q-select>
           </div>
         </div>
@@ -166,7 +166,7 @@ importing economy."
               fill-input
               hide-selected
               @filter="filterImpCountry"
-              @input="selectedData()"
+              @input="selectedImpCountry()"
             >
               <template v-slot:prepend v-if="impCountry">
                 <gb-flag
@@ -207,7 +207,7 @@ importing economy."
               dense
               :options="sectorOptions"
               outlined
-              @input="selectedData()"
+              @input="selectedSector()"
             ></q-select>
           </div>
         </div>
@@ -325,28 +325,6 @@ export default {
       sectorOptions: [],
       sector: "",
 
-      continent: this.$q.sessionStorage.has("cselec")
-        ? this.$q.sessionStorage.getItem("cselec").region
-        : "",
-
-      // displayYear: this.$q.sessionStorage.has("cselec")
-      //   ? this.$q.sessionStorage.getItem("cselec").year
-      //   : "",
-
-      // displayImportingEconomy: "",
-      // // exp_country: this.$q.sessionStorage.has("cselec")
-      // //   ? this.$q.sessionStorage.getItem("cselec").iso
-      // //   : "",
-
-      // displayExportingEconomy: this.$q.sessionStorage.has("cselec")
-      //   ? this.$q.sessionStorage.getItem("cselec").name
-      //   : "",
-
-      // imp_country: "",
-
-      displaySector: "",
-      sector: "",
-
       isShowErrorWarning: false,
 
       isChart: false,
@@ -389,75 +367,39 @@ export default {
       });
     },
 
-    validateSelected() {
-      if (this.exp_country && this.imp_country && this.year && this.sector) {
-        this.$q.sessionStorage.set("expe", this.exp_country.iso);
-        this.$q.sessionStorage.set("impe", this.imp_country.iso);
-        this.$q.sessionStorage.set("year", this.year);
-        this.$q.sessionStorage.set("esec", this.sector);
+    selectedExpCountry() {
+      this.$q.sessionStorage.set("expe", this.exp_country.iso);
 
+      if (this.validateSelected()) {
+        this.renderGraph();
+      }
+    },
+    selectedImpCountry() {
+      this.$q.sessionStorage.set("impe", this.imp_country.iso);
+      if (this.validateSelected()) {
+        this.renderGraph();
+      }
+    },
+    selectedYear() {
+      this.$q.sessionStorage.set("year", this.year);
+      if (this.validateSelected()) {
+        this.renderGraph();
+      }
+    },
+    selectedSector() {
+      this.$q.sessionStorage.set("esec", this.sector);
+      if (this.validateSelected()) {
         this.renderGraph();
       }
     },
 
-    // checkShowPage() {
-    //   if (
-    //     this.displayExportingEconomy != "" &&
-    //     this.displayYear != "" &&
-    //     this.displayImportingEconomy != "" &&
-    //     this.displaySector != ""
-    //   ) {
-    //     this.isShowPage = true;
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-    // // Get Emit Data
-    // getEmitData(val) {
-    //   // Exporting Economy
-    //   this.displayExportingEconomy = val.name;
-    //   this.exp_country = val.iso;
-    //   this.continent = val.region;
-    //   this.displayYear = val.year;
-    //   this.checkShowPage();
-    //   this.getStructureOfValue();
-    // },
-
-    // Get Structure Of Value
-    // getStructureOfValue() {
-    //   // Importing Economy
-    //   let countryData = this.exp_options.filter(
-    //     (x) => x.value == this.importingEconomy
-    //   )[0];
-
-    //   let sectorData = this.sectorOptions.filter(
-    //     (x) => x.value == this.sectorSelected
-    //   )[0];
-
-    //   if (countryData) {
-    //     this.displayImportingEconomy = countryData.label;
-    //     this.imp_country = countryData.iso;
-    //   }
-
-    //   if (sectorData) {
-    //     this.displaySector = sectorData.label;
-    //     this.sector = sectorData.value;
-    //   }
-
-    //   let check = this.checkShowPage();
-    //   if (check) {
-    //     if (this.displayImportingEconomy == this.displayExportingEconomy) {
-    //       this.isShowErrorWarning = true;
-    //       return;
-    //     }
-
-    //     this.isShowErrorWarning = false;
-
-    //     this.renderGraph(); // Render Graph
-    //   }
-    // },
-    // ------------------------------------------------------------
+    validateSelected() {
+      if (this.exp_country && this.imp_country && this.year && this.sector) {
+        return true;
+      } else {
+        return false;
+      }
+    },
 
     renderGraph() {
       this.setStackChart();
@@ -530,6 +472,7 @@ export default {
         credits: {
           enabled: false,
         },
+        exporting: this.exportingGraphOptions,
         legend: {
           useHTML: true,
           itemStyle: {
@@ -585,13 +528,6 @@ export default {
 
           text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`,
         },
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-        },
       });
     },
 
@@ -635,13 +571,15 @@ export default {
         : this.$q.sessionStorage.getItem("year");
     }
 
-    if (this.$q.sessionStorage.has("esec") || this.$route.params.sector) {
-      this.sector = this.$route.params.sector
-        ? this.$route.params.sector
+    if (this.$q.sessionStorage.has("esec") || this.$route.params.esec) {
+      this.sector = this.$route.params.esec
+        ? this.$route.params.esec
         : this.$q.sessionStorage.getItem("esec");
     }
 
-    this.validateSelected();
+    if (this.validateSelected()) {
+      this.renderGraph();
+    }
   },
 };
 </script>
