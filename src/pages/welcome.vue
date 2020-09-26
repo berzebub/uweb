@@ -1,6 +1,6 @@
 <template>
-  <q-page class="bg relative-position" style="overflow:hidden">
-    <div>
+  <q-page class="bg" style="overflow:hidden">
+    <div class="relative-position" style="height:calc(100vh - 210px)">
       <video id="myVideo" autoplay loop muted>
         <source type="video/webm" src="../../public/vdo.webm" />
       </video>
@@ -33,8 +33,7 @@
         </div>
       </div>
 
-      <div style="height:20px"></div>
-      <div class="absolute-bottom" style="padding-bottom:230px;padding-right:20px" align="right">
+      <div class="absolute-bottom" style="padding-bottom:20px;padding-right:20px" align="right">
         <div
           style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
           class="text-white row"
@@ -66,6 +65,7 @@
         </div>
       </div>
     </div>
+
     <my-footer class="absolute-bottom"></my-footer>
   </q-page>
 </template>
@@ -95,9 +95,10 @@ export default {
 }
 #myVideo {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 115%;
   min-height: 100%;
 }
 </style>

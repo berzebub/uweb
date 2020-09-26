@@ -299,7 +299,7 @@
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
 
     <div class="row justify-center bg12 q-pa-md">
-      <div class="col-5 row" style="width:600px">
+      <div class="col-6 row">
         <div class="col q-pa-sm">
           <span>Exporting economy</span>
           <q-select
@@ -345,6 +345,8 @@
             outlined
             bg-color="white"
             class="q-mt-xs"
+            emit-value
+            map-options
             dense
             @input="selectedCountryAndYear"
           ></q-select>
@@ -437,7 +439,7 @@
                 <div class="col-12 self-end">
                   <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
-                      v-if="graphGVC.export_value > graphGVC.import_value  "
+                      v-if="graphGVC.export_value > graphGVC.import_value"
                       class="absolute-center"
                       width="100%"
                       :src="require('../../public/arrow/arrow-blue-big.png')"
@@ -799,12 +801,10 @@
     </div>
 
     <div v-else>
-      <q-img src="../../public/waiting.png" width="100%">
-        <span class="absolute-center font-graph" style="width:500px;" align="center">
-          Please choose exporting economy and year from the drop down menus
-          above
-        </span>
-      </q-img>
+      <data-waiting
+        text="Please choose exporting economy and year from the drop down menus
+          above"
+      ></data-waiting>
     </div>
 
     <footer-menu></footer-menu>
@@ -821,6 +821,7 @@ import Axios from "axios";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import footerMenu from "../components/footer";
+import dataWaiting from "../components/dataWaiting.vue";
 
 export default {
   components: {
@@ -830,6 +831,7 @@ export default {
     globalValueChainsHeader,
     globalValueChainsMenu,
     footerMenu,
+    dataWaiting,
   },
   data() {
     return {
@@ -889,13 +891,13 @@ export default {
     filterCountry(val, update) {
       update(async () => {
         this.countryOptionsShow = this.countryOptions.filter(
-          (x) => x.label.indexOf(val) > -1
+          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
 
     selectedCountryAndYear() {
-      if (this.displayCountry != "" && this.year != "") {
+      if (this.displayCountry != "" && this.displayYear != "") {
         this.$q.sessionStorage.set("expe", this.displayCountry);
         this.$q.sessionStorage.set("year", this.displayYear);
 
@@ -943,7 +945,7 @@ export default {
 
       let getData = await Axios.get(urlLink);
 
-      getData = getData.data;
+      getData = [...getData.data];
 
       this.graphBackwardGVCSector = getData.slice(0, 5);
       this.graphForwardGVCSector = getData.slice(5, 10);
@@ -958,7 +960,7 @@ export default {
 
       let getData = await Axios.get(urlLink);
 
-      getData = getData.data;
+      getData = [...getData.data];
 
       this.graphBackwardGVCEconomy = getData.slice(0, 5);
       this.graphForwardGVCEconomy = getData.slice(5, 10);
@@ -1058,6 +1060,11 @@ export default {
             dataLabels: {
               enabled: true,
               format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+            events: {
+              legendItemClick: function () {
+                console.log(this.visible);
+              },
             },
           },
         },
@@ -1173,6 +1180,11 @@ export default {
               enabled: true,
               format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
             },
+            events: {
+              legendItemClick: function () {
+                console.log(this.visible);
+              },
+            },
           },
         },
 
@@ -1263,7 +1275,7 @@ export default {
           layout: "horizontal",
           align: "right",
           verticalAlign: "bottom",
-
+          borderWidth: 1,
           width: "500",
 
           symbolWidth: 0.1,
@@ -1274,7 +1286,7 @@ export default {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
-              ';"></div></td><td style="padding-left:12px;">' +
+              ';"></div></td><td style="padding-left:10px;">' +
               this.name +
               "</td></tr></table></div>"
             );
@@ -1286,6 +1298,11 @@ export default {
             dataLabels: {
               enabled: true,
               format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+            },
+            events: {
+              legendItemClick: function () {
+                console.log(this.visible);
+              },
             },
           },
         },
@@ -1380,6 +1397,7 @@ export default {
           symbolHeight: 0.1,
           symbolRadius: 0,
           symbolWidth: 0,
+
           labelFormatter: function () {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
@@ -1392,14 +1410,18 @@ export default {
         },
         plotOptions: {
           series: {
-            borderWidth: 0,
             dataLabels: {
               enabled: true,
               format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
             },
+            events: {
+              legendItemClick: function (event) {
+                console.log(event);
+                event.preventDefault();
+              },
+            },
           },
         },
-
         tooltip: {
           pointFormat:
             '<span style="color:{point.color}">{point.name}</span>: <b>' +
@@ -1417,12 +1439,23 @@ export default {
         ],
       });
     },
+
+    async getYear() {
+      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let data = await Axios.get(url);
+      let temp = [];
+      data.data.forEach((element) => {
+        temp.push({ value: Number(element), label: element });
+      });
+      this.yearOptions = temp;
+    },
   },
 
-  mounted() {
+  async mounted() {
     // Check Session and Params Year
 
-    this.getCountryList();
+    await this.getCountryList();
+    await this.getYear();
 
     if (
       (this.$q.sessionStorage.has("year") || this.$route.params.year) &&
