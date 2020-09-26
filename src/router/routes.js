@@ -69,7 +69,7 @@ const routes = [
         name: "gvcLinks"
       },
       {
-        path: "/structure-of-value-added/:expe?/:year?",
+        path: "/structure-of-value-added/:expe?/:year?/:impe?/:sector?",
         component: () => import("pages/structureOfValueAdded.vue"),
         name: "structureOfValueAdded"
       },

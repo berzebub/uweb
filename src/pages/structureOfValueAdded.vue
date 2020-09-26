@@ -119,258 +119,107 @@
       </div>
     </div>
     <!--  -->
-    <div class="row q-px-md q-py-lg font-content">
-      <div class="col q-px-md" align="center">
-        <div
-          style="border:1px solid;height:60px"
-          class="flex flex-center cursor-pointer relative-position"
-          v-ripple
-        >Key policy questions</div>
-      </div>
-      <div class="col q-px-md" align="center">
-        <div
-          style="border:1px solid;height:60px"
-          class="flex flex-center cursor-pointer relative-position"
-          v-ripple
-        >Structure of value-added</div>
-      </div>
-      <div class="col q-px-md" align="center">
-        <div
-          style="border:1px solid;height:60px"
-          class="flex flex-center cursor-pointer relative-position"
-          v-ripple
-        >Measuring trade balance</div>
-      </div>
-      <div class="col q-px-md" align="center">
-        <div
-          style="border:1px solid;height:60px"
-          class="flex flex-center cursor-pointer relative-position"
-          v-ripple
-        >Comparison with sub-regional partners</div>
-      </div>
-    </div>
-    <!--  -->
-    <div class="row" style="height:340px">
-      <div class="col-3">
-        <q-img src="../../public/images/image-58.png"></q-img>
-      </div>
-      <div class="col flex flex-center" align="center" style="background-color:#E5E1E1">
-        <div class="divRight">
-          <p class="font-24" align="center">How do you disaggregate value-added in gross exports?</p>
 
-          <div
-            class="font-content q-pb-sm"
-            align="center"
-          >Argentina's gross exports can be divided into five major parts:</div>
-          <div class="row q-pt-md" style="width:95%; margin:auto;">
-            <div style="width:20%" align="center">Used in importer's comsumption</div>
-            <div style="width:20%" align="center">Used in domestic comsumption</div>
-            <div style="width:20%" align="center">Used in importer's export production</div>
-            <div style="width:20%" align="center">Imported content</div>
+    <div v-if="exportingSelected && year && importingSelected && sectorSelected">
+      <sorry-duplicate v-if="checkDuplicateSelected"></sorry-duplicate>
+
+      <div v-else>
+        <div class="row q-px-md q-py-lg font-content">
+          <div class="col q-px-md" align="center">
             <div
-              style="width:20%"
-              align="center"
-            >Double counted exports from repeated border crossing</div>
+              style="border:1px solid;height:60px"
+              class="flex flex-center cursor-pointer relative-position"
+              v-scroll-to="'#keypolicy'"
+              v-ripple
+            >Key policy questions</div>
           </div>
-          <div class="bracketLeft"></div>
-          <div class="bracketRight"></div>
-          <div class="textLeft font-content">Argentina's valued-added in exports</div>
-          <div class="textRight font-content">GVC releated exports</div>
-        </div>
-      </div>
-    </div>
-    <!--  -->
-    <div style="padding-top:90px;padding-bottom:50px">
-      <p align="center" class="font-24">Key policy questions</p>
-
-      <div class="font-content" style="padding :0px 60px">
-        <div v-scroll-to="'#structure'" class="cursor-pointer">
-          1.
-          <u>
-            What happens to {{ displayExportingEconomy }}’s exports to a
-            selected importer?
-          </u>
-        </div>
-        <div class="cursor-pointer q-py-sm" v-scroll-to="'#comparison'">
-          2.
-          <u>
-            What happens to {{ continent }} economics’ exports to a selected
-            imported?
-          </u>
-        </div>
-        <div class="cursor-pointer" v-scroll-to="'#measuring'">
-          3.
-          <u>
-            How does {{ displayExportingEconomy }}’s domestic value-added and
-            gross trade balance with the selected imported differ?
-          </u>
-        </div>
-      </div>
-    </div>
-    <!-- GRAPH1 -->
-    <div style="height:30px" id="structure"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div align="center" class="q-pa-lg" v-if="!isStructureChart">
-        <q-spinner-pie color="primary" size="100px" />
-      </div>
-      <div v-show="isStructureChart">
-        <div id="container"></div>
-      </div>
-    </div>
-    <hr />
-    <!-- GRAPH2 -->
-
-    <div id="comparison" style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
-        <q-spinner-pie color="primary" size="100px" />
-      </div>
-      <div v-show="isComparisonChart">
-        <div id="container1"></div>
-      </div>
-    </div>
-    <hr />
-
-    <!--GRAPH3  -->
-    <div id="measuring" style="height:30px"></div>
-    <div style="width:90%;margin:auto;max-width:1200px">
-      <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
-        <q-spinner-pie color="primary" size="100px" />
-      </div>
-      <div v-show="isMeasuringChart">
-        <div id="container2"></div>
-      </div>
-    </div>
-    <!-- FOOTER -->
-    <my-footer></my-footer>
-  </q-page>
-  <!-- <q-page
-    class="container"
-    :class="!isShowPage || isShowErrorWarning ? 'bg-loading' : 'bg-white'"
-    style="padding-bottom:100px"
-  >
-   
-    <app-bar :isShowLogo="false" @countrySelected="getEmitData"></app-bar>
-
-    <div class="bg-white">
-      <header-menu></header-menu>
-     
-      <div class="row q-py-xl" style="width:50%;min-width:320px;margin:auto">
-        <div class="col-6 q-px-md">
-          <span>Importing economy</span>
-          <q-select
-            @input="getStructureOfValue()"
-            dense
-            outlined
-            :options="countryOptions"
-            v-model="importingEconomy"
-            emit-value
-            map-options
-          ></q-select>
-        </div>
-
-        <div class="col-6 q-px-md">
-          <span>Exporting Sector</span>
-          <q-select
-            @input="getStructureOfValue()"
-            dense
-            outlined
-            :options="sectorOptions"
-            v-model="sectorSelected"
-            emit-value
-            map-options
-          ></q-select>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="absolute-center font-graph"
-      v-if="!isShowPage"
-      style="width:90%; margin:auto; max-width:700px; text-align:center "
-    >Please choose your Importing economy and Exporting sector.</div>
-
-   
-    <error-page
-      class="q-pt-md"
-      v-show="isShowErrorWarning"
-      displayText="The exporting economy cannot be the same as the 
-importing economy"
-    ></error-page>
-    <div v-if="isShowPage">
-     
-      <div v-show="!isShowErrorWarning">
-       
-        <div class="row" style="margin:auto; max-width:1050px;width:95%;">
-          <div class="divLeft col">
-            <div class="font-graph q-pt-md" align="center">Table of contents:</div>
-            <div class="q-pa-md font-content">
-              <div v-scroll-to="'#key'" class="cursor-pointer">
-                1.
-                <u>Key policy questions</u>
-              </div>
-              <div class="q-pt-md cursor-pointer" v-scroll-to="'#structure'">
-                2.
-                <u>Structure of value-added</u>
-              </div>
-              <div class="q-pt-md cursor-pointer" v-scroll-to="'#comparison'">
-                3.
-                <u>Comparison with partners</u>
-              </div>
-              <div class="q-pt-md cursor-pointer" v-scroll-to="'#measuring'">
-                4.
-                <u>Measuring trade balance</u>
-              </div>
-            </div>
+          <div class="col q-px-md" align="center">
+            <div
+              style="border:1px solid;height:60px"
+              class="flex flex-center cursor-pointer relative-position"
+              v-scroll-to="'#structure'"
+              v-ripple
+            >Structure of value-added</div>
           </div>
-          <div class="divRight">
+          <div class="col q-px-md" align="center">
             <div
-              class="font-graph q-pt-md"
-              align="center"
-            >How do you disaggregate value-added in gross exports?</div>
+              style="border:1px solid;height:60px"
+              class="flex flex-center cursor-pointer relative-position"
+              v-scroll-to="'#measuring'"
+              v-ripple
+            >Measuring trade balance</div>
+          </div>
+          <div class="col q-px-md" align="center">
             <div
-              class="font-content q-pt-md"
-              align="center"
-            >{{displayExportingEconomy}}'s gross exports can be divided into five major parts:</div>
-            <div class="row q-pt-md" style="width:95%; margin:auto;">
-              <div style="width:20%" align="center">Used in importer's comsumption</div>
-              <div style="width:20%" align="center">Used in domestic comsumption</div>
-              <div style="width:20%" align="center">Used in importer's export production</div>
-              <div style="width:20%" align="center">Imported content</div>
-              <div
-                style="width:20%"
+              style="border:1px solid;height:60px"
+              class="flex flex-center cursor-pointer relative-position"
+              v-ripple
+              v-scroll-to="'#comparison'"
+            >Comparison with sub-regional partners</div>
+          </div>
+        </div>
+        <!--  -->
+        <div class="row" style="height:340px">
+          <div class="col-3">
+            <q-img src="../../public/images/image-58.png"></q-img>
+          </div>
+          <div class="col flex flex-center" align="center" style="background-color:#E5E1E1">
+            <div class="divRight">
+              <p
+                class="font-24"
                 align="center"
-              >Double counted exports from repeated border crossing</div>
+              >How do you disaggregate value-added in gross exports?</p>
+
+              <div
+                class="font-content q-pb-sm"
+                align="center"
+              >Argentina's gross exports can be divided into five major parts:</div>
+              <div class="row q-pt-md" style="width:95%; margin:auto;">
+                <div style="width:20%" align="center">Used in importer's comsumption</div>
+                <div style="width:20%" align="center">Used in domestic comsumption</div>
+                <div style="width:20%" align="center">Used in importer's export production</div>
+                <div style="width:20%" align="center">Imported content</div>
+                <div
+                  style="width:20%"
+                  align="center"
+                >Double counted exports from repeated border crossing</div>
+              </div>
+              <div class="bracketLeft"></div>
+              <div class="bracketRight"></div>
+              <div class="textLeft font-content">Argentina's valued-added in exports</div>
+              <div class="textRight font-content">GVC releated exports</div>
             </div>
-            <div class="bracketLeft"></div>
-            <div class="bracketRight"></div>
-            <div class="textLeft font-content">{{displayExportingEconomy}}'s valued-added in exports</div>
-            <div class="textRight font-content">GVC releated exports</div>
           </div>
         </div>
+        <!--  -->
+        <div style="padding-top:90px;padding-bottom:50px">
+          <p align="center" class="font-24" id="keypolicy">Key policy questions</p>
 
-       
-        <div class="q-py-lg" style="width:90%;margin:auto;max-width:1200px" id="key">
-          <p align="center" class="q-pb-md" style="font-size:24px">Key policy questions</p>
-          <div class="q-px-md font-content">
+          <div class="font-content" style="padding :0px 60px">
             <div v-scroll-to="'#structure'" class="cursor-pointer">
               1.
-              <u>What happens to {{displayExportingEconomy}}’s exports to a selected importer?</u>
-            </div>
-            <div class="cursor-pointer" v-scroll-to="'#comparison'">
-              2.
-             
-              <u>What happens to {{continent}} economics’ exports to a selected imported?</u>
+              <u>
+                What happens to {{ exportingSelected.label }}’s exports to a
+                selected importer?
+              </u>
             </div>
             <div class="cursor-pointer" v-scroll-to="'#measuring'">
+              2.
+              <u>
+                How does {{ exportingSelected.label }}’s domestic value-added and
+                gross trade balance with the selected imported differ?
+              </u>
+            </div>
+            <div class="cursor-pointer q-py-sm" v-scroll-to="'#comparison'">
               3.
-              <u>How does {{displayExportingEconomy}}’s domestic value-added and gross trade balance with the selected imported differ?</u>
+              <u>
+                What happens to {{ continent }} economics’ exports to a selected
+                imported?
+              </u>
             </div>
           </div>
         </div>
-        <hr />
-
-       
+        <!-- GRAPH1 -->
         <div style="height:30px" id="structure"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isStructureChart">
@@ -381,21 +230,9 @@ importing economy"
           </div>
         </div>
         <hr />
-
-       
-        <div id="comparison" style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px">
-          <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-show="isComparisonChart">
-            <div id="container1"></div>
-          </div>
-        </div>
-        <hr />
-
-       
+        <!-- GRAPH2 -->
         <div id="measuring" style="height:30px"></div>
+
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isMeasuringChart">
             <q-spinner-pie color="primary" size="100px" />
@@ -405,10 +242,31 @@ importing economy"
           </div>
         </div>
 
-        <div style="height:30px"></div>
+        <hr />
+
+        <!--GRAPH3  -->
+        <div id="comparison" style="height:30px"></div>
+
+        <div style="width:90%;margin:auto;max-width:1200px">
+          <div align="center" class="q-pa-lg" v-if="!isComparisonChart">
+            <q-spinner-pie color="primary" size="100px" />
+          </div>
+          <div v-show="isComparisonChart">
+            <div id="container1"></div>
+          </div>
+        </div>
       </div>
     </div>
-  </q-page>-->
+
+    <div v-else>
+      <data-waiting
+        text="Please choose exporting economy, importing economy, exporting sector and year from the drop down menus above"
+      ></data-waiting>
+    </div>
+
+    <!-- FOOTER -->
+    <my-footer></my-footer>
+  </q-page>
 </template>
 
 <script>
@@ -421,6 +279,8 @@ import errorPage from "../components/error-page";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
+import dataWaiting from "../components/dataWaiting.vue";
+import sorryDuplicate from "../components/sorryDuplicate.vue";
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
 let cancelGraph1;
@@ -435,6 +295,8 @@ export default {
     globalValueChainsHeader,
     globalValueChainsMenu,
     myFooter,
+    dataWaiting,
+    sorryDuplicate,
   },
   data() {
     return {
@@ -473,20 +335,10 @@ export default {
       sectorOptions: [],
       sectorSelected: "",
 
-      continent: this.$q.sessionStorage.has("cselec")
-        ? this.$q.sessionStorage.getItem("cselec").region
-        : "",
+      continent: "",
 
-      displayYear: this.$q.sessionStorage.has("cselec")
-        ? this.$q.sessionStorage.getItem("cselec").year
-        : "",
+      displayYear: "",
 
-      displayImportingEconomy: "",
-      imp_country: "",
-
-      displayExportingEconomy: this.$q.sessionStorage.has("cselec")
-        ? this.$q.sessionStorage.getItem("cselec").name
-        : "",
       exp_country: this.$q.sessionStorage.has("cselec")
         ? this.$q.sessionStorage.getItem("cselec").iso
         : "",
@@ -510,73 +362,38 @@ export default {
   },
   methods: {
     changeYear() {
-      this.$q.sessionStorage.set("year", this.year);
-      this.getStructureOfValue();
+      this.$q.sessionStorage.set("year", this.year.label);
+      this.displayYear = this.year.label;
+      if (this.validateSelected()) this.renderGraph();
     },
     selectedExporting() {
-      this.$q.sessionStorage.set("expe", this.exportingSelected);
-      this.getStructureOfValue();
+      this.$q.sessionStorage.set("expe", this.exportingSelected.iso);
+
+      this.continent = exportingEconomy.region;
+
+      if (this.validateSelected()) this.renderGraph();
     },
     selectedImporting() {
-      this.getStructureOfValue();
+      this.$q.sessionStorage.set("impe", this.importingSelected.iso);
+
+      if (this.validateSelected()) this.renderGraph();
     },
     selectedSector() {
-      this.getStructureOfValue();
+      this.$q.sessionStorage.set("esec", this.sectorSelected);
+      if (this.validateSelected()) this.renderGraph();
     },
-    // checkShowPage() {
-    //   if (
-    //     this.displayExportingEconomy != "" &&
-    //     this.displayYear != "" &&
-    //     this.displayImportingEconomy != "" &&
-    //     this.displaySector != ""
-    //   ) {
-    //     this.isShowPage = true;
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // },
-    // Get Emit Data
-    // getEmitData(val) {
-    //   // Exporting Economy
-    //   this.displayExportingEconomy = val.name;
-    //   this.exp_country = val.iso;
-    //   this.continent = val.region;
-    //   this.displayYear = val.year;
-    //   this.checkShowPage();
-    //   this.getStructureOfValue();
-    // },
 
-    // Get Structure Of Value
-    async getStructureOfValue() {
-      // Importing Economy
-      let countryData = this.countryOptions.filter(
-        (x) => x.value == this.importingEconomy
-      )[0];
-
-      let sectorData = this.sectorOptions.filter(
-        (x) => x.value == this.sectorSelected
-      )[0];
-
-      // if (countryData) {
-      //   this.displayImportingEconomy = countryData.label;
-      //   this.imp_country = countryData.iso;
-      // }
-
-      // if (sectorData) {
-      //   this.displaySector = sectorData.label;
-      //   this.sector = sectorData.value;
-      // }
-      // let check = this.checkShowPage();
-      // if (check) {
-      //   if (this.displayImportingEconomy == this.displayExportingEconomy) {
-      //     this.isShowErrorWarning = true;
-      //     return;
-      //   }
-      //   this.isShowErrorWarning = false;
-
-      this.renderGraph(); // Render Graph
-      // }
+    validateSelected() {
+      if (
+        this.sectorSelected &&
+        this.year &&
+        this.exportingSelected &&
+        this.importingSelected
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // Render Graph
@@ -591,7 +408,8 @@ export default {
     async setStackChart() {
       this.isStructureChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year}&sector=${this.sectorSelected}`;
+      console.log(urlLink);
 
       if (cancelGraph1 !== undefined) {
         cancelGraph1();
@@ -672,19 +490,19 @@ export default {
                 name: `Imp. cons. (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
-                label: `Used in ${this.displayImportingEconomy}’s comsumption`,
+                label: `Used in ${this.importingSelected.label}’s comsumption`,
               },
               {
                 name: `imp. exp. (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
-                label: `Used in ${this.displayImportingEconomy}’s export <br>production`,
+                label: `Used in ${this.importingSelected.label}’s export <br>production`,
               },
               {
                 name: `Dom. cons (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.displayExportingEconomy}’s domestic <br>comsumption`,
+                label: `Used in ${this.exportingSelected.label}’s domestic <br>comsumption`,
               },
               {
                 name: `Double (${this.dataChart1Percent.double}%)`,
@@ -731,44 +549,26 @@ export default {
           },
           text:
             "What happens to " +
-            this.displayExportingEconomy +
+            this.exportingSelected.label +
             "'s exports to " +
-            this.displayImportingEconomy +
+            this.importingSelected.label +
             "?",
         },
         subtitle: {
-          text: `Gross exports to ${this.displayImportingEconomy}: $${getData.text_export_to_import_country}B / Gross exports to World: $${getData.text_export_to_world}B`,
+          text: `Gross exports to ${this.importingSelected.label}: $${getData.text_export_to_import_country}B / Gross exports to World: $${getData.text_export_to_world}B`,
           align: "left",
         },
         credits: {
           enabled: false,
         },
 
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-          width: "1280px",
-          chartOptions: {
-            legend: {
-              width: 200,
-              itemStyle: {
-                fontSize: "7px",
-                fontWeight: "medium",
-                fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
     async setStackChart2() {
       this.isComparisonChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year}&sector=${this.sectorSelected}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -811,7 +611,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `What happens to ${this.continent} economies’ exports to ${this.displayImportingEconomy}?`,
+          text: `What happens to ${this.continent} economies’ exports to selected imported?`,
         },
         xAxis: {
           labels: {
@@ -823,7 +623,7 @@ export default {
           min: 0,
           max: 100,
           title: {
-            text: `% of gross exports to ${this.displayImportingEconomy}`,
+            text: `% of gross exports to ${this.importingSelected.label}`,
           },
           stackLabels: {
             enabled: false,
@@ -873,17 +673,17 @@ export default {
         },
         series: [
           {
-            name: `Used in ${this.displayImportingEconomy}'s comsumption`,
+            name: `Used in ${this.importingSelected.label}'s comsumption`,
             data: imp_cons,
             color: "#2381B8",
           },
           {
-            name: `Used in ${this.displayImportingEconomy}'s export <br> production`,
+            name: `Used in ${this.importingSelected.label}'s export <br> production`,
             data: imp_exp,
             color: "#EB1E63",
           },
           {
-            name: `Used in ${this.displayExportingEconomy}'s domestic <br>comsumption`,
+            name: `Used in ${this.exportingSelected.label}'s domestic <br>comsumption`,
             data: dom_cons,
             color: "#f99704",
           },
@@ -898,31 +698,13 @@ export default {
             color: "#9C26B3",
           },
         ],
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-          width: "1280px",
-          chartOptions: {
-            legend: {
-              width: 200,
-              itemStyle: {
-                fontSize: "7px",
-                fontWeight: "medium",
-                fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
     async setStackChart3() {
       this.isMeasuringChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year.label}&sector=${this.sectorSelected}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.year}&sector=${this.sectorSelected}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -968,14 +750,14 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `How does ${this.displayExportingEconomy}'s gross and domestic value-added trade balance with ${this.displayImportingEconomy} differ?`,
+          text: `How does ${this.exportingSelected.label}'s gross and domestic value-added trade balance with ${this.importingSelected.label} differ?`,
         },
         xAxis: {
           categories: ["", ""],
         },
         yAxis: {
           title: {
-            text: `% of gross exports to ${this.displayImportingEconomy}`,
+            text: `% of gross exports to ${this.importingSelected.label}`,
           },
         },
         credits: {
@@ -993,13 +775,7 @@ export default {
             color: "#EB1E63",
           },
         ],
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
 
@@ -1036,9 +812,37 @@ export default {
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exportingSelected = this.$route.params.expe
         ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
-        : this.$q.sessionStorage.getItem("expe");
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
+          )[0];
+      this.countryOptionsShow = this.countryOptions;
+      this.continent = this.exportingSelected.region;
+      this.exportingSelected.label;
+    }
+
+    if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
+      this.importingSelected = this.$route.params.impe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
+          )[0];
       this.countryOptionsShow = this.countryOptions;
     }
+
+    if (this.$q.sessionStorage.has("esec") || this.$route.params.sector) {
+      this.sectorSelected = this.$route.params.sector
+        ? this.$route.params.sector
+        : this.$q.sessionStorage.getItem("esec");
+    }
+
+    if (this.validateSelected()) {
+      this.renderGraph();
+    }
+  },
+  computed: {
+    checkDuplicateSelected() {
+      return this.exportingSelected.iso == this.importingSelected.iso;
+    },
   },
 };
 </script>
