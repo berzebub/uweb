@@ -290,7 +290,9 @@
                       style="left:10%;"
                     >
                       <div class="text-white">{{item.sector}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
 
@@ -305,7 +307,9 @@
                       style="left:10%;"
                     >
                       <div class="text-white">{{item.sector}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
                 </div>
@@ -360,7 +364,9 @@
                       style="right:10%;direction: rtl;"
                     >
                       <div class="text-white">{{item.sector}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% ,${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
 
@@ -375,7 +381,9 @@
                       style="right:10%;direction: rtl;"
                     >
                       <div class="text-white">{{item.sector}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
                 </div>
@@ -468,7 +476,9 @@
                       style="left:10%;"
                     >
                       <div class="text-white">{{item.fullName}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
 
@@ -483,7 +493,9 @@
                       style="left:10%;"
                     >
                       <div class="text-white">{{item.fullName}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
                 </div>
@@ -542,7 +554,9 @@
                       style="right:10%;direction: rtl;"
                     >
                       <div class="text-white">{{item.fullName}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
 
@@ -557,7 +571,9 @@
                       style="right:10%;direction: rtl;"
                     >
                       <div class="text-white">{{item.fullName}}</div>
-                      <div class="text-white">{{item.precent}}% , ${{item.value}}M</div>
+                      <div
+                        class="text-white"
+                      >{{item.precent}}% , ${{item.value > 1000? (item.value/1000).toFixed(2) + 'B': item.value + "M"}}</div>
                     </span>
                   </q-img>
                 </div>
@@ -909,7 +925,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "gross imports ($)",
+            text: "Foreign value-added ($)",
           },
         },
         legend: {
@@ -937,23 +953,17 @@ export default {
         plotOptions: {
           series: {
             borderWidth: 0,
+
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
-            },
-            events: {
-              legendItemClick: function () {
-                console.log(this.visible);
-              },
+              format: "${point.y}M",
             },
           },
         },
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>",
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
           enabled: false,
@@ -1042,7 +1052,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "gross imports ($)",
+            text: "Contribution to partner exports ($)",
           },
         },
         legend: {
@@ -1072,7 +1082,7 @@ export default {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+              format: "${point.y}M",
             },
             events: {
               legendItemClick: function () {
@@ -1084,9 +1094,7 @@ export default {
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>",
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
           enabled: false,
@@ -1200,7 +1208,7 @@ export default {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+              format: "${point.y}M",
             },
             events: {
               legendItemClick: function () {
@@ -1212,9 +1220,7 @@ export default {
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>",
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
           enabled: false,
@@ -1325,7 +1331,7 @@ export default {
           series: {
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`,
+              format: "${point.y}M",
             },
             events: {
               legendItemClick: function (event) {
@@ -1337,9 +1343,7 @@ export default {
         },
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>",
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
           enabled: false,
