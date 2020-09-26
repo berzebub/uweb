@@ -562,37 +562,7 @@ export default {
           enabled: false,
         },
 
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: [
-                "downloadPNG",
-                "downloadJPEG",
-                "separator",
-                "downloadCSV",
-                "downloadXLS",
-              ],
-            },
-          },
-          width: "1280px",
-          chartOptions: {
-            legend: {
-              width: 200,
-              itemStyle: {
-                fontSize: "7px",
-                fontWeight: "medium",
-                fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-            title: {
-              style: { fontSize: "16px" },
-            },
-            chart: {
-              style: { fontSize: "12px" },
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
     async setStackChart2() {
@@ -728,25 +698,7 @@ export default {
             color: "#9C26B3",
           },
         ],
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-          width: "1280px",
-          chartOptions: {
-            legend: {
-              width: 200,
-              itemStyle: {
-                fontSize: "7px",
-                fontWeight: "medium",
-                fontFamily: "roboto",
-                color: "#00000",
-              },
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
     async setStackChart3() {
@@ -823,13 +775,7 @@ export default {
             color: "#EB1E63",
           },
         ],
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
-        },
+        exporting: this.exportingGraphOptions,
       });
     },
 

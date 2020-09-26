@@ -2,24 +2,20 @@ import Vue from "vue";
 import HighchartsVue from "highcharts-vue";
 import VueRouter from "vue-router";
 import routes from "./routes";
-import JsonCSV from 'vue-json-csv'
-import CountryFlag from 'vue-country-flag'
+import JsonCSV from "vue-json-csv";
+import CountryFlag from "vue-country-flag";
 
 import VueFlags from "@growthbunker/vueflags";
 var VueScrollTo = require("vue-scrollto");
 
-
-
-
-
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);
-Vue.component('downloadCsv', JsonCSV)
-Vue.component('country-flag', CountryFlag)
+Vue.component("downloadCsv", JsonCSV);
+Vue.component("country-flag", CountryFlag);
 Vue.use(VueFlags, {
   // Specify the path of the folder where the flags are stored.
-  iconPath: '../flags',
+  iconPath: "../flags"
 });
 /*
  * If not building with SSR mode, you can
@@ -30,7 +26,7 @@ Vue.use(VueFlags, {
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -49,7 +45,39 @@ import sectorJson from "../../public/sector.json";
 
 Vue.mixin({
   data() {
-    return {};
+    return {
+      exportingGraphOptions: {
+        buttons: {
+          contextButton: {
+            menuItems: [
+              "downloadPNG",
+              "downloadJPEG",
+              "separator",
+              "downloadCSV",
+              "downloadXLS"
+            ]
+          }
+        },
+        width: "1280px",
+        chartOptions: {
+          legend: {
+            width: 180,
+            itemStyle: {
+              fontSize: "7px",
+              fontWeight: "medium",
+              fontFamily: "roboto",
+              color: "#00000"
+            }
+          },
+          title: {
+            style: { fontSize: "12px" }
+          },
+          subtitle: {
+            style: { fontSize: "8px" }
+          }
+        }
+      }
+    };
   },
 
   methods: {
@@ -86,7 +114,7 @@ Vue.mixin({
         tempOptions.push(data);
       });
       this.sectorOptions = tempOptions;
-      this.sectorSelected = ""
+      this.sectorSelected = "";
     },
     notifyGreen(message) {
       this.$q.notify({
