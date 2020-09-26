@@ -389,8 +389,13 @@ export default {
       });
     },
 
-    selectedData() {
+    validateSelected() {
       if (this.exp_country && this.imp_country && this.year && this.sector) {
+        this.$q.sessionStorage.set("expe", this.exp_country.iso);
+        this.$q.sessionStorage.set("impe", this.imp_country.iso);
+        this.$q.sessionStorage.set("year", this.year);
+        this.$q.sessionStorage.set("sector", this.sector);
+
         this.renderGraph();
       }
     },
@@ -473,9 +478,11 @@ export default {
         }),
       });
 
-      getData = getData.data;
+      let region = this.countryOptions.filter(
+        (x) => x.iso == this.exp_country.iso
+      )[0].region;
 
-      console.log(getData);
+      getData = getData.data;
 
       let countryList = [];
       let forwardList = [];
@@ -488,11 +495,6 @@ export default {
         backwardList.push(x.backward);
         doubleList.push(x.double);
       });
-
-      console.log(countryList);
-      console.log(forwardList);
-      console.log(backwardList);
-      console.log(doubleList);
 
       this.isChart = true;
 
@@ -581,7 +583,7 @@ export default {
             fontFamily: "roboto",
           },
 
-          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br>compared to other ${this.continent} economies?`,
+          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`,
         },
         exporting: {
           buttons: {
@@ -607,6 +609,39 @@ export default {
     await this.getCountryList();
     await this.getSectorList();
     await this.getYear();
+
+    if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
+      this.exp_country = this.$route.params.expe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
+          )[0];
+
+      this.exp_optionsShow = this.countryOptions;
+    }
+
+    if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
+      this.imp_country = this.$route.params.impe
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
+        : this.countryOptions.filter(
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
+          )[0];
+      this.imp_optionsShow = this.countryOptions;
+    }
+
+    if (this.$q.sessionStorage.has("year") || this.$route.params.year) {
+      this.year = this.$route.params.year
+        ? this.$route.params.year
+        : this.$q.sessionStorage.getItem("year");
+    }
+
+    if (this.$q.sessionStorage.has("sector") || this.$route.params.sector) {
+      this.sector = this.$route.params.sector
+        ? this.$route.params.sector
+        : this.$q.sessionStorage.getItem("sector");
+    }
+
+    this.validateSelected();
   },
 };
 </script>
