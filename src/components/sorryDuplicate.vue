@@ -9,7 +9,7 @@
           <div class="col-3 self-center q-pa-md" align="center">
             <q-icon name="fas fa-exclamation-triangle" size="120px" style="color:#EE0202"></q-icon>
           </div>
-          <div class="col text-black q-pa-md">
+          <div class="col text-black q-pa-md" align="left">
             <span class="font-page">Sorry, this page isn’t available</span>
             <br />
             <br />

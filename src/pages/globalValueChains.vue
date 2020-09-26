@@ -50,7 +50,8 @@
           align="center"
           @mouseenter="hoverOnCard2(index)"
           @mouseleave="deactiveHoverCard()"
-          @click="cardClick(card.router)"
+          @click="index != 1 ? cardClick(card.router) : ''"
+          :class="index == 1 ? 'disabled' : ''"
         >
           <div class="menu-card card-color shadow-5" v-show="hoverActiveIndex2 != index">
             <div>
