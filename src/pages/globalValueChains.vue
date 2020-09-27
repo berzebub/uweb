@@ -133,15 +133,15 @@ export default {
           text: "What about backward linkages?",
           hover:
             "Find out where imported content used in exports comes from for your economy of choice. Examine this by region and sector. Compare across sub-regional partners ",
-          router: "/forward-linkages",
+          router: "/backward-linkages"
         },
         {
           icon: require("../../public/images/icon05.png"),
           text: "What about forward linkages?",
           hover:
             "Find out where your economy of choice contributes towards export production. Examine this by region and sector. Compare across sub-regional partners ",
-          router: "/backward-linkages",
-        },
+          router: "/forward-linkages"
+        }
       ],
       cardList2: [
         {
