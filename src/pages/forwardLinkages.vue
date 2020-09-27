@@ -70,7 +70,7 @@
 
         <div class="row q-pt-md justify-center">
           <div class="col-6 row">
-            <div class="col q-px-md" v-if="selectedBy == 'Exporting'">
+            <div class="col q-px-md" v-if="activeBy == 'Exporting'">
               <div>Exporting sector</div>
               <div>
                 <q-select
@@ -86,7 +86,7 @@
                 </q-select>
               </div>
             </div>
-            <div class="col-6 q-px-md" v-if="selectedBy == 'Economy'">
+            <div class="col-6 q-px-md" v-if="activeBy == 'Economy'">
               <div>Importing economy</div>
               <div>
                 <q-select
@@ -135,13 +135,11 @@
         <div class="q-py-xl row justify-center">
           <div class="col-3 q-px-md" align="center">
             <q-btn
-              :class="
-                selectedBy == 'Exporting' ? 'text-amber-12' : 'text-white '
-              "
+              :class="activeBy == 'Exporting' ? 'text-amber-12' : 'text-white '"
               no-caps
               style="background-color:#2C2F30"
               class="fit font-20"
-              @click="selectedBy = 'Exporting'"
+              @click="selectedActiveBy('Exporting')"
             >
               select by Exporting
               <br />sector
@@ -149,11 +147,11 @@
           </div>
           <div class="col-3 q-px-md">
             <q-btn
-              :class="selectedBy == 'Economy' ? 'text-amber-12' : 'text-white '"
+              :class="activeBy == 'Economy' ? 'text-amber-12' : 'text-white '"
               no-caps
               style="background-color:#2C2F30"
               class="fit font-20"
-              @click="selectedBy = 'Economy'"
+              @click="selectedActiveBy('Economy')"
             >
               select by Source
               <br />economy
@@ -163,7 +161,14 @@
       </div>
 
       <!--  -->
-      <div class="row" style="background-color:#E5E1E1;">
+      <div
+        class="row"
+        style="background-color:#E5E1E1;"
+        v-if="
+          (activeBy == 'Exporting' && exp_country && sector && year) ||
+            (activeBy == 'Economy' && exp_country && imp_country && year)
+        "
+      >
         <div class="col-3 full-height">
           <q-img class src="../../public/forwardlinks.png"></q-img>
         </div>
@@ -172,14 +177,16 @@
             Where does {{ exp_country.label }} contribute towards export
             production?
           </p>
-          <div align="center" class="q-px-lg ">
+          <div align="center" class="q-px-lg">
             <div align="center" class="q-px-lg">
               <p align="left">
                 Some part of {{ exp_country.label }}’s gross exports consist of
                 intermediate inputs that are used by the direct importer to
                 produce exports for third economy
               </p>
+            </div>
 
+            <div>
               <div class="row justify-center ">
                 <div class="q-mx-sm">
                   Exporting economy <br />
@@ -189,13 +196,15 @@
 
                 <div
                   class="q-mx-sm"
-                  style="width:200px;"
-                  :class="{ 'c-blue text-bold': selectedBy == 'Exporting' }"
+                  style="min-width:200px;max-width:170px;"
+                  :class="{
+                    'c-blue text-bold': activeBy == 'Exporting'
+                  }"
                 >
-                  Exporting economy
+                  Exporting sector
                   <br />
                   <div>
-                    <span v-if="selectedBy == 'Exporting'">
+                    <span v-if="activeBy == 'Exporting'">
                       {{ showSector.label }}
                     </span>
                     <span v-else>
@@ -213,11 +222,12 @@
 
                 <div
                   class="q-mx-sm"
-                  :class="{ 'c-blue text-bold': selectedBy == 'Economy' }"
+                  style="min-width:200px;max-width:170px;"
+                  :class="{ 'c-blue text-bold': activeBy == 'Economy' }"
                 >
                   Importing economy
                   <br />
-                  <span v-if="selectedBy == 'Economy'">
+                  <span v-if="activeBy == 'Economy'">
                     {{ imp_country.label }}
                   </span>
                   <span v-else>
@@ -239,46 +249,115 @@
         </div>
       </div>
 
-      <div class="bg-white q-pa-xl">
-        <div align="center" class="q-mb-xl">
-          <span class="font-24">Key policy questions</span>
+      <!-- Exporting Data -->
+      <div v-if="this.activeBy == 'Exporting'">
+        <div v-if="exp_country && sector && year">
+          <div class="bg-white q-pa-xl">
+            <div align="center" class="q-mb-xl">
+              <span class="font-24">Key policy questions</span>
+            </div>
+            <div class="q-mt-lg q-px-lg">
+              <p>
+                1. Where doesThailand contribute the most towards export
+                production?
+              </p>
+              <p>
+                2. Where do South-East Asian economies contribute the most
+                towards export production?
+              </p>
+            </div>
+          </div>
+
+          <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+          <!-- GRAPH -->
+
+          <div class="bg-white q-py-xl">
+            <div style="width:90%;margin:auto;max-width:1200px">
+              <div align="center" class="q-pa-lg" v-if="!isChart1">
+                <q-spinner-pie color="primary" size="100px" />
+              </div>
+              <div v-show="isChart1">
+                <div id="container1"></div>
+              </div>
+            </div>
+          </div>
+
+          <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+          <div class="bg-white q-py-xl">
+            <div style="width:90%;margin:auto;max-width:1200px">
+              <div align="center" class="q-pa-lg" v-if="!isChart2">
+                <q-spinner-pie color="primary" size="100px" />
+              </div>
+              <div v-show="isChart2">
+                <div id="container2"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="q-mt-lg q-px-lg">
-          <p>
-            1. Where doesThailand contribute the most towards export production?
-          </p>
-          <p>
-            2. Where do South-East Asian economies contribute the most towards
-            export production?
-          </p>
+
+        <div v-else>
+          <data-waiting
+            text="Please choose exporting economy, exporting sector
+ and year from the drop down menus above"
+          >
+          </data-waiting>
         </div>
       </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-      <!-- GRAPH -->
-
-      <div class="bg-white q-py-xl">
-        <div style="width:90%;margin:auto;max-width:1200px">
-          <div align="center" class="q-pa-lg" v-if="!isChart1">
-            <q-spinner-pie color="primary" size="100px" />
+      <!-- Economy Data -->
+      <div v-if="this.activeBy == 'Economy'">
+        <div v-if="exp_country && imp_country && year">
+          <div class="bg-white q-pa-xl">
+            <div align="center" class="q-mb-xl">
+              <span class="font-24">Key policy questions</span>
+            </div>
+            <div class="q-mt-lg q-px-lg">
+              <p>
+                1. Which sectors in Argentina are most reliant on export
+                production in a selected importer?
+              </p>
+              <p>
+                2. Which sectors in Latin America and the Caribbean economies
+                are most reliant on export production in a selected importer?
+              </p>
+            </div>
           </div>
-          <div v-show="isChart1">
-            <div id="container1"></div>
+
+          <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+          <div class="bg-white q-py-xl">
+            <div style="width:90%;margin:auto;max-width:1200px">
+              <div align="center" class="q-pa-lg" v-if="!isChart3">
+                <q-spinner-pie color="primary" size="100px" />
+              </div>
+              <div v-show="isChart3">
+                <div id="container3"></div>
+              </div>
+            </div>
+          </div>
+
+          <q-separator class="no-margin bg-grey-5 shadow-1" />
+
+          <div class="bg-white q-py-xl">
+            <div style="width:90%;margin:auto;max-width:1200px">
+              <div align="center" class="q-pa-lg" v-if="!isChart4">
+                <q-spinner-pie color="primary" size="100px" />
+              </div>
+              <div v-show="isChart4">
+                <div id="container4"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <q-separator class="no-margin bg-grey-5 shadow-1" />
-
-      <div class="bg-white q-py-xl">
-        <div style="width:90%;margin:auto;max-width:1200px">
-          <div align="center" class="q-pa-lg" v-if="!isChart2">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-show="isChart2">
-            <div id="container2"></div>
-          </div>
+        <div v-else>
+          <data-waiting
+            text="Please choose exporting economy, exporting sector
+ and year from the drop down menus above"
+          >
+          </data-waiting>
         </div>
       </div>
 
@@ -295,16 +374,28 @@ import Axios from "axios";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
+import dataWaiting from "../components/dataWaiting.vue";
+
+let CancelToken = Axios.CancelToken;
+let source = CancelToken.source();
+let cancelGraph1;
+let cancelGraph2;
+let cancelGraph3;
+let cancelGraph4;
+let cancelGraph5;
+let cancelGraph6;
 
 export default {
   components: {
     globalValueChainsHeader,
     globalValueChainsMenu,
-    myFooter
+    myFooter,
+    dataWaiting
   },
   data() {
     return {
       // NEW
+
       countryOptions: [],
 
       exportingOptions: [],
@@ -319,10 +410,39 @@ export default {
       sectorOptions: [],
       sector: "",
 
-      selectedBy: "Exporting",
+      activeBy: "Exporting",
 
-      isChart1: true,
-      isChart2: true
+      isChart1: false,
+      isChart2: false,
+      isChart3: false,
+      isChart4: false,
+
+      // DrillDown Chart 1
+      chart2RawData: [],
+      chart2DrillDown: [],
+      chart2AsiaPacific: [],
+      chart2Europe: [],
+      chart2NorthAmerica: [],
+      chart2LatinAmerica: [],
+      chart2RestOfTheWorld: [],
+
+      // DrillDown Chart 2
+      countryList: [],
+      agricultureData: [],
+      miningData: [],
+      constructionData: [],
+      utilitiesData: [],
+      lowtechData: [],
+      drilldownData: [],
+      hightechData: [],
+      tradeRepairData: [],
+      tourismData: [],
+      transportData: [],
+      ictData: [],
+      propertyData: [],
+      financialData: [],
+      publicwData: [],
+      privatewData: []
     };
   },
   computed: {
@@ -360,6 +480,40 @@ export default {
   },
 
   methods: {
+    selectedActiveBy(type) {
+      this.activeBy = type;
+
+      if (cancelGraph1 != undefined) {
+        cancelGraph1();
+      }
+
+      if (cancelGraph2 != undefined) {
+        cancelGraph2();
+      }
+
+      if (cancelGraph3 != undefined) {
+        cancelGraph3();
+      }
+
+      if (cancelGraph4 != undefined) {
+        cancelGraph4();
+      }
+      if (cancelGraph5 != undefined) {
+        cancelGraph5();
+      }
+
+      if (cancelGraph6 != undefined) {
+        cancelGraph6();
+      }
+
+      if (this.validateSelected()) {
+        if (type == "Exporting") {
+          this.renderOne();
+        } else {
+          this.renderTwo();
+        }
+      }
+    },
     filterExportingCountry(val, update) {
       update(async () => {
         this.exportingOptions = this.countryOptions.filter(
@@ -380,7 +534,7 @@ export default {
       this.$q.sessionStorage.set("expe", this.exp_country.iso);
 
       if (this.validateSelected()) {
-        if (this.selectedBy == "Exporting") {
+        if (this.activeBy == "Exporting") {
           this.renderOne();
         } else {
           this.renderTwo();
@@ -390,7 +544,7 @@ export default {
     selectedImporting() {
       this.$q.sessionStorage.set("impe", this.imp_country.iso);
       if (this.validateSelected()) {
-        if (this.selectedBy == "Exporting") {
+        if (this.activeBy == "Exporting") {
           this.renderOne();
         } else {
           this.renderTwo();
@@ -400,7 +554,7 @@ export default {
     selectedYear() {
       this.$q.sessionStorage.set("year", this.year);
       if (this.validateSelected()) {
-        if (this.selectedBy == "Exporting") {
+        if (this.activeBy == "Exporting") {
           this.renderOne();
         } else {
           this.renderTwo();
@@ -410,7 +564,7 @@ export default {
     selectedSector() {
       this.$q.sessionStorage.set("esec", this.sector);
       if (this.validateSelected()) {
-        if (this.selectedBy == "Exporting") {
+        if (this.activeBy == "Exporting") {
           this.renderOne();
         } else {
           this.renderTwo();
@@ -419,7 +573,7 @@ export default {
     },
 
     validateSelected() {
-      if (this.selectedBy == "Exporting") {
+      if (this.activeBy == "Exporting") {
         if (this.exp_country && this.year && this.sector) {
           return true;
         } else {
@@ -439,12 +593,25 @@ export default {
       this.chart2();
     },
 
+    renderTwo() {
+      this.chart3();
+      this.chart4();
+    },
+
     async chart1() {
       this.isChart1 = false;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_forward_country_1.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph1 !== undefined) {
+        cancelGraph1();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph1 = c;
+        })
+      });
 
       getData = getData.data;
 
@@ -494,7 +661,15 @@ export default {
 
       let urlLinkSub = `https://api.winner-english.com/u_api/cal_forward_country_1a.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
-      let getDataSub = await Axios.get(urlLinkSub);
+      if (cancelGraph2 !== undefined) {
+        cancelGraph2();
+      }
+
+      let getDataSub = await Axios.get(urlLinkSub, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph2 = c;
+        })
+      });
 
       getDataSub = getDataSub.data;
 
@@ -604,9 +779,18 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_forward_country_2.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph3 !== undefined) {
+        cancelGraph3();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph3 = c;
+        })
+      });
 
       getData = getData.data;
+
       let countryList = [];
 
       getData.map(x => {
@@ -618,13 +802,13 @@ export default {
 
       let rawData = [];
 
-      let chart2RawData = [];
-      let chart2DrillDown = [];
-      let chart2AsiaPacific = [];
-      let chart2Europe = [];
-      let chart2NorthAmerica = [];
-      let chart2LatinAmerica = [];
-      let chart2RestOfTheWorld = [];
+      this.chart2RawData = [];
+      this.chart2DrillDown = [];
+      this.chart2AsiaPacific = [];
+      this.chart2Europe = [];
+      this.chart2NorthAmerica = [];
+      this.chart2LatinAmerica = [];
+      this.chart2RestOfTheWorld = [];
 
       getData.map(x => {
         let temp = x.filter(y => y.value != 0);
@@ -632,12 +816,14 @@ export default {
       });
       rawData.map(x => {
         x.forEach(y => {
-          chart2RawData.push(y);
+          this.chart2RawData.push(y);
         });
       });
 
       //สร้าง Drill down สำหรับ Asia pacific
-      let asiaRawData = chart2RawData.filter(x => x.area == "Asia-Pacific");
+      let asiaRawData = this.chart2RawData.filter(
+        x => x.area == "Asia-Pacific"
+      );
       countryList.forEach(x => {
         let data = asiaRawData.filter(y => y.exp_country == x);
         let dataFinal = [];
@@ -657,17 +843,17 @@ export default {
           name: x + " <br> " + "Asia-Pacific",
           data: dataFinal
         };
-        chart2DrillDown.push(tempData);
+        this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Asia Pacific"
         };
-        chart2AsiaPacific.push(tempData);
+        this.chart2AsiaPacific.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Europe
-      let europeRawData = chart2RawData.filter(x => x.area == "Europe");
+      let europeRawData = this.chart2RawData.filter(x => x.area == "Europe");
       countryList.forEach(x => {
         let data = europeRawData.filter(y => y.exp_country == x);
         let dataFinal = [];
@@ -686,17 +872,17 @@ export default {
           name: x + " <br> " + "Europe",
           data: dataFinal
         };
-        chart2DrillDown.push(tempData);
+        this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Europe"
         };
-        chart2Europe.push(tempData);
+        this.chart2Europe.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ North America
-      let northAmericaRawData = chart2RawData.filter(
+      let northAmericaRawData = this.chart2RawData.filter(
         x => x.area == "North America"
       );
       countryList.forEach(x => {
@@ -717,17 +903,17 @@ export default {
           name: x + " <br> " + "North America",
           data: dataFinal
         };
-        chart2DrillDown.push(tempData);
+        this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "North America"
         };
-        chart2NorthAmerica.push(tempData);
+        this.chart2NorthAmerica.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Latin America
-      let latinAmericaRawData = chart2RawData.filter(
+      let latinAmericaRawData = this.chart2RawData.filter(
         x => x.area == "Latin America"
       );
       countryList.forEach(x => {
@@ -748,17 +934,17 @@ export default {
           name: x + " <br> " + "Latin America",
           data: dataFinal
         };
-        chart2DrillDown.push(tempData);
+        this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Latin America"
         };
-        chart2LatinAmerica.push(tempData);
+        this.chart2LatinAmerica.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Rest of the world
-      let restRawData = chart2RawData.filter(
+      let restRawData = this.chart2RawData.filter(
         x => x.area == "Rest of the world"
       );
       countryList.forEach(x => {
@@ -779,13 +965,13 @@ export default {
           name: x + " <br> " + "Rest of the world",
           data: dataFinal
         };
-        chart2DrillDown.push(tempData);
+        this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Rest of the world"
         };
-        chart2RestOfTheWorld.push(tempData);
+        this.chart2RestOfTheWorld.push(tempData);
       });
 
       this.isChart2 = true;
@@ -857,8 +1043,29 @@ export default {
           },
 
           tooltip: {
-            pointFormat:
-              "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+            useHTML: true,
+            headerFormat: "",
+            pointFormatter: function() {
+              return (
+                "<div class='text-bold'>" +
+                this.name +
+                "</div>" +
+                "<div> " +
+                this.series.name +
+                " share: " +
+                "10.90%" +
+                "</div>" +
+                "<div> " +
+                this.series.name +
+                " value: " +
+                this.value +
+                "</div>" +
+                "<div> Total share: 32.9%" +
+                "</div>" +
+                "<div> Total value: $60.3 million" +
+                "</div>"
+              );
+            }
           },
           plotOptions: {
             column: {
@@ -872,27 +1079,27 @@ export default {
           series: [
             {
               name: "Asia-Pacific",
-              data: chart2AsiaPacific,
+              data: this.chart2AsiaPacific,
               color: "#2381B8"
             },
             {
               name: "Europe",
-              data: chart2Europe,
+              data: this.chart2Europe,
               color: "#EB1E63"
             },
             {
               name: "North America",
-              data: chart2NorthAmerica,
+              data: this.chart2NorthAmerica,
               color: "#f99704"
             },
             {
               name: "Latin America",
-              data: chart2LatinAmerica,
+              data: this.chart2LatinAmerica,
               color: "#2D9687"
             },
             {
               name: "Rest of the world",
-              data: chart2RestOfTheWorld,
+              data: this.chart2RestOfTheWorld,
               color: "#9C26B3"
             }
           ],
@@ -902,13 +1109,719 @@ export default {
               textShadow: "0 0 2px black, 0 0 2px black"
             },
             showInLegend: false,
-            series: chart2DrillDown
+            series: this.chart2DrillDown
           },
           title: {
             style: {
               fontSize: "24px"
             },
             text: `Where do ${region} economies contribute the most towards export production? `
+          },
+          exporting: this.exportingGraphOptions
+        },
+        (Highcharts.Tick.prototype.drillable = function() {})
+      );
+    },
+
+    async chart3() {
+      this.isChart3 = false;
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_forward_sector_1.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+
+      if (cancelGraph4 !== undefined) {
+        cancelGraph4();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph4 = c;
+        })
+      });
+
+      getData = getData.data;
+
+      let summaryValue = getData.map(x => x.value);
+      summaryValue = summaryValue.filter(x => x);
+
+      summaryValue = summaryValue.reduce((a, b) => a + b, 0);
+
+      getData.forEach((element, index) => {
+        if (index > 13) {
+          element.name = `${element.name} (${(
+            (element.value / summaryValue) *
+            100
+          ).toFixed(2)})% `;
+          element.percent = ((element.value / summaryValue) * 100).toFixed(2);
+        }
+      });
+
+      let urlLinkSub = `https://api.winner-english.com/u_api/cal_forward_sector_1a.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+
+      if (cancelGraph5 !== undefined) {
+        cancelGraph5();
+      }
+
+      let getDataSub = await Axios.get(urlLinkSub, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph5 = c;
+        })
+      });
+
+      getDataSub = getDataSub.data;
+
+      this.isChart3 = true;
+
+      Highcharts.chart("container3", {
+        chart: {
+          height: (3 / 4) * 100 + "%", // 16:9 ratio
+          style: { fontFamily: "roboto" }
+        },
+        series: [
+          {
+            legendType: "point",
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            alternateStartingDirection: true,
+            levels: [
+              {
+                level: 1,
+                // layoutAlgorithm: "sliceAndDice",
+                layoutAlgorithm: "squarified",
+                dataLabels: {
+                  enabled: true,
+                  align: "left",
+                  verticalAlign: "top",
+                  style: {
+                    fontSize: "15px"
+                    // fontWeight: "bold",
+                  }
+                }
+              }
+            ],
+
+            data: [...getData],
+            showInLegend: true,
+            legendType: "point"
+          }
+        ],
+        legend: {
+          useHTML: true,
+          layout: "horizontal",
+          align: "right",
+          verticalAlign: "bottom",
+
+          floating: false,
+          borderWidth: 0,
+          // useHTML: true,
+          itemStyle: {
+            fontSize: "14px",
+            fontWeight: "medium",
+            fontFamily: "roboto",
+            color: "#00000"
+          },
+
+          // align: "left",
+          // verticalAlign: "bottom",
+          width: "870",
+
+          symbolWidth: 0.1,
+          symbolHeight: 0.1,
+          symbolRadius: 0,
+          useHTML: true,
+          symbolWidth: 0,
+          labelFormatter: function() {
+            // return "<div>" + this.name + "</div>";
+            if (this.name == "Agriculture") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2F978B;"></div></td><td style="padding-left:12px;">Agriculture</td></tr></table></div>';
+            } else if (this.name == "Mining") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #9A25B1;"></div></td><td style="padding-left:12px;">Mining</td></tr></table></div>';
+            } else if (this.name == "Construction") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #8D243B;"></div></td><td style="padding-left:12px;">Construction</td></tr></table></div>';
+            } else if (this.name == "Utilities") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #FA9908;"></div></td><td style="padding-left:12px;">Utilities</td></tr></table></div>';
+            } else if (this.name == "Low tech") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #F34336;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>Low tech </td></tr></table></div>';
+            } else if (this.name == "High and medium tech") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>High and medium tech</td></tr></table></div>';
+            } else if (this.name == "Trade and repair service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair </td></tr></table></div>';
+            } else if (this.name == "Tourism") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Service</div>Tourism</td></tr></table></div>';
+            } else if (this.name == "Transport service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Service</div>Transport </td></tr></table></div>';
+            } else if (this.name == "ICT service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Service</div>ICT </td></tr></table></div>';
+            } else if (this.name == "Property service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Service</div>Property </td></tr></table></div>';
+            } else if (this.name == "Financial service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Service</div>Financial </td></tr></table></div>';
+            } else if (this.name == "Public and welfare service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Service</div>Publice and welfare </td></tr></table></div>';
+            } else if (this.name == "Private household service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household </td></tr></table></div>';
+            }
+          }
+        },
+        tooltip: {
+          useHTML: true,
+          pointFormatter: function() {
+            return (
+              "<div> <span class='text-bold'>" +
+              this.name +
+              "</span>" +
+              "<br>" +
+              "Value: $" +
+              this.value +
+              " million" +
+              "</div>"
+            );
+          }
+        },
+        title: {
+          style: {
+            fontSize: "24px"
+          },
+          text: `Which sectors in ${this.exp_country.label} are most reliant on export production in ${this.imp_country.label}?`
+        },
+        credits: {
+          enabled: false
+        },
+        subtitle: {
+          style: {
+            fontSize: "14px"
+          },
+          text: `Contribution to ${this.imp_country.label}'s export production: $${getDataSub.contributionto}B / Gross exports to ${this.imp_country.label}: $${getDataSub.exportto}B`,
+          align: "left"
+        },
+        exporting: this.exportingGraphOptions
+      });
+    },
+
+    async chart4() {
+      this.isChart4 = false;
+      this.chart2RawData = [];
+      this.countryList = [];
+
+      let urlLink = `https://api.winner-english.com/u_api/cal_forward_sector_2.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+
+      if (cancelGraph6 !== undefined) {
+        cancelGraph6();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph6 = c;
+        })
+      });
+
+      getData = getData.data;
+      let countryTemp = getData.map(x => x.exp_country);
+      this.countryList = [...new Set(countryTemp)];
+      this.countryList.sort();
+
+      //Agiculture
+      this.agricultureData = [];
+      let agriculture = getData.filter(x => x.grouping == "Agriculture");
+      agriculture.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      agriculture = agriculture.map(x => x.value);
+      for (let i = 0; i < agriculture.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: agriculture[i]
+        };
+        this.agricultureData.push(temp);
+      }
+
+      //Mining
+      this.miningData = [];
+      let mining = getData.filter(x => x.grouping == "Mining");
+      mining.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      mining = mining.map(x => x.value);
+      for (let i = 0; i < mining.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: mining[i]
+        };
+        this.miningData.push(temp);
+      }
+
+      //construction
+      this.constructionData = [];
+      let construction = getData.filter(x => x.grouping == "Construction");
+      construction.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      construction = construction.map(x => x.value);
+      for (let i = 0; i < construction.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: construction[i]
+        };
+        this.constructionData.push(temp);
+      }
+
+      //utilities
+      this.utilitiesData = [];
+      let utilities = getData.filter(x => x.grouping == "Utilities");
+      utilities.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      utilities = utilities.map(x => x.value);
+      for (let i = 0; i < utilities.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: utilities[i]
+        };
+        this.utilitiesData.push(temp);
+      }
+
+      //Manufacturing-Low tech
+      this.lowtechData = [];
+      let lowtech = [];
+      let lowtechTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        lowtechTemp = getData.filter(
+          x => x.grouping == "Low tech" && x.exp_country == this.countryList[i]
+        );
+
+        let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        lowtech.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < lowtechTemp.length; i++) {
+          let temp2 = {
+            name: lowtechTemp[i].sector,
+            y: lowtechTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-Low tech",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < lowtech.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-Low tech",
+          name: this.countryList[i],
+          y: lowtech[i]
+        };
+        this.lowtechData.push(temp);
+      }
+
+      //Manufacturing-high and medium tech
+      this.hightechData = [];
+      let hitech = [];
+      let hitechTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        hitechTemp = getData.filter(
+          x =>
+            x.grouping == "High and medium tech" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = hitechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        hitech.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < hitechTemp.length; i++) {
+          let temp2 = {
+            name: hitechTemp[i].sector,
+            y: hitechTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-High tech",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < hitech.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-High tech",
+          name: this.countryList[i],
+          y: hitech[i]
+        };
+        this.hightechData.push(temp);
+      }
+
+      //Service Trade and repair
+      this.tradeRepairData = [];
+      let tradeRepair = [];
+      let tradeRepairTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        tradeRepairTemp = getData.filter(
+          x =>
+            x.grouping == "Trade and repair service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = tradeRepairTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        tradeRepair.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < tradeRepairTemp.length; i++) {
+          let temp2 = {
+            name: tradeRepairTemp[i].sector,
+            y: tradeRepairTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-Trade and repair",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < tradeRepair.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-Trade and repair",
+          name: this.countryList[i],
+          y: tradeRepair[i]
+        };
+        this.tradeRepairData.push(temp);
+      }
+
+      //Service Tourism
+      this.tourismData = [];
+      let tourism = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        let tourismTemp = getData.filter(
+          x => x.grouping == "Tourism" && x.exp_country == this.countryList[i]
+        );
+        let temp = tourismTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        tourism.push(Number(temp));
+      }
+      for (let i = 0; i < tourism.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: tourism[i]
+        };
+        this.tourismData.push(temp);
+      }
+
+      //Service Transport
+      this.transportData = [];
+      let transport = [];
+      let transportTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        transportTemp = getData.filter(
+          x =>
+            x.grouping == "Transport service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = transportTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        transport.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < transportTemp.length; i++) {
+          let temp2 = {
+            name: transportTemp[i].sector,
+            y: transportTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-Transport",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < transport.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-Transport",
+          name: this.countryList[i],
+          y: transport[i]
+        };
+        this.transportData.push(temp);
+      }
+      //Service ICT
+      this.ictData = [];
+      let ict = [];
+
+      for (let i = 0; i < this.countryList.length; i++) {
+        let ictTemp = getData.filter(
+          x =>
+            x.grouping == "ICT service" && x.exp_country == this.countryList[i]
+        );
+        let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        ict.push(Number(temp));
+      }
+      for (let i = 0; i < ict.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: ict[i]
+        };
+        this.ictData.push(temp);
+      }
+
+      //Service property
+      this.propertyData = [];
+      let property = [];
+      let propertyTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        propertyTemp = getData.filter(
+          x =>
+            x.grouping == "Property service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = propertyTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        property.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < propertyTemp.length; i++) {
+          let temp2 = {
+            name: propertyTemp[i].sector,
+            y: propertyTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-Property",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < property.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-Property",
+          name: this.countryList[i],
+          y: property[i]
+        };
+        this.propertyData.push(temp);
+      }
+
+      //Service Financial
+      this.financialData = [];
+      let financial = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        let financialTemp = getData.filter(
+          x =>
+            x.grouping == "Financial service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = financialTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        financial.push(Number(temp));
+      }
+      for (let i = 0; i < financial.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: financial[i]
+        };
+        this.financialData.push(temp);
+      }
+      //Service public
+      this.publicwData = [];
+      let publicw = [];
+      let publicwTemp = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        publicwTemp = getData.filter(
+          x =>
+            x.grouping == "Public and welfare service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = publicwTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        publicw.push(Number(temp));
+        //add drill down
+        let tempDataDrillDown = [];
+        for (let i = 0; i < publicwTemp.length; i++) {
+          let temp2 = {
+            name: publicwTemp[i].sector,
+            y: publicwTemp[i].value
+          };
+          tempDataDrillDown.push(temp2);
+        }
+        let lowtechDrillDown = {
+          data: tempDataDrillDown,
+          id: this.countryList[i] + "-Public",
+          type: "pie"
+        };
+        this.drilldownData.push(lowtechDrillDown);
+      }
+
+      for (let i = 0; i < publicw.length; i++) {
+        let temp = {
+          drilldown: this.countryList[i] + "-Public",
+          name: this.countryList[i],
+          y: publicw[i]
+        };
+        this.publicwData.push(temp);
+      }
+
+      //Service private household
+      this.privatewData = [];
+      let privatew = [];
+      for (let i = 0; i < this.countryList.length; i++) {
+        let privatewTemp = getData.filter(
+          x =>
+            x.grouping == "Private household service" &&
+            x.exp_country == this.countryList[i]
+        );
+        let temp = privatewTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
+        privatew.push(Number(temp));
+      }
+      for (let i = 0; i < privatew.length; i++) {
+        let temp = {
+          name: this.countryList[i],
+          y: privatew[i]
+        };
+        this.privatewData.push(temp);
+      }
+
+      this.isChart4 = true;
+
+      Highcharts.chart(
+        "container4",
+        {
+          chart: {
+            type: "column",
+            height: (9 / 16) * 100 + "%" // 16:9 ratio
+          },
+          title: {
+            style: {
+              fontSize: "24px",
+              fontFamily: "roboto"
+            },
+            text: `Which sectors in ${this.continent} economies are most reliant <br>on export production in ${this.displayImportingEconomy}?`
+          },
+          credits: {
+            enabled: false
+          },
+          xAxis: {
+            labels: {
+              rotation: -90
+            },
+            type: "category"
+          },
+          yAxis: {
+            min: 0,
+            title: {
+              text: `% of gross exports to ${this.displayImportingEconomy}`
+            },
+            stackLabels: {
+              enabled: false,
+              style: {
+                fontWeight: "bold",
+                color:
+                  // theme
+                  (Highcharts.defaultOptions.title.style &&
+                    Highcharts.defaultOptions.title.style.color) ||
+                  "gray"
+              }
+            }
+          },
+          plotOptions: {
+            column: {
+              stacking: "normal",
+              dataLabels: {
+                enabled: false
+              }
+            }
+          },
+          legend: {
+            useHTML: true,
+            itemStyle: {
+              fontSize: "14px",
+              fontWeight: "medium",
+              fontFamily: "roboto",
+              color: "#00000"
+            },
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+            itemDistance: 10,
+            width: 300,
+            itemMarginTop: 15,
+            symbolHeight: 15,
+            symbolWidth: 50,
+            symbolRadius: 0
+          },
+
+          series: [
+            {
+              name: "Agriculture",
+              data: this.agricultureData,
+              color: "#2F978B"
+            },
+            {
+              name: "Mining",
+              data: this.miningData,
+              color: "#9A25B1"
+            },
+            {
+              name: "Construction",
+              data: this.constructionData,
+              color: "#8D243B"
+            },
+            {
+              name: "Utilities",
+              data: this.utilitiesData,
+              color: "#FA9908"
+            },
+            {
+              name: "Manufacturing-Low tech",
+              data: this.lowtechData,
+              color: "#F34336"
+            },
+            {
+              name: "Manufacturing-High and medium tech",
+              data: this.hightechData,
+              color: "#C3165B"
+            },
+            {
+              name: "Service-Trade and repair",
+              data: this.tradeRepairData,
+              color: "#5E6DC1"
+            },
+            {
+              name: "Service-Tourism",
+              data: this.tourismData,
+              color: "#3F50B8"
+            },
+            {
+              name: "Service-Transport",
+              data: this.transportData,
+              color: "#3949AB"
+            },
+            {
+              name: "Service-ICT",
+              data: this.ictData,
+              color: "#1565C0"
+            },
+            {
+              name: "Service-Property",
+              data: this.propertyData,
+              color: "#19227D"
+            },
+            {
+              name: "Service-Financial",
+              data: this.financialData,
+              color: "#43A7F5"
+            },
+            {
+              name: "Service-Public and welfare",
+              data: this.publicwData,
+              color: "#2088E7"
+            },
+            {
+              name: "Service-Private household",
+              data: this.privatewData,
+              color: "#1564C0"
+            }
+          ],
+          drilldown: {
+            activeDataLabelStyle: {
+              color: "white",
+              textShadow: "0 0 2px black, 0 0 2px black"
+            },
+            showInLegend: false,
+            series: this.drilldownData
           },
           exporting: this.exportingGraphOptions
         },
@@ -968,11 +1881,35 @@ export default {
     }
 
     if (this.validateSelected()) {
-      if (this.selectedBy == "Exporting") {
+      if (this.activeBy == "Exporting") {
         this.renderOne();
       } else {
         this.renderTwo();
       }
+    }
+  },
+  beforeDestroy() {
+    if (cancelGraph1 != undefined) {
+      cancelGraph1();
+    }
+
+    if (cancelGraph2 != undefined) {
+      cancelGraph2();
+    }
+
+    if (cancelGraph3 != undefined) {
+      cancelGraph3();
+    }
+
+    if (cancelGraph4 != undefined) {
+      cancelGraph4();
+    }
+    if (cancelGraph5 != undefined) {
+      cancelGraph5();
+    }
+
+    if (cancelGraph6 != undefined) {
+      cancelGraph6();
     }
   }
 };
