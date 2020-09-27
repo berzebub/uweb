@@ -7,9 +7,9 @@
     <global-value-chains-menu :activeMenu="2"></global-value-chains-menu>
 
     <!-- DROPDOWN SELECTION -->
-    <div class="bg12 q-pa-md q-pb-lg">
-      <div class="row justify-center">
-        <div class="col-3 q-pa-sm">
+    <div class="bg12  q-pb-lg">
+      <div class="row q-pt-md justify-center">
+        <div class="col-3 q-px-md">
           <span>Exporting economy</span>
           <div>
             <q-select
@@ -17,7 +17,6 @@
               :options="exp_optionsShow"
               outlined
               bg-color="white"
-              class="q-mt-xs"
               dense
               use-input
               fill-input
@@ -54,7 +53,7 @@
             </q-select>
           </div>
         </div>
-        <div class="col-3 q-pa-sm">
+        <div class="col-3 q-px-md">
           <span>Year</span>
           <div>
             <q-select
@@ -62,7 +61,6 @@
               :options="yearOptions"
               outlined
               bg-color="white"
-              class="q-mt-xs"
               dense
               @input="selectedYear()"
             ></q-select>
@@ -70,8 +68,8 @@
         </div>
       </div>
 
-      <div class="row justify-center">
-        <div class="col-3 q-pa-sm">
+      <div class="row q-pt-md justify-center">
+        <div class="col-3 q-px-md">
           <span>Importing economy</span>
           <div>
             <q-select
@@ -79,7 +77,7 @@
               :options="imp_optionsShow"
               outlined
               bg-color="white"
-              class="q-mt-xs q-mb-xs"
+              class=" q-mb-xs"
               dense
               use-input
               fill-input
@@ -116,12 +114,12 @@
             </q-select>
           </div>
         </div>
-        <div class="col-3 q-pa-sm">
+        <div class="col-3 q-px-md">
           <span>Exporting sector</span>
           <div>
             <q-select
               bg-color="white"
-              class="q-mt-xs q-mb-xs"
+              class="q-mb-xs"
               v-model="sector"
               emit-value
               map-options
