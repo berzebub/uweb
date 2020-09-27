@@ -767,8 +767,6 @@ export default {
         countryList.push(x[0].exp_country);
       });
 
-      console.log(getData);
-
       let region = this.sectorOptions.filter((x) => x.value == this.sector)[0]
         .label;
 
@@ -800,12 +798,19 @@ export default {
         let data = asiaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let valueM = 0;
+        let sumValueM = 0;
+
         data.forEach((z) => {
+          valueM = z.valueM;
+          sumValueM += z.valueM;
+
           let temp = {
             name: z.imp_country,
             y: z.value,
           };
           sum += z.value;
+
           dataFinal.push(temp);
         });
 
@@ -815,8 +820,12 @@ export default {
           name: x + " <br> " + "Asia-Pacific",
           data: dataFinal,
         };
+
         this.chart2DrillDown.push(tempData);
+
         tempData = {
+          sumValueM: sumValueM.toFixed(2),
+          valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Asia Pacific",
@@ -830,7 +839,11 @@ export default {
         let data = europeRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let valueM = 0;
+        let sumValueM = 0;
         data.forEach((z) => {
+          valueM = z.valueM;
+          sumValueM += z.valueM;
           let temp = {
             name: z.imp_country,
             y: z.value,
@@ -846,6 +859,8 @@ export default {
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
+          sumValueM: sumValueM.toFixed(2),
+          valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Europe",
@@ -861,7 +876,11 @@ export default {
         let data = northAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let valueM = 0;
+        let sumValueM = 0;
         data.forEach((z) => {
+          valueM = z.valueM;
+          sumValueM += z.valueM;
           let temp = {
             name: z.imp_country,
             y: z.value,
@@ -877,6 +896,8 @@ export default {
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
+          sumValueM: sumValueM.toFixed(2),
+          valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "North America",
@@ -892,7 +913,11 @@ export default {
         let data = latinAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let valueM = 0;
+        let sumValueM = 0;
         data.forEach((z) => {
+          valueM = z.valueM;
+          sumValueM += z.valueM;
           let temp = {
             name: z.imp_country,
             y: z.value,
@@ -908,6 +933,8 @@ export default {
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
+          sumValueM: sumValueM.toFixed(2),
+          valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Latin America",
@@ -923,7 +950,11 @@ export default {
         let data = restRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let valueM = 0;
+        let sumValueM = 0;
         data.forEach((z) => {
+          valueM = z.valueM;
+          sumValueM += z.valueM;
           let temp = {
             name: z.imp_country,
             y: z.value,
@@ -939,6 +970,8 @@ export default {
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
+          sumValueM: sumValueM.toFixed(2),
+          valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
           drilldown: x + " - " + "Rest of the world",
@@ -1030,12 +1063,14 @@ export default {
                 "<div> " +
                 this.series.name +
                 " value: $" +
-                this.y +
+                this.options.valueM +
                 " million </div>" +
                 "<div> Total share: " +
                 this.series.processedYData.reduce((a, b) => a + b, 0) +
                 "% </div>" +
-                "<div> Total value: $60.3 million" +
+                "<div> Total value: $" +
+                this.options.sumValueM +
+                " million" +
                 "</div>"
               );
             },
