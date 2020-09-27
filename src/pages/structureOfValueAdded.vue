@@ -243,6 +243,11 @@
           <div v-show="isMeasuringChart">
             <div id="container2"></div>
           </div>
+
+          <error-graph
+            v-if="errorGraph3"
+            :content="`What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`"
+          ></error-graph>
         </div>
 
         <hr />
@@ -318,6 +323,7 @@ export default {
       source: "",
       errorGraph1: false,
       errorGraph2: false,
+      errorGraph3: false,
 
       exportingOptions: [
         {
@@ -400,6 +406,7 @@ export default {
     validateSelected() {
       this.errorGraph1 = false;
       this.errorGraph2 = false;
+      this.errorGraph3 = false;
       if (
         this.sectorSelected &&
         this.year &&
@@ -824,10 +831,16 @@ export default {
         }),
       });
 
-      console.log("graph3");
-      console.log(getData.data);
+      // console.log("graph3");
+      // console.log(getData.data);
 
       getData = getData.data;
+
+      if (getData.show == "off") {
+        this.errorGraph3 = true;
+        this.isMeasuringChart = true;
+        return;
+      }
 
       this.isMeasuringChart = true;
 

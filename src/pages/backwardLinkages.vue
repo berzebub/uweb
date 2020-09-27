@@ -1,7 +1,11 @@
 <template>
   <div>
     <q-page>
-      <global-value-chains-header></global-value-chains-header>
+      <global-value-chains-header
+        :isShowTinaLink="true"
+        :isDisableShare="isDisableShare"
+        :isDisableTina="isDisableTinaLink"
+      ></global-value-chains-header>
 
       <global-value-chains-menu :activeMenu="3"></global-value-chains-menu>
 
@@ -282,6 +286,11 @@
           <div v-show="isChart1">
             <div id="container1"></div>
           </div>
+
+          <error-graph
+            :content="`Where do ${continent} economies' imported content in exports to ${importingSelected.label} come from?`"
+            v-if="errorGraph2"
+          ></error-graph>
         </div>
       </div>
       <!-- SELECT BY SOURCE ECONOMY -->
@@ -311,6 +320,11 @@
           <div v-show="isChart2">
             <div id="container3"></div>
           </div>
+
+          <error-graph
+            v-if="errorChart2"
+            :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
+          ></error-graph>
         </div>
 
         <!-- GRAPH1 in select by source economy  -->
@@ -356,7 +370,11 @@ export default {
   data() {
     return {
       // NEW
+      errorChart2: false,
+      isDisableShare: true,
+      isDisableTinaLink: true,
       errorGraph1: false,
+      errorGraph2: false,
       sourceEconomySelected: "",
       displaySector: "",
       activeSelect: 1,
@@ -542,6 +560,22 @@ export default {
     },
 
     renderGraphSector() {
+      this.errorGraph1 = false;
+      this.errorGraph2 = false;
+      let link =
+        "unescap.thaiawesomedev.com/backward-linkages" +
+        "/" +
+        this.exportingSelected.iso +
+        "/" +
+        this.displayYear +
+        "/" +
+        this.importingSelected.iso +
+        "/" +
+        this.sectorSelected +
+        "/" +
+        this.activeSelect;
+      this.$q.sessionStorage.set("shareLink", link);
+
       this.setData();
       this.setStackChart();
     },
@@ -578,8 +612,6 @@ export default {
           cancelGraph2 = c;
         }),
       });
-
-      console.log(getData.data);
 
       let summaryValue = getData.data.map((x) => x.value);
       summaryValue = summaryValue.filter((x) => x);
@@ -811,18 +843,18 @@ export default {
         cancelGraph3();
       }
 
-      // let getData = await Axios.get(urlLink, {
-      //   cancelToken: new CancelToken(function executor(c) {
-      //     cancelGraph2 = c;
-      //   }),
-      // });
-
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph3 = c;
         }),
       });
 
+      if (getData.data.show == "off") {
+        this.isChart1 = true;
+        this.errorGraph2 = true;
+
+        return;
+      }
       getData = getData.data;
 
       let countryList = [];
@@ -1184,6 +1216,12 @@ export default {
         }),
       });
 
+      if (getDataSub.data.fromsource < 1) {
+        this.errorChart2 = true;
+        this.isChart2 = true;
+        return;
+      }
+
       getDataSub = getDataSub.data;
 
       Highcharts.chart("container3", {
@@ -1301,7 +1339,6 @@ export default {
           },
         },
       });
-      console.log("finish chart2");
       this.isChart2 = true;
     },
     // Graph Two in souce economy
@@ -1843,6 +1880,22 @@ export default {
       );
     },
     renderGraph2() {
+      // path: "/backward-linkages/:expe?/:year?/:impe?/:sectorOrSource?",
+
+      let link =
+        "unescap.thaiawesomedev.com/backward-linkages" +
+        "/" +
+        this.exportingSelected.iso +
+        "/" +
+        this.displayYear +
+        "/" +
+        this.importingSelected.iso +
+        "/" +
+        this.sourceEconomySelected.iso +
+        "/" +
+        this.activeSelect;
+      this.$q.sessionStorage.set("shareLink", link);
+
       this.setData2();
       this.setStackChart2();
     },
@@ -1894,10 +1947,13 @@ export default {
       )[0].label;
     }
 
-    if (this.$q.sessionStorage.has("sourceE") || this.$route.params.sourceE) {
-      this.sourceEconomySelected = this.$route.params.sourceE
+    if (
+      this.$q.sessionStorage.has("sourceE") ||
+      this.$route.params.sectorOrSource
+    ) {
+      this.sourceEconomySelected = this.$route.params.sectorOrSource
         ? this.countryOptions.filter(
-            (x) => x.iso == this.$route.params.sourceE
+            (x) => x.iso == this.$route.params.sectorOrSource
           )[0]
         : this.countryOptions.filter(
             (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
@@ -1905,11 +1961,18 @@ export default {
       this.countryOptionsShow = this.countryOptions;
     }
 
-    // this.$q.sessionStorage.set("sourceE", this.sourceEconomySelected.iso);
-
-    if (this.validateSelected()) {
-      this.renderGraphSector();
+    if (this.$route.params.menu) {
+      this.activeSelect = this.$route.params.menu;
+      if (this.validateSelected2()) {
+        this.renderGraph2();
+      }
+    } else {
+      if (this.validateSelected()) {
+        this.renderGraphSector();
+      }
     }
+
+    // this.$q.sessionStorage.set("sourceE", this.sourceEconomySelected.iso);
   },
   beforeDestroy() {
     if (cancelGraph1 != undefined) cancelGraph1();
