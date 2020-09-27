@@ -289,11 +289,11 @@
         <div class="q-pa-xl">
           <!-- Key policy questions -->
           <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion2'">
             1.
             <u>Which sectors in {{ exportingSelected.label }} rely the most on imported content for exports to a selected importer?</u>
           </p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry1'">
             2.
             <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
           </p>
@@ -303,7 +303,7 @@
         </div>
 
         <!-- GRAPH2 in select by source economy  -->
-        <div id="importedregion" style="height:30px"></div>
+        <div id="importedregion2" style="height:30px"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isChart2">
             <q-spinner-pie color="primary" size="100px" />
@@ -314,7 +314,7 @@
         </div>
 
         <!-- GRAPH1 in select by source economy  -->
-        <div id="importedcountry" style="height:30px"></div>
+        <div id="importedcountry1" style="height:30px"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isChart3">
             <q-spinner-pie color="primary" size="100px" />
@@ -1696,7 +1696,7 @@ export default {
               fontSize: "24px",
               fontFamily: "roboto",
             },
-            text: `Which sectors in ${this.continent} economies are most reliant <br>on export production in ${this.displayImportingEconomy}?`,
+            text: `Which sectors in ${this.continent} economies are most reliant <br>on export production in ${this.importingSelected.label}?`,
           },
           credits: {
             enabled: false,
@@ -1710,7 +1710,7 @@ export default {
           yAxis: {
             min: 0,
             title: {
-              text: `% of gross exports to ${this.displayImportingEconomy}`,
+              text: `% of gross exports to ${this.importingSelected.label}`,
             },
             stackLabels: {
               enabled: false,
