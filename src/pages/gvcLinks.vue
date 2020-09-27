@@ -992,12 +992,22 @@ export default {
     selectedExpCountry() {
       this.$q.sessionStorage.set("expe", this.exp_country.iso);
 
+      this.backwardSectorLinkToggle = true;
+      this.forwardSectorLinkToggle = true;
+      this.backwardEconomyLinkToggle = true;
+      this.forwardEconomyLinkToggle = true;
+
       if (this.validateSelected()) {
         this.renderGraph();
       }
     },
     selectedYear() {
       this.$q.sessionStorage.set("year", this.year);
+
+      this.backwardSectorLinkToggle = true;
+      this.forwardSectorLinkToggle = true;
+      this.backwardEconomyLinkToggle = true;
+      this.forwardEconomyLinkToggle = true;
 
       if (this.validateSelected()) {
         this.renderGraph();
