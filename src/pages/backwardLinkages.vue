@@ -414,8 +414,8 @@ export default {
       getData.data.forEach((element,index) => {
         if(index > 5)
         {
-element.name = `${element.name}(${(element.value/ summaryValue* 100).toFixed(2)})% `
-element.percent = (element.value/ summaryValue* 100).toFixed(2)
+          element.name = `${element.name}(${(element.value/ summaryValue* 100).toFixed(2)}%) `
+          element.percent = (element.value/ summaryValue* 100).toFixed(2)
         }
         
       });
@@ -609,6 +609,14 @@ element.percent = (element.value/ summaryValue* 100).toFixed(2)
               symbolWidth: 0,
             },
           },
+        },
+        tooltip: {
+          useHTML: true,
+          pointFormatter: function() {
+            return (
+              `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`
+            );
+          }
         },
       });
     },
