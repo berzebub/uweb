@@ -6,16 +6,15 @@
     <!-- MENU -->
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
 
-    <div class="row justify-center bg12 q-pa-md">
+    <div class="row justify-center bg12 q-pt-md q-pb-lg">
       <div class="col-6 row">
-        <div class="col q-pa-sm">
+        <div class="col q-px-md">
           <span>Exporting economy</span>
           <q-select
             v-model="exp_country"
             :options="exp_optionsShow"
             outlined
             bg-color="white"
-            class="q-mt-xs"
             dense
             use-input
             fill-input
@@ -51,14 +50,13 @@
           </q-select>
         </div>
 
-        <div class="col q-pa-sm">
+        <div class="col q-px-md">
           <span>Year</span>
           <q-select
             v-model="year"
             :options="yearOptions"
             outlined
             bg-color="white"
-            class="q-mt-xs"
             emit-value
             map-options
             dense
