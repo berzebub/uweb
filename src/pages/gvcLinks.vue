@@ -1013,6 +1013,14 @@ export default {
       this.loadGVCGraph();
       this.loadGVCGraphSector();
       this.loadGVCGraphEconomy();
+
+      let link =
+        "unescap.thaiawesomedev.com/gvc-links" +
+        "/expe=" +
+        this.exp_country.iso +
+        "&year=" +
+        this.year;
+      this.$q.sessionStorage.set("shareLink", link);
     },
 
     // ------------------------- END -------------------------
