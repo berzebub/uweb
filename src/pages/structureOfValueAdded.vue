@@ -370,11 +370,13 @@ export default {
   },
   methods: {
     changeYear() {
+      this.errorGraph1 = false;
       this.$q.sessionStorage.set("year", this.year.label);
       this.displayYear = this.year.label;
       if (this.validateSelected()) this.renderGraph();
     },
     selectedExporting() {
+      this.errorGraph1 = false;
       this.$q.sessionStorage.set("expe", this.exportingSelected.iso);
 
       this.continent = this.exportingSelected.region;
@@ -382,11 +384,13 @@ export default {
       if (this.validateSelected()) this.renderGraph();
     },
     selectedImporting() {
+      this.errorGraph1 = false;
       this.$q.sessionStorage.set("impe", this.importingSelected.iso);
 
       if (this.validateSelected()) this.renderGraph();
     },
     selectedSector() {
+      this.errorGraph1 = false;
       this.$q.sessionStorage.set("esec", this.sectorSelected);
       if (this.validateSelected()) this.renderGraph();
     },
@@ -432,6 +436,7 @@ export default {
 
     async setStackChart() {
       this.isStructureChart = false;
+      let _this = this;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
@@ -522,7 +527,7 @@ export default {
                 label: `Used in ${this.importingSelected.label}’s comsumption`,
               },
               {
-                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
+                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
                 label: `Used in ${this.importingSelected.label}’s export <br>production`,
@@ -541,7 +546,7 @@ export default {
                   "Double counted exports <br>from repeated border crossings",
               },
               {
-                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
+                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
                 label: "Imported content",
@@ -597,6 +602,14 @@ export default {
         },
         credits: {
           enabled: false,
+        },
+        tooltip: {
+          useHTML: true,
+          pointFormatter: function () {
+            if (this.name.includes("Directly")) {
+              return `<b>Used in ${_this.exportingSelected.label}'s consumption</b>`;
+            }
+          },
         },
 
         exporting: this.exportingGraphOptions,
