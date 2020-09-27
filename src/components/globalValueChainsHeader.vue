@@ -27,12 +27,29 @@
         </div>
       </div>
 
-      <div class="absolute q-pa-md text-white" style="bottom:0px;right:0px">
+      <div
+        class="absolute q-pa-md text-white"
+        style="bottom:0px;"
+        :style="isShowTinaLink ? 'right:140px' : 'right:0px'"
+      >
         <q-btn
           label="share"
           @click="isShowShareOptions = true"
           outline=""
           icon="fas fa-share"
+        ></q-btn>
+      </div>
+      <div
+        class="absolute q-pa-md text-white"
+        style="bottom:0px;right:0px"
+        v-if="isShowTinaLink"
+      >
+        <q-btn
+          label="TINA Link"
+          no-caps=""
+          outline=""
+          icon="fas fa-share"
+          @click="toTinaLink()"
         ></q-btn>
       </div>
     </div>
@@ -115,6 +132,12 @@
 
 <script>
 export default {
+  props: {
+    isShowTinaLink: {
+      type: Boolean,
+      default: true
+    }
+  },
   data() {
     return {
       isShowShareOptions: false,
@@ -122,6 +145,17 @@ export default {
     };
   },
   methods: {
+    toTinaLink() {
+      let exp_country = this.$q.sessionStorage.getItem("expe");
+      let imp_country = this.$q.sessionStorage.getItem("impe");
+      window.open(
+        "https://tina.tiid.org/app/dashboard/" +
+          exp_country +
+          "-" +
+          imp_country +
+          "/current-trade"
+      );
+    },
     copyLink() {
       var range = document.createRange();
       range.selectNode(document.getElementById("shareLink"));

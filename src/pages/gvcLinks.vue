@@ -1,6 +1,8 @@
 <template>
   <q-page style="background-color:white">
-    <global-value-chains-header></global-value-chains-header>
+    <global-value-chains-header
+      :isShowTinaLink="false"
+    ></global-value-chains-header>
     <!-- MENU -->
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
 
