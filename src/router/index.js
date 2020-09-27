@@ -28,7 +28,7 @@ Vue.use(VueFlags, {
  * with the Router instance.
  */
 
-export default function(/* { store, ssrContext } */) {
+export default function (/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -48,6 +48,32 @@ import sectorJson from "../../public/sector.json";
 Vue.mixin({
   data() {
     return {
+      exportAvailable: [
+        "AUS",
+        "BTN",
+        "BRN",
+        "KHM",
+        "JFI",
+        "HKG",
+        "IND",
+        "IDN",
+        "JPN",
+        "KAZ",
+        "KGZ",
+        "LAO",
+        "MYS",
+        "MDV",
+        "MNG",
+        "NPL",
+        "PAK",
+        "PHL",
+        "CHN",
+        "RUS",
+        "SGP",
+        "THA",
+        "TUR",
+        "VNM",
+      ],
       exportingGraphOptions: {
         buttons: {
           contextButton: {

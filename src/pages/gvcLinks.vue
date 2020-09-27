@@ -1,8 +1,6 @@
 <template>
   <q-page style="background-color:white">
-    <global-value-chains-header
-      :isShowTinaLink="false"
-    ></global-value-chains-header>
+    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="isDisableShare"></global-value-chains-header>
     <!-- MENU -->
     <global-value-chains-menu :activeMenu="0"></global-value-chains-menu>
 
@@ -24,27 +22,17 @@
             @input="selectedExpCountry"
           >
             <template v-slot:prepend v-if="overviewCountry">
-              <gb-flag
-                v-if="overviewCountry.code"
-                :code="overviewCountry.code"
-                size="small"
-              />
+              <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
             </template>
 
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
-                  <gb-flag
-                    v-if="scope.opt.code"
-                    :code="scope.opt.code"
-                    size="small"
-                  />
+                  <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
-                  <q-item-label caption>
-                    {{ scope.opt.description }}
-                  </q-item-label>
+                  <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                 </q-item-section>
               </q-item>
             </template>
@@ -70,11 +58,7 @@
 
     <div v-if="exp_country && year">
       <div class="row justify-center q-pa-md">
-        <div
-          class="col-12 row font-content"
-          style="width:900px;"
-          align="center"
-        >
+        <div class="col-12 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
             <q-btn
               class="bg-white q-py-md fit"
@@ -119,9 +103,7 @@
 
       <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >{{ overviewCountry.label }}'s key GVC relationships: Overview</span
-          >
+          <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
         </div>
 
         <div class="q-mt-xl">
@@ -130,33 +112,35 @@
               <p class="font-content">
                 {{ overviewCountry.label }}’s GVC exports amount to
                 {{ graphGVC.total_percent }}% (${{
-                  graphGVC.total_value > 1000
-                    ? (graphGVC.total_value / 1000).toFixed(2) + " billion"
-                    : graphGVC.total_value + " millon"
+                graphGVC.total_value > 1000
+                ? (graphGVC.total_value / 1000).toFixed(2) + " billion"
+                : graphGVC.total_value + " millon"
                 }}) of its gross exports in 2017
               </p>
               <p class="font-content">
                 Imported content comprising
-                <span class="c-blue"
-                  >{{ graphGVC.import_percent }}% (${{
-                    graphGVC.import_value > 1000
-                      ? (graphGVC.import_value / 1000).toFixed(2) + " billion"
-                      : graphGVC.import_value + " millon"
+                <span class="c-blue">
+                  {{ graphGVC.import_percent }}% (${{
+                  graphGVC.import_value > 1000
+                  ? (graphGVC.import_value / 1000).toFixed(2) + " billion"
+                  : graphGVC.import_value + " millon"
                   }}
-                  )</span
-                >
+                  )
+                </span>
                 of gross exports
               </p>
               <p class="font-content">
                 Export of intermediates used in further export production
                 comprising
-                <span class="c-red"
-                  >{{ graphGVC.export_percent }}% (${{
-                    graphGVC.export_value > 1000
-                      ? (graphGVC.export_value / 1000).toFixed(2) + " billion"
-                      : graphGVC.export_value + " millon"
-                  }})</span
+                <span
+                  class="c-red"
                 >
+                  {{ graphGVC.export_percent }}% (${{
+                  graphGVC.export_value > 1000
+                  ? (graphGVC.export_value / 1000).toFixed(2) + " billion"
+                  : graphGVC.export_value + " millon"
+                  }})
+                </span>
                 of gross exports
               </p>
             </div>
@@ -174,18 +158,15 @@
                     Share: {{ graphGVC.import_percent }}% of gross exports
                     <br />
                     Value: ${{
-                      graphGVC.import_value > 1000
-                        ? (graphGVC.import_value / 1000).toFixed(2) + " billion"
-                        : graphGVC.import_value + " millon"
+                    graphGVC.import_value > 1000
+                    ? (graphGVC.import_value / 1000).toFixed(2) + " billion"
+                    : graphGVC.import_value + " millon"
                     }}
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
-                  <div
-                    class="q-py-lg q-mt-md relative-position"
-                    style="height:120px;"
-                  >
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
                       v-if="graphGVC.export_value < graphGVC.import_value"
                       class="absolute-center"
@@ -206,16 +187,10 @@
               <!-- Country Content -->
               <div class="col-3 self-end q-py-md" align="center">
                 <div class>
-                  <gb-flag
-                    v-if="overviewCountry.code"
-                    :code="overviewCountry.code"
-                    height="100px"
-                  />
+                  <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
                 </div>
                 <div class="relative-position q-pt-md">
-                  <span class="absolute-center font-title text-no-wrap">
-                    {{ overviewCountry.label }}
-                  </span>
+                  <span class="absolute-center font-title text-no-wrap">{{ overviewCountry.label }}</span>
                 </div>
               </div>
 
@@ -225,33 +200,28 @@
                   <div class="text-bold">
                     <span>Export of intermediates used in</span>
                     <br />
-                    <span class="text-no-wrap"
-                      >export production (Forward linkages)</span
-                    >
+                    <span class="text-no-wrap">export production (Forward linkages)</span>
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    <span
-                      >Share: {{ graphGVC.export_percent }}% of gross
-                      exports</span
-                    >
+                    <span>
+                      Share: {{ graphGVC.export_percent }}% of gross
+                      exports
+                    </span>
                     <br />
-                    <span
-                      >Value: ${{
-                        graphGVC.export_value > 1000
-                          ? (graphGVC.export_value / 1000).toFixed(2) +
-                            " billion"
-                          : graphGVC.export_value + " millon"
-                      }}</span
-                    >
+                    <span>
+                      Value: ${{
+                      graphGVC.export_value > 1000
+                      ? (graphGVC.export_value / 1000).toFixed(2) +
+                      " billion"
+                      : graphGVC.export_value + " millon"
+                      }}
+                    </span>
                   </div>
                 </div>
 
                 <div class="col-12 self-end">
-                  <div
-                    class="q-py-lg q-mt-md relative-position"
-                    style="height:120px;"
-                  >
+                  <div class="q-py-lg q-mt-md relative-position" style="height:120px;">
                     <q-img
                       v-if="graphGVC.import_value < graphGVC.export_value"
                       class="absolute-center"
@@ -280,9 +250,7 @@
 
       <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >key GVC relationships: by exporting sector</span
-          >
+          <span class="font-title">key GVC relationships: by exporting sector</span>
         </div>
 
         <div class="row justify-center">
@@ -293,9 +261,7 @@
                 <br />
                 <span class="text-bold">Sector</span>
                 <br />
-                <span>
-                  Share of foreign value-added in sectoral gross exports (%)
-                </span>
+                <span>Share of foreign value-added in sectoral gross exports (%)</span>
                 <br />
                 <span>Foreign value-added ($)</span>
               </div>
@@ -321,11 +287,7 @@
 
           <div class="col-10 row q-py-xl">
             <div class="col q-py-lg" style="height:560px;">
-              <div
-                class="relative-position"
-                style="height:460px;"
-                v-if="backwardSectorLinkToggle"
-              >
+              <div class="relative-position" style="height:460px;" v-if="backwardSectorLinkToggle">
                 <div
                   class="cursor-pointer"
                   @click="highchartBackwardSector(item)"
@@ -369,9 +331,9 @@
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -403,9 +365,9 @@
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -414,10 +376,7 @@
               </div>
 
               <div v-show="!backwardSectorLinkToggle">
-                <div
-                  style="border:1px solid;border-radius:10px;"
-                  class="q-pa-md"
-                >
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
                   <div id="backwardSector"></div>
                 </div>
 
@@ -437,22 +396,14 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag
-                  v-if="overviewCountry.code"
-                  :code="overviewCountry.code"
-                  height="100px"
-                />
+                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
             <div class="col q-py-lg" style="height:560px;">
-              <div
-                class="relative-position"
-                style="height:460px;"
-                v-if="forwardSectorLinkToggle"
-              >
+              <div class="relative-position" style="height:460px;" v-if="forwardSectorLinkToggle">
                 <div
                   class="cursor-pointer"
                   @click="highchartForwardSector(item)"
@@ -496,9 +447,9 @@
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
                         {{ item.precent }}% ,${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -530,9 +481,9 @@
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -541,10 +492,7 @@
               </div>
 
               <div v-show="!forwardSectorLinkToggle">
-                <div
-                  style="border:1px solid;border-radius:10px;"
-                  class="q-pa-md"
-                >
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
                   <div id="forwardSector"></div>
                 </div>
 
@@ -571,9 +519,7 @@
 
       <div class="q-pa-md" v-else>
         <div align="center" class="q-my-lg">
-          <span class="font-title"
-            >key GVC relationships: by partner economy</span
-          >
+          <span class="font-title">key GVC relationships: by partner economy</span>
         </div>
 
         <div class="row justify-center">
@@ -597,9 +543,7 @@
                 <br />
                 <span class="text-bold">Improting economy</span>
                 <br />
-                <span>
-                  Share of contribution to partner exports, in gross exports (%)
-                </span>
+                <span>Share of contribution to partner exports, in gross exports (%)</span>
                 <br />
                 <span>Contribution to partner exports ($)</span>
               </div>
@@ -608,11 +552,7 @@
 
           <div class="col-10 row q-py-xl">
             <div class="col q-py-lg" style="height:560px;">
-              <div
-                class="relative-position"
-                style="height:460px;"
-                v-if="backwardEconomyLinkToggle"
-              >
+              <div class="relative-position" style="height:460px;" v-if="backwardEconomyLinkToggle">
                 <div
                   class="cursor-pointer"
                   @click="highchartBackwardEconomy(item)"
@@ -656,9 +596,9 @@
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -690,9 +630,9 @@
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -701,10 +641,7 @@
               </div>
 
               <div v-show="!backwardEconomyLinkToggle">
-                <div
-                  style="border:1px solid;border-radius:10px;"
-                  class="q-pa-md"
-                >
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
                   <div id="backwardEconomy"></div>
                 </div>
 
@@ -724,11 +661,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag
-                  v-if="overviewCountry.code"
-                  :code="overviewCountry.code"
-                  height="100px"
-                />
+                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
@@ -783,9 +716,9 @@
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -817,9 +750,9 @@
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
                         {{ item.precent }}% , ${{
-                          item.value > 1000
-                            ? (item.value / 1000).toFixed(2) + "B"
-                            : item.value + "M"
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
                         }}
                       </div>
                     </span>
@@ -828,10 +761,7 @@
               </div>
 
               <div v-show="!forwardEconomyLinkToggle" class>
-                <div
-                  style="border:1px solid;border-radius:10px;"
-                  class="q-pa-md"
-                >
+                <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
                   <div id="forwardEconomy"></div>
                 </div>
 
@@ -854,10 +784,8 @@
     </div>
 
     <div v-else>
-      <data-waiting
-        text="Please choose exporting economy and year 
-from the drop down menus above"
-      ></data-waiting>
+      <data-waiting text="Please choose exporting economy and year 
+from the drop down menus above"></data-waiting>
     </div>
 
     <footer-menu></footer-menu>
@@ -894,10 +822,11 @@ export default {
     globalValueChainsHeader,
     globalValueChainsMenu,
     footerMenu,
-    dataWaiting
+    dataWaiting,
   },
   data() {
     return {
+      isDisableShare: true,
       countryOptions: [],
 
       exp_optionsShow: [],
@@ -931,7 +860,7 @@ export default {
       forwardSectorLinkToggle: true,
 
       backwardEconomyLinkToggle: true,
-      forwardEconomyLinkToggle: true
+      forwardEconomyLinkToggle: true,
     };
   },
 
@@ -939,12 +868,12 @@ export default {
     overviewCountry() {
       if (this.exp_country) {
         let res = this.countryOptions.filter(
-          x => x.value == this.exp_country.value
+          (x) => x.value == this.exp_country.value
         )[0];
 
         return res;
       }
-    }
+    },
   },
   methods: {
     hoverSector(index, type) {
@@ -984,7 +913,7 @@ export default {
     filterCountry(val, update) {
       update(async () => {
         this.exp_optionsShow = this.countryOptions.filter(
-          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
@@ -1005,6 +934,7 @@ export default {
 
     validateSelected() {
       if (this.exp_country != "" && this.year != "") {
+        this.isDisableShare = false;
         return true;
       } else {
         false;
@@ -1046,7 +976,7 @@ export default {
         import_percent: 0,
         import_value: 0,
         export_percent: 0,
-        export_value: 0
+        export_value: 0,
       };
 
       if (cancelGraph1 !== undefined) {
@@ -1056,7 +986,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph1 = c;
-        })
+        }),
       });
 
       this.graphGVC = getData.data == "" ? formatData : getData.data;
@@ -1076,7 +1006,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph2 = c;
-        })
+        }),
       });
 
       getData = [...getData.data];
@@ -1099,14 +1029,14 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph3 = c;
-        })
+        }),
       });
 
       getData = [...getData.data];
 
-      getData.forEach(x => {
+      getData.forEach((x) => {
         let newCountry = this.countryOptions.filter(
-          xx => xx.iso == x.country
+          (xx) => xx.iso == x.country
         )[0].label;
 
         x.fullName = newCountry;
@@ -1131,7 +1061,7 @@ export default {
         year: this.year,
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph4 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -1140,7 +1070,7 @@ export default {
 
       getData.forEach((x, index) => {
         let newCountry = this.countryOptions.filter(
-          xx => xx.iso == x.country
+          (xx) => xx.iso == x.country
         )[0].label;
 
         x.color = setColor[index];
@@ -1148,18 +1078,18 @@ export default {
         x.y = x.val;
       });
 
-      let getValue = getData.map(x => {
+      let getValue = getData.map((x) => {
         return x.val;
       });
 
       let setValue = Math.min(...getValue);
 
       if (setValue > 1000) {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val / 1000;
         });
       } else {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val;
         });
       }
@@ -1168,30 +1098,30 @@ export default {
 
       Highcharts.chart("backwardSector", {
         chart: {
-          type: "column"
+          type: "column",
         },
         title: {
-          text: val.sector
+          text: val.sector,
         },
         subtitle: {
-          text: `${val.precent}%, ${val.value}M`
+          text: `${val.precent}%, ${val.value}M`,
         },
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
         accessibility: {
           announceNewData: {
-            enabled: true
-          }
+            enabled: true,
+          },
         },
         xAxis: {
-          categories: ["", "", "", "", ""]
+          categories: ["", "", "", "", ""],
         },
         yAxis: {
           title: {
-            text: "Foreign value-added ($)"
-          }
+            text: "Foreign value-added ($)",
+          },
         },
         legend: {
           useHTML: true,
@@ -1205,7 +1135,7 @@ export default {
           symbolHeight: 0.1,
           symbolRadius: 0,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
@@ -1213,7 +1143,7 @@ export default {
               this.name +
               "</td></tr></table></div>"
             );
-          }
+          },
         },
         plotOptions: {
           series: {
@@ -1221,17 +1151,17 @@ export default {
 
             dataLabels: {
               enabled: true,
-              format: "${point.y}M"
-            }
-          }
+              format: "${point.y}M",
+            },
+          },
         },
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
 
         series: [
@@ -1239,9 +1169,9 @@ export default {
             colorByPoint: true,
             data: getData,
             showInLegend: true,
-            legendType: "point"
-          }
-        ]
+            legendType: "point",
+          },
+        ],
       });
     },
 
@@ -1258,7 +1188,7 @@ export default {
         year: this.year,
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph5 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -1267,7 +1197,7 @@ export default {
 
       getData.forEach((x, index) => {
         let newCountry = this.countryOptions.filter(
-          xx => xx.iso == x.country
+          (xx) => xx.iso == x.country
         )[0].label;
 
         x.color = setColor[index];
@@ -1275,18 +1205,18 @@ export default {
         x.y = x.val;
       });
 
-      let getValue = getData.map(x => {
+      let getValue = getData.map((x) => {
         return x.val;
       });
 
       let setValue = Math.min(...getValue);
 
       if (setValue > 1000) {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val / 1000;
         });
       } else {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val;
         });
       }
@@ -1295,30 +1225,30 @@ export default {
 
       Highcharts.chart("forwardSector", {
         chart: {
-          type: "column"
+          type: "column",
         },
         title: {
-          text: val.sector
+          text: val.sector,
         },
         subtitle: {
-          text: `${val.precent}%, ${val.value}M`
+          text: `${val.precent}%, ${val.value}M`,
         },
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
         accessibility: {
           announceNewData: {
-            enabled: true
-          }
+            enabled: true,
+          },
         },
         xAxis: {
-          categories: ["", "", "", "", ""]
+          categories: ["", "", "", "", ""],
         },
         yAxis: {
           title: {
-            text: "Contribution to partner exports ($)"
-          }
+            text: "Contribution to partner exports ($)",
+          },
         },
         legend: {
           useHTML: true,
@@ -1332,7 +1262,7 @@ export default {
           symbolHeight: 0.1,
           symbolRadius: 0,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
@@ -1340,29 +1270,29 @@ export default {
               this.name +
               "</td></tr></table></div>"
             );
-          }
+          },
         },
         plotOptions: {
           series: {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: "${point.y}M"
+              format: "${point.y}M",
             },
             events: {
-              legendItemClick: function() {
+              legendItemClick: function () {
                 console.log(this.visible);
-              }
-            }
-          }
+              },
+            },
+          },
         },
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
 
         series: [
@@ -1370,9 +1300,9 @@ export default {
             colorByPoint: true,
             data: getData,
             showInLegend: true,
-            legendType: "point"
-          }
-        ]
+            legendType: "point",
+          },
+        ],
       });
     },
 
@@ -1389,7 +1319,7 @@ export default {
         year: this.year,
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph6 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -1402,18 +1332,18 @@ export default {
         x.y = x.val;
       });
 
-      let getValue = getData.map(x => {
+      let getValue = getData.map((x) => {
         return x.val;
       });
 
       let setValue = Math.min(...getValue);
 
       if (setValue > 1000) {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val / 1000;
         });
       } else {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val;
         });
       }
@@ -1422,30 +1352,30 @@ export default {
 
       Highcharts.chart("backwardEconomy", {
         chart: {
-          type: "column"
+          type: "column",
         },
         title: {
-          text: val.country
+          text: val.country,
         },
         subtitle: {
-          text: `${val.precent}%, ${val.value}M`
+          text: `${val.precent}%, ${val.value}M`,
         },
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
         accessibility: {
           announceNewData: {
-            enabled: true
-          }
+            enabled: true,
+          },
         },
         xAxis: {
-          categories: ["", "", "", "", ""]
+          categories: ["", "", "", "", ""],
         },
         yAxis: {
           title: {
-            text: "gross imports ($)"
-          }
+            text: "gross imports ($)",
+          },
         },
         legend: {
           useHTML: true,
@@ -1458,7 +1388,7 @@ export default {
           symbolHeight: 0.1,
           symbolRadius: 0,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
@@ -1466,29 +1396,29 @@ export default {
               this.name +
               "</td></tr></table></div>"
             );
-          }
+          },
         },
         plotOptions: {
           series: {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: "${point.y}M"
+              format: "${point.y}M",
             },
             events: {
-              legendItemClick: function() {
+              legendItemClick: function () {
                 console.log(this.visible);
-              }
-            }
-          }
+              },
+            },
+          },
         },
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
 
         series: [
@@ -1496,9 +1426,9 @@ export default {
             colorByPoint: true,
             data: getData,
             showInLegend: true,
-            legendType: "point"
-          }
-        ]
+            legendType: "point",
+          },
+        ],
       });
     },
 
@@ -1515,7 +1445,7 @@ export default {
         year: this.year,
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph7 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -1528,18 +1458,18 @@ export default {
         x.y = x.val;
       });
 
-      let getValue = getData.map(x => {
+      let getValue = getData.map((x) => {
         return x.val;
       });
 
       let setValue = Math.min(...getValue);
 
       if (setValue > 1000) {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val / 1000;
         });
       } else {
-        getData.forEach(x => {
+        getData.forEach((x) => {
           x.y = x.val;
         });
       }
@@ -1548,26 +1478,26 @@ export default {
 
       Highcharts.chart("forwardEconomy", {
         chart: {
-          type: "column"
+          type: "column",
         },
         title: {
-          text: val.country
+          text: val.country,
         },
         subtitle: {
-          text: `${val.precent}%, ${val.value}M`
+          text: `${val.precent}%, ${val.value}M`,
         },
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
 
         xAxis: {
-          categories: ["", "", "", "", ""]
+          categories: ["", "", "", "", ""],
         },
         yAxis: {
           title: {
-            text: "gross imports ($)"
-          }
+            text: "gross imports ($)",
+          },
         },
         legend: {
           useHTML: true,
@@ -1582,7 +1512,7 @@ export default {
           symbolRadius: 0,
           symbolWidth: 0,
 
-          labelFormatter: function() {
+          labelFormatter: function () {
             return (
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
@@ -1590,28 +1520,28 @@ export default {
               this.name +
               "</td></tr></table></div>"
             );
-          }
+          },
         },
         plotOptions: {
           series: {
             dataLabels: {
               enabled: true,
-              format: "${point.y}M"
+              format: "${point.y}M",
             },
             events: {
-              legendItemClick: function(event) {
+              legendItemClick: function (event) {
                 console.log(event);
                 event.preventDefault();
-              }
-            }
-          }
+              },
+            },
+          },
         },
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>',
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
 
         series: [
@@ -1619,9 +1549,9 @@ export default {
             colorByPoint: true,
             data: getData,
             showInLegend: true,
-            legendType: "point"
-          }
-        ]
+            legendType: "point",
+          },
+        ],
       });
     },
 
@@ -1629,11 +1559,11 @@ export default {
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach(element => {
+      data.data.forEach((element) => {
         temp.push({ value: Number(element), label: element });
       });
       this.yearOptions = temp;
-    }
+    },
   },
 
   async mounted() {
@@ -1650,9 +1580,9 @@ export default {
 
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exp_country = this.$route.params.expe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.expe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("expe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
           )[0];
 
       this.exp_optionsShow = this.countryOptions;
@@ -1692,7 +1622,7 @@ export default {
     if (cancelGraph7 !== undefined) {
       cancelGraph7();
     }
-  }
+  },
 };
 </script>
 

@@ -12,14 +12,12 @@
         dense
         icon="home"
       />
-      <div class="row justify-center ">
+      <div class="row justify-center">
         <div
           class="text-white col-12 text-stroke"
           align="center"
           style="font-size:48px"
-        >
-          Global Value Chains
-        </div>
+        >Global Value Chains</div>
         <div align="center" class="text-stroke text-white font-graph q-pt-lg">
           Gain insight into your economy’s participation in GVCs. Uncover
           sources of
@@ -30,42 +28,30 @@
       <div
         class="absolute q-pa-md text-white"
         style="bottom:0px;"
-        :style="
-          isShowTinaLink &&
-          $q.sessionStorage.has('expe') &&
-          $q.sessionStorage.has('impe')
-            ? 'right:140px'
-            : 'right:0px'
-        "
+        :style="isShowTinaLink ? 'right:140px':'right:0px'"
       >
         <q-btn
+          :disable="isDisableShare"
           label="share"
           @click="isShowShareOptions = true"
-          outline=""
+          outline
           icon="fas fa-share"
         ></q-btn>
       </div>
-      <div
-        class="absolute q-pa-md text-white"
-        style="bottom:0px;right:0px"
-        v-if="
-          isShowTinaLink &&
-            $q.sessionStorage.has('expe') &&
-            $q.sessionStorage.has('impe')
-        "
-      >
+      <div class="absolute q-pa-md text-white" style="bottom:0px;right:0px" v-if="isShowTinaLink">
         <q-btn
+          :disable="isDisableTina"
           label="TINA Link"
-          no-caps=""
-          outline=""
+          no-caps
+          outline
           icon="fas fa-share"
           @click="toTinaLink()"
         ></q-btn>
       </div>
     </div>
 
-    <q-dialog v-model="isShowShareOptions" persistent="">
-      <q-card class="relative-position " style="width:400px">
+    <q-dialog v-model="isShowShareOptions" persistent>
+      <q-card class="relative-position" style="width:400px">
         <q-icon
           class="absolute cursor-pointer z-top"
           style="right:5px;top:5px"
@@ -82,12 +68,12 @@
               <ShareNetwork
                 network="facebook"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                title=""
-                description=""
-                quote=""
+                title
+                description
+                quote
                 hashtags="vuejs,vite"
               >
-                <img src="../../public/facebook.png" alt="" />
+                <img src="../../public/facebook.png" alt />
                 <div align="center">Facebook</div>
               </ShareNetwork>
             </div>
@@ -95,12 +81,12 @@
               <ShareNetwork
                 network="twitter"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                title=""
-                description=""
+                title
+                description
                 quote="The hot reload is so fast it\'s near instant. - Evan You"
                 hashtags="vuejs,vite"
               >
-                <img src="../../public/twitter.png" alt="" />
+                <img src="../../public/twitter.png" alt />
                 <div align="center">Twitter</div>
               </ShareNetwork>
             </div>
@@ -109,9 +95,9 @@
                 network="twitter"
                 :url="$q.sessionStorage.getItem('shareLink')"
                 hashtags="vuejs,vite"
-                title=""
+                title
               >
-                <img src="../../public/linkedin.png" alt="" />
+                <img src="../../public/linkedin.png" alt />
                 <div align="center">LinkedIn</div>
               </ShareNetwork>
             </div>
@@ -123,14 +109,8 @@
               class="col"
               style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"
               id="shareLink"
-            >
-              {{ $q.sessionStorage.getItem("shareLink") }}
-            </div>
-            <div
-              style="width:50px"
-              class="text-blue cursor-pointer"
-              @click="copyLink()"
-            >
+            >{{ $q.sessionStorage.getItem("shareLink") }}</div>
+            <div style="width:50px" class="text-blue cursor-pointer" @click="copyLink()">
               <b>COPY</b>
             </div>
           </div>
@@ -145,13 +125,21 @@ export default {
   props: {
     isShowTinaLink: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
+    isDisableTina: {
+      type: Boolean,
+      default: true,
+    },
+    isDisableShare: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
       isShowShareOptions: false,
-      link: window.location.href
+      link: window.location.href,
     };
   },
   methods: {
@@ -161,28 +149,11 @@ export default {
 
       window.open(
         "https://tina.tiid.org/app/dashboard/" +
-          imp_country +
-          "-" +
           exp_country +
+          "-" +
+          imp_country +
           "/current-trade/"
       );
-
-      // if (exp_country && imp_country) {
-      //   window.open(
-      //     "https://tina.tiid.org/app/dashboard/" +
-      //       exp_country +
-      //       "-" +
-      //       imp_country +
-      //       "/current-trade/"
-      //   );
-      // } else {
-      //   this.$q.notify({
-      //     message:
-      //       "Please select an exporting economy and an importing economy.",
-      //     color: "red",
-      //     position: "top"
-      //   });
-      // }
     },
     copyLink() {
       var range = document.createRange();
@@ -191,9 +162,9 @@ export default {
       window.getSelection().addRange(range); // to select text
       document.execCommand("copy");
       window.getSelection().removeAllRanges(); // to deselect
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 
