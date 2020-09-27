@@ -678,8 +678,9 @@ export default {
           symbolRadius: 0,
         },
         tooltip: {
+          useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          pointFormat: "<div>{series.name}</div><div>Value: {point.y}%</div>",
         },
         plotOptions: {
           column: {
@@ -830,6 +831,12 @@ export default {
           },
         ],
         exporting: this.exportingGraphOptions,
+        tooltip: {
+          useHTML: true,
+          headerFormat: "<b>{point.x}</b><br/>",
+          pointFormat:
+            "<div class='text-weight-bold'>{series.name}</div><div> Value : {point.y}%</div>",
+        },
       });
     },
 
@@ -902,6 +909,12 @@ export default {
     checkDuplicateSelected() {
       return this.exportingSelected.iso == this.importingSelected.iso;
     },
+  },
+  beforeDestroy() {
+    if (cancelGraph1 != undefined) cancelGraph1();
+
+    if (cancelGraph2 != undefined) cancelGraph2();
+    if (cancelGraph3 != undefined) cancelGraph3();
   },
 };
 </script>
