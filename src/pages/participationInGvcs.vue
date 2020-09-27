@@ -435,7 +435,8 @@ export default {
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat:
+            "{series.name}<br/>Value: {point.y} million<br/>Total GVC exports: {point.stackTotal}%",
         },
         plotOptions: {
           column: {
