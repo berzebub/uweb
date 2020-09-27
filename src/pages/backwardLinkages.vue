@@ -1360,6 +1360,9 @@ export default {
       });
 
       getData = getData.data;
+
+      console.log(getData);
+
       let countryTemp = getData.map((x) => x.exp_country);
       this.countryList = [...new Set(countryTemp)];
       this.countryList.sort();
@@ -1880,8 +1883,6 @@ export default {
       );
     },
     renderGraph2() {
-      // path: "/backward-linkages/:expe?/:year?/:impe?/:sectorOrSource?",
-
       let link =
         "unescap.thaiawesomedev.com/backward-linkages" +
         "/" +
@@ -1958,21 +1959,37 @@ export default {
         : this.countryOptions.filter(
             (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
           )[0];
+
+      this.sectorSelected = this.$route.params.sectorOrSource
+        ? this.sectorOptions.filter(
+            (x) => x.value == this.$route.params.sectorOrSource
+          )[0]
+        : this.sectorOptions.filter(
+            (x) => x.value == this.$q.sessionStorage.getItem("sourceE")
+          )[0];
       this.countryOptionsShow = this.countryOptions;
     }
 
     if (this.$route.params.menu) {
-      this.activeSelect = this.$route.params.menu;
-      if (this.validateSelected2()) {
-        this.renderGraph2();
+      this.activeSelect = Number(this.$route.params.menu);
+
+      if (this.activeSelect == 1) {
+        // select by exporting sector
+        if (this.validateSelected()) {
+          this.renderGraphSector();
+          this.sourceEconomySelected = "";
+        }
+      } else {
+        // select by source economy
+        if (this.validateSelected2()) {
+          this.renderGraph2();
+        }
       }
     } else {
       if (this.validateSelected()) {
         this.renderGraphSector();
       }
     }
-
-    // this.$q.sessionStorage.set("sourceE", this.sourceEconomySelected.iso);
   },
   beforeDestroy() {
     if (cancelGraph1 != undefined) cancelGraph1();
