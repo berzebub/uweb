@@ -224,10 +224,12 @@
           <div v-show="isStructureChart">
             <div id="container"></div>
           </div>
+
+          <!-- :exportCountry="exportingSelected.label"
+          :importCountry="importingSelected.label"-->
           <error-graph
             v-if="errorGraph1"
-            :exportCountry="exportingSelected.label"
-            :importCountry="importingSelected.label"
+            :content="`What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`"
           ></error-graph>
         </div>
         <hr />
@@ -309,6 +311,7 @@ export default {
       CancelToken: "",
       source: "",
       errorGraph1: false,
+      errorGraph2: false,
 
       exportingOptions: [
         {
@@ -443,7 +446,6 @@ export default {
       });
 
       if (getData.data.text_export_to_import_country == 0) {
-        console.log("GRAPH NOT AVAILABLE");
         this.errorGraph1 = true;
         this.isStructureChart = true;
         return;
@@ -614,6 +616,9 @@ export default {
           cancelGraph2 = c;
         }),
       });
+
+      console.log("graph2");
+      console.log(getData.data);
 
       getData = getData.data;
 
@@ -786,6 +791,9 @@ export default {
           cancelGraph3 = c;
         }),
       });
+
+      console.log("graph3");
+      console.log(getData.data);
 
       getData = getData.data;
 
