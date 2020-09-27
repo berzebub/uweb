@@ -607,7 +607,15 @@ export default {
           useHTML: true,
           pointFormatter: function () {
             if (this.name.includes("Directly")) {
-              return `<b>Used in ${_this.exportingSelected.label}'s consumption</b>`;
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s consumption</div><div>Share: ${_this.dataChart1Percent.imp_cons}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Used in exports")) {
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s export production</div><div>Share: ${_this.dataChart1Percent.imp_cont}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Imported content")) {
+              return `<div class='text-weight-bold'>Imported content</div><div>Share: ${_this.dataChart1Percent.imp_exp}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Double counted")) {
+              return `<div class='text-weight-bold'>Double counted exports from repeated border crossing</div><div>Share: ${_this.dataChart1Percent.double}%</div><div>Value: $${this.value} million</div>`;
+            } else {
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
             }
           },
         },
