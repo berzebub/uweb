@@ -45,11 +45,10 @@
             <div align="center" style="font-size:18px;letter-spacing:0.2px">
               Gain insight into your economy’s
               participation
-              <br />in GVCs. Uncover sources
+              <br />in GVCs. Uncover the sources
               of intermediate
               <br />inputs and destinations
-              of domestic
-              <br />value-added
+              of domestic value-added
             </div>
           </div>
           <div align="center" class="col-12 q-pt-md">
