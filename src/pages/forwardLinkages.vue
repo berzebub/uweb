@@ -580,9 +580,7 @@ export default {
               "<div> <span class='text-bold'>" +
               this.name +
               "</span>" +
-              "<br> Share: " +
-              this.percent +
-              "% <br>" +
+              "<br>" +
               "Value: $" +
               this.value +
               " million" +
