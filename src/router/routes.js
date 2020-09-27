@@ -74,7 +74,7 @@ const routes = [
         name: "structureOfValueAdded"
       },
       {
-        path: "/participation-in-gvcs",
+        path: "/participation-in-gvcs/:expe?/:year?/:impe?/:sector?",
         component: () => import("pages/participationInGvcs.vue"),
         name: "participationInGvcs"
       },

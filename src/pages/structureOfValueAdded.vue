@@ -434,13 +434,13 @@ export default {
       this.setStackChart3();
       let link =
         "unescap.thaiawesomedev.com/structure-of-value-added" +
-        "/expe=" +
+        "/" +
         this.exportingSelected.iso +
-        "&year=" +
+        "/" +
         this.displayYear +
-        "&impe=" +
+        "/" +
         this.importingSelected.iso +
-        "&sector=" +
+        "/" +
         this.sectorSelected;
       this.$q.sessionStorage.set("shareLink", link);
     },
@@ -883,6 +883,7 @@ export default {
     }
   },
   async mounted() {
+    this.$q.sessionStorage.remove("shareLink");
     await this.getSectorList();
     await this.getYear();
     this.getCountryList();

@@ -1016,11 +1016,13 @@ export default {
 
       let link =
         "unescap.thaiawesomedev.com/gvc-links" +
-        "/expe=" +
+        "/" +
         this.exp_country.iso +
-        "&year=" +
+        "/" +
         this.year;
       this.$q.sessionStorage.set("shareLink", link);
+
+      // this.$router.push("/gvc-links/" + this.exp_country.iso + "/" + this.year);
     },
 
     // ------------------------- END -------------------------
@@ -1634,7 +1636,7 @@ export default {
 
   async mounted() {
     // Check Session and Params Year
-
+    this.$q.sessionStorage.remove("shareLink");
     await this.getCountryList();
     await this.getYear();
 
