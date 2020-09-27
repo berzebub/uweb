@@ -262,6 +262,8 @@ export default {
       this.isChart = false;
       let urlLink = `https://api.winner-english.com/u_api/cal_back_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
 
+      console.log(urlLink);
+
       let getData = await Axios.get(urlLink);
 
       getData = getData.data;
