@@ -257,6 +257,11 @@
           <div v-show="isComparisonChart">
             <div id="container1"></div>
           </div>
+
+          <error-graph
+            v-if="errorGraph2"
+            :content="`What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`"
+          ></error-graph>
         </div>
       </div>
     </div>
@@ -268,6 +273,7 @@
     </div>
 
     <!-- FOOTER -->
+    <div style="height:30px" class="bg-white"></div>
     <my-footer></my-footer>
   </q-page>
 </template>
@@ -392,6 +398,8 @@ export default {
     },
 
     validateSelected() {
+      this.errorGraph1 = false;
+      this.errorGraph2 = false;
       if (
         this.sectorSelected &&
         this.year &&
@@ -432,6 +440,7 @@ export default {
 
     async setStackChart() {
       this.isStructureChart = false;
+      let _this = this;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
@@ -522,7 +531,7 @@ export default {
                 label: `Used in ${this.importingSelected.label}’s comsumption`,
               },
               {
-                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
+                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
                 label: `Used in ${this.importingSelected.label}’s export <br>production`,
@@ -541,7 +550,7 @@ export default {
                   "Double counted exports <br>from repeated border crossings",
               },
               {
-                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
+                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
                 label: "Imported content",
@@ -598,6 +607,22 @@ export default {
         credits: {
           enabled: false,
         },
+        tooltip: {
+          useHTML: true,
+          pointFormatter: function () {
+            if (this.name.includes("Directly")) {
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s consumption</div><div>Share: ${_this.dataChart1Percent.imp_cons}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Used in exports")) {
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s export production</div><div>Share: ${_this.dataChart1Percent.imp_cont}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Imported content")) {
+              return `<div class='text-weight-bold'>Imported content</div><div>Share: ${_this.dataChart1Percent.imp_exp}%</div><div>Value: $${this.value} million</div>`;
+            } else if (this.name.includes("Double counted")) {
+              return `<div class='text-weight-bold'>Double counted exports from repeated border crossing</div><div>Share: ${_this.dataChart1Percent.double}%</div><div>Value: $${this.value} million</div>`;
+            } else {
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
+            }
+          },
+        },
 
         exporting: this.exportingGraphOptions,
       });
@@ -619,6 +644,13 @@ export default {
 
       console.log("graph2");
       console.log(getData.data);
+
+      if (getData.data.show == "off") {
+        console.log("errorGraph2");
+        this.errorGraph2 = true;
+        this.isComparisonChart = true;
+        return;
+      }
 
       getData = getData.data;
 
