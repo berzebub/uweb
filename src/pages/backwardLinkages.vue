@@ -336,6 +336,11 @@
           <div v-show="isChart3">
             <div id="container2"></div>
           </div>
+
+          <error-graph
+            v-if="errorChart3"
+            :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
+          ></error-graph>
         </div>
       </div>
 
@@ -375,6 +380,7 @@ export default {
       isDisableTinaLink: true,
       errorGraph1: false,
       errorGraph2: false,
+      errorChart3: false,
       sourceEconomySelected: "",
       displaySector: "",
       activeSelect: 1,
@@ -1361,7 +1367,11 @@ export default {
 
       getData = getData.data;
 
-      console.log(getData);
+      if (getData.show == "off") {
+        this.errorChart3 = true;
+        this.isChart3 = true;
+        return;
+      }
 
       let countryTemp = getData.map((x) => x.exp_country);
       this.countryList = [...new Set(countryTemp)];
