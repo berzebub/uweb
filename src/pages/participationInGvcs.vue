@@ -1,13 +1,15 @@
 <template>
   <q-page>
     <global-value-chains-header
-      :isShowTinaLink="exp_country && imp_country"
+      :isShowTinaLink="true"
+      :isDisableShare="isDisableShare"
+      :isDisableTina="isDisableTinaLink"
     ></global-value-chains-header>
 
     <global-value-chains-menu :activeMenu="2"></global-value-chains-menu>
 
     <!-- DROPDOWN SELECTION -->
-    <div class="bg12  q-pb-lg">
+    <div class="bg12 q-pb-lg">
       <div class="row q-pt-md justify-center">
         <div class="col-3 q-px-md">
           <span>Exporting economy</span>
@@ -36,17 +38,11 @@
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
-                    <gb-flag
-                      v-if="scope.opt.code"
-                      :code="scope.opt.code"
-                      size="small"
-                    />
+                    <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
-                    <q-item-label caption>
-                      {{ scope.opt.description }}
-                    </q-item-label>
+                    <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </template>
@@ -77,7 +73,7 @@
               :options="imp_optionsShow"
               outlined
               bg-color="white"
-              class=" q-mb-xs"
+              class="q-mb-xs"
               dense
               use-input
               fill-input
@@ -97,17 +93,11 @@
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
-                    <gb-flag
-                      v-if="scope.opt.code"
-                      :code="scope.opt.code"
-                      size="small"
-                    />
+                    <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
-                    <q-item-label caption>
-                      {{ scope.opt.description }}
-                    </q-item-label>
+                    <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </template>
@@ -150,9 +140,7 @@
           </div>
           <div class="col q-py-lg" style="background-color:#E5E1E1">
             <div class="q-mt-md">
-              <p align="center" class="font-graph text-bold">
-                Why does GVC participation matter?
-              </p>
+              <p align="center" class="font-graph text-bold">Why does GVC participation matter?</p>
             </div>
             <div align="center" class="q-px-lg">
               <p align="left">
@@ -224,13 +212,15 @@ export default {
     globalValueChainsMenu,
     myFooter,
     dataWaiting,
-    sorryDuplicate
+    sorryDuplicate,
   },
   data() {
     return {
       // NEW
       // Country List
       countryOptions: [],
+      isDisableTinaLink: true,
+      isDisableShare: true,
 
       // Show Country when filter for Exporting
       exp_optionsShow: [],
@@ -253,14 +243,14 @@ export default {
 
       isShowErrorWarning: false,
 
-      isChart: false
+      isChart: false,
     };
   },
   computed: {
     expCountry() {
       if (this.exp_country) {
         let res = this.countryOptions.filter(
-          x => x.value == this.exp_country.value
+          (x) => x.value == this.exp_country.value
         )[0];
 
         return res;
@@ -270,25 +260,25 @@ export default {
     impCountry() {
       if (this.imp_country) {
         let res = this.countryOptions.filter(
-          x => x.value == this.imp_country.value
+          (x) => x.value == this.imp_country.value
         )[0];
 
         return res;
       }
-    }
+    },
   },
   methods: {
     filterExpCountry(val, update) {
       update(async () => {
         this.exp_optionsShow = this.countryOptions.filter(
-          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
     filterImpCountry(val, update) {
       update(async () => {
         this.imp_optionsShow = this.countryOptions.filter(
-          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
@@ -321,6 +311,10 @@ export default {
 
     validateSelected() {
       if (this.exp_country && this.imp_country && this.year && this.sector) {
+        this.isDisableShare = false;
+        if (this.exportAvailable.includes(this.exp_country.iso)) {
+          this.isDisableTinaLink = false;
+        }
         return true;
       } else {
         return false;
@@ -365,11 +359,11 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph = c;
-        })
+        }),
       });
 
       let region = this.countryOptions.filter(
-        x => x.iso == this.exp_country.iso
+        (x) => x.iso == this.exp_country.iso
       )[0].region;
 
       getData = getData.data;
@@ -379,7 +373,7 @@ export default {
       let backwardList = [];
       let doubleList = [];
 
-      getData.map(x => {
+      getData.map((x) => {
         countryList.push(x.country);
         forwardList.push(x.forward);
         backwardList.push(x.backward);
@@ -391,19 +385,19 @@ export default {
       Highcharts.chart("container", {
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%" // 16:9 ratio
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
 
         xAxis: {
           labels: {
-            rotation: -90
+            rotation: -90,
           },
-          categories: countryList
+          categories: countryList,
         },
         yAxis: {
           min: 0,
           title: {
-            text: `% of gross exports to ${this.imp_country.label}`
+            text: `% of gross exports to ${this.imp_country.label}`,
           },
           stackLabels: {
             enabled: false,
@@ -413,12 +407,12 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray"
-            }
-          }
+                "gray",
+            },
+          },
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: this.exportingGraphOptions,
         legend: {
@@ -427,7 +421,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
           width: 300,
           layout: "vertical",
@@ -437,45 +431,45 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0
+          symbolRadius: 0,
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
         series: [
           {
             name: `Used in ${this.imp_country.label}'s export production <br>(forward linkages)`,
             data: forwardList,
-            color: "#2381B8"
+            color: "#2381B8",
           },
           {
             name: "Imported content (backward linkages)",
             data: backwardList,
-            color: "#EB1E63"
+            color: "#EB1E63",
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
             data: doubleList,
-            color: "#f99704"
-          }
+            color: "#f99704",
+          },
         ],
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto"
+            fontFamily: "roboto",
           },
 
-          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`
-        }
+          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`,
+        },
       });
     },
 
@@ -483,11 +477,11 @@ export default {
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach(element => {
+      data.data.forEach((element) => {
         temp.push(element);
       });
       this.yearOptions = temp;
-    }
+    },
   },
   async mounted() {
     this.$q.sessionStorage.remove("shareLink");
@@ -497,9 +491,9 @@ export default {
 
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exp_country = this.$route.params.expe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.expe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("expe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
           )[0];
 
       this.exp_optionsShow = this.countryOptions;
@@ -507,9 +501,9 @@ export default {
 
     if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
       this.imp_country = this.$route.params.impe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.impe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("impe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
           )[0];
       this.imp_optionsShow = this.countryOptions;
     }
@@ -535,7 +529,7 @@ export default {
     if (cancelGraph !== undefined) {
       cancelGraph();
     }
-  }
+  },
 };
 </script>
 
