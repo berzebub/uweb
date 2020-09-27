@@ -6,6 +6,7 @@ import JsonCSV from "vue-json-csv";
 import CountryFlag from "vue-country-flag";
 
 import VueFlags from "@growthbunker/vueflags";
+import VueSocialSharing from "vue-social-sharing";
 var VueScrollTo = require("vue-scrollto");
 
 Vue.use(VueScrollTo);
@@ -13,6 +14,7 @@ Vue.use(VueRouter);
 Vue.use(HighchartsVue);
 Vue.component("downloadCsv", JsonCSV);
 Vue.component("country-flag", CountryFlag);
+Vue.use(VueSocialSharing);
 Vue.use(VueFlags, {
   // Specify the path of the folder where the flags are stored.
   iconPath: "../flags"
