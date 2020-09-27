@@ -257,6 +257,11 @@
           <div v-show="isComparisonChart">
             <div id="container1"></div>
           </div>
+
+          <error-graph
+            v-if="errorGraph2"
+            :content="`What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`"
+          ></error-graph>
         </div>
       </div>
     </div>
@@ -268,6 +273,7 @@
     </div>
 
     <!-- FOOTER -->
+    <div style="height:30px" class="bg-white"></div>
     <my-footer></my-footer>
   </q-page>
 </template>
@@ -370,13 +376,11 @@ export default {
   },
   methods: {
     changeYear() {
-      this.errorGraph1 = false;
       this.$q.sessionStorage.set("year", this.year.label);
       this.displayYear = this.year.label;
       if (this.validateSelected()) this.renderGraph();
     },
     selectedExporting() {
-      this.errorGraph1 = false;
       this.$q.sessionStorage.set("expe", this.exportingSelected.iso);
 
       this.continent = this.exportingSelected.region;
@@ -384,18 +388,18 @@ export default {
       if (this.validateSelected()) this.renderGraph();
     },
     selectedImporting() {
-      this.errorGraph1 = false;
       this.$q.sessionStorage.set("impe", this.importingSelected.iso);
 
       if (this.validateSelected()) this.renderGraph();
     },
     selectedSector() {
-      this.errorGraph1 = false;
       this.$q.sessionStorage.set("esec", this.sectorSelected);
       if (this.validateSelected()) this.renderGraph();
     },
 
     validateSelected() {
+      this.errorGraph1 = false;
+      this.errorGraph2 = false;
       if (
         this.sectorSelected &&
         this.year &&
@@ -640,6 +644,13 @@ export default {
 
       console.log("graph2");
       console.log(getData.data);
+
+      if (getData.data.show == "off") {
+        console.log("errorGraph2");
+        this.errorGraph2 = true;
+        this.isComparisonChart = true;
+        return;
+      }
 
       getData = getData.data;
 
