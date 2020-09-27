@@ -224,6 +224,11 @@
           <div v-show="isStructureChart">
             <div id="container"></div>
           </div>
+          <error-graph
+            v-if="errorGraph1"
+            :exportCountry="exportingSelected.label"
+            :importCountry="importingSelected.label"
+          ></error-graph>
         </div>
         <hr />
         <!-- GRAPH2 -->
@@ -277,6 +282,7 @@ import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
 import dataWaiting from "../components/dataWaiting.vue";
 import sorryDuplicate from "../components/sorryDuplicate.vue";
+import errorGraph from "../components/errorGraph.vue";
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
 let cancelGraph1;
@@ -293,6 +299,7 @@ export default {
     myFooter,
     dataWaiting,
     sorryDuplicate,
+    errorGraph,
   },
   data() {
     return {
@@ -301,6 +308,7 @@ export default {
       isDisableTinaLink: true,
       CancelToken: "",
       source: "",
+      errorGraph1: false,
 
       exportingOptions: [
         {
@@ -433,6 +441,13 @@ export default {
           cancelGraph1 = c;
         }),
       });
+
+      if (getData.data.text_export_to_import_country == 0) {
+        console.log("GRAPH NOT AVAILABLE");
+        this.errorGraph1 = true;
+        this.isStructureChart = true;
+        return;
+      }
 
       getData = getData.data;
       this.dataChart1Percent.imp_cons = (
