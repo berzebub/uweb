@@ -678,8 +678,9 @@ export default {
           symbolRadius: 0,
         },
         tooltip: {
+          useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          pointFormat: "<div>{series.name}</div><div>Value: {point.y}%</div>",
         },
         plotOptions: {
           column: {
@@ -834,7 +835,7 @@ export default {
           useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "<div class='text-weight-bold'>{series.name}</div><div> value : {point.y}%</div>",
+            "<div class='text-weight-bold'>{series.name}</div><div> Value : {point.y}%</div>",
         },
       });
     },
