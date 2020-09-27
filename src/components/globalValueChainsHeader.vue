@@ -30,7 +30,13 @@
       <div
         class="absolute q-pa-md text-white"
         style="bottom:0px;"
-        :style="isShowTinaLink ? 'right:140px' : 'right:0px'"
+        :style="
+          isShowTinaLink &&
+          $q.sessionStorage.has('expe') &&
+          $q.sessionStorage.has('impe')
+            ? 'right:140px'
+            : 'right:0px'
+        "
       >
         <q-btn
           label="share"
@@ -42,7 +48,11 @@
       <div
         class="absolute q-pa-md text-white"
         style="bottom:0px;right:0px"
-        v-if="isShowTinaLink"
+        v-if="
+          isShowTinaLink &&
+            $q.sessionStorage.has('expe') &&
+            $q.sessionStorage.has('impe')
+        "
       >
         <q-btn
           label="TINA Link"
@@ -148,13 +158,31 @@ export default {
     toTinaLink() {
       let exp_country = this.$q.sessionStorage.getItem("expe");
       let imp_country = this.$q.sessionStorage.getItem("impe");
+
       window.open(
         "https://tina.tiid.org/app/dashboard/" +
-          exp_country +
-          "-" +
           imp_country +
-          "/current-trade"
+          "-" +
+          exp_country +
+          "/current-trade/"
       );
+
+      // if (exp_country && imp_country) {
+      //   window.open(
+      //     "https://tina.tiid.org/app/dashboard/" +
+      //       exp_country +
+      //       "-" +
+      //       imp_country +
+      //       "/current-trade/"
+      //   );
+      // } else {
+      //   this.$q.notify({
+      //     message:
+      //       "Please select an exporting economy and an importing economy.",
+      //     color: "red",
+      //     position: "top"
+      //   });
+      // }
     },
     copyLink() {
       var range = document.createRange();

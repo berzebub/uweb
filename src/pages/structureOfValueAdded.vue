@@ -1,6 +1,8 @@
 <template>
   <q-page>
-    <global-value-chains-header></global-value-chains-header>
+    <global-value-chains-header
+      :isShowTinaLink="exportingSelected && importingSelected"
+    ></global-value-chains-header>
 
     <global-value-chains-menu :activeMenu="1"></global-value-chains-menu>
 
