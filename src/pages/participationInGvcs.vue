@@ -390,24 +390,24 @@ export default {
       getData.map(x => {
         countryList.push(x.country);
 
-        let newData = {
+        let newForward = {
           y: x.forward_v,
           name: x.forward
         };
-        forwardList.push(newData);
+        forwardList.push(newForward);
 
-        newData = {
+        let newBackward = {
           y: x.backward_v,
           name: x.backward
         };
-        backwardList.push(newData);
+        backwardList.push(newBackward);
 
-        newData = {
+        let newDouble = {
           y: x.double_v,
           name: x.double
         };
 
-        doubleList.push(newData);
+        doubleList.push(newDouble);
       });
 
       this.isChart = true;
