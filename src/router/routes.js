@@ -100,8 +100,9 @@ const routes = [
       },
 
       // NEW DESIGN STRUCTURE
+
       {
-        path: "/backward-linkages",
+        path: "/backward-linkages/:expe?/:year?/:impe?/:sectorOrSource?/:menu?",
         component: () => import("pages/backwardLinkages.vue"),
         name: "backwardLinkages"
       },

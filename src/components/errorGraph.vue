@@ -1,6 +1,6 @@
 <template>
-  <div class="relative-position" style="height:500px;border:1px solid">
-    <div align="center" style="font-size:18px" class="q-pt-md">{{ content }}</div>
+  <div class="relative-position" style="height:500px">
+    <div align="center" style="font-size:24px" class="q-pt-md">{{ content }}</div>
     <div align="center" class="absolute-center flex flex-center font-content" style="width:540px">
       <img style="width:50px" src="../../public/images/alert.png" alt />Graph unavailable due to negligible export values
     </div>
