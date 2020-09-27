@@ -133,7 +133,7 @@
     >
       <sorry-duplicate v-if="checkDuplicateSelected"></sorry-duplicate>
 
-      <div v-else>
+      <div class="bg-white" v-else>
         <div class="row q-px-md q-py-lg font-content">
           <div class="col q-px-md" align="center">
             <div
@@ -427,6 +427,8 @@ export default {
 
     // Render Graph
     renderGraph() {
+      // this.source.cancel("Operation canceled by the user.");
+
       this.setStackChart();
       this.setStackChart2();
       this.setStackChart3();
@@ -435,9 +437,9 @@ export default {
         "/expe=" +
         this.exportingSelected.iso +
         "&year=" +
-        this.year +
+        this.displayYear +
         "&impe=" +
-        this.year +
+        this.importingSelected.iso +
         "&sector=" +
         this.sectorSelected;
       this.$q.sessionStorage.set("shareLink", link);
@@ -523,34 +525,35 @@ export default {
           {
             type: "treemap",
             layoutAlgorithm: "strip",
+
             data: [
               {
-                name: `Imp. cons. (${this.dataChart1Percent.imp_cons}%)`,
+                name: `Directly consumed (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
                 label: `Used in ${this.importingSelected.label}’s comsumption`
               },
               {
-                name: `imp. exp. (${this.dataChart1Percent.imp_exp}%)`,
+                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
                 label: `Used in ${this.importingSelected.label}’s export <br>production`
               },
               {
-                name: `Dom. cons (${this.dataChart1Percent.dom_cons}%)`,
+                name: `Domestic consumed (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
                 label: `Used in ${this.exportingSelected.label}’s domestic <br>comsumption`
               },
               {
-                name: `Double (${this.dataChart1Percent.double}%)`,
+                name: `Double counted (${this.dataChart1Percent.double}%)`,
                 value: getData.double,
                 color: "#2D9687",
                 label:
                   "Double counted exports <br>from repeated border crossings"
               },
               {
-                name: `Imp. cont. (${this.dataChart1Percent.imp_cont}%)`,
+                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
                 label: "Imported content"
@@ -593,7 +596,15 @@ export default {
             "?"
         },
         subtitle: {
-          text: `Gross exports to ${this.importingSelected.label}: $${getData.text_export_to_import_country}B / Gross exports to World: $${getData.text_export_to_world}B`,
+          text: `Gross exports to ${this.importingSelected.label}: $${
+            getData.text_export_to_import_country > 1000
+              ? (getData.text_export_to_import_country / 1000).toFixed(2) + "B"
+              : getData.text_export_to_import_country + "M"
+          } / Gross exports to World: $${
+            getData.text_export_to_world > 1000
+              ? (getData.text_export_to_world / 1000).toFixed(2) + "B"
+              : getData.text_export_to_world + "M"
+          }`,
           align: "left"
         },
         credits: {
@@ -607,7 +618,6 @@ export default {
       this.isComparisonChart = false;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
-      console.log(urlLink);
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -699,8 +709,7 @@ export default {
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat:
-            "{series.name}: {point.y}%<br/>Total: {point.stackTotal}%"
+          pointFormat: "{series.name}: {point.y}%"
         },
         plotOptions: {
           column: {

@@ -366,7 +366,11 @@
                     >
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -396,7 +400,11 @@
                     >
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -485,7 +493,11 @@
                     >
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% ,${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -515,7 +527,11 @@
                     >
                       <div class="text-white">{{ item.sector }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -637,7 +653,11 @@
                     >
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -667,7 +687,11 @@
                     >
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -756,7 +780,11 @@
                     >
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -786,7 +814,11 @@
                     >
                       <div class="text-white">{{ item.fullName }}</div>
                       <div class="text-white">
-                        {{ item.precent }}% , ${{ item.value }}M
+                        {{ item.precent }}% , ${{
+                          item.value > 1000
+                            ? (item.value / 1000).toFixed(2) + "B"
+                            : item.value + "M"
+                        }}
                       </div>
                     </span>
                   </q-img>
@@ -841,6 +873,16 @@ import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import footerMenu from "../components/footer";
 import dataWaiting from "../components/dataWaiting.vue";
+
+let CancelToken = Axios.CancelToken;
+let source = CancelToken.source();
+let cancelGraph1;
+let cancelGraph2;
+let cancelGraph3;
+let cancelGraph4;
+let cancelGraph5;
+let cancelGraph6;
+let cancelGraph7;
 
 export default {
   components: {
@@ -971,14 +1013,6 @@ export default {
       this.loadGVCGraph();
       this.loadGVCGraphSector();
       this.loadGVCGraphEconomy();
-
-      let link =
-        "unescap.thaiawesomedev.com/gvc-links" +
-        "/expe=" +
-        this.exp_country.iso +
-        "&year=" +
-        this.year;
-      this.$q.sessionStorage.set("shareLink", link);
     },
 
     // ------------------------- END -------------------------
@@ -992,7 +1026,7 @@ export default {
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
-      let url = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
 
       let formatData = {
         total_percent: 0,
@@ -1003,7 +1037,15 @@ export default {
         export_value: 0
       };
 
-      let getData = await Axios.get(url);
+      if (cancelGraph1 !== undefined) {
+        cancelGraph1();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph1 = c;
+        })
+      });
 
       this.graphGVC = getData.data == "" ? formatData : getData.data;
 
@@ -1015,7 +1057,15 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph2 !== undefined) {
+        cancelGraph2();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph2 = c;
+        })
+      });
 
       getData = [...getData.data];
 
@@ -1030,7 +1080,15 @@ export default {
 
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
-      let getData = await Axios.get(urlLink);
+      if (cancelGraph3 !== undefined) {
+        cancelGraph3();
+      }
+
+      let getData = await Axios.get(urlLink, {
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph3 = c;
+        })
+      });
 
       getData = [...getData.data];
 
@@ -1051,10 +1109,17 @@ export default {
     async highchartBackwardSector(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
+      if (cancelGraph4 !== undefined) {
+        cancelGraph4();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sector: val.sector,
-        year: this.year
+        year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph4 = c;
+        })
       });
 
       getData = getData.data;
@@ -1113,7 +1178,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "gross imports ($)"
+            text: "Foreign value-added ($)"
           }
         },
         legend: {
@@ -1141,23 +1206,17 @@ export default {
         plotOptions: {
           series: {
             borderWidth: 0,
+
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`
-            },
-            events: {
-              legendItemClick: function() {
-                console.log(this.visible);
-              }
+              format: "${point.y}M"
             }
           }
         },
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>"
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
         },
         credits: {
           enabled: false
@@ -1177,10 +1236,17 @@ export default {
     async highchartForwardSector(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
 
+      if (cancelGraph5 !== undefined) {
+        cancelGraph5();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sector: val.sector,
-        year: this.year
+        year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph5 = c;
+        })
       });
 
       getData = getData.data;
@@ -1239,7 +1305,7 @@ export default {
         },
         yAxis: {
           title: {
-            text: "gross imports ($)"
+            text: "Contribution to partner exports ($)"
           }
         },
         legend: {
@@ -1269,7 +1335,7 @@ export default {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`
+              format: "${point.y}M"
             },
             events: {
               legendItemClick: function() {
@@ -1281,9 +1347,7 @@ export default {
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>"
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
         },
         credits: {
           enabled: false
@@ -1303,10 +1367,17 @@ export default {
     async highchartBackwardEconomy(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
+      if (cancelGraph6 !== undefined) {
+        cancelGraph6();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sourcing: val.country,
-        year: this.year
+        year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph6 = c;
+        })
       });
 
       getData = getData.data;
@@ -1390,7 +1461,7 @@ export default {
             borderWidth: 0,
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`
+              format: "${point.y}M"
             },
             events: {
               legendItemClick: function() {
@@ -1402,9 +1473,7 @@ export default {
 
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>"
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
         },
         credits: {
           enabled: false
@@ -1424,10 +1493,17 @@ export default {
     async highchartForwardEconomy(val) {
       let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
 
+      if (cancelGraph7 !== undefined) {
+        cancelGraph7();
+      }
+
       let getData = await Axios.post(urlLink, {
         exporting: this.exp_country.iso,
         sourcing: val.country,
-        year: this.year
+        year: this.year,
+        cancelToken: new CancelToken(function executor(c) {
+          cancelGraph7 = c;
+        })
       });
 
       getData = getData.data;
@@ -1508,7 +1584,7 @@ export default {
           series: {
             dataLabels: {
               enabled: true,
-              format: setValue > 1000 ? "$" + `{point.y}B` : "$" + `{point.y}M`
+              format: "${point.y}M"
             },
             events: {
               legendItemClick: function(event) {
@@ -1520,9 +1596,7 @@ export default {
         },
         tooltip: {
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>' +
-            (setValue > 1000 ? `{point.y}B` : `{point.y}M`) +
-            "</b> of total<br/>"
+            '<span style="color:{point.color}">{point.name}</span>: <b> {point.y}M</b>'
         },
         credits: {
           enabled: false
@@ -1577,6 +1651,35 @@ export default {
     }
 
     // this.checkPlatform();
+  },
+  beforeDestroy() {
+    if (cancelGraph1 !== undefined) {
+      cancelGraph1();
+    }
+
+    if (cancelGraph2 !== undefined) {
+      cancelGraph2();
+    }
+
+    if (cancelGraph3 !== undefined) {
+      cancelGraph3();
+    }
+
+    if (cancelGraph4 !== undefined) {
+      cancelGraph4();
+    }
+
+    if (cancelGraph5 !== undefined) {
+      cancelGraph5();
+    }
+
+    if (cancelGraph6 !== undefined) {
+      cancelGraph6();
+    }
+
+    if (cancelGraph7 !== undefined) {
+      cancelGraph7();
+    }
   }
 };
 </script>
