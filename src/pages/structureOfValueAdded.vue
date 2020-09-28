@@ -169,10 +169,10 @@
               <div
                 class="font-content q-pb-sm"
                 align="center"
-              >Argentina's gross exports can be divided into five major parts:</div>
+              >{{ exportingSelected.label }}'s gross exports can be divided into five major parts:</div>
               <div class="row q-pt-md" style="width:95%; margin:auto;">
-                <div style="width:20%" align="center">Used in importer's comsumption</div>
-                <div style="width:20%" align="center">Used in domestic comsumption</div>
+                <div style="width:20%" align="center">Used in importer's consumption</div>
+                <div style="width:20%" align="center">Used in domestic consumption</div>
                 <div style="width:20%" align="center">Used in importer's export production</div>
                 <div style="width:20%" align="center">Imported content</div>
                 <div
@@ -182,7 +182,9 @@
               </div>
               <div class="bracketLeft"></div>
               <div class="bracketRight"></div>
-              <div class="textLeft font-content">Argentina's valued-added in exports</div>
+              <div
+                class="textLeft font-content"
+              >{{ exportingSelected.label }}'s valued-added in exports</div>
               <div class="textRight font-content">GVC releated exports</div>
             </div>
           </div>
@@ -199,14 +201,14 @@
                 selected importer?
               </u>
             </div>
-            <div class="cursor-pointer" v-scroll-to="'#measuring'">
+            <div class="cursor-pointer q-pt-sm" v-scroll-to="'#measuring'">
               2.
               <u>
                 How does {{ exportingSelected.label }}’s domestic value-added
                 and gross trade balance with the selected imported differ?
               </u>
             </div>
-            <div class="cursor-pointer q-py-sm" v-scroll-to="'#comparison'">
+            <div class="cursor-pointer q-pt-sm" v-scroll-to="'#comparison'">
               3.
               <u>
                 What happens to {{ continent }} economics’ exports to a selected
@@ -535,7 +537,7 @@ export default {
                 name: `Directly consumed (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
-                label: `Used in ${this.importingSelected.label}’s comsumption`,
+                label: `Used in ${this.importingSelected.label}’s consumption`,
               },
               {
                 name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
@@ -547,7 +549,7 @@ export default {
                 name: `Domestic consumed (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.exportingSelected.label}’s domestic <br>comsumption`,
+                label: `Used in ${this.exportingSelected.label}’s domestic <br>consumption`,
               },
               {
                 name: `Double counted (${this.dataChart1Percent.double}%)`,
@@ -618,15 +620,15 @@ export default {
           useHTML: true,
           pointFormatter: function () {
             if (this.name.includes("Directly")) {
-              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s consumption</div><div>Share: ${_this.dataChart1Percent.imp_cons}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label}'s consumption</div><div>Share: ${_this.dataChart1Percent.imp_cons}%</div><div>Value: $${this.value} million</div>`;
             } else if (this.name.includes("Used in exports")) {
-              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s export production</div><div>Share: ${_this.dataChart1Percent.imp_cont}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label}'s export production</div><div>Share: ${_this.dataChart1Percent.imp_cont}%</div><div>Value: $${this.value} million</div>`;
             } else if (this.name.includes("Imported content")) {
               return `<div class='text-weight-bold'>Imported content</div><div>Share: ${_this.dataChart1Percent.imp_exp}%</div><div>Value: $${this.value} million</div>`;
             } else if (this.name.includes("Double counted")) {
               return `<div class='text-weight-bold'>Double counted exports from repeated border crossing</div><div>Share: ${_this.dataChart1Percent.double}%</div><div>Value: $${this.value} million</div>`;
             } else {
-              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
             }
           },
         },
@@ -751,7 +753,7 @@ export default {
         },
         series: [
           {
-            name: `Used in ${this.importingSelected.label}'s comsumption`,
+            name: `Used in ${this.importingSelected.label}'s consumption`,
             data: imp_cons,
             color: "#2381B8",
           },
@@ -761,7 +763,7 @@ export default {
             color: "#EB1E63",
           },
           {
-            name: `Used in ${this.exportingSelected.label}'s domestic <br>comsumption`,
+            name: `Used in ${this.exportingSelected.label}'s domestic <br>consumption`,
             data: dom_cons,
             color: "#f99704",
           },

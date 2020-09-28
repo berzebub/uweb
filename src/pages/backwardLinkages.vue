@@ -643,7 +643,7 @@ export default {
           element.name = `${element.name}(${(
             (element.value / summaryValue) *
             100
-          ).toFixed(2)})% `;
+          ).toFixed(2)}%) `;
           element.percent = ((element.value / summaryValue) * 100).toFixed(2);
         }
       });
@@ -763,25 +763,23 @@ export default {
           },
           text: `Gross exports of ${this.exportingSelected.label} in ${
             this.displaySector
-          } sector(s) to ${this.importingSelected.label} amount to *$${(
+          } sector(s) to ${this.importingSelected.label} amount to $${(
             getDataSub.grossExport / 1000
-          ).toFixed(2)}* billion in *year*. Of these exports, *$${(
+          ).toFixed(2)} billion in year. Of these exports, $${(
             getDataSub.ImportedContent / 1000
           ).toFixed(
             2
-          )}* billion is imported content that comes from other economies, mainly ${
+          )} billion is imported content that comes from other economies, mainly ${
             graphOneDetailsList[0].name
-          } (*${graphOneDetailsList[0].sum}*%), ${
-            graphOneDetailsList[1].name
-          } (*${graphOneDetailsList[1].sum}*%), ${
-            graphOneDetailsList[2].name
-          } (*${graphOneDetailsList[2].sum}*%), ${
-            graphOneDetailsList[3].name
-          } (*${graphOneDetailsList[3].sum}*%) and ${
-            graphOneDetailsList[4].name
-          } (*${
+          } (${graphOneDetailsList[0].sum}%), ${graphOneDetailsList[1].name} (${
+            graphOneDetailsList[1].sum
+          }%), ${graphOneDetailsList[2].name} (${
+            graphOneDetailsList[2].sum
+          }%), ${graphOneDetailsList[3].name} (${
+            graphOneDetailsList[3].sum
+          }%) and ${graphOneDetailsList[4].name} (${
             graphOneDetailsList[4].sum
-          }*%). <br><br><br>imported content in exports to ${
+          }%). <br><br><br>imported content in exports to ${
             this.importingSelected.label
           }: $${(getDataSub.ImportedContent / 1000).toFixed(
             2

@@ -68,9 +68,6 @@
               <ShareNetwork
                 network="facebook"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                title
-                description
-                quote
                 hashtags="vuejs,vite"
               >
                 <img src="../../public/facebook.png" alt />
@@ -92,7 +89,7 @@
             </div>
             <div align="center" class="col link-hover cursor-pointer">
               <ShareNetwork
-                network="twitter"
+                network="linkedIn"
                 :url="$q.sessionStorage.getItem('shareLink')"
                 hashtags="vuejs,vite"
                 title
@@ -104,7 +101,7 @@
           </div>
         </q-card-section>
         <q-card-section>
-          <div class="row bg-grey-5 q-pa-sm">
+          <div class="row bg-grey-4 q-pa-sm">
             <div
               class="col"
               style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"
