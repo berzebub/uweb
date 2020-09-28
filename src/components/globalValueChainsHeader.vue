@@ -19,8 +19,7 @@
           style="font-size:48px"
         >Global Value Chains</div>
         <div align="center" class="text-stroke text-white font-graph q-pt-lg">
-          Gain insight into your economy’s participation in GVCs. Uncover
-          sources of
+          Gain insight into your economy’s participation in GVCs. Uncover the sources of
           <br />intermediate inputs and destinations of domestic value-added
         </div>
       </div>
@@ -68,9 +67,6 @@
               <ShareNetwork
                 network="facebook"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                title
-                description
-                quote
                 hashtags="vuejs,vite"
               >
                 <img src="../../public/facebook.png" alt />
@@ -92,7 +88,7 @@
             </div>
             <div align="center" class="col link-hover cursor-pointer">
               <ShareNetwork
-                network="twitter"
+                network="linkedIn"
                 :url="$q.sessionStorage.getItem('shareLink')"
                 hashtags="vuejs,vite"
                 title
@@ -104,7 +100,7 @@
           </div>
         </q-card-section>
         <q-card-section>
-          <div class="row bg-grey-5 q-pa-sm">
+          <div class="row bg-grey-4 q-pa-sm">
             <div
               class="col"
               style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"

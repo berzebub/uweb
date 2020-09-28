@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <global-value-chains-header :isShowTinaLink="false"></global-value-chains-header>
+    <global-value-chains-header :isDisableShare="false" :isShowTinaLink="false"></global-value-chains-header>
     <!-- MENU -->
     <div class="q-pa-md">
       <div class="row q-pb-md">

@@ -195,152 +195,162 @@
         </div>
       </div>
       <!--  -->
-      <div class="row">
-        <div class="col-3 full-height">
-          <q-img class="fit" src="../../public/images/image-56.png"></q-img>
-        </div>
-        <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
-          <p align="center" class="font-24">Where does imported content come from?</p>
-          <div align="center" class="q-px-lg">
-            <p align="center">
-              Some part of {{ exportingSelected.label }}’s gross exports consist
-              of imported inputs that originate in other source economies.
-            </p>
 
-            <div class="row justify-around q-pt-md" style="max-width:750px">
-              <div>
-                Source economy
-                <div v-if="activeSelect == 2">{{ importingSelected.label }}</div>
-              </div>
+      <div v-show="isWaiting">
+        <data-waiting
+          text="Please choose exporting economy and year 
+from the drop down menus above"
+        ></data-waiting>
+      </div>
 
-              <div>
-                <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
-              </div>
-              <div>
-                Exporting economy
-                <div>{{ exportingSelected.label }}</div>
-              </div>
-              <div>:</div>
-              <div style="color:#283891;width:200px" class="text-weight-bold">
-                Exporting sector
-                <div v-if="activeSelect == 1">{{ displaySector }}</div>
-                <div v-else>All</div>
-              </div>
-              <div>
-                <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
-              </div>
-              <div>
-                Importing economy
-                <div>Australia</div>
+      <div v-if="!isWaiting">
+        <div class="row">
+          <div class="col-3 full-height">
+            <q-img class="fit" src="../../public/images/image-56.png"></q-img>
+          </div>
+          <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
+            <p align="center" class="font-24">Where does imported content come from?</p>
+            <div align="center" class="q-px-lg">
+              <p align="center">
+                Some part of {{ exportingSelected.label }}’s gross exports consist
+                of imported inputs that originate in other source economies.
+              </p>
+
+              <div class="row justify-around q-pt-md" style="max-width:750px">
+                <div>
+                  Source economy
+                  <div v-if="activeSelect == 2">{{ importingSelected.label }}</div>
+                </div>
+
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Exporting economy
+                  <div>{{ exportingSelected.label }}</div>
+                </div>
+                <div>:</div>
+                <div style="color:#283891;width:200px" class="text-weight-bold">
+                  Exporting sector
+                  <div v-if="activeSelect == 1">{{ displaySector }}</div>
+                  <div v-else>All</div>
+                </div>
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Importing economy
+                  <div>Australia</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="bg-white" v-show="activeSelect == 1">
-        <!-- KEY POLICY QUESTION -->
-        <div class="q-px-xl bg-white">
-          <!-- Key policy questions -->
-          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
-            1.
-            <u>
-              Where does {{ exportingSelected.label }}’s imported content come
-              from in exports to a selected importer?
-            </u>
-          </p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
-            2.
-            <u>
-              Where do {{ continent }} economies’ imported content come from in
-              exports to a selected importer?
-            </u>
-          </p>
+        <div class="bg-white" v-show="activeSelect == 1">
+          <!-- KEY POLICY QUESTION -->
+          <div class="q-px-xl bg-white">
+            <!-- Key policy questions -->
+            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
+              1.
+              <u>
+                Where does {{ exportingSelected.label }}’s imported content come
+                from in exports to a selected importer?
+              </u>
+            </p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
+              2.
+              <u>
+                Where do {{ continent }} economies’ imported content come from in
+                exports to a selected importer?
+              </u>
+            </p>
+          </div>
+
+          <div class="q-py-lg">
+            <q-separator></q-separator>
+          </div>
+
+          <!-- GRAPH -->
+          <div style="height:30px"></div>
+          <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
+            <div align="center" class="q-pa-lg" v-if="!isChart">
+              <q-spinner-pie color="primary" size="100px" />
+            </div>
+            <div v-show="isChart">
+              <div id="container"></div>
+            </div>
+
+            <error-graph
+              :content="`Where does ${exportingSelected.label} imported content in exports to ${importingSelected.label} come from?`"
+              v-if="errorGraph1"
+            ></error-graph>
+          </div>
+          <div style="height:30px"></div>
+          <div style="width:90%;margin:auto;max-width:1200px" id="importedregion">
+            <div align="center" class="q-pa-lg" v-if="!isChart1">
+              <q-spinner-pie color="primary" size="100px" />
+            </div>
+            <div v-show="isChart1">
+              <div id="container1"></div>
+            </div>
+
+            <error-graph
+              :content="`Where do ${continent} economies' imported content in exports to ${importingSelected.label} come from?`"
+              v-if="errorGraph2"
+            ></error-graph>
+          </div>
         </div>
-
-        <div class="q-py-lg">
-          <q-separator></q-separator>
-        </div>
-
-        <!-- GRAPH -->
-        <div style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
-          <div align="center" class="q-pa-lg" v-if="!isChart">
-            <q-spinner-pie color="primary" size="100px" />
+        <!-- SELECT BY SOURCE ECONOMY -->
+        <div v-show="activeSelect == 2">
+          <div class="q-pa-xl">
+            <!-- Key policy questions -->
+            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion2'">
+              1.
+              <u>Which sectors in {{ exportingSelected.label }} rely the most on imported content for exports to a selected importer?</u>
+            </p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry1'">
+              2.
+              <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
+            </p>
           </div>
-          <div v-show="isChart">
-            <div id="container"></div>
-          </div>
-
-          <error-graph
-            :content="`Where does ${exportingSelected.label} imported content in exports to ${importingSelected.label} come from?`"
-            v-if="errorGraph1"
-          ></error-graph>
-        </div>
-        <div style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px" id="importedregion">
-          <div align="center" class="q-pa-lg" v-if="!isChart1">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-show="isChart1">
-            <div id="container1"></div>
+          <div class="q-py-lg">
+            <q-separator></q-separator>
           </div>
 
-          <error-graph
-            :content="`Where do ${continent} economies' imported content in exports to ${importingSelected.label} come from?`"
-            v-if="errorGraph2"
-          ></error-graph>
-        </div>
-      </div>
-      <!-- SELECT BY SOURCE ECONOMY -->
-      <div v-show="activeSelect == 2">
-        <div class="q-pa-xl">
-          <!-- Key policy questions -->
-          <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion2'">
-            1.
-            <u>Which sectors in {{ exportingSelected.label }} rely the most on imported content for exports to a selected importer?</u>
-          </p>
-          <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry1'">
-            2.
-            <u>Which sectors in {{ continent }} economies rely the most on imported content for exports to a selected importer?</u>
-          </p>
-        </div>
-        <div class="q-py-lg">
-          <q-separator></q-separator>
-        </div>
+          <!-- GRAPH2 in select by source economy  -->
+          <div id="importedregion2" style="height:30px"></div>
+          <div style="width:90%;margin:auto;max-width:1200px">
+            <div align="center" class="q-pa-lg" v-if="!isChart2">
+              <q-spinner-pie color="primary" size="100px" />
+            </div>
+            <div v-show="isChart2">
+              <div id="container3"></div>
+            </div>
 
-        <!-- GRAPH2 in select by source economy  -->
-        <div id="importedregion2" style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px">
-          <div align="center" class="q-pa-lg" v-if="!isChart2">
-            <q-spinner-pie color="primary" size="100px" />
-          </div>
-          <div v-show="isChart2">
-            <div id="container3"></div>
+            <error-graph
+              v-if="errorChart2"
+              :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
+            ></error-graph>
           </div>
 
-          <error-graph
-            v-if="errorChart2"
-            :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
-          ></error-graph>
-        </div>
+          <!-- GRAPH1 in select by source economy  -->
+          <div id="importedcountry1" style="height:30px"></div>
+          <div style="width:90%;margin:auto;max-width:1200px">
+            <div align="center" class="q-pa-lg" v-if="!isChart3">
+              <q-spinner-pie color="primary" size="100px" />
+            </div>
+            <div v-show="isChart3">
+              <div id="container2"></div>
+            </div>
 
-        <!-- GRAPH1 in select by source economy  -->
-        <div id="importedcountry1" style="height:30px"></div>
-        <div style="width:90%;margin:auto;max-width:1200px">
-          <div align="center" class="q-pa-lg" v-if="!isChart3">
-            <q-spinner-pie color="primary" size="100px" />
+            <error-graph
+              v-if="errorChart3"
+              :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
+            ></error-graph>
           </div>
-          <div v-show="isChart3">
-            <div id="container2"></div>
-          </div>
-
-          <error-graph
-            v-if="errorChart3"
-            :content="`Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`"
-          ></error-graph>
         </div>
       </div>
 
@@ -356,6 +366,7 @@ import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
 import errorGraph from "../components/errorGraph.vue";
+import dataWaiting from "../components/dataWaiting.vue";
 import Axios from "axios";
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
@@ -371,10 +382,12 @@ export default {
     globalValueChainsMenu,
     myFooter,
     errorGraph,
+    dataWaiting,
   },
   data() {
     return {
       // NEW
+      isWaiting: true,
       errorChart2: false,
       isDisableShare: true,
       isDisableTinaLink: true,
@@ -478,6 +491,7 @@ export default {
         }
 
         this.isDisableShare = false;
+        this.isWaiting = false;
 
         return true;
       } else {
@@ -494,7 +508,7 @@ export default {
         if (this.exportAvailable.includes(this.exportingSelected.iso)) {
           this.isDisableTinaLink = false;
         }
-
+        this.isWaiting = false;
         this.isDisableShare = false;
 
         return true;
@@ -629,7 +643,7 @@ export default {
           element.name = `${element.name}(${(
             (element.value / summaryValue) *
             100
-          ).toFixed(2)})% `;
+          ).toFixed(2)}%) `;
           element.percent = ((element.value / summaryValue) * 100).toFixed(2);
         }
       });
@@ -749,25 +763,23 @@ export default {
           },
           text: `Gross exports of ${this.exportingSelected.label} in ${
             this.displaySector
-          } sector(s) to ${this.importingSelected.label} amount to *$${(
+          } sector(s) to ${this.importingSelected.label} amount to $${(
             getDataSub.grossExport / 1000
-          ).toFixed(2)}* billion in *year*. Of these exports, *$${(
+          ).toFixed(2)} billion in year. Of these exports, $${(
             getDataSub.ImportedContent / 1000
           ).toFixed(
             2
-          )}* billion is imported content that comes from other economies, mainly ${
+          )} billion is imported content that comes from other economies, mainly ${
             graphOneDetailsList[0].name
-          } (*${graphOneDetailsList[0].sum}*%), ${
-            graphOneDetailsList[1].name
-          } (*${graphOneDetailsList[1].sum}*%), ${
-            graphOneDetailsList[2].name
-          } (*${graphOneDetailsList[2].sum}*%), ${
-            graphOneDetailsList[3].name
-          } (*${graphOneDetailsList[3].sum}*%) and ${
-            graphOneDetailsList[4].name
-          } (*${
+          } (${graphOneDetailsList[0].sum}%), ${graphOneDetailsList[1].name} (${
+            graphOneDetailsList[1].sum
+          }%), ${graphOneDetailsList[2].name} (${
+            graphOneDetailsList[2].sum
+          }%), ${graphOneDetailsList[3].name} (${
+            graphOneDetailsList[3].sum
+          }%) and ${graphOneDetailsList[4].name} (${
             graphOneDetailsList[4].sum
-          }*%). <br><br><br>imported content in exports to ${
+          }%). <br><br><br>imported content in exports to ${
             this.importingSelected.label
           }: $${(getDataSub.ImportedContent / 1000).toFixed(
             2
@@ -858,7 +870,6 @@ export default {
       if (getData.data.show == "off") {
         this.isChart1 = true;
         this.errorGraph2 = true;
-
         return;
       }
       getData = getData.data;
@@ -1986,18 +1997,23 @@ export default {
       if (this.activeSelect == 1) {
         // select by exporting sector
         if (this.validateSelected()) {
+          this.isWaiting = false;
           this.renderGraphSector();
           this.sourceEconomySelected = "";
         }
       } else {
         // select by source economy
         if (this.validateSelected2()) {
+          this.isWaiting = false;
           this.renderGraph2();
         }
       }
     } else {
       if (this.validateSelected()) {
+        this.isWaiting = false;
         this.renderGraphSector();
+      } else {
+        this.isWaiting = true;
       }
     }
   },

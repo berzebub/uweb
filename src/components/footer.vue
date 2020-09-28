@@ -80,7 +80,7 @@
           </div>
           <div class="col-2"></div>
           <div class="col-5 q-pr-md">
-            <div class="font-footer">DESCLAIMER</div>
+            <div class="font-footer">Disclaimer</div>
             <div style="font-size:12px">
               This portal is currently in a testing-phase and is best viewed on desktop devices in
               modern web browsers such as Firefox and Chrome with JavaScript enabled.

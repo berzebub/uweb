@@ -570,7 +570,9 @@ export default {
 
     async chart1() {
       this.isChart1 = false;
-
+      let showSectorName = this.sectorOptions.filter(
+        (x) => x.value == this.sector
+      )[0].label;
       let urlLink = `https://api.winner-english.com/u_api/cal_forward_country_1.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
       if (cancelGraph1 !== undefined) {
@@ -737,7 +739,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.exp_country.label} in ${this.sector} sector(s) to World amount to *$${getDataSub.grossExport}* billion in *year*. Of these exports, *$${getDataSub.contribution}* billion is ${this.exp_country.label}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (*${graphOneDetailsList[0].sum}*%), ${graphOneDetailsList[1].name} (*${graphOneDetailsList[1].sum}*%), ${graphOneDetailsList[2].name} (*${graphOneDetailsList[2].sum}*%), ${graphOneDetailsList[3].name} (*${graphOneDetailsList[3].sum}*%) and ${graphOneDetailsList[4].name} (*${graphOneDetailsList[4].sum}*%). <br/>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
+          text: `Gross exports of ${this.exp_country.label} in ${showSectorName} sector(s) to World amount to $${getDataSub.grossExport} billion in year. Of these exports, $${getDataSub.contribution} billion is ${this.exp_country.label}'s contribution to export production in other economies, mainly  ${graphOneDetailsList[0].name} (${graphOneDetailsList[0].sum}%), ${graphOneDetailsList[1].name} (${graphOneDetailsList[1].sum}%), ${graphOneDetailsList[2].name} (${graphOneDetailsList[2].sum}%), ${graphOneDetailsList[3].name} (${graphOneDetailsList[3].sum}%) and ${graphOneDetailsList[4].name} (${graphOneDetailsList[4].sum}%). <br/>Contribution to export production: $${getDataSub.contribution}B / Gross exports to World: $${getDataSub.grossExport}B`,
           align: "left",
         },
         exporting: this.exportingGraphOptions,
