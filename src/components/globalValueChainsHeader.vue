@@ -19,8 +19,7 @@
           style="font-size:48px"
         >Global Value Chains</div>
         <div align="center" class="text-stroke text-white font-graph q-pt-lg">
-          Gain insight into your economy’s participation in GVCs. Uncover
-          sources of
+          Gain insight into your economy’s participation in GVCs. Uncover the sources of
           <br />intermediate inputs and destinations of domestic value-added
         </div>
       </div>
