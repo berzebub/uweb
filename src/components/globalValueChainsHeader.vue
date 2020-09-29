@@ -68,6 +68,7 @@
                 network="facebook"
                 :url="$q.sessionStorage.getItem('shareLink')"
                 hashtags="vuejs,vite"
+                title
               >
                 <img src="../../public/facebook.png" alt />
                 <div align="center">Facebook</div>
