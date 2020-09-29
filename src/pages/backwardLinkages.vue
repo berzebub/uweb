@@ -2044,13 +2044,6 @@ export default {
             (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
           )[0];
 
-      this.sectorSelected = this.$route.params.sectorOrSource
-        ? this.sectorOptions.filter(
-            (x) => x.value == this.$route.params.sectorOrSource
-          )[0]
-        : this.sectorOptions.filter(
-            (x) => x.value == this.$q.sessionStorage.getItem("sourceE")
-          )[0];
       this.countryOptionsShow = this.countryOptions;
     }
 
