@@ -628,7 +628,7 @@ export default {
             } else if (this.name.includes("Double counted")) {
               return `<div class='text-weight-bold'>Double counted exports from repeated border crossing</div><div>Share: ${_this.dataChart1Percent.double}%</div><div>Value: $${this.value} million</div>`;
             } else {
-              return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Used in domestic ${_this.importingSelected.label} consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
             }
           },
         },
@@ -691,7 +691,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `What happens to ${this.continent} economies’ exports to selected imported?`,
+          text: `What happens to ${this.continent} economies’ exports to ${this.importingSelected.label}?`,
         },
         xAxis: {
           labels: {
