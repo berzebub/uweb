@@ -196,13 +196,15 @@
       </div>
       <!--  -->
 
-      <div v-show="isWaiting">
+      <sorry-duplicate v-show="exportingSelected.label == importingSelected.label"></sorry-duplicate>
+
+      <div v-show="isWaiting && (exportingSelected.label != importingSelected.label)">
         <data-waiting
           :text="activeSelect == 1 ?'Please choose exporting economy, importing economy, exporting sector and year from the drop down menus above' : 'Please choose exporting economy, importing economy, source economy and year from the drop down menus above'"
         ></data-waiting>
       </div>
 
-      <div v-if="!isWaiting">
+      <div v-if="!isWaiting && (exportingSelected.label != importingSelected.label)">
         <div class="row">
           <div class="col-3 full-height">
             <q-img class="fit" src="../../public/images/image-56.png"></q-img>
@@ -366,6 +368,7 @@ import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
 import errorGraph from "../components/errorGraph.vue";
 import dataWaiting from "../components/dataWaiting.vue";
+import sorryDuplicate from "../components/sorryDuplicate.vue";
 import Axios from "axios";
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
@@ -382,6 +385,7 @@ export default {
     myFooter,
     errorGraph,
     dataWaiting,
+    sorryDuplicate,
   },
   data() {
     return {

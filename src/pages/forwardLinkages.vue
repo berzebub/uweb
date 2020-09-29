@@ -151,74 +151,82 @@
         </div>
       </div>
 
+      <sorry-duplicate v-show="(exp_country.iso == imp_country.iso) && activeBy == 'Economy'"></sorry-duplicate>
+
       <!--  -->
+
       <div
         class="row"
         style="background-color:#E5E1E1;"
         v-if="
           (activeBy == 'Exporting' && exp_country && sector && year) ||
-            (activeBy == 'Economy' && exp_country && imp_country && year)
+            (activeBy == 'Economy' && exp_country && imp_country && year )
         "
       >
-        <div class="col-3 full-height">
-          <q-img class src="../../public/forwardlinks.png"></q-img>
-        </div>
-        <div class="col-12 self-center" style="max-width:1000px;width:100%;margin:auto;">
-          <p align="center" class="font-24">
-            Where does {{ exp_country.label }} contribute towards export
-            production?
-          </p>
-          <div align="center" class="q-px-lg">
-            <div align="center" class="q-px-xs font-content">
-              <p align="left">
-                Some part of {{ exp_country.label }}’s gross exports consist of
-                intermediate inputs that are used by the direct importer to
-                produce exports for third economy
-              </p>
-            </div>
+        <div
+          class="row col-12"
+          v-if="(activeBy == 'Economy' && exp_country.iso != imp_country.iso) || activeBy == 'Exporting'"
+        >
+          <div class="col-3 full-height">
+            <q-img class src="../../public/forwardlinks.png"></q-img>
+          </div>
+          <div class="col-12 self-center" style="max-width:1000px;width:100%;margin:auto;">
+            <p align="center" class="font-24">
+              Where does {{ exp_country.label }} contribute towards export
+              production?
+            </p>
+            <div align="center" class="q-px-lg">
+              <div align="center" class="q-px-xs font-content">
+                <p align="left">
+                  Some part of {{ exp_country.label }}’s gross exports consist of
+                  intermediate inputs that are used by the direct importer to
+                  produce exports for third economy
+                </p>
+              </div>
 
-            <div>
-              <div class="row justify-center">
-                <div class="col q-px-xs" style="width:170px;">
-                  Exporting economy &nbsp;:
-                  <br />
-                  {{ exp_country.label }}
-                </div>
-                <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
+              <div>
+                <div class="row justify-center">
+                  <div class="col q-px-xs" style="width:170px;">
+                    Exporting economy &nbsp;:
+                    <br />
+                    {{ exp_country.label }}
+                  </div>
+                  <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
 
-                <div
-                  class="col q-px-xs"
-                  style="width:170px;"
-                  :class="{
+                  <div
+                    class="col q-px-xs"
+                    style="width:170px;"
+                    :class="{
                     'c-blue text-bold': activeBy == 'Exporting'
                   }"
-                >
-                  Exporting sector
-                  <br />
-                  <div class>
-                    <span v-if="activeBy == 'Exporting'">{{ showSector.label }}</span>
+                  >
+                    Exporting sector
+                    <br />
+                    <div class>
+                      <span v-if="activeBy == 'Exporting'">{{ showSector.label }}</span>
+                      <span v-else>All</span>
+                    </div>
+                  </div>
+
+                  <div class="col-1 q-px-xs" style="width:65px">
+                    <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                  </div>
+
+                  <div
+                    class="col q-px-xs"
+                    style="width:170px;"
+                    :class="{ 'c-blue text-bold': activeBy == 'Economy' }"
+                  >
+                    Importing economy
+                    <br />
+                    <span v-if="activeBy == 'Economy'">{{ imp_country.label }}</span>
                     <span v-else>All</span>
                   </div>
+                  <div class="col-1 q-px-xs" style="width:65px">
+                    <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                  </div>
+                  <div class="col q-mx-sm">Third economies</div>
                 </div>
-
-                <div class="col-1 q-px-xs" style="width:65px">
-                  <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
-                </div>
-
-                <div
-                  class="col q-px-xs"
-                  style="width:170px;"
-                  :class="{ 'c-blue text-bold': activeBy == 'Economy' }"
-                >
-                  Importing economy
-                  <br />
-                  <span v-if="activeBy == 'Economy'">{{ imp_country.label }}</span>
-                  <span v-else>All</span>
-                </div>
-                <div class="col-1 q-px-xs" style="width:65px">
-                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
-                </div>
-                <div class="col q-mx-sm">Third economies</div>
               </div>
             </div>
           </div>
@@ -281,7 +289,7 @@
       </div>
 
       <!-- Economy Data -->
-      <div v-if="this.activeBy == 'Economy'">
+      <div v-if="this.activeBy == 'Economy' && exp_country.iso != imp_country.iso">
         <div v-if="exp_country && imp_country && year">
           <div class="bg-white q-pa-xl">
             <div class="q-px-xl bg-white">
@@ -350,6 +358,7 @@ import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
 import dataWaiting from "../components/dataWaiting.vue";
+import sorryDuplicate from "../components/sorryDuplicate.vue";
 
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
@@ -366,6 +375,7 @@ export default {
     globalValueChainsMenu,
     myFooter,
     dataWaiting,
+    sorryDuplicate,
   },
   data() {
     return {
