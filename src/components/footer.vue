@@ -4,7 +4,12 @@
       <div style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
         <div class="row q-pr-lg justify-end items-center fit">
           <div style="width:90px" align="right">
-            <ShareNetwork network="facebook" url="unescap.thaiawesomedev.com" hashtags="vuejs,vite">
+            <ShareNetwork
+              network="facebook"
+              title
+              url="unescap.thaiawesomedev.com"
+              hashtags="vuejs,vite"
+            >
               <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
             </ShareNetwork>
           </div>

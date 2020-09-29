@@ -686,15 +686,28 @@ export default {
 
       let subtitle = "";
 
+      // console.log(getDataSub);
+
+      let grossExportMoneyUnitMain =
+        getDataSub.grossExport < 1000 ? " million" : " billion";
+
+      let ImportedContentUnitMain =
+        getDataSub.ImportedContent < 1000 ? " million" : " billion";
+
+      let grossExportMoneyUnitSub = getDataSub.grossExport < 1000 ? " M" : " B";
+
+      let ImportedContentUnitSub =
+        getDataSub.ImportedContent < 1000 ? " M" : " B";
+
       let grossExportMoney =
         getDataSub.grossExport < 1000
-          ? getDataSub.grossExport + " million"
-          : (getDataSub.grossExport / 1000).toFixed(2) + " billion";
+          ? getDataSub.grossExport
+          : (getDataSub.grossExport / 1000).toFixed(2);
 
       let ImportedContent =
         getDataSub.ImportedContent < 1000
-          ? getDataSub.ImportedContent + " million"
-          : (getDataSub.ImportedContent / 1000).toFixed(2) + " billion";
+          ? getDataSub.ImportedContent
+          : (getDataSub.ImportedContent / 1000).toFixed(2);
 
       Highcharts.chart("container", {
         chart: {
@@ -788,27 +801,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.exportingSelected.label} in ${
-            this.displaySector
-          } sector(s) to ${
-            this.importingSelected.label
-          } amount to $${grossExportMoney} in ${
-            this.displayYear
-          }. Of these exports, $${ImportedContent} is imported content that comes from other economies, mainly ${
-            graphOneDetailsList[0].name
-          } (${graphOneDetailsList[0].sum}%), ${
-            graphOneDetailsList[1].name
-          } , ${graphOneDetailsList[2].name} , ${
-            graphOneDetailsList[3].name
-          } and ${
-            graphOneDetailsList[4].name
-          }. <br><br><br>imported content in exports to ${
-            this.importingSelected.label
-          }: $${(getDataSub.ImportedContent / 1000).toFixed(
-            2
-          )}B / Gross exports to ${this.importingSelected.label}: $${(
-            getDataSub.grossExport / 1000
-          ).toFixed(2)}B`,
+          text: `Gross exports of ${this.exportingSelected.label} in ${this.displaySector} sector(s) to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / Gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub}`,
           align: "left",
         },
         exporting: this.exportingGraphOptions,
