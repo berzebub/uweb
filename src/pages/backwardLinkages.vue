@@ -479,6 +479,8 @@ export default {
     },
 
     validateSelected() {
+      this.isDisableTinaLink = true;
+      this.isDisableShare = true;
       if (
         this.sectorSelected &&
         this.year &&
@@ -498,6 +500,8 @@ export default {
       }
     },
     validateSelected2() {
+      this.isDisableTinaLink = true;
+      this.isDisableShare = true;
       if (
         this.sourceEconomySelected &&
         this.year &&

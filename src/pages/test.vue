@@ -39,165 +39,104 @@ export default {
       this.activeFlag = val.flag;
     },
     loadGraph() {
-      let agriculture = [
-        [
-          {
-            name: "Argentina",
-            y: 2.7,
-          },
-          {
-            name: "Bolivia",
-            y: 1.7,
-          },
-        ],
-      ];
       Highcharts.chart("container", {
-        chart: {
-          type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
-        },
-        title: {
-          style: {
-            fontSize: "24px",
-            fontFamily: "roboto",
-          },
-          text: `Which sectors in ${this.continent} economies are most reliant <br>on export production in ${this.displayImportingEconomy}?`,
-        },
-        credits: {
-          enabled: false,
-        },
-        xAxis: {
-          labels: {
-            rotation: -90,
-          },
-          type: "category",
-        },
-        yAxis: {
-          min: 0,
-          title: {
-            text: `% of gross exports to ${this.displayImportingEconomy}`,
-          },
-          stackLabels: {
-            enabled: false,
-            style: {
-              fontWeight: "bold",
-              color:
-                // theme
-                (Highcharts.defaultOptions.title.style &&
-                  Highcharts.defaultOptions.title.style.color) ||
-                "gray",
-            },
-          },
-        },
-        plotOptions: {
-          column: {
-            stacking: "normal",
-            dataLabels: {
-              enabled: false,
-            },
-          },
-        },
-        legend: {
-          useHTML: true,
-          itemStyle: {
-            fontSize: "14px",
-            fontWeight: "medium",
-            fontFamily: "roboto",
-            color: "#00000",
-          },
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-          itemDistance: 10,
-          width: 300,
-          itemMarginTop: 25,
-          symbolHeight: 15,
-          symbolWidth: 50,
-          symbolRadius: 0,
-        },
-
         series: [
           {
-            name: "Agriculture",
-            data: [
+            dataLabels: {
+              enabled: true,
+            },
+            type: "treemap",
+            layoutAlgorithm: "squarified",
+            alternateStartingDirection: true,
+            levelIsConstant: false,
+
+            levels: [
               {
-                name: "Argentina",
-                y: 2.7,
-              },
-              {
-                name: "Bolivia",
-                y: 1.7,
-              },
-            ],
-            color: "#2F978B",
-          },
-          {
-            name: "Mining",
-            data: [
-              {
-                drilldown: "Argentina-Mining",
-                name: "Argentina",
-                y: 2.7,
-              },
-              {
-                drilldown: "Bolivia-Mining",
-                name: "Bolivia",
-                y: 1.7,
+                level: 1,
+                layoutAlgorithm: "sliceAndDice",
+                dataLabels: {
+                  enabled: false,
+                  align: "left",
+                  verticalAlign: "top",
+                  style: {
+                    fontSize: "15px",
+                    fontWeight: "bold",
+                  },
+                },
               },
             ],
-            color: "#9A25B1",
+            data: [
+              {
+                id: "A",
+                name: "Apples",
+                color: "#EC2500",
+              },
+              {
+                id: "B",
+                name: "Bananas",
+                color: "#ECE100",
+              },
+              {
+                id: "O",
+                name: "Oranges",
+                color: "#EC9800",
+              },
+              {
+                name: "Anne",
+                parent: "A",
+                value: 5,
+              },
+              {
+                name: "Rick",
+                parent: "A",
+                value: 3,
+              },
+              {
+                name: "Peter",
+                parent: "A",
+                value: 4,
+              },
+              {
+                name: "Anne",
+                parent: "B",
+                value: 4,
+              },
+              {
+                name: "Rick",
+                parent: "B",
+                value: 10,
+              },
+              {
+                name: "Peter",
+                parent: "B",
+                value: 1,
+              },
+              {
+                name: "Anne",
+                parent: "O",
+                value: 1,
+              },
+              {
+                name: "Rick",
+                parent: "O",
+                value: 3,
+              },
+              {
+                name: "Peter",
+                parent: "O",
+                value: 3,
+              },
+              {
+                name: "Susanne",
+                parent: "Kiwi",
+                value: 2,
+                color: "#9EDE00",
+              },
+            ],
           },
-          // {
-          //   name: "lowtech",
-          //   data: lowtech,
-          //   color: "#AA25B1",
-          // },
         ],
-        drilldown: {
-          activeDataLabelStyle: {
-            color: "white",
-            textShadow: "0 0 2px black, 0 0 2px black",
-          },
-          showInLegend: false,
-          series: [
-            {
-              id: "Argentina-Mining",
-              name: "Argentina :: Mining",
-              type: "pie",
-              data: [
-                {
-                  name: "L1",
-                  y: 10,
-                },
-                {
-                  name: "L2",
-                  y: 20,
-                },
-              ],
-            },
-            {
-              id: "Bolivia-Mining",
-              name: "Bolivia :: Mining",
-              type: "pie",
-              data: [
-                {
-                  name: "L3",
-                  y: 20,
-                },
-                {
-                  name: "L4",
-                  y: 20,
-                },
-              ],
-            },
-          ],
-        },
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
-            },
-          },
+        title: {
+          text: "Fruit consumption",
         },
       });
     },
