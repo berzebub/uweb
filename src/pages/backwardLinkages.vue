@@ -302,7 +302,7 @@
           </div>
         </div>
         <!-- SELECT BY SOURCE ECONOMY -->
-        <div v-show="activeSelect == 2">
+        <div v-show="activeSelect == 2" class="bg-white">
           <div class="q-pa-xl">
             <!-- Key policy questions -->
             <p align="center" class="font-graph q-py-lg">Key policy questions</p>
@@ -539,7 +539,11 @@ export default {
     changeYear() {
       this.$q.sessionStorage.set("year", this.year.label);
       this.displayYear = this.year.label;
-      if (this.validateSelected()) this.renderGraphSector();
+      if (this.activeSelect == 1) {
+        if (this.validateSelected()) this.renderGraphSector();
+      } else {
+        if (this.validateSelected2()) this.renderGraph2();
+      }
     },
     selectedExporting() {
       this.$q.sessionStorage.set("expe", this.exportingSelected.iso);
@@ -1238,6 +1242,12 @@ export default {
 
       getData = getData.data;
 
+      console.log(getData);
+
+      getData.forEach((element) => {
+        element.name = element.name + "(" + element.valuePrecent + "%)";
+      });
+
       let urlLinkSub = `https://api.winner-english.com/u_api/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
 
       if (cancelGraph5 !== undefined) {
@@ -1249,6 +1259,25 @@ export default {
           cancelGraph5 = c;
         }),
       });
+
+      let fromsouceConvert =
+        getDataSub.data.fromsource < 1000
+          ? getDataSub.data.fromsource
+          : (getDataSub.data.fromsource / 1000).toFixed(2);
+
+      let fromsouceUnitSub = getDataSub.data.fromsource < 1000 ? "M" : "B";
+      let fromsouceUnitMain =
+        getDataSub.data.fromsource < 1000 ? "million" : "billion";
+      // -------------------------------
+
+      let exportToConvert =
+        getDataSub.data.exportto < 1000
+          ? getDataSub.data.exportto
+          : (getDataSub.data.exportto / 1000).toFixed(2);
+
+      let exportToUnitSub = getDataSub.data.exportto < 1000 ? "M" : "B";
+      let exportToUnitMain =
+        getDataSub.data.exportto < 1000 ? "million" : "billion";
 
       if (getDataSub.data.fromsource < 1) {
         this.errorChart2 = true;
@@ -1363,7 +1392,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `<br/>Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${getDataSub.fromsource}B / Gross exports to ${this.importingSelected.label}: $${getDataSub.exportto}B`,
+          text: `<br/>Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${fromsouceConvert} ${fromsouceUnitSub} / Gross exports to ${this.importingSelected.label}: $${exportToConvert} ${exportToUnitSub}`,
           align: "left",
         },
 
@@ -1408,6 +1437,7 @@ export default {
         tooltip: {
           useHTML: true,
           pointFormatter: function () {
+            console.log(this);
             return `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`;
           },
         },

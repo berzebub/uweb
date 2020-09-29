@@ -557,6 +557,18 @@ export default {
       if (this.activeBy == "Exporting") {
         if (this.exp_country && this.year && this.sector) {
           this.isDisableShare = false;
+          let link =
+            "unescap.thaiawesomedev.com/backward-linkages" +
+            "/" +
+            this.exp_country.iso +
+            "/" +
+            this.year +
+            "/" +
+            this.sector +
+            "/" +
+            this.activeBy;
+
+          this.$q.sessionStorage.set("shareLink", link);
 
           if (this.exportAvailable.includes(this.exp_country.iso)) {
             this.isDisableTinaLink = false;
@@ -568,6 +580,22 @@ export default {
         }
       } else {
         if (this.exp_country && this.year && this.imp_country) {
+          this.isDisableShare = false;
+          if (this.exportAvailable.includes(this.exp_country.iso)) {
+            this.isDisableTinaLink = false;
+          }
+          let link =
+            "unescap.thaiawesomedev.com/backward-linkages" +
+            "/" +
+            this.exp_country.iso +
+            "/" +
+            this.year +
+            "/" +
+            this.imp_country.iso +
+            "/" +
+            this.activeBy;
+
+          this.$q.sessionStorage.set("shareLink", link);
           return true;
         } else {
           return false;
@@ -1930,6 +1958,8 @@ export default {
     await this.getYear();
     await this.getSectorList();
 
+    //  path: "/forward-linkages/:expe?/:year?/:sectorOrImpe?/:menu?",
+
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exp_country = this.$route.params.expe
         ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
@@ -1940,9 +1970,11 @@ export default {
         : "";
     }
 
-    if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
-      this.imp_country = this.$route.params.impe
-        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
+    if (this.$q.sessionStorage.has("impe") || this.$route.params.sectorOrImpe) {
+      this.imp_country = this.$route.params.sectorOrImpe
+        ? this.countryOptions.filter(
+            (x) => x.iso == this.$route.params.sectorOrImpe
+          )[0]
         : this.$q.sessionStorage.has("impe")
         ? this.countryOptions.filter(
             (x) => x.iso == this.$q.sessionStorage.getItem("impe")
@@ -1958,21 +1990,49 @@ export default {
         : "";
     }
 
-    if (this.$q.sessionStorage.has("esec") || this.$route.params.esec) {
-      this.sector = this.$route.params.esec
-        ? this.$route.params.esec
+    if (this.$q.sessionStorage.has("esec") || this.$route.params.sectorOrImpe) {
+      this.sector = this.$route.params.sectorOrImpe
+        ? this.$route.params.sectorOrImpe
         : this.$q.sessionStorage.has("esec")
         ? this.$q.sessionStorage.getItem("esec")
         : "";
     }
 
-    if (this.validateSelected()) {
+    // if (this.$route.params.menu) {
+    //   this.activeBy = this.$route.params.menu;
+    // }
+
+    if (this.$route.params.menu) {
+      this.activeBy = this.$route.params.menu;
+
       if (this.activeBy == "Exporting") {
-        this.renderOne();
+        // select by exporting sector
+        if (this.validateSelected()) {
+          this.renderOne();
+        }
       } else {
-        this.renderTwo();
+        // select by source economy
+        if (this.validateSelected()) {
+          this.renderTwo();
+        }
+      }
+    } else {
+      if (this.validateSelected()) {
+        if (this.activeBy == "Exporting") {
+          this.renderOne();
+        } else {
+          this.renderTwo();
+        }
       }
     }
+
+    // if (this.validateSelected()) {
+    // if (this.activeBy == "Exporting") {
+    //   this.renderOne();
+    // } else {
+    //   this.renderTwo();
+    // }
+    // }
   },
   beforeDestroy() {
     if (cancelGraph1 != undefined) {

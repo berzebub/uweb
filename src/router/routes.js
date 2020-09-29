@@ -106,8 +106,13 @@ const routes = [
         component: () => import("pages/backwardLinkages.vue"),
         name: "backwardLinkages"
       },
+
+      //       expe
+      // impe
+      // year
+      // esec
       {
-        path: "/forward-linkages",
+        path: "/forward-linkages/:expe?/:year?/:sectorOrImpe?/:menu?",
         component: () => import("pages/forwardLinkages.vue"),
         name: "forwardLinkages"
       },
