@@ -1344,7 +1344,17 @@ export default {
             fontSize: "14px",
           },
           useHTML: true,
-          text: `<br/>Contribution to ${this.imp_country.label}'s export production: $${getDataSub.contributionto}B / Gross exports to ${this.imp_country.label}: $${getDataSub.exportto}B`,
+          text: `<br/>Contribution to ${
+            this.imp_country.label
+          }'s export production: $${
+            getDataSub.contributionto < 1000
+              ? getDataSub.contributionto + " million"
+              : (getDataSub.contributionto / 1000).toFixed(2) + " billion"
+          } / Gross exports to ${this.imp_country.label}: $${
+            getDataSub.exportto < 1000
+              ? getDataSub.exportto + " million"
+              : (getDataSub.exportto / 1000).toFixed(2) + " billion"
+          }`,
           align: "left",
         },
         exporting: this.exportingGraphOptions,
