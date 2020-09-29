@@ -1168,7 +1168,7 @@ export default {
             style: {
               fontSize: "24px",
             },
-            text: `Where do ${region} economies contribute the most towards export production? `,
+            text: `Where do ${this.exp_country.region} economies contribute the most towards export production? `,
           },
           exporting: this.exportingGraphOptions,
         },
