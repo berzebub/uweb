@@ -198,8 +198,7 @@
 
       <div v-show="isWaiting">
         <data-waiting
-          text="Please choose exporting economy and year 
-from the drop down menus above"
+          :text="activeSelect == 1 ?'Please choose exporting economy, importing economy, exporting sector and year from the drop down menus above' : 'Please choose exporting economy, importing economy, source economy and year from the drop down menus above'"
         ></data-waiting>
       </div>
 
@@ -219,7 +218,7 @@ from the drop down menus above"
               <div class="row justify-around q-pt-md" style="max-width:750px">
                 <div>
                   Source economy
-                  <div v-if="activeSelect == 2">{{ importingSelected.label }}</div>
+                  <div v-if="activeSelect == 2">{{ sourceEconomySelected.label }}</div>
                 </div>
 
                 <div>
@@ -240,7 +239,7 @@ from the drop down menus above"
                 </div>
                 <div>
                   Importing economy
-                  <div>Australia</div>
+                  <div>{{ importingSelected.label }}</div>
                 </div>
               </div>
             </div>
@@ -681,6 +680,18 @@ export default {
 
       this.isChart = true;
 
+      let subtitle = "";
+
+      let grossExportMoney =
+        getDataSub.grossExport < 1000
+          ? getDataSub.grossExport + " million"
+          : (getDataSub.grossExport / 1000).toFixed(2) + " billion";
+
+      let ImportedContent =
+        getDataSub.ImportedContent < 1000
+          ? getDataSub.ImportedContent + " million"
+          : (getDataSub.ImportedContent / 1000).toFixed(2) + " billion";
+
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
@@ -697,7 +708,7 @@ export default {
               {
                 level: 1,
                 dataLabels: {
-                  enabled: true,
+                  enabled: false,
                   align: "left",
                   verticalAlign: "top",
                   style: {
@@ -734,7 +745,7 @@ export default {
           labelFormatter: function () {
             // return "<div>" + this.name + "</div>";
             if (this.name == "Europe") {
-              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Euroupe</td></tr></table></div>';
+              return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Europe</td></tr></table></div>';
             } else if (this.name == "Latin America") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2D9687;"></div></td><td style="padding-left:20px;">Latin America</td></tr></table></div>';
             } else if (this.name == "North America") {
@@ -744,6 +755,18 @@ export default {
             } else if (this.name == "Rest of the world") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
             }
+          },
+        },
+        plotOptions: {
+          treemap: {
+            dataLabels: {
+              enabled: true,
+            },
+          },
+          series: {
+            dataLabels: {
+              enabled: false,
+            },
           },
         },
 
@@ -763,23 +786,19 @@ export default {
           },
           text: `Gross exports of ${this.exportingSelected.label} in ${
             this.displaySector
-          } sector(s) to ${this.importingSelected.label} amount to $${(
-            getDataSub.grossExport / 1000
-          ).toFixed(2)} billion in year. Of these exports, $${(
-            getDataSub.ImportedContent / 1000
-          ).toFixed(
-            2
-          )} billion is imported content that comes from other economies, mainly ${
+          } sector(s) to ${
+            this.importingSelected.label
+          } amount to $${grossExportMoney} in ${
+            this.displayYear
+          }. Of these exports, $${ImportedContent} is imported content that comes from other economies, mainly ${
             graphOneDetailsList[0].name
-          } (${graphOneDetailsList[0].sum}%), ${graphOneDetailsList[1].name} (${
-            graphOneDetailsList[1].sum
-          }%), ${graphOneDetailsList[2].name} (${
-            graphOneDetailsList[2].sum
-          }%), ${graphOneDetailsList[3].name} (${
-            graphOneDetailsList[3].sum
-          }%) and ${graphOneDetailsList[4].name} (${
-            graphOneDetailsList[4].sum
-          }%). <br><br><br>imported content in exports to ${
+          } (${graphOneDetailsList[0].sum}%), ${
+            graphOneDetailsList[1].name
+          } , ${graphOneDetailsList[2].name} , ${
+            graphOneDetailsList[3].name
+          } and ${
+            graphOneDetailsList[4].name
+          }. <br><br><br>imported content in exports to ${
             this.importingSelected.label
           }: $${(getDataSub.ImportedContent / 1000).toFixed(
             2
@@ -1068,7 +1087,7 @@ export default {
           yAxis: {
             min: 0,
             title: {
-              text: "% of gross exports to world",
+              text: `% of gross exports to ${this.importingSelected.label}`,
             },
             stackLabels: {
               enabled: false,
@@ -1258,7 +1277,7 @@ export default {
                 // layoutAlgorithm: "sliceAndDice",
                 layoutAlgorithm: "squarified",
                 dataLabels: {
-                  enabled: true,
+                  enabled: false,
                   align: "left",
                   verticalAlign: "top",
                   style: {
@@ -1314,21 +1333,21 @@ export default {
             } else if (this.name == "High and medium tech") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>High and medium tech</td></tr></table></div>';
             } else if (this.name == "Trade and repair service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Service</div>Trade and repair </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Services</div>Trade and repair </td></tr></table></div>';
             } else if (this.name == "Tourism") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Service</div>Tourism</td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Services</div>Tourism</td></tr></table></div>';
             } else if (this.name == "Transport service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Service</div>Transport </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Services</div>Transport </td></tr></table></div>';
             } else if (this.name == "ICT service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Service</div>ICT </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Services</div>ICT </td></tr></table></div>';
             } else if (this.name == "Property service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Service</div>Property </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Services</div>Property </td></tr></table></div>';
             } else if (this.name == "Financial service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Service</div>Financial </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Services</div>Financial </td></tr></table></div>';
             } else if (this.name == "Public and welfare service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Service</div>Public and welfare </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Services</div>Public and welfare </td></tr></table></div>';
             } else if (this.name == "Private household service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Services</div>Private household </td></tr></table></div>';
             }
           },
         },
@@ -1342,17 +1361,56 @@ export default {
           enabled: false,
         },
         subtitle: {
+          useHTML: true,
           style: {
             fontSize: "14px",
           },
-          text: `Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${getDataSub.fromsource}B / Gross exports to ${this.importingSelected.label}: $${getDataSub.exportto}B`,
+          text: `<br/>Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${getDataSub.fromsource}B / Gross exports to ${this.importingSelected.label}: $${getDataSub.exportto}B`,
           align: "left",
         },
+
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: ["downloadCSV", "downloadXLS"],
+              menuItems: [
+                "downloadPNG",
+                "downloadJPEG",
+                "separator",
+                "downloadCSV",
+                "downloadXLS",
+              ],
             },
+          },
+          width: "1280px",
+          chartOptions: {
+            legend: {
+              width: 180,
+              itemStyle: {
+                fontSize: "7px",
+                fontWeight: "medium",
+                fontFamily: "roboto",
+                color: "#00000",
+              },
+            },
+            title: {
+              style: { fontSize: "12px" },
+            },
+            subtitle: {
+              style: { fontSize: "8px" },
+            },
+            yAxis: [
+              {
+                title: {
+                  style: { fontSize: "7px" },
+                },
+              },
+            ],
+          },
+        },
+        tooltip: {
+          useHTML: true,
+          pointFormatter: function () {
+            return `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`;
           },
         },
       });
@@ -1757,7 +1815,7 @@ export default {
               fontSize: "24px",
               fontFamily: "roboto",
             },
-            text: `Which sectors in ${this.continent} economies are most reliant <br>on export production in ${this.importingSelected.label}?`,
+            text: `Which sectors in ${this.continent} economies rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
           },
           credits: {
             enabled: false,
@@ -1844,42 +1902,42 @@ export default {
               color: "#C3165B",
             },
             {
-              name: "Service-Trade and repair",
+              name: "Services-Trade and repair",
               data: this.tradeRepairData,
               color: "#5E6DC1",
             },
             {
-              name: "Service-Tourism",
+              name: "Services-Tourism",
               data: this.tourismData,
               color: "#3F50B8",
             },
             {
-              name: "Service-Transport",
+              name: "Services-Transport",
               data: this.transportData,
               color: "#3949AB",
             },
             {
-              name: "Service-ICT",
+              name: "Services-ICT",
               data: this.ictData,
               color: "#1565C0",
             },
             {
-              name: "Service-Property",
+              name: "Services-Property",
               data: this.propertyData,
               color: "#19227D",
             },
             {
-              name: "Service-Financial",
+              name: "Services-Financial",
               data: this.financialData,
               color: "#43A7F5",
             },
             {
-              name: "Service-Public and welfare",
+              name: "Services-Public and welfare",
               data: this.publicwData,
               color: "#2088E7",
             },
             {
-              name: "Service-Private household",
+              name: "Services-Private household",
               data: this.privatewData,
               color: "#1564C0",
             },
@@ -1898,6 +1956,11 @@ export default {
                 menuItems: ["downloadCSV", "downloadXLS"],
               },
             },
+          },
+          tooltip: {
+            // pointFormatter: function () {
+            //   console.log(this);
+            // },
           },
         },
         (Highcharts.Tick.prototype.drillable = function () {})
