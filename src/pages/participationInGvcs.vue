@@ -150,7 +150,11 @@
             <div class="q-mt-md">
               <p align="center" class="font-graph text-bold">Why does GVC participation matter?</p>
             </div>
-            <div align="center" class="q-px-lg" style="max-width:1000px;width:100%;margin:auto;">
+            <div
+              align="center"
+              class="q-px-lg font-content"
+              style="max-width:1000px;width:100%;margin:auto;"
+            >
               <p align="left">
                 GVC participation matters for development. GVCs support
                 efficient production and technology diffusion, and access to
