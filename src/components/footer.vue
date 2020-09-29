@@ -4,13 +4,31 @@
       <div style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
         <div class="row q-pr-lg justify-end items-center fit">
           <div style="width:90px" align="right">
-            <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
+            <ShareNetwork network="facebook" url="unescap.thaiawesomedev.com" hashtags="vuejs,vite">
+              <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
+            </ShareNetwork>
           </div>
           <div style="width:90px" align="right">
-            <img style="width:32px" src="../../public/twitter-ico.png" alt class="cursor-pointer" />
+            <ShareNetwork
+              network="twitter"
+              url="unescap.thaiawesomedev.com"
+              title
+              description
+              quote
+              hashtags="vuejs,vite"
+            >
+              <img style="width:32px" src="../../public/twitter-ico.png" alt class="cursor-pointer" />
+            </ShareNetwork>
           </div>
           <div style="width:90px" align="right">
-            <img style="width:32px" src="../../public/linkin-ico.png" alt class="cursor-pointer" />
+            <ShareNetwork
+              network="linkedIn"
+              url="unescap.thaiawesomedev.com"
+              hashtags="vuejs,vite"
+              title
+            >
+              <img style="width:32px" src="../../public/linkin-ico.png" alt class="cursor-pointer" />
+            </ShareNetwork>
           </div>
         </div>
       </div>
