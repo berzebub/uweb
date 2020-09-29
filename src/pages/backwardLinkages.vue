@@ -771,15 +771,13 @@ export default {
             2
           )} billion is imported content that comes from other economies, mainly ${
             graphOneDetailsList[0].name
-          } (${graphOneDetailsList[0].sum}%), ${graphOneDetailsList[1].name} (${
-            graphOneDetailsList[1].sum
-          }%), ${graphOneDetailsList[2].name} (${
-            graphOneDetailsList[2].sum
-          }%), ${graphOneDetailsList[3].name} (${
-            graphOneDetailsList[3].sum
-          }%) and ${graphOneDetailsList[4].name} (${
-            graphOneDetailsList[4].sum
-          }%). <br><br><br>imported content in exports to ${
+          } (${graphOneDetailsList[0].sum}%), ${
+            graphOneDetailsList[1].name
+          } , ${graphOneDetailsList[2].name} , ${
+            graphOneDetailsList[3].name
+          } and ${
+            graphOneDetailsList[4].name
+          }. <br><br><br>imported content in exports to ${
             this.importingSelected.label
           }: $${(getDataSub.ImportedContent / 1000).toFixed(
             2
