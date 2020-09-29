@@ -1296,22 +1296,22 @@ export default {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #F34336;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>Low tech </td></tr></table></div>';
             } else if (this.name == "High and medium tech") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #C3165B;"></div></td><td style="padding-left:12px;"><div>Manufacturing</div>High and medium tech</td></tr></table></div>';
-            } else if (this.name == "Trade and repair Services") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Services</div>Trade and repair </td></tr></table></div>';
+            } else if (this.name == "Trade and repair service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #5E6DC1;"></div></td><td style="padding-left:12px;"><div>Servicess</div>Trade and repair </td></tr></table></div>';
             } else if (this.name == "Tourism") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3F50B8;"></div></td><td style="padding-left:12px;"><div>Services</div>Tourism</td></tr></table></div>';
-            } else if (this.name == "Transport Services") {
+            } else if (this.name == "Transport service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #3949AB;"></div></td><td style="padding-left:12px;"><div>Services</div>Transport </td></tr></table></div>';
-            } else if (this.name == "ICT Services") {
+            } else if (this.name == "ICT service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Services</div>ICT </td></tr></table></div>';
-            } else if (this.name == "Property Services") {
+            } else if (this.name == "Property service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Services</div>Property </td></tr></table></div>';
-            } else if (this.name == "Financial Services") {
+            } else if (this.name == "Financial service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Services</div>Financial </td></tr></table></div>';
-            } else if (this.name == "Public and welfare Services") {
+            } else if (this.name == "Public and welfare service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2088E7;"></div></td><td style="padding-left:12px;"><div>Services</div>Publice and welfare </td></tr></table></div>';
-            } else if (this.name == "Private household Services") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Service</div>Private household </td></tr></table></div>';
+            } else if (this.name == "Private household service") {
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Services</div>Private household </td></tr></table></div>';
             }
           },
         },
@@ -1792,6 +1792,7 @@ export default {
             verticalAlign: "middle",
             itemDistance: 10,
             width: 300,
+            height: 500,
             itemMarginTop: 15,
             symbolHeight: 15,
             symbolWidth: 50,
@@ -1850,42 +1851,42 @@ export default {
               color: "#C3165B",
             },
             {
-              name: "Services-Trade and repair",
+              name: "Service-Trade and repair",
               data: this.tradeRepairData,
               color: "#5E6DC1",
             },
             {
-              name: "Services-Tourism",
+              name: "Service-Tourism",
               data: this.tourismData,
               color: "#3F50B8",
             },
             {
-              name: "Services-Transport",
+              name: "Service-Transport",
               data: this.transportData,
               color: "#3949AB",
             },
             {
-              name: "Services-ICT",
+              name: "Service-ICT",
               data: this.ictData,
               color: "#1565C0",
             },
             {
-              name: "Services-Property",
+              name: "Service-Property",
               data: this.propertyData,
               color: "#19227D",
             },
             {
-              name: "Services-Financial",
+              name: "Service-Financial",
               data: this.financialData,
               color: "#43A7F5",
             },
             {
-              name: "Services-Public and welfare",
+              name: "Service-Public and welfare",
               data: this.publicwData,
               color: "#2088E7",
             },
             {
-              name: "Services-Private household",
+              name: "Service-Private household",
               data: this.privatewData,
               color: "#1564C0",
             },
