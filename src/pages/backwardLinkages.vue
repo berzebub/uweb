@@ -1963,14 +1963,30 @@ export default {
             },
           },
           tooltip: {
-            // pointFormatter: function () {
-            //   console.log(this);
-            // },
+            useHTML: true,
+            headerFormat: "",
+            pointFormatter: function () {
+              return (
+                "<div> <span class='text-bold'>" +
+                this.name +
+                "</span>" +
+                "<br>" +
+                "<div style='display:inline-block;width:8px;height:8px;border-radius:50%;background-color:" +
+                this.color +
+                "'></div>  " +
+                this.series.name +
+                ": " +
+                this.y +
+                "%" +
+                "</div>"
+              );
+            },
           },
         },
         (Highcharts.Tick.prototype.drillable = function () {})
       );
     },
+
     renderGraph2() {
       let link =
         "unescap.thaiawesomedev.com/backward-linkages" +
