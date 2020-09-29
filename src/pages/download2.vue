@@ -1,17 +1,10 @@
 <template>
   <q-page>
-    <global-value-chains-header
-      :isShowTinaLink="false"
-    ></global-value-chains-header>
+    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
       <div style="width:235px" class>
-        <img
-          style="width:100%"
-          class="full-height"
-          src="../../public/download-side.png"
-          alt
-        />
+        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div style="width:90%;max-width:1200px; margin:auto;">
@@ -107,18 +100,9 @@
             />
           </div>
           <div class="row q-mt-md">
-            <div
-              class="col-12 row justify-center q-col-gutter-md"
-              align="center"
-            >
+            <div class="col-12 row justify-center q-col-gutter-md" align="center">
               <div>
-                <q-btn
-                  label="Clear All"
-                  outline
-                  no-caps
-                  style="width:150px;"
-                  @click="clearBtn()"
-                />
+                <q-btn label="Clear All" outline no-caps style="width:150px;" @click="clearBtn()" />
               </div>
               <div>
                 <download-csv
@@ -128,8 +112,7 @@
                   :data="downloadData"
                   ref="downloadData"
                   @click="test()"
-                  >Download Data</download-csv
-                >
+                >Download Data</download-csv>
 
                 <q-btn
                   v-else
@@ -158,7 +141,7 @@ import myFooter from "../components/footer";
 export default {
   components: {
     myFooter,
-    globalValueChainsHeader
+    globalValueChainsHeader,
   },
   data() {
     return {
@@ -166,58 +149,61 @@ export default {
       indicatorList: [
         {
           value: "Imp_cons",
-          label: "Gross exports used in importer's consumption (Imp_cons)"
+          label: "Gross exports used in importer's consumption (Imp_cons)",
         },
         {
           value: "Imp_exp",
-          label: "Grooss exports used in importer's export production (Imp_exp)"
+          label:
+            "Grooss exports used in importer's export production (Imp_exp)",
         },
         {
           value: "Dom_cons",
           label:
-            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)"
+            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)",
         },
         {
           value: "Double",
-          label: "Double counted exports from repeated border crossing (Double)"
+          label:
+            "Double counted exports from repeated border crossing (Double)",
         },
         {
           value: "Imp_cont",
-          label: "Imported content in gross exports (Imp_cont)"
+          label: "Imported content in gross exports (Imp_cont)",
         },
         {
           value: "DVA_tradebalance",
-          label: "Domestice value-added trade balance (DVA_tradebalance)"
+          label: "Domestice value-added trade balance (DVA_tradebalance)",
         },
         {
           value: "Gross_tradebalance",
-          label: "Gross trade balance (Gross_tradebalance)"
+          label: "Gross trade balance (Gross_tradebalance)",
         },
         {
           value: "GVC_participation",
-          label: "GVC participation"
+          label: "GVC participation",
         },
         {
           value: "Back_link_country",
-          label: "Backward linkages, all source countries (Back_link_country)"
+          label: "Backward linkages, all source countries (Back_link_country)",
         },
         {
           value: "Back_link_sector",
-          label: "Backward linkages, all exporting sectors (Back_link_sector)"
+          label: "Backward linkages, all exporting sectors (Back_link_sector)",
         },
         {
           value: "Forward_link_country",
           label:
-            "Forward linkages, all importing countries (Forward_link_country)"
+            "Forward linkages, all importing countries (Forward_link_country)",
         },
         {
           value: "Forward_link_sector",
-          label: "Forward linkages, all exporting sectors (Forward_link_sector)"
+          label:
+            "Forward linkages, all exporting sectors (Forward_link_sector)",
         },
         {
           value: "Gross_exports",
-          label: "Gross exports"
-        }
+          label: "Gross exports",
+        },
       ],
       countryList: [],
       source: null,
@@ -228,7 +214,7 @@ export default {
       year: null,
       yearList: [],
       isShowDownloadBtn: false,
-      downloadData: null
+      downloadData: null,
     };
   },
   methods: {
@@ -240,10 +226,10 @@ export default {
     },
     loadCountryList() {
       this.countryList = [];
-      countryJson.forEach(data => {
+      countryJson.forEach((data) => {
         let tempCountryList = {
           value: data.iso,
-          label: data.name
+          label: data.name,
         };
         this.countryList.push(tempCountryList);
       });
@@ -251,10 +237,10 @@ export default {
     },
     loadSectorList() {
       this.sectorList = [];
-      sectorJson.forEach(data => {
+      sectorJson.forEach((data) => {
         let tempSectorList = {
           value: data.id,
-          label: data.name
+          label: data.name,
         };
         this.sectorList.push(tempSectorList);
       });
@@ -263,7 +249,7 @@ export default {
       this.yearList = [];
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
       let data = await Axios.get(url);
-      data.data.forEach(x => {
+      data.data.forEach((x) => {
         this.yearList.push(x);
       });
     },
@@ -288,28 +274,28 @@ export default {
             _this.$q.notify({
               message: "Please add an exporting economy",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.importing) {
             _this.$q.notify({
               message: "Please add an importing economy",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.sector) {
             _this.$q.notify({
               message: "Please add a sector",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.year) {
             _this.$q.notify({
               message: "Please add a year",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           return;
@@ -321,7 +307,7 @@ export default {
           this.$q.notify({
             message: "Please add an source economy",
             color: "red",
-            position: "top"
+            position: "top",
           });
         }
         validateInput();
@@ -342,26 +328,26 @@ export default {
           exporting: this.exporting,
           importing: this.importing,
           sector: this.sector,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Back_link_sector") {
         obj = {
           exporting: this.exporting,
           importing: this.importing,
           source: this.source,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Forward_link_country") {
         obj = {
           exporting: this.exporting,
           sector: this.sector,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Forward_link_sector") {
         obj = {
           exporting: this.exporting,
           importing: this.importing,
-          year: this.year
+          year: this.year,
         };
       }
 
@@ -408,13 +394,17 @@ export default {
 
       this.downloadData = data.data;
       this.isShowDownloadBtn = true;
-    }
+    },
   },
   mounted() {
+    this.$q.sessionStorage.set(
+      "shareLink",
+      "unescap.thaiawesomedev.com/download"
+    );
     this.loadYearList();
     this.loadCountryList();
     this.loadSectorList();
-  }
+  },
 };
 </script>
 

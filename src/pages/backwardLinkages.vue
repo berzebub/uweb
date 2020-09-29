@@ -479,6 +479,8 @@ export default {
     },
 
     validateSelected() {
+      this.isDisableTinaLink = true;
+      this.isDisableShare = true;
       if (
         this.sectorSelected &&
         this.year &&
@@ -498,6 +500,8 @@ export default {
       }
     },
     validateSelected2() {
+      this.isDisableTinaLink = true;
+      this.isDisableShare = true;
       if (
         this.sourceEconomySelected &&
         this.year &&
@@ -807,46 +811,47 @@ export default {
           ).toFixed(2)}B`,
           align: "left",
         },
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: [
-                "downloadPNG",
-                "downloadJPEG",
-                "separator",
-                "downloadCSV",
-                "downloadXLS",
-              ],
-            },
-          },
-          width: "1280px",
-          chartOptions: {
-            title: {
-              style: { fontSize: "12px" },
-            },
-            subtitle: {
-              style: { fontSize: "8px" },
-            },
-            legend: {
-              useHTML: true,
-              itemStyle: {
-                fontSize: "7px",
-                fontWeight: "medium",
-                fontFamily: "roboto",
-                color: "#00000",
-              },
+        exporting: this.exportingGraphOptions,
+        // exporting: {
+        //   buttons: {
+        //     contextButton: {
+        //       menuItems: [
+        //         "downloadPNG",
+        //         "downloadJPEG",
+        //         "separator",
+        //         "downloadCSV",
+        //         "downloadXLS",
+        //       ],
+        //     },
+        //   },
+        //   width: "1280px",
+        //   chartOptions: {
+        //     title: {
+        //       style: { fontSize: "12px" },
+        //     },
+        //     subtitle: {
+        //       style: { fontSize: "8px" },
+        //     },
+        //     legend: {
+        //       useHTML: true,
+        //       itemStyle: {
+        //         fontSize: "7px",
+        //         fontWeight: "medium",
+        //         fontFamily: "roboto",
+        //         color: "#00000",
+        //       },
 
-              align: "right",
-              verticalAlign: "middle",
-              width: "100",
-              symbolWidth: 0.1,
-              symbolHeight: 0.1,
-              symbolRadius: 0,
-              useHTML: true,
-              symbolWidth: 0,
-            },
-          },
-        },
+        //       align: "right",
+        //       verticalAlign: "middle",
+        //       width: "100",
+        //       symbolWidth: 0.1,
+        //       symbolHeight: 0.1,
+        //       symbolRadius: 0,
+        //       useHTML: true,
+        //       symbolWidth: 0,
+        //     },
+        //   },
+        // },
         tooltip: {
           useHTML: true,
           pointFormatter: function () {
@@ -2044,13 +2049,6 @@ export default {
             (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
           )[0];
 
-      this.sectorSelected = this.$route.params.sectorOrSource
-        ? this.sectorOptions.filter(
-            (x) => x.value == this.$route.params.sectorOrSource
-          )[0]
-        : this.sectorOptions.filter(
-            (x) => x.value == this.$q.sessionStorage.getItem("sourceE")
-          )[0];
       this.countryOptionsShow = this.countryOptions;
     }
 

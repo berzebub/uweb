@@ -406,6 +406,8 @@ export default {
     },
 
     validateSelected() {
+      this.isDisableTinaLink = true;
+      this.isDisableShare = true;
       this.errorGraph1 = false;
       this.errorGraph2 = false;
       this.errorGraph3 = false;
