@@ -1249,7 +1249,11 @@ export default {
       console.log(getData);
 
       getData.forEach((element) => {
+        console.log(element.valuePrecent);
+        if(element.valuePrecent){
         element.name = element.name + "(" + element.valuePrecent + "%)";
+        }
+      
       });
 
       let urlLinkSub = `https://api.winner-english.com/u_api/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
@@ -1290,10 +1294,11 @@ export default {
       }
 
       getDataSub = getDataSub.data;
+      console.log(getData);
 
       Highcharts.chart("container3", {
         chart: {
-          height: (3 / 4) * 100 + "%", // 16:9 ratio
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
         },
         series: [
@@ -1332,7 +1337,7 @@ export default {
 
           floating: false,
           borderWidth: 0,
-          // useHTML: true,
+          useHTML: true,
           itemStyle: {
             fontSize: "14px",
             fontWeight: "medium",
@@ -1340,8 +1345,8 @@ export default {
             color: "#00000",
           },
 
-          // align: "left",
-          // verticalAlign: "bottom",
+          align: "left",
+          verticalAlign: "bottom",
           width: "870",
 
           symbolWidth: 0.1,

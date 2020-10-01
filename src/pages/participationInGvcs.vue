@@ -335,18 +335,6 @@ export default {
 
     renderGraph() {
       this.setStackChart();
-
-      // let link =
-      //   "unescap.thaiawesomedev.com/participation-in-gvcs" +
-      //   "/expe=" +
-      //   this.exp_country.iso +
-      //   "&year=" +
-      //   this.year +
-      //   "&impe=" +
-      //   this.imp_country.iso +
-      //   "&sector=" +
-      //   this.sector;
-
       let link =
         "unescap.thaiawesomedev.com/participation-in-gvcs/" +
         this.exp_country.iso +
@@ -363,6 +351,8 @@ export default {
       this.isChart = false;
 
       let urlLink = `https://api.winner-english.com/u_api/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
+
+      console.log(urlLink);
 
       if (cancelGraph !== undefined) {
         cancelGraph();
@@ -389,19 +379,19 @@ export default {
         countryList.push(x.country);
 
         let newForward = {
-          y: x.forward_v,
+          y: x.forward,
           name: x.forward,
         };
         forwardList.push(newForward);
 
         let newBackward = {
-          y: x.backward_v,
+          y: x.backward,
           name: x.backward,
         };
         backwardList.push(newBackward);
 
         let newDouble = {
-          y: x.double_v,
+          y: x.double,
           name: x.double,
         };
 
@@ -464,7 +454,7 @@ export default {
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "{series.name} : {point.name}% <br/>Value: {point.y} million<br/>Total GVC exports: {point.stackTotal}%",
+            "{series.name} : {point.name}% <br/>Value: {point.y} million<br/>Total GVC exports: ${point.stackTotal}",
         },
         plotOptions: {
           column: {

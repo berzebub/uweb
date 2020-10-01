@@ -95,7 +95,7 @@
       <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.70)">
         <div class="row text-white q-py-sm" style="padding-left:35px">
           <div class="col-5">
-            <div class="font-footer">CONTACT US</div>
+            <div class="font-footer">ABOUT RIVA</div>
             <div style="font-size:12px">
               The Trade, Investment and Innovation Division of the United Nations Economic
               and Social Commission for Asia and the Pacific, located in Bangkok, Thailand. For questions, please contact us at escap-xxx@un.org or visit www.unescap.org
@@ -105,8 +105,11 @@
           <div class="col-5 q-pr-md">
             <div class="font-footer">DISCLAIMER</div>
             <div style="font-size:12px">
-              This portal is currently in a testing-phase and is best viewed on desktop devices in
-              modern web browsers such as Firefox and Chrome with JavaScript enabled.
+          RIVA is an initiative of the Trade, Investment and Innovation Division of the United
+Nations Economic and Social Commission for Asia and the Pacific, located in
+Bangkok, Thailand. For questions, please contact us at escap-tiid@un.org or visit
+www.unescap.org. RIVA is available on riva.tiid.org
+
             </div>
           </div>
         </div>

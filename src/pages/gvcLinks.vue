@@ -1086,6 +1086,8 @@ export default {
 
       getData = getData.data;
 
+      console.log(getData);
+
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
       getData.forEach((x, index) => {
@@ -1146,7 +1148,7 @@ export default {
               '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 20px;height: 20px;background-color: ' +
               this.color +
               ';"></div></td><td style="padding-left:12px;">' +
-              this.name +
+              this.country +
               "</td></tr></table></div>"
             );
           },

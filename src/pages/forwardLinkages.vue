@@ -144,7 +144,7 @@
               class="fit font-20"
               @click="selectedActiveBy('Economy')"
             >
-              select by Source
+              select by Importing
               <br />economy
             </q-btn>
           </div>
@@ -1264,7 +1264,7 @@ export default {
 
       Highcharts.chart("container3", {
         chart: {
-          height: (3 / 4) * 100 + "%", // 16:9 ratio
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
         },
         series: [
