@@ -1246,8 +1246,6 @@ export default {
 
       getData = getData.data;
 
-      console.log(getData);
-
       getData.forEach((element) => {
         console.log(element.valuePrecent);
         if(element.valuePrecent){
@@ -1344,7 +1342,7 @@ export default {
             color: "#00000",
           },
 
-          align: "left",
+          align: "center",
           verticalAlign: "bottom",
           width: "870",
 
