@@ -175,12 +175,24 @@ export default {
           label: "Domestice value-added trade balance (DVA_tradebalance)",
         },
         {
+          value: "DVA_tradebalance_$",
+          label: "Domestice value-added trade balance (DVA_tradebalance_$)",
+        },
+        {
           value: "Gross_tradebalance",
           label: "Gross trade balance (Gross_tradebalance)",
         },
         {
+          value: "Gross_tradebalance_$",
+          label: "Gross trade balance (Gross_tradebalance_$)",
+        },
+        {
           value: "GVC_participation",
           label: "GVC participation",
+        },
+        {
+          value: "GVC_participation_$",
+          label: "GVC participation_$",
         },
         {
           value: "Back_link_country",
@@ -365,12 +377,21 @@ export default {
       } else if (this.indicator == "DVA_tradebalance") {
         url =
           "https://api.winner-english.com/u_api/indicator_dva_tradebalance2.php";
+      } else if (this.indicator == "DVA_tradebalance_$") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_dva_tradebalance_m.php";
       } else if (this.indicator == "Gross_tradebalance") {
         url =
           "https://api.winner-english.com/u_api/indicator_gross_tradebalance2.php";
+      } else if (this.indicator == "Gross_tradebalance_$") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gross_tradebalance_m.php";
       } else if (this.indicator == "GVC_participation") {
         url =
           "https://api.winner-english.com/u_api/indicator_gvc_participation2.php";
+      } else if (this.indicator == "GVC_participation_$") {
+        url =
+          "https://api.winner-english.com/u_api/indicator_gvc_participation_m.php";
       } else if (this.indicator == "Back_link_country") {
         url =
           "https://api.winner-english.com/u_api/indicator_back_link_country2.php";

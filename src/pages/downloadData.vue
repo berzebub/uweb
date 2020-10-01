@@ -397,8 +397,16 @@ export default {
           index: 5,
         },
         {
+          label: "Domestic value-added trade balance (DVA_tradebalance_$)",
+          index: 13,
+        },
+        {
           label: "Gross trade balance (Gross_tradebalance)",
           index: 6,
+        },
+        {
+          label: "Domestic value-added trade balance (DVA_tradebalance_$)",
+          index: 14,
         },
         {
           label: "GVC participation",
