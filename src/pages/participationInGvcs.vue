@@ -364,11 +364,14 @@ export default {
         }),
       });
 
+  
+
       let region = this.countryOptions.filter(
         (x) => x.iso == this.exp_country.iso
       )[0].region;
 
       getData = getData.data;
+          console.log(getData);
 
       let countryList = [];
       let forwardList = [];
@@ -381,22 +384,39 @@ export default {
         let newForward = {
           y: x.forward,
           name: x.forward,
+          valM :  x.forward_v,
         };
         forwardList.push(newForward);
 
         let newBackward = {
           y: x.backward,
           name: x.backward,
+          valM : x.backward_v,
         };
         backwardList.push(newBackward);
 
         let newDouble = {
           y: x.double,
           name: x.double,
+          valM :  x.double_v,
         };
 
         doubleList.push(newDouble);
       });
+
+
+      // console.log(forwardList);
+      // console.log(backwardList);
+      // console.log(doubleList);
+
+
+      forwardList.forEach((element,index) => {
+        forwardList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
+        backwardList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
+        doubleList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
+      });
+
+  
 
       this.isChart = true;
 
@@ -452,9 +472,13 @@ export default {
           symbolRadius: 0,
         },
         tooltip: {
+
+          // pointFormatter:function(){
+          //   console.log("{point}");
+          // },
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "{series.name} : {point.name}% <br/>Value: {point.y} million<br/>Total GVC exports: ${point.stackTotal}",
+            "{series.name} : {point.name}% <br/>Value: ${point.valM} million<br/>Total GVC exports: ${point.totalY} million",
         },
         plotOptions: {
           column: {

@@ -1294,11 +1294,10 @@ export default {
       }
 
       getDataSub = getDataSub.data;
-      console.log(getData);
 
       Highcharts.chart("container3", {
         chart: {
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (11 / 16) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" },
         },
         series: [
