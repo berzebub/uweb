@@ -38,14 +38,16 @@
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
-                    <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
+                    <gb-flag
+                      v-if="scope.opt.code"
+                      :code="scope.opt.code"
+                      size="small"
+                    />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
                     <q-item-label caption>
-                      {{
-                      scope.opt.description
-                      }}
+                      {{ scope.opt.description }}
                     </q-item-label>
                   </q-item-section>
                 </q-item>
@@ -97,14 +99,16 @@
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
-                    <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
+                    <gb-flag
+                      v-if="scope.opt.code"
+                      :code="scope.opt.code"
+                      size="small"
+                    />
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
                     <q-item-label caption>
-                      {{
-                      scope.opt.description
-                      }}
+                      {{ scope.opt.description }}
                     </q-item-label>
                   </q-item-section>
                 </q-item>
@@ -148,7 +152,9 @@
           </div>
           <div class="col-9 q-py-lg" style="background-color:#E5E1E1">
             <div class="q-mt-md">
-              <p align="center" class="font-graph text-bold">Why does GVC participation matter?</p>
+              <p align="center" class="font-graph text-bold">
+                Why does GVC participation matter?
+              </p>
             </div>
             <div
               align="center"
@@ -224,7 +230,7 @@ export default {
     globalValueChainsMenu,
     myFooter,
     dataWaiting,
-    sorryDuplicate,
+    sorryDuplicate
   },
   data() {
     return {
@@ -255,14 +261,14 @@ export default {
 
       isShowErrorWarning: false,
 
-      isChart: false,
+      isChart: false
     };
   },
   computed: {
     expCountry() {
       if (this.exp_country) {
         let res = this.countryOptions.filter(
-          (x) => x.value == this.exp_country.value
+          x => x.value == this.exp_country.value
         )[0];
 
         return res;
@@ -272,25 +278,25 @@ export default {
     impCountry() {
       if (this.imp_country) {
         let res = this.countryOptions.filter(
-          (x) => x.value == this.imp_country.value
+          x => x.value == this.imp_country.value
         )[0];
 
         return res;
       }
-    },
+    }
   },
   methods: {
     filterExpCountry(val, update) {
       update(async () => {
         this.exp_optionsShow = this.countryOptions.filter(
-          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
     filterImpCountry(val, update) {
       update(async () => {
         this.imp_optionsShow = this.countryOptions.filter(
-          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
@@ -361,81 +367,84 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph = c;
-        }),
+        })
       });
 
-  
-
       let region = this.countryOptions.filter(
-        (x) => x.iso == this.exp_country.iso
+        x => x.iso == this.exp_country.iso
       )[0].region;
 
       getData = getData.data;
-          console.log(getData);
+      console.log(getData);
 
       let countryList = [];
       let forwardList = [];
       let backwardList = [];
       let doubleList = [];
 
-      getData.map((x) => {
+      getData.map(x => {
         countryList.push(x.country);
 
         let newForward = {
           y: x.forward,
           name: x.forward,
-          valM :  x.forward_v,
+          valM: x.forward_v
         };
         forwardList.push(newForward);
 
         let newBackward = {
           y: x.backward,
           name: x.backward,
-          valM : x.backward_v,
+          valM: x.backward_v
         };
         backwardList.push(newBackward);
 
         let newDouble = {
           y: x.double,
           name: x.double,
-          valM :  x.double_v,
+          valM: x.double_v
         };
 
         doubleList.push(newDouble);
       });
 
-
       // console.log(forwardList);
       // console.log(backwardList);
       // console.log(doubleList);
 
-
-      forwardList.forEach((element,index) => {
-        forwardList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
-        backwardList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
-        doubleList[index]['totalY'] = element.valM + backwardList[index]['valM'] + doubleList[index]['valM']
+      forwardList.forEach((element, index) => {
+        forwardList[index]["totalY"] =
+          element.valM +
+          backwardList[index]["valM"] +
+          doubleList[index]["valM"];
+        backwardList[index]["totalY"] =
+          element.valM +
+          backwardList[index]["valM"] +
+          doubleList[index]["valM"];
+        doubleList[index]["totalY"] =
+          element.valM +
+          backwardList[index]["valM"] +
+          doubleList[index]["valM"];
       });
-
-  
 
       this.isChart = true;
 
       Highcharts.chart("container", {
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 16) * 100 + "%" // 16:9 ratio
         },
 
         xAxis: {
           labels: {
-            rotation: -90,
+            rotation: -90
           },
-          categories: countryList,
+          categories: countryList
         },
         yAxis: {
           min: 0,
           title: {
-            text: `% of gross exports to ${this.imp_country.label}`,
+            text: `% of gross exports to ${this.imp_country.label}`
           },
           stackLabels: {
             enabled: false,
@@ -445,21 +454,76 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray",
-            },
-          },
+                "gray"
+            }
+          }
         },
         credits: {
-          enabled: false,
+          enabled: false
         },
-        exporting: this.exportingGraphOptions,
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: [
+                "downloadPNG",
+                "downloadJPEG",
+                "separator",
+                "downloadCSV",
+                "downloadXLS"
+              ]
+            }
+          },
+          width: "1920px",
+          chartOptions: {
+            legend: {
+              width: 150,
+              itemMarginTop: 5,
+              symbolWidth: 10,
+              symbolHeight: 10,
+              symbolRadius: 0,
+
+              itemStyle: {
+                fontSize: "7px",
+                fontWeight: "medium",
+                fontFamily: "roboto",
+                color: "#00000"
+              }
+            },
+            title: {
+              style: { fontSize: "12px" }
+            },
+            subtitle: {
+              style: { fontSize: "8px" }
+            },
+            yAxis: [
+              {
+                title: {
+                  text: `% of gross exports to ${this.imp_country.label}`,
+                  style: { fontSize: "6px" }
+                },
+                labels: {
+                  style: { fontSize: "6px" }
+                }
+              }
+            ],
+            xAxis: [
+              {
+                categories: countryList,
+                labels: {
+                  rotation: -90,
+                  style: { fontSize: "6px" }
+                }
+              }
+            ]
+          }
+        },
         legend: {
           useHTML: true,
           itemStyle: {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000",
+            color: "#00000"
           },
           width: 300,
           layout: "vertical",
@@ -469,50 +533,49 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         tooltip: {
-
           // pointFormatter:function(){
           //   console.log("{point}");
           // },
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "{series.name} : {point.name}% <br/>Value: ${point.valM} million<br/>Total GVC exports: ${point.totalY} million",
+            "{series.name} : {point.name}% <br/>Value: ${point.valM} million<br/>Total GVC exports: ${point.totalY} million"
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false,
-            },
-          },
+              enabled: false
+            }
+          }
         },
         series: [
           {
             name: `Used in ${this.imp_country.label}'s export production <br>(forward linkages)`,
             data: forwardList,
-            color: "#2381B8",
+            color: "#2381B8"
           },
           {
             name: "Imported content (backward linkages)",
             data: backwardList,
-            color: "#EB1E63",
+            color: "#EB1E63"
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
             data: doubleList,
-            color: "#f99704",
-          },
+            color: "#f99704"
+          }
         ],
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto",
+            fontFamily: "roboto"
           },
 
-          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`,
-        },
+          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`
+        }
       });
     },
 
@@ -520,11 +583,11 @@ export default {
       let url = "https://api.winner-english.com/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach((element) => {
+      data.data.forEach(element => {
         temp.push(element);
       });
       this.yearOptions = temp;
-    },
+    }
   },
   async mounted() {
     this.$q.sessionStorage.remove("shareLink");
@@ -534,9 +597,9 @@ export default {
 
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exp_country = this.$route.params.expe
-        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
+        ? this.countryOptions.filter(x => x.iso == this.$route.params.expe)[0]
         : this.countryOptions.filter(
-            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
+            x => x.iso == this.$q.sessionStorage.getItem("expe")
           )[0];
 
       this.exp_optionsShow = this.countryOptions;
@@ -544,9 +607,9 @@ export default {
 
     if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
       this.imp_country = this.$route.params.impe
-        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
+        ? this.countryOptions.filter(x => x.iso == this.$route.params.impe)[0]
         : this.countryOptions.filter(
-            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
+            x => x.iso == this.$q.sessionStorage.getItem("impe")
           )[0];
       this.imp_optionsShow = this.countryOptions;
     }
@@ -572,7 +635,7 @@ export default {
     if (cancelGraph !== undefined) {
       cancelGraph();
     }
-  },
+  }
 };
 </script>
 
