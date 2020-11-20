@@ -1154,6 +1154,10 @@ export default {
           },
         },
         plotOptions: {
+          column:{
+            groupPadding:0.05,
+            pointPadding : 0.25
+          },
           series: {
             borderWidth: 0,
 
@@ -1267,6 +1271,10 @@ export default {
           },
         },
         plotOptions: {
+          column:{
+            groupPadding:0.05,
+            pointPadding : 0.25
+          },
           series: {
             borderWidth: 0,
             dataLabels: {
@@ -1380,6 +1388,10 @@ export default {
           },
         },
         plotOptions: {
+          column:{
+            groupPadding : 0.05,
+            pointPadding : 0.25
+          },
           series: {
             borderWidth: 0,
             dataLabels: {
@@ -1491,6 +1503,10 @@ export default {
           },
         },
         plotOptions: {
+          column:{
+            groupPadding : 0.05,
+            pointPadding : 0.25
+          },
           series: {
             dataLabels: {
               enabled: true,
