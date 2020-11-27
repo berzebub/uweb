@@ -356,7 +356,7 @@ export default {
     async setStackChart() {
       this.isChart = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
       console.log(urlLink);
 
@@ -580,7 +580,7 @@ export default {
     },
 
     async getYear() {
-      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let url = "https://150.95.83.14/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

@@ -223,13 +223,13 @@ export default {
 
     async setData() {
       this.isChart = false;
-      let urlLink = `https://api.winner-english.com/u_api/cal_forward_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_forward_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
 
       let getData = await Axios.get(urlLink);
 
       getData = getData.data;
 
-      let urlLinkSub = `https://api.winner-english.com/u_api/cal_forward_sector_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
+      let urlLinkSub = `https://150.95.83.14/u_api/cal_forward_sector_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
 
       let getDataSub = await Axios.get(urlLinkSub);
 
@@ -359,7 +359,7 @@ export default {
       this.chart2RawData = [];
       this.countryList = [];
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_forward_sector_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_forward_sector_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}`;
 
       let getData = await Axios.get(urlLink);
 

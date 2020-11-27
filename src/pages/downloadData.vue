@@ -682,7 +682,7 @@ export default {
       this.isModify = true;
     },
     async getYear() {
-      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let url = "https://150.95.83.14/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach((element) => {
@@ -870,7 +870,7 @@ export default {
       let testPromise = [];
       if (index == 0) {
         url =
-          "https://api.winner-english.com/u_api/indicator_imp_cons.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_imp_cons.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -880,7 +880,7 @@ export default {
           sectorData;
       } else if (index == 1) {
         url =
-          "https://api.winner-english.com/u_api/indicator_imp_exp.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_imp_exp.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -890,7 +890,7 @@ export default {
           sectorData;
       } else if (index == 2) {
         url =
-          "https://api.winner-english.com/u_api/indicator_dom_cons.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_dom_cons.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -900,7 +900,7 @@ export default {
           sectorData;
       } else if (index == 3) {
         url =
-          "https://api.winner-english.com/u_api/indicator_double.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_double.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -910,7 +910,7 @@ export default {
           sectorData;
       } else if (index == 4) {
         url =
-          "https://api.winner-english.com/u_api/indicator_imp_cont.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_imp_cont.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -920,7 +920,7 @@ export default {
           sectorData;
       } else if (index == 5) {
         url =
-          "https://api.winner-english.com/u_api/indicator_dva_tradebalance.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_dva_tradebalance.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -930,7 +930,7 @@ export default {
           sectorData;
       } else if (index == 6) {
         url =
-          "https://api.winner-english.com/u_api/indicator_gross_tradebalance.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_gross_tradebalance.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -940,7 +940,7 @@ export default {
           sectorData;
       } else if (index == 7) {
         url =
-          "https://api.winner-english.com/u_api/indicator_gvc_participation.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_gvc_participation.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -951,7 +951,7 @@ export default {
         typeData = 2;
       } else if (index == 8) {
         url =
-          "https://api.winner-english.com/u_api/indicator_back_link_country.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_back_link_country.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -962,7 +962,7 @@ export default {
         typeData = 2;
       } else if (index == 10) {
         url =
-          "https://api.winner-english.com/u_api/indicator_forward_link_country.php?exp_country=" +
+          "https://150.95.83.14/u_api/indicator_forward_link_country.php?exp_country=" +
           exportData +
           "&year=" +
           yearData +
@@ -971,7 +971,7 @@ export default {
         typeData = 2;
       } else if (index == 11) {
         url =
-          "https://api.winner-english.com/u_api/indicator_forward_link_sector.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_forward_link_sector.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -980,7 +980,7 @@ export default {
         typeData = 2;
       } else if (index == 12) {
         url =
-          "https://api.winner-english.com/u_api/indicator_gross_exports.php?imp_country=" +
+          "https://150.95.83.14/u_api/indicator_gross_exports.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -1034,7 +1034,7 @@ export default {
       sourceData
     ) {
       let url =
-        "https://api.winner-english.com/u_api/indicator_back_link_sector.php?imp_country=" +
+        "https://150.95.83.14/u_api/indicator_back_link_sector.php?imp_country=" +
         importData +
         "&exp_country=" +
         exportData +

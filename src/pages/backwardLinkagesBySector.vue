@@ -260,7 +260,7 @@ export default {
 
     async setData() {
       this.isChart = false;
-      let urlLink = `https://api.winner-english.com/u_api/cal_back_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_back_sector_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
 
       console.log(urlLink);
 
@@ -268,7 +268,7 @@ export default {
 
       getData = getData.data;
 
-      let urlLinkSub = `https://api.winner-english.com/u_api/cal_back_sector_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
+      let urlLinkSub = `https://150.95.83.14/u_api/cal_back_sector_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
 
       let getDataSub = await Axios.get(urlLinkSub);
 
@@ -398,7 +398,7 @@ export default {
       this.chart2RawData = [];
       this.countryList = [];
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_back_sector_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_back_sector_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&source_country=${this.source_country}`;
 
       let getData = await Axios.get(urlLink);
 

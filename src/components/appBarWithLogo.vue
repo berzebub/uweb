@@ -98,7 +98,7 @@ export default {
         ? countryId[0].value
         : "";
 
-      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let url = "https://150.95.83.14/u_api/get_year_active.php";
 
       // if (this.$route.name == "getStarted") {
       //   (this.countrySelected = ""), (this.yearSelected = "");

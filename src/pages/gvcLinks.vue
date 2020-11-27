@@ -1054,7 +1054,8 @@ export default {
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+
 
       let formatData = {
         total_percent: 0,
@@ -1083,7 +1084,7 @@ export default {
     async loadGVCGraphSector() {
       this.isGraphGVCSector = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -1106,7 +1107,7 @@ export default {
     async loadGVCGraphEconomy() {
       this.isGraphGVCEconomy = false;
 
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1135,7 +1136,7 @@ export default {
     },
 
     async highchartBackwardSector(val) {
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1a.php`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1a.php`;
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1249,7 +1250,7 @@ export default {
     },
 
     async highchartForwardSector(val) {
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph1b.php`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1b.php`;
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();
@@ -1361,7 +1362,7 @@ export default {
     },
 
     async highchartBackwardEconomy(val) {
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2a.php`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2a.php`;
 
       if (cancelGraph6 !== undefined) {
         cancelGraph6();
@@ -1470,7 +1471,7 @@ export default {
 
     async highchartForwardEconomy(val) {
       console.log(val);
-      let urlLink = `https://api.winner-english.com/u_api/cal_gvc_graph2b.php`;
+      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2b.php`;
 
       if (cancelGraph7 !== undefined) {
         cancelGraph7();
@@ -1572,7 +1573,7 @@ export default {
     },
 
     async getYear() {
-      let url = "https://api.winner-english.com/u_api/get_year_active.php";
+      let url = "https://150.95.83.14/u_api/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {
