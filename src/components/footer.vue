@@ -8,7 +8,6 @@
               network="facebook"
               title
               url="unescap.thaiawesomedev.com"
-              hashtags="vuejs,vite"
             >
               <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
             </ShareNetwork>
@@ -20,7 +19,6 @@
               title
               description
               quote
-              hashtags="vuejs,vite"
             >
               <img style="width:32px" src="../../public/twitter-ico.png" alt class="cursor-pointer" />
             </ShareNetwork>
@@ -29,7 +27,6 @@
             <ShareNetwork
               network="linkedIn"
               url="unescap.thaiawesomedev.com"
-              hashtags="vuejs,vite"
               title
             >
               <img style="width:32px" src="../../public/linkin-ico.png" alt class="cursor-pointer" />
