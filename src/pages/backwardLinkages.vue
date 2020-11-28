@@ -2120,7 +2120,7 @@ export default {
                 ]
               }
             },
-            width: "1920px",
+            width: 1920,
             chartOptions: {
               legend: {
                 width: 200,
