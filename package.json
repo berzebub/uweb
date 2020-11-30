@@ -1,8 +1,8 @@
 {
   "name": "unescap",
   "version": "0.0.1",
-  "description": "UNESCAP website",
-  "productName": "UNESCAP website",
+  "description": "RIVA: Regional integration and value chain analyzer ",
+  "productName": "RIVA: Regional integration and value chain analyzer ",
   "author": "Awesome Team",
   "private": true,
   "scripts": {

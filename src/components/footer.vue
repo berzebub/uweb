@@ -94,18 +94,14 @@
           <div class="col-5">
             <div class="font-footer">ABOUT RIVA</div>
             <div style="font-size:12px">
-              The Trade, Investment and Innovation Division of the United Nations Economic
-              and Social Commission for Asia and the Pacific, located in Bangkok, Thailand. For questions, please contact us at escap-xxx@un.org or visit www.unescap.org
+             RIVA is an initiative of the Trade, Investment and Innovation Division of the United Nations Economic and Social Commission for Asia and the Pacific, located in Bangkok, Thailand. For questions, please contact us at escap-tiid@un.org or visit <a href="https://www.unescap.org" style="text-decoration:underline;color:white">www.unescap.org</a> RIVA is available on <a href="https://riva.negotiatetrade.org" style="text-decoration:underline;color:white">riva.negotiatetrade.org</a>
             </div>
           </div>
           <div class="col-2"></div>
           <div class="col-5 q-pr-md">
             <div class="font-footer">DISCLAIMER</div>
             <div style="font-size:12px">
-          RIVA is an initiative of the Trade, Investment and Innovation Division of the United
-Nations Economic and Social Commission for Asia and the Pacific, located in
-Bangkok, Thailand. For questions, please contact us at escap-tiid@un.org or visit
-www.unescap.org. RIVA is available on riva.tiid.org
+        RIVA gratefully acknowledges use of data from the ADB MRIO database (currently covering 2007, 2011 and 2017) to analyze global value chains and from the Asian Development Bank, ILO, IMF, ITU, OECD, UNESCAP, UN Comtrade, UNCTAD and World Bank to analyze regional integration.
 
             </div>
           </div>
