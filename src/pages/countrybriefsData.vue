@@ -17,10 +17,16 @@
       >
     </div>
 
-    <div class="q-mt-md row">
-      <div class="col-4 q-pa-md"><div id="container1"></div></div>
-      <div class="col-4 q-pa-md"><div id="container2"></div></div>
-      <div class="col-4 q-pa-md"><div id="container3"></div></div>
+    <div class="q-mt-md row ">
+      <div class="col-4 q-pa-md" align="center">
+        <div id="container1"></div>
+      </div>
+      <div class="col-4 q-pa-md" align="center">
+        <div id="container2"></div>
+      </div>
+      <div class="col-4 q-pa-md" align="center">
+        <div id="container3"></div>
+      </div>
     </div>
   </q-page>
 </template>
