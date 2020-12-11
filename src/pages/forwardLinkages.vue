@@ -697,7 +697,9 @@ export default {
       let showSectorName = this.sectorOptions.filter(
         x => x.value == this.sector
       )[0].label;
-      let urlLink = `https://150.95.83.14/u_api/cal_forward_country_1.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
+      let urlLink =
+        this.path_api +
+        `/cal_forward_country_1.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
       if (cancelGraph1 !== undefined) {
         cancelGraph1();
@@ -755,7 +757,9 @@ export default {
         }
       });
 
-      let urlLinkSub = `https://150.95.83.14/u_api/cal_forward_country_1a.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
+      let urlLinkSub =
+        this.path_api +
+        `/cal_forward_country_1a.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -955,7 +959,9 @@ export default {
     async chart2() {
       this.isChart2 = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_forward_country_2.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
+      let urlLink =
+        this.path_api +
+        `/cal_forward_country_2.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1395,7 +1401,9 @@ export default {
     async chart3() {
       this.isChart3 = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_forward_sector_1.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+      let urlLink =
+        this.path_api +
+        `/cal_forward_sector_1.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1424,7 +1432,9 @@ export default {
         }
       });
 
-      let urlLinkSub = `https://150.95.83.14/u_api/cal_forward_sector_1a.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+      let urlLinkSub =
+        this.path_api +
+        `/cal_forward_sector_1a.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();
@@ -1656,7 +1666,9 @@ export default {
       this.chart2RawData = [];
       this.countryList = [];
 
-      let urlLink = `https://150.95.83.14/u_api/cal_forward_sector_2.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
+      let urlLink =
+        this.path_api +
+        `/cal_forward_sector_2.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}`;
 
       if (cancelGraph6 !== undefined) {
         cancelGraph6();
@@ -2263,7 +2275,7 @@ export default {
     },
 
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

@@ -31,7 +31,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in indicatorList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -62,7 +64,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in exportList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -94,7 +98,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in importingList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -116,7 +122,15 @@
       <!-- :style="indicatorList.findIndex(x => x.label == 'Backward linkages, all exporting sectors (Back_link_sector)') >= 0 ? :'opacity:1' : 'opacity:0.5'" -->
       <div
         class="row q-mt-lg justify-center"
-        :class="indicatorList.findIndex(x => x.label == 'Backward linkages, all exporting sectors (Back_link_sector)') >= 0 ? null : 'disable-source no-pointer-events'"
+        :class="
+          indicatorList.findIndex(
+            x =>
+              x.label ==
+              'Backward linkages, all exporting sectors (Back_link_sector)'
+          ) >= 0
+            ? null
+            : 'disable-source no-pointer-events'
+        "
       >
         <div style="width:150px" class="self-center q-pa-md" align="center">
           <div>
@@ -130,7 +144,8 @@
               <span
                 class="absolute-right flex flex-center q-pr-md"
                 align="right"
-              >Back_link_sector only</span>
+                >Back_link_sector only</span
+              >
             </div>
             <q-scroll-area visible style="height: 200px;" class>
               <div
@@ -138,7 +153,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in sourceList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -172,7 +189,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in sectorList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -206,7 +225,9 @@
                 :class="index % 2 == 1 ? 'bg11' : null"
                 v-for="(item, index) in yearList"
                 :key="index"
-              >{{ item.label }}</div>
+              >
+                {{ item.label }}
+              </div>
             </q-scroll-area>
           </div>
         </div>
@@ -222,7 +243,11 @@
         </div>
       </div>
 
-      <div class="q-my-xl row justify-center" style="padding-bottom:70px;" align="center">
+      <div
+        class="q-my-xl row justify-center"
+        style="padding-bottom:70px;"
+        align="center"
+      >
         <div class="q-pr-md">
           <q-btn
             class="font-content"
@@ -240,7 +265,8 @@
             style="width:200px;border-radius:10px;height:45px;line-height:45px"
             :data="resultList"
             ref="downloadData"
-          >Download Data</download-csv>
+            >Download Data</download-csv
+          >
 
           <q-btn
             v-else
@@ -259,7 +285,9 @@
       <div class="row justify-center">
         <!-- Modify Type -->
         <div class="col-11 q-pa-sm">
-          <span class="font-graph">{{ modifyContent }} {{ modifySubText }}</span>
+          <span class="font-graph"
+            >{{ modifyContent }} {{ modifySubText }}</span
+          >
         </div>
         <div class="col-5">
           <!-- Select Form -->
@@ -283,7 +311,9 @@
                   :key="index"
                   style="padding:7px;border-bottom:1px solid #EDEDED"
                   @click="activeIndividual(item)"
-                >{{ item.label }}</div>
+                >
+                  {{ item.label }}
+                </div>
               </q-scroll-area>
             </q-card>
           </q-expansion-item>
@@ -291,7 +321,12 @@
 
         <!-- Click Data to Draft -->
         <div class="col-1 self-center" style="width:70px;" align="center">
-          <q-btn @click="clickDataToDraft()" label=">" dense class="bg4 q-px-sm"></q-btn>
+          <q-btn
+            @click="clickDataToDraft()"
+            label=">"
+            dense
+            class="bg4 q-px-sm"
+          ></q-btn>
         </div>
 
         <!-- Select Draft Data -->
@@ -299,7 +334,11 @@
           <div class="bg4 row" style="padding:10px;">
             <span>{{ modifySelectDraftText }}</span>
             <q-space />
-            <span @click="clearAllSelectedData()" class="text-underline cursor-pointer">clear all</span>
+            <span
+              @click="clearAllSelectedData()"
+              class="text-underline cursor-pointer"
+              >clear all</span
+            >
           </div>
           <q-scroll-area visible style="height: 200px;">
             <div
@@ -311,7 +350,11 @@
               <div>{{ item.label }}</div>
               <q-space />
               <div class="q-pr-sm">
-                <span class="text-underline cursor-pointer" @click="clearSelectData(item) ">clear</span>
+                <span
+                  class="text-underline cursor-pointer"
+                  @click="clearSelectData(item)"
+                  >clear</span
+                >
               </div>
             </div>
           </q-scroll-area>
@@ -339,12 +382,21 @@
 
     <q-dialog v-model="isShowExceededQuotaDialog">
       <q-card style="width:400px;">
-        <div class="bg4 q-py-sm" align="center" style="font-size:20px">Exceeded Quota</div>
+        <div class="bg4 q-py-sm" align="center" style="font-size:20px">
+          Exceeded Quota
+        </div>
         <q-card-section class="q-py-lg">
-          <div align="center" style="font-size:16px">{{ errorExceededQuotaMessage }}</div>
+          <div align="center" style="font-size:16px">
+            {{ errorExceededQuotaMessage }}
+          </div>
         </q-card-section>
         <q-card-actions align="center" class="q-pb-lg">
-          <q-btn class="bg4 font-content" style="width:150px" v-close-popup label="ok"></q-btn>
+          <q-btn
+            class="bg4 font-content"
+            style="width:150px"
+            v-close-popup
+            label="ok"
+          ></q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -372,68 +424,68 @@ export default {
       dataIndicatorList: [
         {
           label: "Gross exports used in importer's comsumption (Imp_cons)",
-          index: 0,
+          index: 0
         },
         {
           label: "Gross exports used in importer’s export production (Imp_exp)",
-          index: 1,
+          index: 1
         },
         {
           label:
             "Gross exports that return home and used in the exporter’s domestic consumption (Dom_cons)",
-          index: 2,
+          index: 2
         },
         {
           label:
             "Double counted exports from repeated border crossings (Double)",
-          index: 3,
+          index: 3
         },
         {
           label: "Imported content in gross exports (Imp_cont)",
-          index: 4,
+          index: 4
         },
         {
           label: "Domestic value-added trade balance (DVA_tradebalance)",
-          index: 5,
+          index: 5
         },
         {
           label: "Domestic value-added trade balance (DVA_tradebalance_$)",
-          index: 13,
+          index: 13
         },
         {
           label: "Gross trade balance (Gross_tradebalance)",
-          index: 6,
+          index: 6
         },
         {
           label: "Domestic value-added trade balance (DVA_tradebalance_$)",
-          index: 14,
+          index: 14
         },
         {
           label: "GVC participation",
-          index: 7,
+          index: 7
         },
         {
           label: "Backward linkages, all source countries (Back_link_country)",
-          index: 8,
+          index: 8
         },
         {
           label: "Backward linkages, all exporting sectors (Back_link_sector)",
-          index: 9,
+          index: 9
         },
         {
           label:
             "Forward linkages, all importing countries (Forward_link_country)",
-          index: 10,
+          index: 10
         },
         {
           label:
             "Forward linkages, all exporting sectors (Forward_link_sector)",
-          index: 11,
+          index: 11
         },
         {
           label: "Gross exports (Gross_exports)",
-          index: 12,
-        },
+          index: 12
+        }
       ],
       dataYearList: [],
 
@@ -451,7 +503,7 @@ export default {
       modifySelectCountryList: [],
       isShowExceededQuotaDialog: false,
       resultList: [],
-      promiseBucket: [],
+      promiseBucket: []
     };
   },
   methods: {
@@ -529,9 +581,9 @@ export default {
             " indicators. ";
         }
       }
-      this.modifySelectDataList.forEach((element) => {
+      this.modifySelectDataList.forEach(element => {
         let findIndex = this.modifyDataList.findIndex(
-          (x) => x.index == element.index
+          x => x.index == element.index
         );
         if (
           this.modifyType != "exportting" &&
@@ -559,10 +611,10 @@ export default {
       let _this = this;
       function getCountry() {
         let temp = [];
-        _this.countryOptions.forEach((element) => {
+        _this.countryOptions.forEach(element => {
           temp.push({
             index: Number(element.index),
-            label: element.label + " -- " + element.iso,
+            label: element.label + " -- " + element.iso
           });
         });
         return temp;
@@ -575,11 +627,11 @@ export default {
         this.modifyDataList = getCountry();
       } else if (this.modifyType == "sector") {
         let finalData = [];
-        sectorJson.forEach((element) => {
+        sectorJson.forEach(element => {
           finalData.push({
             ...element,
             index: element.id,
-            label: element.name,
+            label: element.name
           });
         });
         this.modifyDataList = finalData;
@@ -591,7 +643,7 @@ export default {
     },
     clearSelectData(item) {
       let findIndex = this.modifyDraftList.findIndex(
-        (x) => x.index == item.index
+        x => x.index == item.index
       );
       this.modifyDraftList.splice(findIndex, 1);
 
@@ -603,10 +655,10 @@ export default {
       let _this = this;
       function getCountry() {
         let temp = [];
-        _this.countryOptions.forEach((element) => {
+        _this.countryOptions.forEach(element => {
           temp.push({
             index: Number(element.index),
-            label: element.label + " -- " + element.iso,
+            label: element.label + " -- " + element.iso
           });
         });
         return temp;
@@ -618,9 +670,9 @@ export default {
 
       function displayCorrectRelativeData() {
         if (_this.modifyDraftList.length) {
-          let mapSelectedId = _this.modifyDraftList.map((x) => x.index);
+          let mapSelectedId = _this.modifyDraftList.map(x => x.index);
           _this.modifyDataList = _this.modifyDataList.filter(
-            (x) => !mapSelectedId.includes(x.index)
+            x => !mapSelectedId.includes(x.index)
           );
         }
       }
@@ -650,11 +702,11 @@ export default {
       } else if (type == "sector") {
         this.modifyDraftList = [...this.sectorList];
         let finalData = [];
-        sectorJson.forEach((element) => {
+        sectorJson.forEach(element => {
           finalData.push({
             ...element,
             index: element.id,
-            label: element.name,
+            label: element.name
           });
         });
 
@@ -682,10 +734,10 @@ export default {
       this.isModify = true;
     },
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach((element) => {
+      data.data.forEach(element => {
         temp.push({ index: Number(element), label: element });
       });
       this.dataYearList = temp;
@@ -779,7 +831,7 @@ export default {
       }
       this.loadingShow();
       // All data will be generated finish in this section.
-      Promise.all(this.promiseBucket).then((values) => {
+      Promise.all(this.promiseBucket).then(values => {
         if (
           values.length == 0 ||
           this.indicatorList.length == 0 ||
@@ -795,7 +847,7 @@ export default {
                 "<div style='width:250px' align='center'>Please add an indicator</div>",
               color: "red",
               position: "top",
-              html: true,
+              html: true
             });
           }
           if (this.exportList.length == 0) {
@@ -805,7 +857,7 @@ export default {
               color: "red",
               position: "top",
               classes: "notify-width",
-              html: true,
+              html: true
             });
           }
           if (this.importingList.length == 0) {
@@ -815,7 +867,7 @@ export default {
               color: "red",
               position: "top",
               classes: "notify-width",
-              html: true,
+              html: true
             });
           }
           if (this.yearList.length == 0) {
@@ -825,7 +877,7 @@ export default {
               color: "red",
               position: "top",
               classes: "notify-width",
-              html: true,
+              html: true
             });
           }
           if (this.sectorList.length == 0) {
@@ -835,12 +887,12 @@ export default {
               color: "red",
               position: "top",
               classes: "notify-width",
-              html: true,
+              html: true
             });
           }
           if (
             this.indicatorList.findIndex(
-              (x) =>
+              x =>
                 x.label ==
                 "Backward linkages, all exporting sectors (Back_link_sector)"
             ) >= 0
@@ -851,7 +903,7 @@ export default {
               color: "red",
               position: "top",
               classes: "notify-width",
-              html: true,
+              html: true
             });
           }
 
@@ -870,7 +922,8 @@ export default {
       let testPromise = [];
       if (index == 0) {
         url =
-          "https://150.95.83.14/u_api/indicator_imp_cons.php?imp_country=" +
+          this.path_api +
+          "/indicator_imp_cons.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -880,7 +933,8 @@ export default {
           sectorData;
       } else if (index == 1) {
         url =
-          "https://150.95.83.14/u_api/indicator_imp_exp.php?imp_country=" +
+          this.path_api +
+          "/indicator_imp_exp.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -890,7 +944,8 @@ export default {
           sectorData;
       } else if (index == 2) {
         url =
-          "https://150.95.83.14/u_api/indicator_dom_cons.php?imp_country=" +
+          this.path_api +
+          "/indicator_dom_cons.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -900,7 +955,8 @@ export default {
           sectorData;
       } else if (index == 3) {
         url =
-          "https://150.95.83.14/u_api/indicator_double.php?imp_country=" +
+          this.path_api +
+          "/indicator_double.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -910,7 +966,8 @@ export default {
           sectorData;
       } else if (index == 4) {
         url =
-          "https://150.95.83.14/u_api/indicator_imp_cont.php?imp_country=" +
+          this.path_api +
+          "/indicator_imp_cont.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -920,7 +977,8 @@ export default {
           sectorData;
       } else if (index == 5) {
         url =
-          "https://150.95.83.14/u_api/indicator_dva_tradebalance.php?imp_country=" +
+          this.path_api +
+          "/indicator_dva_tradebalance.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -930,7 +988,8 @@ export default {
           sectorData;
       } else if (index == 6) {
         url =
-          "https://150.95.83.14/u_api/indicator_gross_tradebalance.php?imp_country=" +
+          this.path_api +
+          "/indicator_gross_tradebalance.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -940,7 +999,8 @@ export default {
           sectorData;
       } else if (index == 7) {
         url =
-          "https://150.95.83.14/u_api/indicator_gvc_participation.php?imp_country=" +
+          this.path_api +
+          "/indicator_gvc_participation.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -951,7 +1011,8 @@ export default {
         typeData = 2;
       } else if (index == 8) {
         url =
-          "https://150.95.83.14/u_api/indicator_back_link_country.php?imp_country=" +
+          this.path_api +
+          "/indicator_back_link_country.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -962,7 +1023,8 @@ export default {
         typeData = 2;
       } else if (index == 10) {
         url =
-          "https://150.95.83.14/u_api/indicator_forward_link_country.php?exp_country=" +
+          this.path_api +
+          "/indicator_forward_link_country.php?exp_country=" +
           exportData +
           "&year=" +
           yearData +
@@ -971,7 +1033,8 @@ export default {
         typeData = 2;
       } else if (index == 11) {
         url =
-          "https://150.95.83.14/u_api/indicator_forward_link_sector.php?imp_country=" +
+          this.path_api +
+          "/indicator_forward_link_sector.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -980,7 +1043,8 @@ export default {
         typeData = 2;
       } else if (index == 12) {
         url =
-          "https://150.95.83.14/u_api/indicator_gross_exports.php?imp_country=" +
+          this.path_api +
+          "/indicator_gross_exports.php?imp_country=" +
           importData +
           "&exp_country=" +
           exportData +
@@ -993,7 +1057,7 @@ export default {
       let dataPromise = new Promise(async (a, b) => {
         let data = await Axios.get(url);
         if (typeData == 2) {
-          data.data.forEach((x) => {
+          data.data.forEach(x => {
             let tempInput = {
               source_country: x.source_country,
               exp_country: x.exp_country,
@@ -1002,7 +1066,7 @@ export default {
               variable_set: x.variable_set,
               value: x.value,
               year: x.year,
-              indicator: x.indicator,
+              indicator: x.indicator
             };
             a(tempInput);
           });
@@ -1015,7 +1079,7 @@ export default {
             variable_set: data.data.variable_set,
             value: data.data.value,
             year: data.data.year,
-            indicator: data.data.indicator,
+            indicator: data.data.indicator
           };
           a(tempInput);
         }
@@ -1034,7 +1098,8 @@ export default {
       sourceData
     ) {
       let url =
-        "https://150.95.83.14/u_api/indicator_back_link_sector.php?imp_country=" +
+        this.path_api +
+        "/indicator_back_link_sector.php?imp_country=" +
         importData +
         "&exp_country=" +
         exportData +
@@ -1045,7 +1110,7 @@ export default {
 
       let dataPromise = new Promise(async (a, b) => {
         let data = await Axios.get(url);
-        data.data.forEach((x) => {
+        data.data.forEach(x => {
           let tempInput = {
             source_country: x.source_country,
             exp_country: x.exp_country,
@@ -1054,20 +1119,20 @@ export default {
             variable_set: x.variable_set,
             value: x.value,
             year: x.year,
-            indicator: x.indicator,
+            indicator: x.indicator
           };
           a(tempInput);
         });
       });
 
       this.promiseBucket.push(dataPromise);
-    },
+    }
   },
   mounted() {
     this.getSectorList();
     this.getCountryList();
     this.getYear();
-  },
+  }
 };
 </script>
 

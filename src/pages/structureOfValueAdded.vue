@@ -496,7 +496,9 @@ export default {
       this.isStructureChart = false;
       let _this = this;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLink =
+        this.path_api +
+        `/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph1 !== undefined) {
         cancelGraph1();
@@ -756,7 +758,9 @@ export default {
     async setStackChart2() {
       this.isComparisonChart = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLink =
+        this.path_api +
+        `/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -952,7 +956,9 @@ export default {
     async setStackChart3() {
       this.isMeasuringChart = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLink =
+        this.path_api +
+        `/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1089,7 +1095,7 @@ export default {
     },
 
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

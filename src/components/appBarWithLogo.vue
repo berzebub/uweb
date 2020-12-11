@@ -7,7 +7,12 @@
       </span>
 
       <div style="top:30px;left:100px" v-if="isShowKeyGVCBtn">
-        <q-btn class="bg4" @click="$router.push('/gvc-links')" label="Key GVC links" no-caps></q-btn>
+        <q-btn
+          class="bg4"
+          @click="$router.push('/gvc-links')"
+          label="Key GVC links"
+          no-caps
+        ></q-btn>
       </div>
       <q-space></q-space>
       <div class="row q-py-sm">
@@ -46,36 +51,36 @@ export default {
   props: {
     isShowKeyGVCBtn: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isShowTitle: {
       type: Boolean,
-      default: false,
+      default: false
     },
     isShowLogo: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
       yearOptions: [],
       yearSelected: "",
       countryOptions: [],
-      countrySelected: "",
+      countrySelected: ""
     };
   },
   methods: {
     selectData() {
       let countrySelected = this.countryOptions.filter(
-        (x) => x.value == this.countrySelected
+        x => x.value == this.countrySelected
       )[0];
 
       let selectedData = {
         name: countrySelected.label,
         region: countrySelected.region,
         iso: countrySelected.iso,
-        year: this.yearSelected,
+        year: this.yearSelected
       };
 
       this.$emit("countrySelected", selectedData);
@@ -90,7 +95,7 @@ export default {
         : "";
       let countryId = this.$q.sessionStorage.has("cselec")
         ? this.countryOptions.filter(
-            (x) => x.iso == this.$q.sessionStorage.getItem("cselec").iso
+            x => x.iso == this.$q.sessionStorage.getItem("cselec").iso
           )
         : "";
 
@@ -98,7 +103,7 @@ export default {
         ? countryId[0].value
         : "";
 
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
 
       // if (this.$route.name == "getStarted") {
       //   (this.countrySelected = ""), (this.yearSelected = "");
@@ -108,14 +113,13 @@ export default {
       let getYear = await Axios.get(url);
 
       this.yearOptions = getYear.data;
-    },
+    }
   },
 
   created() {
     this.loadYear();
-  },
+  }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

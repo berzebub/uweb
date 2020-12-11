@@ -1054,8 +1054,9 @@ export default {
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
-
+      let urlLink =
+        this.path_api +
+        `/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
 
       let formatData = {
         total_percent: 0,
@@ -1084,7 +1085,9 @@ export default {
     async loadGVCGraphSector() {
       this.isGraphGVCSector = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink =
+        this.path_api +
+        `/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -1107,7 +1110,9 @@ export default {
     async loadGVCGraphEconomy() {
       this.isGraphGVCEconomy = false;
 
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+      let urlLink =
+        this.path_api +
+        `/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1136,7 +1141,7 @@ export default {
     },
 
     async highchartBackwardSector(val) {
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1a.php`;
+      let urlLink = this.path_api + `/cal_gvc_graph1a.php`;
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1152,7 +1157,6 @@ export default {
       });
 
       getData = getData.data;
-
 
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
@@ -1198,7 +1202,7 @@ export default {
           }
         },
         legend: {
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         plotOptions: {
           column: {
@@ -1226,31 +1230,35 @@ export default {
         series: [
           {
             data: [getData[0]],
-            color : getData[0].color,
-            name : getData[0].country
-          },{
+            color: getData[0].color,
+            name: getData[0].country
+          },
+          {
             data: [getData[1]],
-            color : getData[1].color,
-            name : getData[1].country
-          },{
+            color: getData[1].color,
+            name: getData[1].country
+          },
+          {
             data: [getData[2]],
-            color : getData[2].color,
-            name : getData[2].country
-          },{
+            color: getData[2].color,
+            name: getData[2].country
+          },
+          {
             data: [getData[3]],
-            color : getData[3].color,
-            name : getData[3].country
-          },{
+            color: getData[3].color,
+            name: getData[3].country
+          },
+          {
             data: [getData[4]],
-            color : getData[4].color,
-            name : getData[4].country
+            color: getData[4].color,
+            name: getData[4].country
           }
         ]
       });
     },
 
     async highchartForwardSector(val) {
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph1b.php`;
+      let urlLink = this.path_api + `/cal_gvc_graph1b.php`;
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();
@@ -1311,7 +1319,7 @@ export default {
           }
         },
         legend: {
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         plotOptions: {
           column: {
@@ -1338,31 +1346,35 @@ export default {
         series: [
           {
             data: [getData[0]],
-            color : getData[0].color,
-            name : getData[0].country
-          },{
+            color: getData[0].color,
+            name: getData[0].country
+          },
+          {
             data: [getData[1]],
-            color : getData[1].color,
-            name : getData[1].country
-          },{
+            color: getData[1].color,
+            name: getData[1].country
+          },
+          {
             data: [getData[2]],
-            color : getData[2].color,
-            name : getData[2].country
-          },{
+            color: getData[2].color,
+            name: getData[2].country
+          },
+          {
             data: [getData[3]],
-            color : getData[3].color,
-            name : getData[3].country
-          },{
+            color: getData[3].color,
+            name: getData[3].country
+          },
+          {
             data: [getData[4]],
-            color : getData[4].color,
-            name : getData[4].country
+            color: getData[4].color,
+            name: getData[4].country
           }
         ]
       });
     },
 
     async highchartBackwardEconomy(val) {
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2a.php`;
+      let urlLink = this.path_api + `/cal_gvc_graph2a.php`;
 
       if (cancelGraph6 !== undefined) {
         cancelGraph6();
@@ -1419,7 +1431,7 @@ export default {
           }
         },
         legend: {
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         plotOptions: {
           column: {
@@ -1446,24 +1458,28 @@ export default {
         series: [
           {
             data: [getData[0]],
-            color : getData[0].color,
-            name : getData[0].sector
-          },{
+            color: getData[0].color,
+            name: getData[0].sector
+          },
+          {
             data: [getData[1]],
-            color : getData[1].color,
-            name : getData[1].sector
-          },{
+            color: getData[1].color,
+            name: getData[1].sector
+          },
+          {
             data: [getData[2]],
-            color : getData[2].color,
-            name : getData[2].sector
-          },{
+            color: getData[2].color,
+            name: getData[2].sector
+          },
+          {
             data: [getData[3]],
-            color : getData[3].color,
-            name : getData[3].sector
-          },{
+            color: getData[3].color,
+            name: getData[3].sector
+          },
+          {
             data: [getData[4]],
-            color : getData[4].color,
-            name : getData[4].sector
+            color: getData[4].color,
+            name: getData[4].sector
           }
         ]
       });
@@ -1471,7 +1487,7 @@ export default {
 
     async highchartForwardEconomy(val) {
       console.log(val);
-      let urlLink = `https://150.95.83.14/u_api/cal_gvc_graph2b.php`;
+      let urlLink = this.path_api + `/cal_gvc_graph2b.php`;
 
       if (cancelGraph7 !== undefined) {
         cancelGraph7();
@@ -1524,7 +1540,7 @@ export default {
           }
         },
         legend: {
-          symbolRadius: 0,
+          symbolRadius: 0
         },
         plotOptions: {
           column: {
@@ -1549,31 +1565,35 @@ export default {
         series: [
           {
             data: [getData[0]],
-            color : getData[0].color,
-            name : getData[0].sector
-          },{
+            color: getData[0].color,
+            name: getData[0].sector
+          },
+          {
             data: [getData[1]],
-            color : getData[1].color,
-            name : getData[1].sector
-          },{
+            color: getData[1].color,
+            name: getData[1].sector
+          },
+          {
             data: [getData[2]],
-            color : getData[2].color,
-            name : getData[2].sector
-          },{
+            color: getData[2].color,
+            name: getData[2].sector
+          },
+          {
             data: [getData[3]],
-            color : getData[3].color,
-            name : getData[3].sector
-          },{
+            color: getData[3].color,
+            name: getData[3].sector
+          },
+          {
             data: [getData[4]],
-            color : getData[4].color,
-            name : getData[4].sector
+            color: getData[4].color,
+            name: getData[4].sector
           }
         ]
       });
     },
 
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

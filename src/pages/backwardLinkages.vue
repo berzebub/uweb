@@ -594,7 +594,7 @@ export default {
       });
     },
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {
@@ -677,7 +677,9 @@ export default {
     async setData() {
       this.isChart = false;
 
-      let urlLinkSub = `https://150.95.83.14/u_api/cal_back_country_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLinkSub =
+        this.path_api +
+        `/cal_back_country_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph1 !== undefined) {
         cancelGraph1();
@@ -695,7 +697,9 @@ export default {
         return;
       }
 
-      let urlLink = `https://150.95.83.14/u_api/cal_back_country_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLink =
+        this.path_api +
+        `/cal_back_country_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -956,7 +960,9 @@ export default {
       this.chart2LatinAmerica = [];
       this.chart2RestOfTheWorld = [];
       this.chart2NorthAmerica = [];
-      let urlLink = `https://150.95.83.14/u_api/cal_back_country_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+      let urlLink =
+        this.path_api +
+        `/cal_back_country_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1318,7 +1324,9 @@ export default {
 
     async setData2() {
       this.isChart2 = false;
-      let urlLink = `https://150.95.83.14/u_api/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
+      let urlLink =
+        this.path_api +
+        `/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1339,7 +1347,9 @@ export default {
         }
       });
 
-      let urlLinkSub = `https://150.95.83.14/u_api/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
+      let urlLinkSub =
+        this.path_api +
+        `/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();
@@ -1585,7 +1595,9 @@ export default {
         cancelGraph6();
       }
 
-      let urlLink = `https://150.95.83.14/u_api/cal_back_sector_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
+      let urlLink =
+        this.path_api +
+        `/cal_back_sector_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
 
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {

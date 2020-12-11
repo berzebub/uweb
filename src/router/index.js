@@ -28,7 +28,7 @@ Vue.use(VueFlags, {
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -48,6 +48,7 @@ import sectorJson from "../../public/sector.json";
 Vue.mixin({
   data() {
     return {
+      path_api: "https://api.winner-english.com/u_api",
       exportAvailable: [
         "AUS",
         "BTN",
@@ -72,7 +73,7 @@ Vue.mixin({
         "SGP",
         "THA",
         "TUR",
-        "VNM",
+        "VNM"
       ],
       exportingGraphOptions: {
         buttons: {

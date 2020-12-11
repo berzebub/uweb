@@ -91,13 +91,15 @@
               class="col-12 row justify-center q-col-gutter-md"
               align="center"
             >
+              <!-- @click="$router.push('/countrybriefs/data')" -->
+
               <div>
                 <q-btn
                   label="Generate"
                   no-caps
                   style="width:150px;background-color:#2C2F30;"
                   class="text-white"
-                  @click="$router.push('/countrybriefs/data')"
+                  @click="genarateData()"
                 />
               </div>
             </div>
@@ -143,13 +145,29 @@ export default {
       });
     },
     async getYear() {
-      let url = "https://150.95.83.14/u_api/get_year_active.php";
+      let url = this.path_api + "/get_year_active.php";
+
       let data = await Axios.get(url);
+
       let temp = [];
+
       data.data.forEach(element => {
         temp.push({ value: Number(element), label: element });
       });
       this.yearOptions = temp;
+    },
+    async genarateData() {
+      let url =
+        this.path_api +
+        `/country_brief.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      this.loadingShow();
+
+      let getData = await Axios.get(url);
+
+      this.loadingHide();
+
+      this.$router.push("/countrybriefs/data");
     }
   },
   computed: {
