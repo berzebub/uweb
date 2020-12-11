@@ -165,9 +165,11 @@ export default {
 
       let getData = await Axios.get(url);
 
-      this.loadingHide();
+      setTimeout(() => {
+        this.loadingHide();
 
-      this.$router.push("/countrybriefs/data");
+        this.$router.push("/countrybriefs/data");
+      }, 1000);
     }
   },
   computed: {
