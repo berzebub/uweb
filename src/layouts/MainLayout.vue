@@ -109,11 +109,11 @@ export default {
   mounted() {
     this.checkPlatform();
     // window.addEventListener("scroll", this.onScroll);
-  },
+  }
 };
 </script>
 
-<style >
+<style>
 .brx {
   border: 1px solid red;
 }
@@ -121,5 +121,11 @@ export default {
   background-image: url("../../public/footer.jpg");
   background-size: inherit;
   background-position: bottom;
+}
+
+@media print {
+  .shadow-10 {
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  }
 }
 </style>
