@@ -212,9 +212,13 @@ export default {
     async setData() {
       this.isChart = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_forward_country_1.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_forward_country_1.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+>>>>>>> Stashed changes
 
       let getData = await Axios.get(urlLink);
 
@@ -249,9 +253,13 @@ export default {
         }
       });
 
+<<<<<<< Updated upstream
       let urlLinkSub =
         this.path_api +
         `/cal_forward_country_1a.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+=======
+      let urlLinkSub = `https://riva.negotiatetrade.org/u_api/cal_forward_country_1a.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+>>>>>>> Stashed changes
 
       let getDataSub = await Axios.get(urlLinkSub);
 
@@ -351,9 +359,13 @@ export default {
     async setStackChart() {
       this.isChart1 = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_forward_country_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_forward_country_2.php?exp_country=${this.exp_country}&year=${this.displayYear}&sector=${this.sector}`;
+>>>>>>> Stashed changes
 
       let getData = await Axios.get(urlLink);
 

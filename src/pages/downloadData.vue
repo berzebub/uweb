@@ -734,7 +734,11 @@ export default {
       this.isModify = true;
     },
     async getYear() {
+<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
+=======
+      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
+>>>>>>> Stashed changes
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {
@@ -922,8 +926,12 @@ export default {
       let testPromise = [];
       if (index == 0) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_imp_cons.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_imp_cons.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -933,8 +941,12 @@ export default {
           sectorData;
       } else if (index == 1) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_imp_exp.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_imp_exp.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -944,8 +956,12 @@ export default {
           sectorData;
       } else if (index == 2) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_dom_cons.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_dom_cons.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -955,8 +971,12 @@ export default {
           sectorData;
       } else if (index == 3) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_double.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_double.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -966,8 +986,12 @@ export default {
           sectorData;
       } else if (index == 4) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_imp_cont.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_imp_cont.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -977,8 +1001,12 @@ export default {
           sectorData;
       } else if (index == 5) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_dva_tradebalance.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_dva_tradebalance.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -988,8 +1016,12 @@ export default {
           sectorData;
       } else if (index == 6) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_gross_tradebalance.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_gross_tradebalance.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -999,8 +1031,12 @@ export default {
           sectorData;
       } else if (index == 7) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_gvc_participation.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_gvc_participation.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -1011,8 +1047,12 @@ export default {
         typeData = 2;
       } else if (index == 8) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_back_link_country.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_back_link_country.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -1023,8 +1063,12 @@ export default {
         typeData = 2;
       } else if (index == 10) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_forward_link_country.php?exp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_forward_link_country.php?exp_country=" +
+>>>>>>> Stashed changes
           exportData +
           "&year=" +
           yearData +
@@ -1033,8 +1077,12 @@ export default {
         typeData = 2;
       } else if (index == 11) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_forward_link_sector.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_forward_link_sector.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -1043,8 +1091,12 @@ export default {
         typeData = 2;
       } else if (index == 12) {
         url =
+<<<<<<< Updated upstream
           this.path_api +
           "/indicator_gross_exports.php?imp_country=" +
+=======
+          "https://riva.negotiatetrade.org/u_api/indicator_gross_exports.php?imp_country=" +
+>>>>>>> Stashed changes
           importData +
           "&exp_country=" +
           exportData +
@@ -1098,8 +1150,12 @@ export default {
       sourceData
     ) {
       let url =
+<<<<<<< Updated upstream
         this.path_api +
         "/indicator_back_link_sector.php?imp_country=" +
+=======
+        "https://riva.negotiatetrade.org/u_api/indicator_back_link_sector.php?imp_country=" +
+>>>>>>> Stashed changes
         importData +
         "&exp_country=" +
         exportData +
