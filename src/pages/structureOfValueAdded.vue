@@ -480,7 +480,7 @@ export default {
       this.setStackChart2();
       this.setStackChart3();
       let link =
-        "unescap.thaiawesomedev.com/structure-of-value-added" +
+        "https://riva.negotiatetrade.org/#/structure-of-value-added" +
         "/" +
         this.exportingSelected.iso +
         "/" +

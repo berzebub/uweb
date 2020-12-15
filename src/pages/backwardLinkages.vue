@@ -657,7 +657,7 @@ export default {
       this.errorGraph1 = false;
       this.errorGraph2 = false;
       let link =
-        "unescap.thaiawesomedev.com/backward-linkages" +
+        "riva.negotiatetrade.org/#/backward-linkages" +
         "/" +
         this.exportingSelected.iso +
         "/" +
@@ -2204,7 +2204,7 @@ export default {
 
     renderGraph2() {
       let link =
-        "unescap.thaiawesomedev.com/backward-linkages" +
+        "riva.negotiatetrade.org/#/backward-linkages" +
         "/" +
         this.exportingSelected.iso +
         "/" +

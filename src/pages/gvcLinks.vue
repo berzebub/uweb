@@ -1033,7 +1033,7 @@ export default {
       this.loadGVCGraphEconomy();
 
       let link =
-        "unescap.thaiawesomedev.com/gvc-links" +
+        "https://riva.negotiatetrade.org/#/gvc-links" +
         "/" +
         this.exp_country.iso +
         "/" +
