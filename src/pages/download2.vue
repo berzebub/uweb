@@ -274,11 +274,7 @@ export default {
     },
     async loadYearList() {
       this.yearList = [];
-<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
-=======
-      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
->>>>>>> Stashed changes
       let data = await Axios.get(url);
       data.data.forEach(x => {
         this.yearList.push(x);
@@ -384,7 +380,6 @@ export default {
 
       let url = "";
       if (this.indicator == "Imp_cons") {
-<<<<<<< Updated upstream
         url = this.path_api + "/indicator_imp_cons2.php";
       } else if (this.indicator == "Imp_exp") {
         url = this.path_api + "/indicator_imp_exp2.php";
@@ -418,53 +413,6 @@ export default {
         url = this.path_api + "/indicator_forward_link_sector2.php";
       } else if (this.indicator == "Gross_exports") {
         url = this.path_api + "/indicator_gross_exports2.php";
-=======
-        url = "https://riva.negotiatetrade.org/u_api/indicator_imp_cons2.php";
-      } else if (this.indicator == "Imp_exp") {
-        url = "https://riva.negotiatetrade.org/u_api/indicator_imp_exp2.php";
-      } else if (this.indicator == "Dom_cons") {
-        url = "https://riva.negotiatetrade.org/u_api/indicator_dom_cons2.php";
-      } else if (this.indicator == "Double") {
-        url = "https://riva.negotiatetrade.org/u_api/indicator_double2.php";
-      } else if (this.indicator == "Imp_cont") {
-        url = "https://riva.negotiatetrade.org/u_api/indicator_imp_cont2.php";
-      } else if (this.indicator == "DVA_tradebalance") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_dva_tradebalance2.php";
-      } else if (this.indicator == "DVA_tradebalance_$") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_dva_tradebalance_m.php";
-      } else if (this.indicator == "Gross_tradebalance") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_gross_tradebalance2.php";
-      } else if (this.indicator == "Gross_tradebalance_$") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_gross_tradebalance_m.php";
-      } else if (this.indicator == "GVC_participation") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_gvc_participation2.php";
-      } else if (this.indicator == "GVC_participation_$") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_gvc_participation_m.php";
-      } else if (this.indicator == "Back_link_country") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_back_link_country2.php";
-      } else if (this.indicator == "Back_link_sector") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_back_link_sector2.php";
-      } else if (this.indicator == "Forward_link_country") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_forward_link_country2.php";
-      } else if (this.indicator == "Forward_link_sector") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_forward_link_sector2.php";
-      } else if (this.indicator == "Forward_link_sector") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_forward_link_sector2.php";
-      } else if (this.indicator == "Gross_exports") {
-        url =
-          "https://riva.negotiatetrade.org/u_api/indicator_gross_exports2.php";
->>>>>>> Stashed changes
       }
       let data = await Axios.post(url, obj);
 

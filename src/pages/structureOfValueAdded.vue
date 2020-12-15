@@ -496,13 +496,9 @@ export default {
       this.isStructureChart = false;
       let _this = this;
 
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_structure_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
->>>>>>> Stashed changes
 
       if (cancelGraph1 !== undefined) {
         cancelGraph1();
@@ -729,15 +725,15 @@ export default {
 
               labelFormatter: function() {
                 return `
-             
+
              <table>
               <tr>
                 <td><div style="width:10px;height:10px;background-color:${this.color};display:inline-block"></div></td>
                 <td style='font-size:6px; vertical-align: top;'><span style="white-space:nowrap">${this.label}</span></td>
               </tr>
              </table>
-            
-           
+
+
                 `;
               }
             },

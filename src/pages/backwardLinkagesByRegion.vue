@@ -265,7 +265,6 @@ export default {
     async setData() {
       this.isChart = false;
 
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_back_country_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
@@ -275,13 +274,6 @@ export default {
       let urlLinkSub =
         this.path_api +
         `/cal_back_country_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_back_country_1.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
-
-      let getData = await Axios.get(urlLink);
-
-      let urlLinkSub = `https://riva.negotiatetrade.org/u_api/cal_back_country_1a.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
->>>>>>> Stashed changes
 
       let getDataSub = await Axios.get(urlLinkSub);
 
@@ -451,13 +443,9 @@ export default {
       this.chart2LatinAmerica = [];
       this.chart2RestOfTheWorld = [];
       this.chart2NorthAmerica = [];
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_back_country_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_back_country_2.php?exp_country=${this.exp_country}&imp_country=${this.imp_country}&year=${this.displayYear}&sector=${this.sector}`;
->>>>>>> Stashed changes
 
       let getData = await Axios.get(urlLink);
 

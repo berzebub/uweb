@@ -1340,13 +1340,9 @@ export default {
 
     async setData2() {
       this.isChart2 = false;
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
->>>>>>> Stashed changes
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1367,13 +1363,9 @@ export default {
         }
       });
 
-<<<<<<< Updated upstream
       let urlLinkSub =
         this.path_api +
         `/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
-=======
-      let urlLinkSub = `https://riva.negotiatetrade.org/u_api/cal_back_sector_1a.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
->>>>>>> Stashed changes
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();

@@ -356,13 +356,9 @@ export default {
     async setStackChart() {
       this.isChart = false;
 
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
->>>>>>> Stashed changes
 
       console.log(urlLink);
 
@@ -586,11 +582,7 @@ export default {
     },
 
     async getYear() {
-<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
-=======
-      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
->>>>>>> Stashed changes
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {
