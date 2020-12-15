@@ -1,7 +1,13 @@
 <template>
-  <q-page class="bg-white q-pb-md" style="width:209mm;">
+  <q-page class="bg-white q-pb-md" style="width:209mm;height:fit-content;">
     <div class="q-pa-md" id="printSection" align="right">
-      <q-btn no-caps text-color="white" style="background-color:#2C2F30;">
+      <q-btn
+        :disable="!isPrint"
+        no-caps
+        text-color="white"
+        @click="printBtn()"
+        style="background-color:#2C2F30;"
+      >
         <div>
           <q-icon class="q-mr-sm" name="fas fa-print" size="14px"></q-icon>
           <span>print</span>
@@ -29,7 +35,7 @@
     <div align="center" class="q-pa-md text-white bg-bar">
       <span style="font-size:26px;"
         >RIVA Global Value Chain Country Briefs:<br />
-        Thailand, {{ year }}</span
+        {{ country }}, {{ year }}</span
       >
     </div>
 
@@ -40,44 +46,48 @@
       style="width:900px;margin: 30px auto 10px auto;font-size:20px;border-radius:5px;"
       align="center"
     >
-      <span
-        >Structure of value-added in gross exports1-5 ^ (link to relevant page
-        on RIVA)</span
-      >
+      <div>
+        <span>Structure of value-added in gross exports</span
+        ><span
+          class="relative-position"
+          style="display:inline-block;top:-10px;font-size:12px;"
+          >1-5
+        </span>
+        <span style="font-size:15px;"></span>
+      </div>
     </div>
 
-    <div class="q-mt-sm row  justify-center">
-      <div class="col-4 q-pa-xs" align="center">
-        <div align="center" class="q-px-md " style="height:80px;">
+    <div class="q-mt-sm row  justify-center q-px-md">
+      <div class="col  q-px-sm" align="center">
+        <div align="center" class="q-px-sm" style="height:80px;">
           <span class="text-h6 text-bold"
-            >Structure of value-added in SEA <br />
-            exports to world</span
+            >Structure of value-added in {{ region }} exports to world</span
           >
         </div>
-        <div align="right" class="q-px-lg">
+        <div align="right" class="q-pr-lg">
           <i style="font-size:16px;">($US, % of gross exports)</i>
         </div>
         <div id="container1"></div>
       </div>
-      <div class="col-4 q-pa-xs" align="center">
-        <div align="center" class="q-px-md " style="height:80px;">
+      <div class="col  q-px-sm" align="center">
+        <div align="center" class="q-px-sm" style="height:80px;">
           <span class="text-h6 text-bold"
-            >Structure of value-added in Thailand’s <br />
+            >Structure of value-added in {{ country }} <br />
             exports to world
           </span>
         </div>
-        <div align="right" class="q-px-lg">
+        <div align="right" class="q-pr-lg">
           <i style="font-size:16px;">($US, % of gross exports)</i>
         </div>
         <div id="container2"></div>
       </div>
-      <div class="col-4 q-pa-xs" align="center">
-        <div align="center" class="q-px-md " style="height:80px;">
+      <div class="col  q-px-sm" align="center">
+        <div align="center" class="q-px-sm" style="height:80px;">
           <span class="text-h6 text-bold"
             >Structure of value-added in global exports
           </span>
         </div>
-        <div align="right" class="q-px-lg">
+        <div align="right" class="q-pr-lg">
           <i style="font-size:16px;">($US, % of gross exports)</i>
         </div>
         <div id="container3"></div>
@@ -92,14 +102,15 @@
       align="center"
     >
       <span
-        >Value-added and gross trade balance ^ (link to relevant page on
-        RIVA)</span
-      >
+        >Value-added and gross trade balance
+
+        <span style="font-size:15px"></span
+      ></span>
     </div>
 
     <div class="q-px-xl">
       <div class="row justify-center ">
-        <div class="col  q-pa-xs" :class="{ 'bg-red': year == '2007' }">
+        <div class="col q-pa-xs q-mb-md" :class="{ 'bg-red': year == '2007' }">
           <div class="q-pl-xl" v-if="year != '2007'">
             <div
               class="row q-mt-sm"
@@ -121,7 +132,7 @@
             </div>
           </div>
         </div>
-        <div class="col-5" style="width:500px;">
+        <div class="col-5 " style="width:500px;">
           <div align="center" class="q-pa-xs">
             <span class="text-h6 text-bold"
               >Gross and value-added trade balance with the world</span
@@ -143,9 +154,13 @@
       align="center"
     >
       <span
-        >Key global value chain relationships6-7 ^ (link to relevant page on
-        RIVA)</span
-      >
+        >Key global value chain relationships<span
+          class="relative-position"
+          style="display:inline-block;top:-10px;font-size:12px;"
+          >6-7
+        </span>
+        <span style="font-size:15px;"></span
+      ></span>
     </div>
 
     <div class="q-mt-sm">
@@ -164,7 +179,7 @@
             <div id="container5" style="border:1px solid grey"></div>
           </div>
         </div>
-        <div class="col-6 q-pa-sm">
+        <div class="col-6 q-pa-sm " style="width:580px;">
           <div align="center" class="q-px-md">
             <span style="font-size:18px;" class="text-bold">
               Top 10 exporting sectors in {{ country }} that rely on backward
@@ -174,7 +189,7 @@
           <div align="right" class="q-px-md" style="margin-top:-15px;">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
-          <div class="q-pr-md">
+          <div class="q-pr-xs">
             <div id="container6" style="border:1px solid grey"></div>
           </div>
         </div>
@@ -186,18 +201,19 @@
     <!-- Comparing Thailand to its sub-regional partners -->
     <div
       class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 20px auto;font-size:22px;border-radius:5px;"
+      style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
       <span>Comparing {{ country }} to its sub-regional partners</span>
     </div>
 
-    <div class="q-mt-md">
+    <div class="q-mt-lg">
       <div class="row">
         <div class="col  q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Participation in GVCs ^ (link to relevant page on RIVA)
+              Participation in GVCs
+              <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
@@ -233,7 +249,7 @@
               GVC related trade
             </span>
           </div>
-          <div align="right" class="q-px-md">
+          <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
@@ -244,13 +260,18 @@
     </div>
 
     <!-- Backward Linkages -->
-    <div class="q-mt-md">
+    <div class="q-mt-lg">
       <div class="row">
         <div class="col  q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages6 (by source region) ^ (link to relevant page on
-              RIVA)
+              Backward linkages<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >6</span
+              >
+              (by source region)
+              <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
@@ -281,7 +302,7 @@
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
             <span class="text-bold" style="font-size:18px;"
-              >SEA (% of gross exports):</span
+              >{{ region }} (% of gross exports):</span
             >
           </div>
           <div>
@@ -311,7 +332,7 @@
               Backward linkages, by source region
             </span>
           </div>
-          <div align="right" class="q-px-md">
+          <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
@@ -321,13 +342,22 @@
       </div>
     </div>
 
-    <div class="q-mt-md">
+    <div class="q-mt-lg">
       <div class="row">
         <div class="col  q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages6 (by exporting sector8) ^ (link to relevant page
-              on RIVA)
+              Backward linkages<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >6</span
+              >
+              (by exporting sector<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >8</span
+              >)
+              <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
@@ -358,7 +388,7 @@
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
             <span class="text-bold" style="font-size:18px;"
-              >SEA (% of gross exports):</span
+              >{{ region }} (% of gross exports):</span
             >
           </div>
           <div>
@@ -388,7 +418,7 @@
               Backward linkages, by exporting sector
             </span>
           </div>
-          <div align="right" class="q-px-md">
+          <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
@@ -401,13 +431,18 @@
     <div class="break"></div>
 
     <!-- Forward Linkages -->
-    <div class="q-mt-md">
+    <div class="q-mt-xl">
       <div class="row">
         <div class="col  q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages7 (by importing region) ^ (link to relevant page
-              on RIVA)
+              Forward linkages<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >7</span
+              >
+              (by importing region)
+              <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
@@ -438,7 +473,7 @@
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
             <span class="text-bold" style="font-size:18px;"
-              >SEA (% of gross exports):</span
+              >{{ region }} (% of gross exports):</span
             >
           </div>
           <div>
@@ -468,7 +503,7 @@
               Forward linkages, by importing region
             </span>
           </div>
-          <div align="right" class="q-px-md">
+          <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
@@ -478,13 +513,22 @@
       </div>
     </div>
 
-    <div class="q-mt-md">
+    <div class="q-mt-xl">
       <div class="row">
         <div class="col  q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages7 (by exporting sector8) ^ (link to relevant page
-              on RIVA)
+              Forward linkages<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >7</span
+              >
+              (by exporting sector<span
+                class="relative-position"
+                style="top:-10px;font-size:12px;"
+                >8</span
+              >)
+              <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
@@ -515,7 +559,7 @@
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
             <span class="text-bold" style="font-size:18px;"
-              >SEA (% of gross exports):</span
+              >{{ region }} (% of gross exports):</span
             >
           </div>
           <div>
@@ -545,7 +589,7 @@
               Forward linkages, by exporting sector
             </span>
           </div>
-          <div align="right" class="q-px-md">
+          <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
@@ -558,7 +602,7 @@
     <div class="break"></div>
 
     <!-- Notes: -->
-    <div class="q-pa-md " style="width:80%;margin: 20px auto">
+    <div class="q-pa-md" style="width:80%;margin: 150px auto 20px auto">
       <div>
         <div>
           <span class="text-bold text-h5">Notes:</span>
@@ -607,9 +651,6 @@
           <div class="q-mt-md">
             <span>GVC: global value chain</span>
           </div>
-          <div>
-            <span>SEA: South-East Asia</span>
-          </div>
           <div class="q-my-md">
             <span class="text-bold text-h5">Disclaimer:</span>
           </div>
@@ -646,6 +687,7 @@ export default {
     return {
       exp_country: "",
       country: "",
+      region: "",
       year: "",
       contentYellowList: [],
       countryOptions: [],
@@ -663,10 +705,15 @@ export default {
       forSourceRegionList2: [],
 
       forSourceSectorList: [],
-      forSourceSectorList2: []
+      forSourceSectorList2: [],
+
+      isPrint: false
     };
   },
   methods: {
+    printBtn() {
+      window.print();
+    },
     async renderChart(data) {
       this.chart1(JSON.parse(data.set1));
       this.chart2(JSON.parse(data.set2));
@@ -685,7 +732,6 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          width: 350,
           height: 400
         },
         title: {
@@ -695,9 +741,9 @@ export default {
           text: ""
         },
         legend: {
-          margin: 0,
-          padding: 10,
-          alignColumns: true
+          padding: 30,
+          alignColumns: false,
+          width: 350
         },
 
         plotOptions: {
@@ -712,14 +758,14 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 200
+            size: 230
           }
         },
 
         tooltip: {
-          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+          formatter: function() {
+            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+          }
         },
 
         series: [
@@ -772,7 +818,6 @@ export default {
       Highcharts.chart("container2", {
         chart: {
           type: "pie",
-          width: 350,
           height: 400
         },
         title: {
@@ -783,9 +828,9 @@ export default {
         },
 
         legend: {
-          margin: 0,
-          padding: 10,
-          alignColumns: true
+          padding: 30,
+          alignColumns: false,
+          width: 350
         },
 
         plotOptions: {
@@ -799,16 +844,15 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 200
+            size: 230
           }
         },
 
         tooltip: {
-          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+          formatter: function() {
+            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+          }
         },
-
         series: [
           {
             name: "Browsers",
@@ -860,7 +904,6 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          width: 350,
           height: 400
         },
         title: {
@@ -871,9 +914,9 @@ export default {
         },
 
         legend: {
-          margin: 0,
-          padding: 10,
-          alignColumns: true
+          padding: 30,
+          alignColumns: false,
+          width: 350
         },
 
         plotOptions: {
@@ -887,14 +930,13 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 200
+            size: 230
           }
         },
-
         tooltip: {
-          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+          formatter: function() {
+            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+          }
         },
 
         series: [
@@ -949,32 +991,32 @@ export default {
       let year = this.$q.sessionStorage.getItem("year");
 
       let contentYellowList = [
-        `Gross trade <span class='text-yellow'>${
+        `Gross trade <span class=''>${
           dataSet5.current > 0 ? "surplus" : "deficit"
-        }</span> with the world in <span class='text-yellow'>${year}</span>, which has <span class='text-yellow'>${
+        }</span> with the world in <span class=''>${year}</span>, which has <span class=''>${
           dataSet5.current > dataSet5[2007] ? "increased" : "decreased"
         }</span> since 2007.`,
 
-        `Value-added trade <span class='text-yellow'>${
+        `Value-added trade <span class=''>${
           dataSet4.current > 0 ? "surplus" : "deficit"
-        }</span> with the world on <span class='text-yellow'>${year}</span>, which has <span class='text-yellow'>${
+        }</span> with the world on <span class=''>${year}</span>, which has <span class=''>${
           dataSet4.current > dataSet4[2007] ? "increased" : "decreased"
         }</span> since 2007.`,
 
-        `Gross trade balance <span class='text-yellow'>${
+        `Gross trade balance <span class=''>${
           dataSet5.current > dataSet4.current ? "greater" : "lesser"
-        }</span> than value-added trade balance in ${year}, indicating <span class='text-yellow'>${
+        }</span> than value-added trade balance in ${year}, indicating <span class=''>${
           dataSet5.current > dataSet4.current ? "high" : "low"
         }</span> imported content embodied in exports`,
 
-        `Between 2007 and <span class='text-yellow'>${year}</span>. gross trade balance has improved <span class='text-yellow'>${
+        `Between 2007 and <span class=''>${year}</span>. gross trade balance has improved <span class=''>${
           dataSet5.current -
             dataSet5[2007] -
             (dataSet4.current - dataSet4[2007]) >
           0
             ? "more"
             : "less"
-        }</span> than value added trade balance, indicating <span class='text-yellow'>${
+        }</span> than value added trade balance, indicating <span class=''>${
           dataSet5.current -
             dataSet5[2007] -
             (dataSet4.current - dataSet4[2007]) >
@@ -1032,7 +1074,7 @@ export default {
 
         xAxis: {
           type: "category",
-          categories: ["Value add Trade Balance", "Gross trade Balance"]
+          categories: ["Value added Trade Balance", "Gross trade Balance"]
         },
         yAxis: {
           labels: {
@@ -1119,21 +1161,14 @@ export default {
         subtitle: {
           text: ""
         },
-        accessibility: {
-          point: {
-            valueDescriptionFormat: "{index}. Age {xDescription}, {value}%."
-          }
-        },
+
         xAxis: [
           {
             categories: setCategories,
             lineWidth: 0,
             borderWidth: 0,
             opposite: true,
-            reversed: false,
-            labels: {
-              step: 1
-            }
+            reversed: false
           }
         ],
         yAxis: {
@@ -1147,24 +1182,21 @@ export default {
             formatter: function() {
               return Math.abs(this.value);
             }
-          },
-          accessibility: {
-            description: "Percentage population",
-            rangeDescription: "Range: 0 to 5%"
           }
         },
 
         plotOptions: {
           bar: {
-            groupPadding: 0,
-            grouping: false,
-            centerInCategory: true,
+            stacking: "normal",
             dataLabels: {
               enabled: true,
+              color: "black",
               formatter() {
                 return `${this.point.country}, ${this.point.precent}%`;
               }
-            }
+            },
+            groupPadding: 0,
+            grouping: false
           }
         },
 
@@ -1173,10 +1205,8 @@ export default {
             return (
               "<b>" +
               this.series.name +
-              ", age " +
               this.point.category +
               "</b><br/>" +
-              "Population: " +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
@@ -1187,12 +1217,18 @@ export default {
           {
             name: "Backward linkages (%)",
             data: newSetBackward,
-            color: "#4472C4"
+            color: "#4472C4",
+            dataLabels: {
+              align: "right"
+            }
           },
           {
             name: "Forward linkages (%)",
             data: newSetForward,
-            color: "#ED7D31"
+            color: "#ED7D31",
+            dataLabels: {
+              align: "left"
+            }
           }
         ],
 
@@ -1240,7 +1276,6 @@ export default {
       Highcharts.chart("container6", {
         chart: {
           type: "bar",
-          width: null,
           height: 370
         },
         title: {
@@ -1249,21 +1284,14 @@ export default {
         subtitle: {
           text: ""
         },
-        accessibility: {
-          point: {
-            valueDescriptionFormat: "{index}. Age {xDescription}, {value}%."
-          }
-        },
+
         xAxis: [
           {
             categories: setCategories,
             lineWidth: 0,
             borderWidth: 0,
             opposite: true,
-            reversed: false,
-            labels: {
-              step: 1
-            }
+            reversed: false
           }
         ],
         yAxis: {
@@ -1273,22 +1301,28 @@ export default {
           title: {
             text: null
           },
-          accessibility: {
-            description: "Percentage population",
-            rangeDescription: "Range: 0 to 5%"
+          labels: {
+            formatter: function() {
+              return Math.abs(this.value);
+            }
           }
         },
 
         plotOptions: {
           bar: {
-            groupPadding: 0,
-            grouping: false,
+            stacking: "normal",
             dataLabels: {
               enabled: true,
+              color: "black",
               formatter() {
-                return `${this.point.sector}, ${this.point.precent}%`;
-              }
-            }
+                return `<span >${this.point.sector}, ${this.point.precent}%</span>`;
+              },
+              allowOverlap: true,
+              overflow: "allow",
+              crop: false
+            },
+            groupPadding: 0,
+            grouping: false
           }
         },
 
@@ -1297,10 +1331,8 @@ export default {
             return (
               "<b>" +
               this.series.name +
-              ", age " +
               this.point.category +
               "</b><br/>" +
-              "Population: " +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
@@ -1311,12 +1343,18 @@ export default {
           {
             name: "Backward linkages (%)",
             data: newSetBackward,
-            color: "#4472C4"
+            color: "#4472C4",
+            dataLabels: {
+              align: "right"
+            }
           },
           {
             name: "Forward linkages (%)",
             data: newSetForward,
-            color: "#ED7D31"
+            color: "#ED7D31",
+            dataLabels: {
+              align: "left"
+            }
           }
         ],
 
@@ -1330,8 +1368,8 @@ export default {
     },
     chart7(set8) {
       let countryList = [];
-      let areaList = [];
-      let regionList = [];
+      // let areaList = [];
+      // let regionList = [];
 
       let newSet8 = [];
       let currentCountry = {};
@@ -1351,111 +1389,46 @@ export default {
 
         newSet8.push(set8[coun]);
 
-        areaList.push(set8[coun].area);
-        regionList.push(set8[coun].region);
+        // areaList.push(set8[coun].area);
+        // regionList.push(set8[coun].region);
       }
 
       // ประเทศที่เลือกไว้และเอาไปทำประเทศแรกของกราฟ
       this.gvcShare = currentCountry;
 
-      // เก็บประเถทของ Region
-      regionList = [...new Set(regionList)];
+      let tempRegion = newSet8.filter(x => x.region == currentCountry.region);
 
-      // เก็บประเถทของ Area
-      areaList = [...new Set(areaList)];
-
-      let lowerRegionData = [];
-      let highRegionData = [];
-
-      regionList.forEach(x => {
-        let lowerList = [];
-        let highList = [];
-
-        let tempRegion = newSet8
-          .filter(xx => xx.region == x)
-          .map(xx => {
-            let newData = {
-              ratio: xx.ratio,
-              region: xx.region,
-              country: xx.country
-            };
-            return newData;
-          });
-
-        // หาค่าต่ำสุดของ Area
-        lowerList = tempRegion.filter(
-          xx => xx.ratio == Math.min(...tempRegion.map(xx => xx.ratio))
-        )[0];
-
-        // หาค่าสูงสุดของ Area
-        highList = tempRegion.filter(
-          xx => xx.ratio == Math.max(...tempRegion.map(xx => xx.ratio))
-        )[0];
-
-        // เก็บค่าต่ำสุดของแต่ละ Area
-        lowerRegionData.push(lowerList);
-
-        // เก็บค่าสูงสุดของแต่ละ Area
-        highRegionData.push(highList);
-      });
-
-      // หาค่าต่ำที่สุดของทุก Area
-      lowerRegionData = lowerRegionData.filter(
-        xx => xx.ratio == Math.min(...lowerRegionData.map(xx => xx.ratio))
+      // หาค่าต่ำสุดของ Region
+      let lowerRegionData = tempRegion.filter(
+        x => x.ratio == Math.min(...tempRegion.map(xx => xx.ratio))
       )[0];
 
-      // หาค่าสูงที่สุดของทุก Area
-      highRegionData = highRegionData.filter(
-        xx => xx.ratio == Math.max(...highRegionData.map(xx => xx.ratio))
+      // หาค่าสูงสุดของ Region
+      let highRegionData = tempRegion.filter(
+        x => x.ratio == Math.max(...tempRegion.map(xx => xx.ratio))
       )[0];
 
-      let lowerAreaData = [];
-      let highAreaData = [];
+      let tempArea = newSet8.filter(x => x.area == currentCountry.area);
 
-      // หา Area ของแต่ละประเทศ แล้วทำการแยก ของเป็นแต่ละ Area เพื่อหาค่าต่ำสุดและสูงสุด ของ Area นั้นๆ
-      areaList.forEach(x => {
-        let lowerList = [];
-        let highList = [];
-
-        let tempArea = newSet8
-          .filter(xx => xx.area == x)
-          .map(xx => {
-            let newData = {
-              ratio: xx.ratio,
-              area: xx.area,
-              country: xx.country
-            };
-            return newData;
-          });
-
-        // หาค่าต่ำสุดของ Area
-        lowerList = tempArea.filter(
-          xx => xx.ratio == Math.min(...tempArea.map(xx => xx.ratio))
-        )[0];
-
-        // หาค่าสูงสุดของ Area
-        highList = tempArea.filter(
-          xx => xx.ratio == Math.max(...tempArea.map(xx => xx.ratio))
-        )[0];
-
-        // เก็บค่าต่ำสุดของแต่ละ Area
-        lowerAreaData.push(lowerList);
-
-        // เก็บค่าสูงสุดของแต่ละ Area
-        highAreaData.push(highList);
-      });
-
-      // หาค่าต่ำที่สุดของทุก Area
-      lowerAreaData = lowerAreaData.filter(
-        xx => xx.ratio == Math.min(...lowerAreaData.map(xx => xx.ratio))
+      // หาค่าต่ำสุดของ Area
+      let lowerAreaData = tempArea.filter(
+        x => x.ratio == Math.min(...tempArea.map(xx => xx.ratio))
       )[0];
 
-      // หาค่าสูงที่สุดของทุก Area
-      highAreaData = highAreaData.filter(
-        xx => xx.ratio == Math.max(...highAreaData.map(xx => xx.ratio))
+      // หาค่าสูงสุดของ Area
+      let highAreaData = tempArea.filter(
+        x => x.ratio == Math.max(...tempArea.map(xx => xx.ratio))
       )[0];
 
       newSet8.sort((a, b) => Number(b.ratio) - Number(a.ratio));
+
+      let RankingOfTheWorld = [...newSet8];
+
+      RankingOfTheWorld = RankingOfTheWorld.filter(
+        x => x.region == currentCountry.region
+      )
+        .map(x => x.ratio)
+        .indexOf(currentCountry.ratio);
 
       newSet8.splice(
         newSet8.map(x => x.country).indexOf(currentCountry.country),
@@ -1465,9 +1438,22 @@ export default {
       newSet8.unshift(currentCountry);
 
       let gvcReliance = [
-        `${currentCountry.country} is ranked 3rd for GVC reliance in exports in SEA`,
+        `${
+          currentCountry.country
+        } is ranked ${RankingOfTheWorld}<span class="relative-position"
+          style="display:inline-block;top:-10px;font-size:12px;">${
+            RankingOfTheWorld == 1
+              ? "st"
+              : RankingOfTheWorld == 2
+              ? "nd"
+              : RankingOfTheWorld == 3
+              ? "rd"
+              : "th"
+          }</span> for GVC reliance in exports in ${currentCountry.region}`,
         `Lowest GVC reliance in exports :
-        <br> SEA: Viet Nam PDR (10.2%)
+        <br> ${lowerRegionData.region}: ${lowerRegionData.country} (${
+          lowerRegionData.ratio
+        }%)
         <br> ${lowerAreaData.area}: ${lowerAreaData.country} (${
           lowerAreaData.ratio
         }%)
@@ -1475,29 +1461,36 @@ export default {
           newSet8.length - 1
         ].ratio.toFixed(1)}%)`,
         `Highest GVC reliance in exports:
-        <br> ${newSet8[1].region}: ${
-          newSet8[1].country
-        } (${newSet8[1].ratio.toFixed(1)}%)
-        <br> Asia-Pacific: Malaysia (72%)
-        <br> World: Germanyx (74%)`
+        <br> ${highRegionData.region}: ${
+          highRegionData.country
+        } (${highRegionData.ratio.toFixed(1)}%)
+        <br> ${highRegionData.area}: ${highRegionData.country} (${
+          highRegionData.ratio
+        }%)
+        <br> World: ${newSet8[1].country} (${newSet8[1].ratio}%)`
       ];
 
       this.gvcRelianceList = gvcReliance;
-
-      countryList = newSet8.map(x => x.country);
 
       let usedInExportRatio = [];
       let importedContentRatio = [];
       let doubleCountedRatio = [];
 
-      usedInExportRatio = newSet8.map(x => x.usedInExportProduction.ratio);
-      importedContentRatio = newSet8.map(x => x.importedContent.ratio);
-      doubleCountedRatio = newSet8.map(x => x.doubleCounted.ratio);
+      let setNewData = [
+        ...newSet8.filter(x => x.region == currentCountry.region)
+      ];
+
+      countryList = setNewData.map(x => x.country);
+
+      usedInExportRatio = setNewData.map(x => x.usedInExportProduction.ratio);
+      importedContentRatio = setNewData.map(x => x.importedContent.ratio);
+      doubleCountedRatio = setNewData.map(x => x.doubleCounted.ratio);
 
       Highcharts.chart("container7", {
         chart: {
           type: "column",
-          height: 350
+          height: 450,
+          width: 650
         },
         title: {
           text: ""
@@ -1515,11 +1508,15 @@ export default {
           }
         },
         legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
+          enabled: true,
+          useHTML: true,
+          align: "center",
+          layout: "horizontal",
           alignColumns: false,
-          width: 100
+          width: 550,
+          labelFormatter() {
+            return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
+          }
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -1559,16 +1556,33 @@ export default {
       });
     },
     chart8(set9) {
-      console.clear();
-
       let countryList = [];
       let newSet9 = [];
       let currentCountry = {};
+
+      let sumAll = {};
+      let sumValue = 0;
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set9) {
         let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
           .label;
+
+        let sumRatio = 0;
+
+        sumValue += set9[coun].total;
+
+        for (const area in set9[coun]) {
+          if (area != "total" && area != "country") {
+            sumRatio += Number(set9[coun][area].ratio) || 0;
+
+            sumAll[area] = sumAll[area] || 0;
+
+            sumAll[area] += set9[coun][area].value;
+          }
+        }
+
+        set9[coun].newTotal = sumRatio;
 
         if (coun == this.exp_country) {
           currentCountry = set9[coun];
@@ -1579,7 +1593,7 @@ export default {
         newSet9.push(set9[coun]);
       }
 
-      newSet9.sort((a, b) => Number(b.total) - Number(a.total));
+      newSet9.sort((a, b) => Number(b.newTotal) - Number(a.newTotal));
 
       newSet9.splice(
         newSet9.map(x => x.country).indexOf(currentCountry.country),
@@ -1589,21 +1603,25 @@ export default {
       newSet9.unshift(currentCountry);
 
       let backSourceRegionList = [
-        `Asia-Pacific (a%)`,
-        `Europe (b%)`,
-        `North America (c%)`,
-        `Latin America (d%)`,
-        `Rest of the world (e%)`
+        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(2)}%)`,
+        `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
+        `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
+        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
+        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`
       ];
 
       this.backSourceRegionList = backSourceRegionList;
 
       let backSourceRegionList2 = [
-        `Asia-Pacific (p%)`,
-        `Europe (q%)`,
-        `North America (r%)`,
-        `Latin America (s%)`,
-        `Rest of the world (t%)`
+        `Asia-Pacific (${((sumAll.asiaPacific / sumValue) * 100).toFixed(2)}%)`,
+        `Europe (${((sumAll.europe / sumValue) * 100).toFixed(2)}%)`,
+        `North America (${((sumAll.northAmerica / sumValue) * 100).toFixed(
+          2
+        )}%)`,
+        `Latin America (${((sumAll.latinAmerica / sumValue) * 100).toFixed(
+          2
+        )}%)`,
+        `Rest of the world (${((sumAll.row / sumValue) * 100).toFixed(2)}%)`
       ];
 
       this.backSourceRegionList2 = backSourceRegionList2;
@@ -1625,7 +1643,8 @@ export default {
       Highcharts.chart("container8", {
         chart: {
           type: "column",
-          height: 350
+          height: 450,
+          width: 650
         },
         title: {
           text: ""
@@ -1643,11 +1662,15 @@ export default {
           }
         },
         legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
+          enabled: true,
+          useHTML: true,
+          align: "center",
+          layout: "horizontal",
           alignColumns: false,
-          width: 100
+          width: 630,
+          labelFormatter() {
+            return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
+          }
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -1697,37 +1720,6 @@ export default {
       });
     },
     chart9(set10) {
-      console.clear();
-
-      let countryList = [];
-      let newSet10 = [];
-      let currentCountry = {};
-
-      // แยกแต่ละประเทศแล้วจับยัดเป็น Array
-      for (const coun in set10) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
-          .label;
-
-        if (coun == this.exp_country) {
-          currentCountry = set10[coun];
-        }
-
-        set10[coun].country = countryName;
-
-        newSet10.push(set10[coun]);
-      }
-
-      newSet10.sort((a, b) => (a.country > b.country ? 1 : -1));
-
-      newSet10.splice(
-        newSet10.map(x => x.country).indexOf(currentCountry.country),
-        1
-      );
-
-      newSet10.unshift(currentCountry);
-
-      let sectorList = [];
-
       let colors = [
         "#4F958B",
         "#8E33AB",
@@ -1745,78 +1737,154 @@ export default {
         "#2E64BA"
       ];
 
-      let sectors = [
-        "Agriculture",
-        "Mining",
-        "Construction",
-        "Utilities",
-        "Manufacturing-Low tech",
-        "Manufacturing-High and medium tech",
-        "Services-Trade and repair",
-        "Services-Tourism",
-        "Services-Transport",
-        "Services-ICT",
-        "Services-Property",
-        "Services-Financail",
-        "Services-Public and welfare",
-        "Services-Private household"
-      ];
+      let countryList = [];
+      let newSet10 = [];
+      let currentCountry = {};
+
+      let sumValue = 0;
+
+      // แยกแต่ละประเทศแล้วจับยัดเป็น Array
+      for (const coun in set10) {
+        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+          .label;
+
+        let sumTotal = 0;
+        let sumTotalValue = 0;
+
+        if (coun == this.exp_country) {
+          currentCountry = set10[coun];
+        }
+
+        for (const sector in set10[coun]) {
+          if (sector != "country") {
+            sumTotal += Number(set10[coun][sector].ratio);
+
+            sumTotalValue += Number(set10[coun][sector].value);
+
+            sumValue += Number(set10[coun][sector].value);
+          }
+        }
+
+        set10[coun].total = sumTotal;
+
+        set10[coun].totalValue = sumTotalValue;
+
+        set10[coun].country = countryName;
+
+        newSet10.push(set10[coun]);
+      }
+
+      newSet10.sort((a, b) => Number(b.total) - Number(a.total));
+
+      newSet10.splice(
+        newSet10.map(x => x.country).indexOf(currentCountry.country),
+        1
+      );
+
+      newSet10.unshift(currentCountry);
+
+      let sectorList = [];
 
       newSet10.forEach(x => {
         let i = 0;
+
         for (const sector in x) {
-          if (sector != "country") {
+          if (
+            sector != "country" &&
+            sector != "total" &&
+            sector != "totalValue"
+          ) {
             let newData = {
-              name: sectors[i],
+              name: sector,
               data: [],
-              color: colors[i]
+              color: colors[i],
+              value2: 0
             };
 
             sectorList[i] = sectorList[i] || newData;
 
             sectorList[i].data.push(x[sector].ratio);
 
+            sectorList[i].value2 += x[sector].value;
+
             i++;
           }
         }
       });
 
+      let i = 0;
+
+      let currentGrossData = [];
+
+      for (const sector in currentCountry) {
+        if (
+          sector != "country" &&
+          sector != "total" &&
+          sector != "totalValue"
+        ) {
+          let newData = {
+            name: sector,
+            ratio: 0,
+            value: 0
+          };
+
+          currentGrossData[i] = currentGrossData[i] || newData;
+
+          currentGrossData[i].ratio = currentCountry[sector].ratio;
+
+          currentGrossData[i].value = currentCountry[sector].value;
+
+          i++;
+        }
+      }
+
+      currentGrossData.sort((a, b) => b.ratio - a.ratio);
+
+      let regionGrossData = [...sectorList];
+
+      regionGrossData = regionGrossData
+        .map(x => {
+          let newData = {
+            ratio: x.data.reduce((a, b) => a + b, 0),
+            name: x.name,
+            value: (x.value2 / sumValue) * 100
+          };
+
+          return newData;
+        })
+        .sort((a, b) => Number(b.value) - Number(a.value));
+
       let backSourceSectorList = [
-        `Manufacturing- high and medium tech (p%)`,
-        `Manufacturing- low tech (q%)`,
-        `Services- tourism (r%)`,
-        `Agriculture (s%)`
+        `${currentGrossData[0].name} (${currentGrossData[0].ratio.toFixed(
+          1
+        )}%)`,
+        `${currentGrossData[1].name} (${currentGrossData[1].ratio.toFixed(
+          1
+        )}%)`,
+        `${currentGrossData[2].name} (${currentGrossData[2].ratio.toFixed(
+          1
+        )}%)`,
+        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(1)}%)`
       ];
 
       this.backSourceSectorList = backSourceSectorList;
 
       let backSourceSectorList2 = [
-        `Manufacturing- high and medium tech (p%)`,
-        `Manufacturing- low tech (q%)`,
-        `Services- tourism (r%)`,
-        `Agriculture (s%)`
+        `${regionGrossData[0].name} (${regionGrossData[0].value.toFixed(2)}%)`,
+        `${regionGrossData[1].name} (${regionGrossData[1].value.toFixed(2)}%)`,
+        `${regionGrossData[2].name} (${regionGrossData[2].value.toFixed(2)}%)`,
+        `${regionGrossData[3].name} (${regionGrossData[3].value.toFixed(2)}%)`
       ];
 
       this.backSourceSectorList2 = backSourceSectorList2;
 
       countryList = newSet10.map(x => x.country);
 
-      let asiaPacifics = [];
-      let europes = [];
-      let northAmericas = [];
-      let latinAmericas = [];
-      let rows = [];
-
-      // asiaPacifics = newSet10.map(x => x.asiaPacific.ratio);
-      // europes = newSet10.map(x => x.europe.ratio);
-      // northAmericas = newSet10.map(x => x.northAmerica.ratio);
-      // latinAmericas = newSet10.map(x => x.latinAmerica.ratio);
-      // rows = newSet10.map(x => x.row.ratio);
-
       Highcharts.chart("container9", {
         chart: {
           type: "column",
-          height: 350
+          height: 450,
+          width: 650
         },
         title: {
           text: ""
@@ -1834,11 +1902,15 @@ export default {
           }
         },
         legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
+          enabled: true,
+          useHTML: true,
+          align: "center",
+          layout: "horizontal",
           alignColumns: false,
-          width: 100
+          width: 630,
+          labelFormatter() {
+            return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
+          }
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -1863,16 +1935,33 @@ export default {
       });
     },
     chart10(set11) {
-      console.clear();
-
       let countryList = [];
       let newSet11 = [];
       let currentCountry = {};
+
+      let sumAll = {};
+      let sumValue = 0;
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set11) {
         let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
           .label;
+
+        let sumRatio = 0;
+
+        sumValue += set11[coun].total;
+
+        for (const area in set11[coun]) {
+          if (area != "total" && area != "country") {
+            sumRatio += Number(set11[coun][area].ratio) || 0;
+
+            sumAll[area] = sumAll[area] || 0;
+
+            sumAll[area] += set11[coun][area].value;
+          }
+        }
+
+        set11[coun].newTotal = sumRatio;
 
         if (coun == this.exp_country) {
           currentCountry = set11[coun];
@@ -1883,7 +1972,7 @@ export default {
         newSet11.push(set11[coun]);
       }
 
-      newSet11.sort((a, b) => Number(b.total) - Number(a.total));
+      newSet11.sort((a, b) => Number(b.newTotal) - Number(a.newTotal));
 
       newSet11.splice(
         newSet11.map(x => x.country).indexOf(currentCountry.country),
@@ -1893,21 +1982,25 @@ export default {
       newSet11.unshift(currentCountry);
 
       let forSourceRegionList = [
-        `Asia-Pacific (a%)`,
-        `Europe (b%)`,
-        `North America (c%)`,
-        `Latin America (d%)`,
-        `Rest of the world (e%)`
+        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(2)}%)`,
+        `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
+        `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
+        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
+        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`
       ];
 
       this.forSourceRegionList = forSourceRegionList;
 
       let forSourceRegionList2 = [
-        `Asia-Pacific (p%)`,
-        `Europe (q%)`,
-        `North America (r%)`,
-        `Latin America (s%)`,
-        `Rest of the world (t%)`
+        `Asia-Pacific (${((sumAll.asiaPacific / sumValue) * 100).toFixed(2)}%)`,
+        `Europe (${((sumAll.europe / sumValue) * 100).toFixed(2)}%)`,
+        `North America (${((sumAll.northAmerica / sumValue) * 100).toFixed(
+          2
+        )}%)`,
+        `Latin America (${((sumAll.latinAmerica / sumValue) * 100).toFixed(
+          2
+        )}%)`,
+        `Rest of the world (${((sumAll.row / sumValue) * 100).toFixed(2)}%)`
       ];
 
       this.forSourceRegionList2 = forSourceRegionList2;
@@ -1929,7 +2022,8 @@ export default {
       Highcharts.chart("container10", {
         chart: {
           type: "column",
-          height: 350
+          height: 450,
+          width: 650
         },
         title: {
           text: ""
@@ -1947,11 +2041,15 @@ export default {
           }
         },
         legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
+          enabled: true,
+          useHTML: true,
+          align: "center",
+          layout: "horizontal",
           alignColumns: false,
-          width: 100
+          width: 630,
+          labelFormatter() {
+            return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
+          }
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -2001,37 +2099,6 @@ export default {
       });
     },
     chart11(set12) {
-      console.clear();
-
-      let countryList = [];
-      let newSet12 = [];
-      let currentCountry = {};
-
-      // แยกแต่ละประเทศแล้วจับยัดเป็น Array
-      for (const coun in set12) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
-          .label;
-
-        if (coun == this.exp_country) {
-          currentCountry = set12[coun];
-        }
-
-        set12[coun].country = countryName;
-
-        newSet12.push(set12[coun]);
-      }
-
-      newSet12.sort((a, b) => (a.country > b.country ? 1 : -1));
-
-      newSet12.splice(
-        newSet12.map(x => x.country).indexOf(currentCountry.country),
-        1
-      );
-
-      newSet12.unshift(currentCountry);
-
-      let sectorList = [];
-
       let colors = [
         "#4F958B",
         "#8E33AB",
@@ -2049,78 +2116,154 @@ export default {
         "#2E64BA"
       ];
 
-      let sectors = [
-        "Agriculture",
-        "Mining",
-        "Construction",
-        "Utilities",
-        "Manufacturing-Low tech",
-        "Manufacturing-High and medium tech",
-        "Services-Trade and repair",
-        "Services-Tourism",
-        "Services-Transport",
-        "Services-ICT",
-        "Services-Property",
-        "Services-Financail",
-        "Services-Public and welfare",
-        "Services-Private household"
-      ];
+      let countryList = [];
+      let newSet12 = [];
+      let currentCountry = {};
+
+      let sumValue = 0;
+
+      // แยกแต่ละประเทศแล้วจับยัดเป็น Array
+      for (const coun in set12) {
+        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+          .label;
+
+        let sumTotal = 0;
+        let sumTotalValue = 0;
+
+        if (coun == this.exp_country) {
+          currentCountry = set12[coun];
+        }
+
+        for (const sector in set12[coun]) {
+          if (sector != "country") {
+            sumTotal += Number(set12[coun][sector].ratio);
+
+            sumTotalValue += Number(set12[coun][sector].value);
+
+            sumValue += Number(set12[coun][sector].value);
+          }
+        }
+
+        set12[coun].total = sumTotal;
+
+        set12[coun].totalValue = sumTotalValue;
+
+        set12[coun].country = countryName;
+
+        newSet12.push(set12[coun]);
+      }
+
+      newSet12.sort((a, b) => Number(b.total) - Number(a.total));
+
+      newSet12.splice(
+        newSet12.map(x => x.country).indexOf(currentCountry.country),
+        1
+      );
+
+      newSet12.unshift(currentCountry);
+
+      let sectorList = [];
 
       newSet12.forEach(x => {
         let i = 0;
+
         for (const sector in x) {
-          if (sector != "country") {
+          if (
+            sector != "country" &&
+            sector != "total" &&
+            sector != "totalValue"
+          ) {
             let newData = {
-              name: sectors[i],
+              name: sector,
               data: [],
-              color: colors[i]
+              color: colors[i],
+              value2: 0
             };
 
             sectorList[i] = sectorList[i] || newData;
 
             sectorList[i].data.push(x[sector].ratio);
 
+            sectorList[i].value2 += x[sector].value;
+
             i++;
           }
         }
       });
 
+      let i = 0;
+
+      let currentGrossData = [];
+
+      for (const sector in currentCountry) {
+        if (
+          sector != "country" &&
+          sector != "total" &&
+          sector != "totalValue"
+        ) {
+          let newData = {
+            name: sector,
+            ratio: 0,
+            value: 0
+          };
+
+          currentGrossData[i] = currentGrossData[i] || newData;
+
+          currentGrossData[i].ratio = currentCountry[sector].ratio;
+
+          currentGrossData[i].value = currentCountry[sector].value;
+
+          i++;
+        }
+      }
+
+      currentGrossData.sort((a, b) => b.ratio - a.ratio);
+
+      let regionGrossData = [...sectorList];
+
+      regionGrossData = regionGrossData
+        .map(x => {
+          let newData = {
+            ratio: x.data.reduce((a, b) => a + b, 0),
+            name: x.name,
+            value: (x.value2 / sumValue) * 100
+          };
+
+          return newData;
+        })
+        .sort((a, b) => Number(b.value) - Number(a.value));
+
       let forSourceSectorList = [
-        `Manufacturing- high and medium tech (p%)`,
-        `Manufacturing- low tech (q%)`,
-        `Services- tourism (r%)`,
-        `Agriculture (s%)`
+        `${currentGrossData[0].name} (${currentGrossData[0].ratio.toFixed(
+          2
+        )}%)`,
+        `${currentGrossData[1].name} (${currentGrossData[1].ratio.toFixed(
+          2
+        )}%)`,
+        `${currentGrossData[2].name} (${currentGrossData[2].ratio.toFixed(
+          2
+        )}%)`,
+        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(2)}%)`
       ];
 
       this.forSourceSectorList = forSourceSectorList;
 
       let forSourceSectorList2 = [
-        `Manufacturing- high and medium tech (p%)`,
-        `Manufacturing- low tech (q%)`,
-        `Services- tourism (r%)`,
-        `Agriculture (s%)`
+        `${regionGrossData[0].name} (${regionGrossData[0].value.toFixed(2)}%)`,
+        `${regionGrossData[1].name} (${regionGrossData[1].value.toFixed(2)}%)`,
+        `${regionGrossData[2].name} (${regionGrossData[2].value.toFixed(2)}%)`,
+        `${regionGrossData[3].name} (${regionGrossData[3].value.toFixed(2)}%)`
       ];
 
       this.forSourceSectorList2 = forSourceSectorList2;
 
       countryList = newSet12.map(x => x.country);
 
-      let asiaPacifics = [];
-      let europes = [];
-      let northAmericas = [];
-      let latinAmericas = [];
-      let rows = [];
-
-      // asiaPacifics = newSet12.map(x => x.asiaPacific.ratio);
-      // europes = newSet12.map(x => x.europe.ratio);
-      // northAmericas = newSet12.map(x => x.northAmerica.ratio);
-      // latinAmericas = newSet12.map(x => x.latinAmerica.ratio);
-      // rows = newSet12.map(x => x.row.ratio);
-
       Highcharts.chart("container11", {
         chart: {
           type: "column",
-          height: 350
+          height: 450,
+          width: 650
         },
         title: {
           text: ""
@@ -2138,11 +2281,15 @@ export default {
           }
         },
         legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
+          enabled: true,
+          useHTML: true,
+          align: "center",
+          layout: "horizontal",
           alignColumns: false,
-          width: 100
+          width: 630,
+          labelFormatter() {
+            return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
+          }
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
@@ -2170,9 +2317,12 @@ export default {
       this.exp_country = this.$q.sessionStorage.getItem("expe");
       this.year = this.$q.sessionStorage.getItem("year");
 
-      this.country = this.countryOptions.filter(
+      let countryData = this.countryOptions.filter(
         x => x.iso == this.exp_country
-      )[0].label;
+      )[0];
+
+      this.country = countryData.label;
+      this.region = countryData.region;
 
       if (this.exp_country && this.year) {
         this.loadingShow();
@@ -2187,6 +2337,10 @@ export default {
           this.loadingHide();
 
           this.renderChart(getData.data[0]);
+
+          setTimeout(() => {
+            this.isPrint = true;
+          }, 1500);
         }
       }
     }
@@ -2207,7 +2361,19 @@ export default {
   break-after: page;
 }
 
+.set-p-right {
+  padding-right: 0px;
+}
+
 @media print {
+  body {
+    background-color: #fff;
+  }
+
+  .set-p-right {
+    padding-right: 20px;
+  }
+
   #printSection {
     display: none;
   }
