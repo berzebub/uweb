@@ -48,8 +48,8 @@ import sectorJson from "../../public/sector.json";
 Vue.mixin({
   data() {
     return {
-      // https://riva.negotiatetrade.org/u_api
-      path_api: "https://api.winner-english.com/u_api",
+      path_api: "https://riva.negotiatetrade.org/u_api",
+      // path_api: "https://api.winner-english.com/u_api",
       exportAvailable: [
         "AUS",
         "BTN",
