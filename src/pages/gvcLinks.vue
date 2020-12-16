@@ -1033,7 +1033,7 @@ export default {
       this.loadGVCGraphEconomy();
 
       let link =
-        "unescap.thaiawesomedev.com/gvc-links" +
+        "https://riva.negotiatetrade.org/#/gvc-links" +
         "/" +
         this.exp_country.iso +
         "/" +
@@ -1054,9 +1054,13 @@ export default {
     async loadGVCGraph() {
       this.isGraphGVC = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_title.php?country=${this.exp_country.iso}&year=${this.year}`;
+>>>>>>> Stashed changes
 
       let formatData = {
         total_percent: 0,
@@ -1085,9 +1089,13 @@ export default {
     async loadGVCGraphSector() {
       this.isGraphGVCSector = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+>>>>>>> Stashed changes
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -1110,9 +1118,13 @@ export default {
     async loadGVCGraphEconomy() {
       this.isGraphGVCEconomy = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+>>>>>>> Stashed changes
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1141,7 +1153,11 @@ export default {
     },
 
     async highchartBackwardSector(val) {
+<<<<<<< Updated upstream
       let urlLink = this.path_api + `/cal_gvc_graph1a.php`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph1a.php`;
+>>>>>>> Stashed changes
 
       if (cancelGraph4 !== undefined) {
         cancelGraph4();
@@ -1258,7 +1274,11 @@ export default {
     },
 
     async highchartForwardSector(val) {
+<<<<<<< Updated upstream
       let urlLink = this.path_api + `/cal_gvc_graph1b.php`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph1b.php`;
+>>>>>>> Stashed changes
 
       if (cancelGraph5 !== undefined) {
         cancelGraph5();
@@ -1374,7 +1394,11 @@ export default {
     },
 
     async highchartBackwardEconomy(val) {
+<<<<<<< Updated upstream
       let urlLink = this.path_api + `/cal_gvc_graph2a.php`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph2a.php`;
+>>>>>>> Stashed changes
 
       if (cancelGraph6 !== undefined) {
         cancelGraph6();
@@ -1487,7 +1511,11 @@ export default {
 
     async highchartForwardEconomy(val) {
       console.log(val);
+<<<<<<< Updated upstream
       let urlLink = this.path_api + `/cal_gvc_graph2b.php`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_gvc_graph2b.php`;
+>>>>>>> Stashed changes
 
       if (cancelGraph7 !== undefined) {
         cancelGraph7();
@@ -1593,7 +1621,11 @@ export default {
     },
 
     async getYear() {
+<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
+=======
+      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
+>>>>>>> Stashed changes
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

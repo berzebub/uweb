@@ -342,7 +342,7 @@ export default {
     renderGraph() {
       this.setStackChart();
       let link =
-        "unescap.thaiawesomedev.com/participation-in-gvcs/" +
+        "https://riva.negotiatetrade.org/#/participation-in-gvcs/" +
         this.exp_country.iso +
         "/" +
         this.year +

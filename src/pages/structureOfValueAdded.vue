@@ -480,7 +480,7 @@ export default {
       this.setStackChart2();
       this.setStackChart3();
       let link =
-        "unescap.thaiawesomedev.com/structure-of-value-added" +
+        "https://riva.negotiatetrade.org/#/structure-of-value-added" +
         "/" +
         this.exportingSelected.iso +
         "/" +
@@ -725,15 +725,15 @@ export default {
 
               labelFormatter: function() {
                 return `
-             
+
              <table>
               <tr>
                 <td><div style="width:10px;height:10px;background-color:${this.color};display:inline-block"></div></td>
                 <td style='font-size:6px; vertical-align: top;'><span style="white-space:nowrap">${this.label}</span></td>
               </tr>
              </table>
-            
-           
+
+
                 `;
               }
             },
@@ -758,9 +758,13 @@ export default {
     async setStackChart2() {
       this.isComparisonChart = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+>>>>>>> Stashed changes
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -956,9 +960,13 @@ export default {
     async setStackChart3() {
       this.isMeasuringChart = false;
 
+<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+=======
+      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
+>>>>>>> Stashed changes
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1095,7 +1103,11 @@ export default {
     },
 
     async getYear() {
+<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
+=======
+      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
+>>>>>>> Stashed changes
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {
