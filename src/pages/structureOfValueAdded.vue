@@ -758,13 +758,9 @@ export default {
     async setStackChart2() {
       this.isComparisonChart = false;
 
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_structure_2.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
->>>>>>> Stashed changes
 
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
@@ -960,13 +956,9 @@ export default {
     async setStackChart3() {
       this.isMeasuringChart = false;
 
-<<<<<<< Updated upstream
       let urlLink =
         this.path_api +
         `/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
-=======
-      let urlLink = `https://riva.negotiatetrade.org/u_api/cal_structure_3.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&sector=${this.sectorSelected}`;
->>>>>>> Stashed changes
 
       if (cancelGraph3 !== undefined) {
         cancelGraph3();
@@ -1103,11 +1095,7 @@ export default {
     },
 
     async getYear() {
-<<<<<<< Updated upstream
       let url = this.path_api + "/get_year_active.php";
-=======
-      let url = "https://riva.negotiatetrade.org/u_api/get_year_active.php";
->>>>>>> Stashed changes
       let data = await Axios.get(url);
       let temp = [];
       data.data.forEach(element => {

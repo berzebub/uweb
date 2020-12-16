@@ -51,11 +51,14 @@
         <div
           v-for="(card, index) in cardList2"
           :key="index"
-          class="col cursor-pointer q-pa-md"
+          class="col q-pa-md"
           align="center"
           @mouseenter="hoverOnCard2(index)"
           @mouseleave="deactiveHoverCard()"
-          @click="cardClick(card.router)"
+          @click="index == 0 ? cardClick(card.router) : null"
+          :class="
+            index == 1 ? 'cursor-not-allowed disabled' : 'cursor-pointer '
+          "
         >
           <div
             class="menu-card card-color shadow-5"
