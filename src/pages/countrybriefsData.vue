@@ -110,8 +110,8 @@
 
     <div class="q-px-xl">
       <div class="row justify-center ">
-        <div class="col q-pa-xs q-mb-md" :class="{ 'bg-red': year == '2007' }">
-          <div class="q-pl-xl" v-if="year != '2007'">
+        <div class="col q-pa-xs q-mb-md" v-if="year != '2007'">
+          <div class="q-pl-xl">
             <div
               class="row q-mt-sm"
               style="font-size:18px;"

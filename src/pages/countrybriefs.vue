@@ -157,16 +157,106 @@ export default {
       this.yearOptions = temp;
     },
     async genarateData() {
-      let url =
-        this.path_api +
-        `/country_brief.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+      // let urlLink =
+      //   this.path_api +
+      //   `/country_brief_set1.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
 
-      this.loadingShow();
+      // this.loadingShow();
 
-      let getData = await Axios.get(url);
+      // let getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set2.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set3.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set4.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set5.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set6.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set7.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set8.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set9.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set10.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set11.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
+
+      // urlLink =
+      //   this.path_api +
+      //   `/country_brief_set12.php?exp_country=${this.exp_country.iso}&year=${this.year}`;
+
+      // getData = await Axios.get(urlLink);
+
+      // console.log(`%c${getData.data}`, "color:green");
 
       setTimeout(() => {
-        this.loadingHide();
+        // this.loadingHide();
 
         this.$router.push("/countrybriefs/data");
       }, 1000);
