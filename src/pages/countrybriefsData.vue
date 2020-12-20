@@ -13,12 +13,7 @@
           <span>print</span>
         </div>
       </q-btn>
-      <q-btn
-        class="q-mx-md"
-        no-caps
-        text-color="white"
-        style="background-color:#2C2F30;"
-      >
+      <q-btn class="q-mx-md" no-caps text-color="white" style="background-color:#2C2F30;">
         <div>
           <q-icon class="q-mr-sm" name="fas fa-upload" size="14px"></q-icon>
           <span>PDF</span>
@@ -33,47 +28,42 @@
     </div>
 
     <div align="center" class="q-pa-md text-white bg-bar">
-      <span style="font-size:26px;"
-        >RIVA Global Value Chain Country Briefs:<br />
-        {{ country }}, {{ year }}</span
-      >
+      <span style="font-size:26px;">
+        RIVA Global Value Chain Country Briefs:
+        <br />
+        {{ country }}, {{ year }}
+      </span>
     </div>
 
     <!-- Structure of value-added in gross exports1-5 ^ (link to relevant page
-        on RIVA) -->
+    on RIVA)-->
     <div
       class="q-py-sm text-bold bg-bar"
       style="width:900px;margin: 30px auto 10px auto;font-size:20px;border-radius:5px;"
       align="center"
     >
       <div>
-        <span>Structure of value-added in gross exports</span
-        ><span
-          class="relative-position"
-          style="display:inline-block;top:-10px;font-size:12px;"
-          >1-5
-        </span>
+        <span>Structure of value-added in gross exports</span>
+        <span class="relative-position" style="display:inline-block;top:-10px;font-size:12px;">1-5</span>
         <span style="font-size:15px;"></span>
       </div>
     </div>
 
-    <div class="q-mt-sm row  justify-center q-px-md">
-      <div class="col  q-px-sm" align="center">
+    <div class="q-mt-sm row justify-center q-px-md">
+      <div class="col q-px-sm" align="center">
         <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold"
-            >Structure of value-added in {{ region }} exports to world</span
-          >
+          <span class="text-h6 text-bold">Structure of value-added in {{ region }} exports to world</span>
         </div>
         <div align="right" class="q-pr-lg">
           <i style="font-size:16px;">($US, % of gross exports)</i>
         </div>
         <div id="container1"></div>
       </div>
-      <div class="col  q-px-sm" align="center">
+      <div class="col q-px-sm" align="center">
         <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold"
-            >Structure of value-added in {{ country }} <br />
-            exports to world
+          <span class="text-h6 text-bold">
+            Structure of value-added in {{ country }}
+            <br />exports to world
           </span>
         </div>
         <div align="right" class="q-pr-lg">
@@ -81,11 +71,9 @@
         </div>
         <div id="container2"></div>
       </div>
-      <div class="col  q-px-sm" align="center">
+      <div class="col q-px-sm" align="center">
         <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold"
-            >Structure of value-added in global exports
-          </span>
+          <span class="text-h6 text-bold">Structure of value-added in global exports</span>
         </div>
         <div align="right" class="q-pr-lg">
           <i style="font-size:16px;">($US, % of gross exports)</i>
@@ -95,21 +83,20 @@
     </div>
 
     <!-- Value-added and gross trade balance ^ (link to relevant page on
-        RIVA) -->
+    RIVA)-->
     <div
       class="q-py-sm text-bold bg-bar"
       style="width:1000px;margin: 0px auto 20px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
-      <span
-        >Value-added and gross trade balance
-
-        <span style="font-size:15px"></span
-      ></span>
+      <span>
+        Value-added and gross trade balance
+        <span style="font-size:15px"></span>
+      </span>
     </div>
 
     <div class="q-px-xl">
-      <div class="row justify-center ">
+      <div class="row justify-center">
         <div class="col q-pa-xs q-mb-md" v-if="year != '2007'">
           <div class="q-pl-xl">
             <div
@@ -118,13 +105,8 @@
               v-for="(item, index) in contentYellowList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -132,39 +114,34 @@
             </div>
           </div>
         </div>
-        <div class="col-5 " style="width:500px;">
+        <div class="col-5" style="width:500px;">
           <div align="center" class="q-pa-xs">
-            <span class="text-h6 text-bold"
-              >Gross and value-added trade balance with the world</span
-            >
+            <span class="text-h6 text-bold">Gross and value-added trade balance with the world</span>
           </div>
           <div align="right" class="q-px-md">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
-          <div id="container4"></div>
+          <div class id="container4"></div>
         </div>
       </div>
     </div>
 
     <!-- Key global value chain relationships6-7 ^ (link to relevant page on
-        RIVA) -->
+    RIVA)-->
     <div
       class="q-py-sm text-bold bg-bar"
       style="width:1000px;margin: 0px auto 10px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
-      <span
-        >Key global value chain relationships<span
-          class="relative-position"
-          style="display:inline-block;top:-10px;font-size:12px;"
-          >6-7
-        </span>
-        <span style="font-size:15px;"></span
-      ></span>
+      <span>
+        Key global value chain relationships
+        <span class="relative-position" style="display:inline-block;top:-10px;font-size:12px;">6-7</span>
+        <span style="font-size:15px;"></span>
+      </span>
     </div>
 
     <div class="q-mt-sm">
-      <div class="row ">
+      <div class="row">
         <div class="col-6 q-pa-sm">
           <div align="center" class="q-px-md">
             <span style="font-size:18px;" class="text-bold">
@@ -179,7 +156,7 @@
             <div id="container5" style="border:1px solid grey"></div>
           </div>
         </div>
-        <div class="col-6 q-pa-sm " style="width:580px;">
+        <div class="col-6 q-pa-sm" style="width:580px;">
           <div align="center" class="q-px-md">
             <span style="font-size:18px;" class="text-bold">
               Top 10 exporting sectors in {{ country }} that rely on backward
@@ -209,7 +186,7 @@
 
     <div class="q-mt-lg">
       <div class="row">
-        <div class="col  q-pl-xl">
+        <div class="col q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
               Participation in GVCs
@@ -217,10 +194,10 @@
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >GVC related trade share for {{ gvcShare.country }}:
-              {{ gvcShare.ratio.toFixed(0) }}% of gross exports</span
-            >
+            <span class="text-bold" style="font-size:18px;">
+              GVC related trade share for {{ gvcShare.country }}:
+              {{ gvcShare.ratio.toFixed(0) }}% of gross exports
+            </span>
           </div>
           <div>
             <div
@@ -229,13 +206,8 @@
               v-for="(item, index) in gvcRelianceList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -245,9 +217,7 @@
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">
-              GVC related trade
-            </span>
+            <span style="font-size:18px;" class="text-bold">GVC related trade</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
@@ -262,22 +232,17 @@
     <!-- Backward Linkages -->
     <div class="q-mt-lg">
       <div class="row">
-        <div class="col  q-pl-xl">
+        <div class="col q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >6</span
-              >
+              Backward linkages
+              <span class="relative-position" style="top:-10px;font-size:12px;">6</span>
               (by source region)
               <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ country }}(% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
           </div>
           <div>
             <div
@@ -286,13 +251,8 @@
               v-for="(item, index) in backSourceRegionList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -301,24 +261,17 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ region }} (% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
           </div>
-          <div>
+          <div class>
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in backSourceRegionList2"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -328,15 +281,13 @@
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">
-              Backward linkages, by source region
-            </span>
+            <span style="font-size:18px;" class="text-bold">Backward linkages, by source region</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
           </div>
           <div class="q-pl-md">
-            <div id="container8"></div>
+            <div id="container8" class></div>
           </div>
         </div>
       </div>
@@ -344,41 +295,28 @@
 
     <div class="q-mt-lg">
       <div class="row">
-        <div class="col  q-pl-xl">
+        <div class="col q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >6</span
-              >
-              (by exporting sector<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >8</span
-              >)
+              Backward linkages
+              <span class="relative-position" style="top:-10px;font-size:12px;">6</span>
+              (by exporting sector
+              <span class="relative-position" style="top:-10px;font-size:12px;">8</span>)
               <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ country }}(% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
           </div>
-          <div>
+          <div class>
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in backSourceSectorList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -387,36 +325,28 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ region }} (% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
           </div>
-          <div>
+          <!-- SET10A -->
+          <div class="">
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in backSourceSectorList2"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
-                <span v-html="item"></span>
+                <span v-html="`${item.name} (${item.value}%)`"></span>
               </div>
             </div>
           </div>
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">
-              Backward linkages, by exporting sector
-            </span>
+            <span style="font-size:18px;" class="text-bold">Backward linkages, by exporting sector</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
@@ -433,22 +363,17 @@
     <!-- Forward Linkages -->
     <div class="q-mt-xl">
       <div class="row">
-        <div class="col  q-pl-xl">
+        <div class="col q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >7</span
-              >
+              Forward linkages
+              <span class="relative-position" style="top:-10px;font-size:12px;">7</span>
               (by importing region)
               <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ country }}(% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
           </div>
           <div>
             <div
@@ -457,13 +382,8 @@
               v-for="(item, index) in forSourceRegionList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -472,24 +392,18 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ region }} (% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
           </div>
-          <div>
+          <!-- 11A -->
+          <div class=''>
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in forSourceRegionList2"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -499,9 +413,7 @@
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">
-              Forward linkages, by importing region
-            </span>
+            <span style="font-size:18px;" class="text-bold">Forward linkages, by importing region</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
@@ -515,41 +427,28 @@
 
     <div class="q-mt-xl">
       <div class="row">
-        <div class="col  q-pl-xl">
+        <div class="col q-pl-xl">
           <div align="left">
             <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >7</span
-              >
-              (by exporting sector<span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-                >8</span
-              >)
+              Forward linkages
+              <span class="relative-position" style="top:-10px;font-size:12px;">7</span>
+              (by exporting sector
+              <span class="relative-position" style="top:-10px;font-size:12px;">8</span>)
               <span style="font-size:15px;"></span>
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ country }}(% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
           </div>
-          <div>
+          <div >
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in forSourceSectorList"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
                 <span v-html="item"></span>
@@ -558,36 +457,28 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;"
-              >{{ region }} (% of gross exports):</span
-            >
+            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
           </div>
-          <div>
+          <!-- 12A -->
+          <div class=''>
             <div
               class="row q-mt-xs"
               style="font-size:18px;"
               v-for="(item, index) in forSourceSectorList2"
               :key="index"
             >
-              <div
-                class="col-1 relative-position self-start "
-                style="width:30px;padding-top:7px;"
-              >
-                <div
-                  style="border:1px solid black;border-radius:50%;width:10px;height:10px;"
-                ></div>
+              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
+                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
               </div>
               <div class="col self-start">
-                <span v-html="item"></span>
+                <span v-html="`${item.name} (${item.value}%)`"></span>
               </div>
             </div>
           </div>
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">
-              Forward linkages, by exporting sector
-            </span>
+            <span style="font-size:18px;" class="text-bold">Forward linkages, by exporting sector</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:16px;">(% of gross exports)</i>
@@ -634,15 +525,9 @@
                 Imported content: Share of foreign value added in gross exports.
                 Higher shares are indicative of deeper GVC integration.
               </li>
-              <li style="list-style:decimal">
-                Backward linkages: same as ‘Imported content’.
-              </li>
-              <li style="list-style:decimal">
-                Forward linkages: same as ‘Used in export production’.
-              </li>
-              <li style="list-style:decimal">
-                Sectors are grouped based on ADB ERDI classification.
-              </li>
+              <li style="list-style:decimal">Backward linkages: same as ‘Imported content’.</li>
+              <li style="list-style:decimal">Forward linkages: same as ‘Used in export production’.</li>
+              <li style="list-style:decimal">Sectors are grouped based on ADB ERDI classification.</li>
             </ul>
           </div>
           <div>
@@ -707,7 +592,8 @@ export default {
       forSourceSectorList: [],
       forSourceSectorList2: [],
 
-      isPrint: false
+      isPrint: false,
+      responseSetData: [],
     };
   },
   methods: {
@@ -732,18 +618,18 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 400
+          height: 400,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
         legend: {
           padding: 30,
           alignColumns: false,
-          width: 350
+          width: 350,
         },
 
         plotOptions: {
@@ -754,18 +640,18 @@ export default {
               enabled: true,
               format: "<b>{point.percentage:.1f}</b> %",
               distance: -50,
-              color: "black"
+              color: "black",
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230
-          }
+            size: 230,
+          },
         },
 
         tooltip: {
-          formatter: function() {
+          formatter: function () {
             return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
-          }
+          },
         },
 
         series: [
@@ -777,60 +663,60 @@ export default {
                 name: "imported content",
                 y: set1.importedContent.ratio,
                 total: set1.importedContent.total,
-                color: "#FFC000"
+                color: "#FFC000",
               },
               {
                 name: "double counted",
                 y: set1.doubleCounted.ratio,
                 total: set1.doubleCounted.total,
-                color: "#D83964"
+                color: "#D83964",
               },
               {
                 name: "used in export production",
                 y: set1.usedInExportProduction.ratio,
                 total: set1.usedInExportProduction.total,
-                color: "#ED7D31"
+                color: "#ED7D31",
               },
               {
                 name: "used in domestic consumption",
                 y: set1.usedInDomesticConsumption.ratio,
                 total: set1.usedInDomesticConsumption.total,
-                color: "#997300"
+                color: "#997300",
               },
               {
                 name: "used in consumption",
                 y: set1.directlyConsumed.ratio,
                 total: set1.directlyConsumed.total,
-                color: "#70AD47"
-              }
-            ]
-          }
+                color: "#70AD47",
+              },
+            ],
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart2(set2) {
       Highcharts.chart("container2", {
         chart: {
           type: "pie",
-          height: 400
+          height: 400,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
 
         legend: {
           padding: 30,
           alignColumns: false,
-          width: 350
+          width: 350,
         },
 
         plotOptions: {
@@ -840,18 +726,18 @@ export default {
             dataLabels: {
               enabled: true,
               format: "<b>{point.percentage:.1f}</b> %",
-              distance: -50
+              distance: -50,
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230
-          }
+            size: 230,
+          },
         },
 
         tooltip: {
-          formatter: function() {
+          formatter: function () {
             return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
-          }
+          },
         },
         series: [
           {
@@ -862,41 +748,41 @@ export default {
                 name: "imported content",
                 y: set2.importedContent.ratio,
                 total: set2.importedContent.total,
-                color: "#FFC000"
+                color: "#FFC000",
               },
               {
                 name: "double counted",
                 y: set2.doubleCounted.ratio,
                 total: set2.doubleCounted.total,
-                color: "#D83964"
+                color: "#D83964",
               },
               {
                 name: "used in export production",
                 y: set2.usedInExportProduction.ratio,
                 total: set2.usedInExportProduction.total,
-                color: "#ED7D31"
+                color: "#ED7D31",
               },
               {
                 name: "used in domestic consumption",
                 y: set2.usedInDomesticConsumption.ratio,
                 total: set2.usedInDomesticConsumption.total,
-                color: "#997300"
+                color: "#997300",
               },
               {
                 name: "used in consumption",
                 y: set2.directlyConsumed.ratio,
                 total: set2.directlyConsumed.total,
-                color: "#70AD47"
-              }
-            ]
-          }
+                color: "#70AD47",
+              },
+            ],
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart3(set3) {
@@ -904,19 +790,19 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 400
+          height: 400,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
 
         legend: {
           padding: 30,
           alignColumns: false,
-          width: 350
+          width: 350,
         },
 
         plotOptions: {
@@ -926,17 +812,17 @@ export default {
             dataLabels: {
               enabled: true,
               format: "<b>{point.percentage:.1f}</b> %",
-              distance: -50
+              distance: -50,
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230
-          }
+            size: 230,
+          },
         },
         tooltip: {
-          formatter: function() {
+          formatter: function () {
             return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
-          }
+          },
         },
 
         series: [
@@ -948,41 +834,41 @@ export default {
                 name: "imported content",
                 y: set3.importedContent.ratio,
                 total: set3.importedContent.total,
-                color: "#FFC000"
+                color: "#FFC000",
               },
               {
                 name: "double counted",
                 y: set3.doubleCounted.ratio,
                 total: set3.doubleCounted.total,
-                color: "#D83964"
+                color: "#D83964",
               },
               {
                 name: "used in export production",
                 y: set3.usedInExportProduction.ratio,
                 total: set3.usedInExportProduction.total,
-                color: "#ED7D31"
+                color: "#ED7D31",
               },
               {
                 name: "used in domestic consumption",
                 y: set3.usedInDomesticConsumption.ratio,
                 total: set3.usedInDomesticConsumption.total,
-                color: "#997300"
+                color: "#997300",
               },
               {
                 name: "used in consumption",
                 y: set3.directlyConsumed.ratio,
                 total: set3.directlyConsumed.total,
-                color: "#70AD47"
-              }
-            ]
-          }
+                color: "#70AD47",
+              },
+            ],
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart4(set4, set5) {
@@ -1023,7 +909,7 @@ export default {
           0
             ? "increasing"
             : "decreasing"
-        }</span> use of imported content.`
+        }</span> use of imported content.`,
       ];
 
       let setData = [];
@@ -1033,8 +919,8 @@ export default {
           {
             name: "2007",
             data: [set4.valueAddTradeBalance[2007]],
-            color: "#4472C4"
-          }
+            color: "#4472C4",
+          },
         ];
       } else {
         setData = [
@@ -1042,18 +928,18 @@ export default {
             name: "2007",
             data: [
               set4.valueAddTradeBalance[2007],
-              set5.grossTradeBalance[2007]
+              set5.grossTradeBalance[2007],
             ],
-            color: "#4472C4"
+            color: "#4472C4",
           },
           {
             name: year,
             data: [
               set4.valueAddTradeBalance.current,
-              set5.grossTradeBalance.current
+              set5.grossTradeBalance.current,
             ],
-            color: "#ED7D31"
-          }
+            color: "#ED7D31",
+          },
         ];
       }
 
@@ -1063,31 +949,31 @@ export default {
         chart: {
           type: "column",
           width: 450,
-          height: 300
+          height: 300,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
 
         xAxis: {
           type: "category",
-          categories: ["Value added Trade Balance", "Gross trade Balance"]
+          categories: ["Value added Trade Balance", "Gross trade Balance"],
         },
         yAxis: {
           labels: {
             formatter() {
               return `${this.value}%`;
-            }
+            },
           },
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
-          enabled: true
+          enabled: true,
         },
         plotOptions: {
           column: {
@@ -1095,37 +981,38 @@ export default {
             dataLabels: {
               enabled: true,
               color: "black",
-              inside: true
-            }
-          }
+              inside: true,
+            },
+          },
         },
 
         tooltip: {
           headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
           pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
         },
 
         series: setData,
         exporting: {
-          enabled: false
+          enabled: false,
         },
         credits: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart5(set6) {
       let setCategories = [];
 
-      let newSetBackward = set6.backward.map(x => {
-        let realName = this.countryOptions.filter(xx => xx.iso == x.country)[0]
-          .label;
+      let newSetBackward = set6.backward.map((x) => {
+        let realName = this.countryOptions.filter(
+          (xx) => xx.iso == x.country
+        )[0].label;
 
         let newData = {
           ...x,
           y: Number("-" + x.precent),
-          country: realName
+          country: realName,
         };
 
         setCategories.push("");
@@ -1135,14 +1022,15 @@ export default {
 
       newSetBackward.sort((a, b) => Number(b.precent) - Number(a.precent));
 
-      let newSetForward = set6.forward.map(x => {
-        let realName = this.countryOptions.filter(xx => xx.iso == x.country)[0]
-          .label;
+      let newSetForward = set6.forward.map((x) => {
+        let realName = this.countryOptions.filter(
+          (xx) => xx.iso == x.country
+        )[0].label;
 
         let newData = {
           ...x,
           y: x.precent,
-          country: realName
+          country: realName,
         };
 
         return newData;
@@ -1153,13 +1041,13 @@ export default {
       Highcharts.chart("container5", {
         chart: {
           type: "bar",
-          height: 370
+          height: 370,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
 
         xAxis: [
@@ -1168,21 +1056,21 @@ export default {
             lineWidth: 0,
             borderWidth: 0,
             opposite: true,
-            reversed: false
-          }
+            reversed: false,
+          },
         ],
         yAxis: {
           borderWidth: 0,
           gridLineWidth: 0,
           lineWidth: 0,
           title: {
-            text: null
+            text: null,
           },
           labels: {
-            formatter: function() {
+            formatter: function () {
               return Math.abs(this.value);
-            }
-          }
+            },
+          },
         },
 
         plotOptions: {
@@ -1193,15 +1081,15 @@ export default {
               color: "black",
               formatter() {
                 return `${this.point.country}, ${this.point.precent}%`;
-              }
+              },
             },
             groupPadding: 0,
-            grouping: false
-          }
+            grouping: false,
+          },
         },
 
         tooltip: {
-          formatter: function() {
+          formatter: function () {
             return (
               "<b>" +
               this.series.name +
@@ -1210,7 +1098,7 @@ export default {
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
-          }
+          },
         },
 
         series: [
@@ -1219,34 +1107,34 @@ export default {
             data: newSetBackward,
             color: "#4472C4",
             dataLabels: {
-              align: "right"
-            }
+              align: "right",
+            },
           },
           {
             name: "Forward linkages (%)",
             data: newSetForward,
             color: "#ED7D31",
             dataLabels: {
-              align: "left"
-            }
-          }
+              align: "left",
+            },
+          },
         ],
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
         credits: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart6(set7) {
       let setCategories = [];
 
-      let newSetBackward = set7.backward.map(x => {
+      let newSetBackward = set7.backward.map((x) => {
         let newData = {
           ...x,
-          y: Number("-" + x.precent)
+          y: Number("-" + x.precent),
         };
 
         return newData;
@@ -1254,10 +1142,10 @@ export default {
 
       newSetBackward.sort((a, b) => Number(b.precent) - Number(a.precent));
 
-      let newSetForward = set7.forward.map(x => {
+      let newSetForward = set7.forward.map((x) => {
         let newData = {
           ...x,
-          y: x.precent
+          y: x.precent,
         };
 
         setCategories.push("");
@@ -1276,13 +1164,13 @@ export default {
       Highcharts.chart("container6", {
         chart: {
           type: "bar",
-          height: 370
+          height: 370,
         },
         title: {
-          text: ""
+          text: "",
         },
         subtitle: {
-          text: ""
+          text: "",
         },
 
         xAxis: [
@@ -1291,21 +1179,21 @@ export default {
             lineWidth: 0,
             borderWidth: 0,
             opposite: true,
-            reversed: false
-          }
+            reversed: false,
+          },
         ],
         yAxis: {
           borderWidth: 0,
           gridLineWidth: 0,
           lineWidth: 0,
           title: {
-            text: null
+            text: null,
           },
           labels: {
-            formatter: function() {
+            formatter: function () {
               return Math.abs(this.value);
-            }
-          }
+            },
+          },
         },
 
         plotOptions: {
@@ -1319,15 +1207,15 @@ export default {
               },
               allowOverlap: true,
               overflow: "allow",
-              crop: false
+              crop: false,
             },
             groupPadding: 0,
-            grouping: false
-          }
+            grouping: false,
+          },
         },
 
         tooltip: {
-          formatter: function() {
+          formatter: function () {
             return (
               "<b>" +
               this.series.name +
@@ -1336,7 +1224,7 @@ export default {
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
-          }
+          },
         },
 
         series: [
@@ -1345,25 +1233,25 @@ export default {
             data: newSetBackward,
             color: "#4472C4",
             dataLabels: {
-              align: "right"
-            }
+              align: "right",
+            },
           },
           {
             name: "Forward linkages (%)",
             data: newSetForward,
             color: "#ED7D31",
             dataLabels: {
-              align: "left"
-            }
-          }
+              align: "left",
+            },
+          },
         ],
 
         exporting: {
-          enabled: false
+          enabled: false,
         },
         credits: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart7(set8) {
@@ -1376,7 +1264,7 @@ export default {
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set8) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+        let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
 
         if (coun == this.exp_country) {
@@ -1396,28 +1284,28 @@ export default {
       // ประเทศที่เลือกไว้และเอาไปทำประเทศแรกของกราฟ
       this.gvcShare = currentCountry;
 
-      let tempRegion = newSet8.filter(x => x.region == currentCountry.region);
+      let tempRegion = newSet8.filter((x) => x.region == currentCountry.region);
 
       // หาค่าต่ำสุดของ Region
       let lowerRegionData = tempRegion.filter(
-        x => x.ratio == Math.min(...tempRegion.map(xx => xx.ratio))
+        (x) => x.ratio == Math.min(...tempRegion.map((xx) => xx.ratio))
       )[0];
 
       // หาค่าสูงสุดของ Region
       let highRegionData = tempRegion.filter(
-        x => x.ratio == Math.max(...tempRegion.map(xx => xx.ratio))
+        (x) => x.ratio == Math.max(...tempRegion.map((xx) => xx.ratio))
       )[0];
 
-      let tempArea = newSet8.filter(x => x.area == currentCountry.area);
+      let tempArea = newSet8.filter((x) => x.area == currentCountry.area);
 
       // หาค่าต่ำสุดของ Area
       let lowerAreaData = tempArea.filter(
-        x => x.ratio == Math.min(...tempArea.map(xx => xx.ratio))
+        (x) => x.ratio == Math.min(...tempArea.map((xx) => xx.ratio))
       )[0];
 
       // หาค่าสูงสุดของ Area
       let highAreaData = tempArea.filter(
-        x => x.ratio == Math.max(...tempArea.map(xx => xx.ratio))
+        (x) => x.ratio == Math.max(...tempArea.map((xx) => xx.ratio))
       )[0];
 
       newSet8.sort((a, b) => Number(b.ratio) - Number(a.ratio));
@@ -1425,13 +1313,13 @@ export default {
       let RankingOfTheWorld = [...newSet8];
 
       RankingOfTheWorld = RankingOfTheWorld.filter(
-        x => x.region == currentCountry.region
+        (x) => x.region == currentCountry.region
       )
-        .map(x => x.ratio)
+        .map((x) => x.ratio)
         .indexOf(currentCountry.ratio);
 
       newSet8.splice(
-        newSet8.map(x => x.country).indexOf(currentCountry.country),
+        newSet8.map((x) => x.country).indexOf(currentCountry.country),
         1
       );
 
@@ -1467,7 +1355,7 @@ export default {
         <br> ${highRegionData.area}: ${highRegionData.country} (${
           highRegionData.ratio
         }%)
-        <br> World: ${newSet8[1].country} (${newSet8[1].ratio}%)`
+        <br> World: ${newSet8[1].country} (${newSet8[1].ratio}%)`,
       ];
 
       this.gvcRelianceList = gvcReliance;
@@ -1477,35 +1365,35 @@ export default {
       let doubleCountedRatio = [];
 
       let setNewData = [
-        ...newSet8.filter(x => x.region == currentCountry.region)
+        ...newSet8.filter((x) => x.region == currentCountry.region),
       ];
 
-      countryList = setNewData.map(x => x.country);
+      countryList = setNewData.map((x) => x.country);
 
-      usedInExportRatio = setNewData.map(x => x.usedInExportProduction.ratio);
-      importedContentRatio = setNewData.map(x => x.importedContent.ratio);
-      doubleCountedRatio = setNewData.map(x => x.doubleCounted.ratio);
+      usedInExportRatio = setNewData.map((x) => x.usedInExportProduction.ratio);
+      importedContentRatio = setNewData.map((x) => x.importedContent.ratio);
+      doubleCountedRatio = setNewData.map((x) => x.doubleCounted.ratio);
 
       Highcharts.chart("container7", {
         chart: {
           type: "column",
           height: 450,
-          width: 650
+          width: 650,
         },
         title: {
-          text: ""
+          text: "",
         },
         xAxis: {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90
-          }
+            rotation: -90,
+          },
         },
         yAxis: {
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
           enabled: true,
@@ -1516,43 +1404,43 @@ export default {
           width: 550,
           labelFormatter() {
             return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
-          }
+          },
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
         series: [
           {
             name: "Used in China's export production",
             data: usedInExportRatio,
-            color: "#4080B3"
+            color: "#4080B3",
           },
           {
             name: "Imported content (backward linkages)",
             data: importedContentRatio,
-            color: "#D83964"
+            color: "#D83964",
           },
           {
             name: "Double counted exports from repeated border crossings",
             data: doubleCountedRatio,
-            color: "#EB9B38"
-          }
+            color: "#EB9B38",
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart8(set9) {
@@ -1565,7 +1453,7 @@ export default {
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set9) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+        let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
 
         let sumRatio = 0;
@@ -1596,7 +1484,7 @@ export default {
       newSet9.sort((a, b) => Number(b.newTotal) - Number(a.newTotal));
 
       newSet9.splice(
-        newSet9.map(x => x.country).indexOf(currentCountry.country),
+        newSet9.map((x) => x.country).indexOf(currentCountry.country),
         1
       );
 
@@ -1607,26 +1495,24 @@ export default {
         `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
         `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
         `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
-        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`
+        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`,
       ];
 
       this.backSourceRegionList = backSourceRegionList;
 
+      let set9a = JSON.parse(this.responseSetData.set9a);
+
       let backSourceRegionList2 = [
-        `Asia-Pacific (${((sumAll.asiaPacific / sumValue) * 100).toFixed(2)}%)`,
-        `Europe (${((sumAll.europe / sumValue) * 100).toFixed(2)}%)`,
-        `North America (${((sumAll.northAmerica / sumValue) * 100).toFixed(
-          2
-        )}%)`,
-        `Latin America (${((sumAll.latinAmerica / sumValue) * 100).toFixed(
-          2
-        )}%)`,
-        `Rest of the world (${((sumAll.row / sumValue) * 100).toFixed(2)}%)`
+        `Asia-Pacific (${set9a.asiaPacific.value}%)`,
+        `Europe (${set9a.europe.value}%)`,
+        `North America (${set9a.northAmerica.value}%)`,
+        `Latin America (${set9a.latinAmerica.value}%)`,
+        `Rest of the world (${set9a.row.value}%)`,
       ];
 
       this.backSourceRegionList2 = backSourceRegionList2;
 
-      countryList = newSet9.map(x => x.country);
+      countryList = newSet9.map((x) => x.country);
 
       let asiaPacifics = [];
       let europes = [];
@@ -1634,32 +1520,32 @@ export default {
       let latinAmericas = [];
       let rows = [];
 
-      asiaPacifics = newSet9.map(x => x.asiaPacific.ratio);
-      europes = newSet9.map(x => x.europe.ratio);
-      northAmericas = newSet9.map(x => x.northAmerica.ratio);
-      latinAmericas = newSet9.map(x => x.latinAmerica.ratio);
-      rows = newSet9.map(x => x.row.ratio);
+      asiaPacifics = newSet9.map((x) => x.asiaPacific.ratio);
+      europes = newSet9.map((x) => x.europe.ratio);
+      northAmericas = newSet9.map((x) => x.northAmerica.ratio);
+      latinAmericas = newSet9.map((x) => x.latinAmerica.ratio);
+      rows = newSet9.map((x) => x.row.ratio);
 
       Highcharts.chart("container8", {
         chart: {
           type: "column",
           height: 450,
-          width: 650
+          width: 650,
         },
         title: {
-          text: ""
+          text: "",
         },
         xAxis: {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90
-          }
+            rotation: -90,
+          },
         },
         yAxis: {
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
           enabled: true,
@@ -1670,53 +1556,53 @@ export default {
           width: 630,
           labelFormatter() {
             return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
-          }
+          },
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
         series: [
           {
             name: "Asia-Pacific",
             data: asiaPacifics,
-            color: "#4080B3"
+            color: "#4080B3",
           },
           {
             name: "Europe",
             data: europes,
-            color: "#D83964"
+            color: "#D83964",
           },
           {
             name: "North America",
             data: northAmericas,
-            color: "#EB9B38"
+            color: "#EB9B38",
           },
           {
             name: "Latin America",
             data: latinAmericas,
-            color: "#4E9487"
+            color: "#4E9487",
           },
           {
             name: "Rest of the world",
             data: rows,
-            color: "#9034AD"
-          }
+            color: "#9034AD",
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart9(set10) {
@@ -1734,7 +1620,7 @@ export default {
         "#1A2578",
         "#5EA6EF",
         "#4288E0",
-        "#2E64BA"
+        "#2E64BA",
       ];
 
       let countryList = [];
@@ -1745,7 +1631,7 @@ export default {
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set10) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+        let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
 
         let sumTotal = 0;
@@ -1777,7 +1663,7 @@ export default {
       newSet10.sort((a, b) => Number(b.total) - Number(a.total));
 
       newSet10.splice(
-        newSet10.map(x => x.country).indexOf(currentCountry.country),
+        newSet10.map((x) => x.country).indexOf(currentCountry.country),
         1
       );
 
@@ -1785,7 +1671,7 @@ export default {
 
       let sectorList = [];
 
-      newSet10.forEach(x => {
+      newSet10.forEach((x) => {
         let i = 0;
 
         for (const sector in x) {
@@ -1798,7 +1684,7 @@ export default {
               name: sector,
               data: [],
               color: colors[i],
-              value2: 0
+              value2: 0,
             };
 
             sectorList[i] = sectorList[i] || newData;
@@ -1825,7 +1711,7 @@ export default {
           let newData = {
             name: sector,
             ratio: 0,
-            value: 0
+            value: 0,
           };
 
           currentGrossData[i] = currentGrossData[i] || newData;
@@ -1843,11 +1729,11 @@ export default {
       let regionGrossData = [...sectorList];
 
       regionGrossData = regionGrossData
-        .map(x => {
+        .map((x) => {
           let newData = {
             ratio: x.data.reduce((a, b) => a + b, 0),
             name: x.name,
-            value: (x.value2 / sumValue) * 100
+            value: (x.value2 / sumValue) * 100,
           };
 
           return newData;
@@ -1864,42 +1750,59 @@ export default {
         `${currentGrossData[2].name} (${currentGrossData[2].ratio.toFixed(
           1
         )}%)`,
-        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(1)}%)`
+        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
+          1
+        )}%)`,
       ];
 
       this.backSourceSectorList = backSourceSectorList;
 
-      let backSourceSectorList2 = [
-        `${regionGrossData[0].name} (${regionGrossData[0].value.toFixed(2)}%)`,
-        `${regionGrossData[1].name} (${regionGrossData[1].value.toFixed(2)}%)`,
-        `${regionGrossData[2].name} (${regionGrossData[2].value.toFixed(2)}%)`,
-        `${regionGrossData[3].name} (${regionGrossData[3].value.toFixed(2)}%)`
-      ];
+      let set10a = JSON.parse(this.responseSetData.set10a);
+      // console.log(set10a);
 
-      this.backSourceSectorList2 = backSourceSectorList2;
+      let tempSet10a = [];
+      for (const item in set10a) {
+        tempSet10a.push({
+          name: item,
+          value: set10a[item].value,
+        });
+      }
 
-      countryList = newSet10.map(x => x.country);
+      tempSet10a = tempSet10a.filter((x) => x.value != undefined);
+
+      tempSet10a = tempSet10a.sort((a,b) => b.value - a.value)
+
+      tempSet10a = tempSet10a.slice(0,4)
+
+
+
+
+      let backSourceSectorList2 = tempSet10a
+
+      this.backSourceSectorList2 = tempSet10a;
+
+      countryList = newSet10.map((x) => x.country);
 
       Highcharts.chart("container9", {
         chart: {
           type: "column",
           height: 450,
-          width: 650
+          width: 650,
         },
         title: {
-          text: ""
+          text: "",
         },
         xAxis: {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90
-          }
+            rotation: -90,
+          },
         },
         yAxis: {
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
           enabled: true,
@@ -1910,28 +1813,28 @@ export default {
           width: 630,
           labelFormatter() {
             return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
-          }
+          },
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
 
         series: sectorList,
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart10(set11) {
@@ -1944,7 +1847,7 @@ export default {
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set11) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+        let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
 
         let sumRatio = 0;
@@ -1975,7 +1878,7 @@ export default {
       newSet11.sort((a, b) => Number(b.newTotal) - Number(a.newTotal));
 
       newSet11.splice(
-        newSet11.map(x => x.country).indexOf(currentCountry.country),
+        newSet11.map((x) => x.country).indexOf(currentCountry.country),
         1
       );
 
@@ -1986,26 +1889,29 @@ export default {
         `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
         `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
         `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
-        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`
+        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`,
       ];
+
+    
+
+
 
       this.forSourceRegionList = forSourceRegionList;
 
+
+        let temp11a = JSON.parse(this.responseSetData.set11a)
+
       let forSourceRegionList2 = [
-        `Asia-Pacific (${((sumAll.asiaPacific / sumValue) * 100).toFixed(2)}%)`,
-        `Europe (${((sumAll.europe / sumValue) * 100).toFixed(2)}%)`,
-        `North America (${((sumAll.northAmerica / sumValue) * 100).toFixed(
-          2
-        )}%)`,
-        `Latin America (${((sumAll.latinAmerica / sumValue) * 100).toFixed(
-          2
-        )}%)`,
-        `Rest of the world (${((sumAll.row / sumValue) * 100).toFixed(2)}%)`
+        `Asia-Pacific (${temp11a.asiaPacific}%)`,
+        `Europe (${temp11a.europe}%)`,
+        `North America (${temp11a.northAmerica}%)`,
+        `Latin America (${temp11a.latinAmerica}%)`,
+        `Rest of the world (${temp11a.row}%)`,
       ];
 
       this.forSourceRegionList2 = forSourceRegionList2;
 
-      countryList = newSet11.map(x => x.country);
+      countryList = newSet11.map((x) => x.country);
 
       let asiaPacifics = [];
       let europes = [];
@@ -2013,32 +1919,32 @@ export default {
       let latinAmericas = [];
       let rows = [];
 
-      asiaPacifics = newSet11.map(x => x.asiaPacific.ratio);
-      europes = newSet11.map(x => x.europe.ratio);
-      northAmericas = newSet11.map(x => x.northAmerica.ratio);
-      latinAmericas = newSet11.map(x => x.latinAmerica.ratio);
-      rows = newSet11.map(x => x.row.ratio);
+      asiaPacifics = newSet11.map((x) => x.asiaPacific.ratio);
+      europes = newSet11.map((x) => x.europe.ratio);
+      northAmericas = newSet11.map((x) => x.northAmerica.ratio);
+      latinAmericas = newSet11.map((x) => x.latinAmerica.ratio);
+      rows = newSet11.map((x) => x.row.ratio);
 
       Highcharts.chart("container10", {
         chart: {
           type: "column",
           height: 450,
-          width: 650
+          width: 650,
         },
         title: {
-          text: ""
+          text: "",
         },
         xAxis: {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90
-          }
+            rotation: -90,
+          },
         },
         yAxis: {
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
           enabled: true,
@@ -2049,53 +1955,53 @@ export default {
           width: 630,
           labelFormatter() {
             return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
-          }
+          },
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
         series: [
           {
             name: "Asia-Pacific",
             data: asiaPacifics,
-            color: "#4080B3"
+            color: "#4080B3",
           },
           {
             name: "Europe",
             data: europes,
-            color: "#D83964"
+            color: "#D83964",
           },
           {
             name: "North America",
             data: northAmericas,
-            color: "#EB9B38"
+            color: "#EB9B38",
           },
           {
             name: "Latin America",
             data: latinAmericas,
-            color: "#4E9487"
+            color: "#4E9487",
           },
           {
             name: "Rest of the world",
             data: rows,
-            color: "#9034AD"
-          }
+            color: "#9034AD",
+          },
         ],
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     chart11(set12) {
@@ -2113,7 +2019,7 @@ export default {
         "#1A2578",
         "#5EA6EF",
         "#4288E0",
-        "#2E64BA"
+        "#2E64BA",
       ];
 
       let countryList = [];
@@ -2124,7 +2030,7 @@ export default {
 
       // แยกแต่ละประเทศแล้วจับยัดเป็น Array
       for (const coun in set12) {
-        let countryName = this.countryOptions.filter(x => x.iso == coun)[0]
+        let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
 
         let sumTotal = 0;
@@ -2156,7 +2062,7 @@ export default {
       newSet12.sort((a, b) => Number(b.total) - Number(a.total));
 
       newSet12.splice(
-        newSet12.map(x => x.country).indexOf(currentCountry.country),
+        newSet12.map((x) => x.country).indexOf(currentCountry.country),
         1
       );
 
@@ -2164,7 +2070,7 @@ export default {
 
       let sectorList = [];
 
-      newSet12.forEach(x => {
+      newSet12.forEach((x) => {
         let i = 0;
 
         for (const sector in x) {
@@ -2177,7 +2083,7 @@ export default {
               name: sector,
               data: [],
               color: colors[i],
-              value2: 0
+              value2: 0,
             };
 
             sectorList[i] = sectorList[i] || newData;
@@ -2204,7 +2110,7 @@ export default {
           let newData = {
             name: sector,
             ratio: 0,
-            value: 0
+            value: 0,
           };
 
           currentGrossData[i] = currentGrossData[i] || newData;
@@ -2222,11 +2128,11 @@ export default {
       let regionGrossData = [...sectorList];
 
       regionGrossData = regionGrossData
-        .map(x => {
+        .map((x) => {
           let newData = {
             ratio: x.data.reduce((a, b) => a + b, 0),
             name: x.name,
-            value: (x.value2 / sumValue) * 100
+            value: (x.value2 / sumValue) * 100,
           };
 
           return newData;
@@ -2243,42 +2149,59 @@ export default {
         `${currentGrossData[2].name} (${currentGrossData[2].ratio.toFixed(
           2
         )}%)`,
-        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(2)}%)`
+        `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
+          2
+        )}%)`,
       ];
 
       this.forSourceSectorList = forSourceSectorList;
 
-      let forSourceSectorList2 = [
-        `${regionGrossData[0].name} (${regionGrossData[0].value.toFixed(2)}%)`,
-        `${regionGrossData[1].name} (${regionGrossData[1].value.toFixed(2)}%)`,
-        `${regionGrossData[2].name} (${regionGrossData[2].value.toFixed(2)}%)`,
-        `${regionGrossData[3].name} (${regionGrossData[3].value.toFixed(2)}%)`
-      ];
+      let set12a = JSON.parse(this.responseSetData.set12a)
+
+
+        let temp12a = [];
+      for (const item in set12a) {
+        temp12a.push({
+          name: item,
+          value: set12a[item].value,
+        });
+      }
+
+      temp12a = temp12a.filter((x) => x.value != undefined);
+
+      temp12a = temp12a.sort((a,b) => b.value - a.value)
+
+      temp12a = temp12a.slice(0,4)
+
+
+      
+
+      let forSourceSectorList2 = temp12a
 
       this.forSourceSectorList2 = forSourceSectorList2;
 
-      countryList = newSet12.map(x => x.country);
+      countryList = newSet12.map((x) => x.country);
 
       Highcharts.chart("container11", {
         chart: {
           type: "column",
           height: 450,
-          width: 650
+          width: 650,
         },
         title: {
-          text: ""
+          text: "",
         },
         xAxis: {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90
-          }
+            rotation: -90,
+          },
         },
         yAxis: {
           title: {
-            text: ""
-          }
+            text: "",
+          },
         },
         legend: {
           enabled: true,
@@ -2289,28 +2212,28 @@ export default {
           width: 630,
           labelFormatter() {
             return `<div class='q-pr-sm q-pb-sm'>${this.name}</div>  `;
-          }
+          },
         },
         tooltip: {
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}"
+          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
 
         series: sectorList,
         credits: {
-          enabled: false
+          enabled: false,
         },
         exporting: {
-          enabled: false
-        }
+          enabled: false,
+        },
       });
     },
     async loadData() {
@@ -2318,20 +2241,22 @@ export default {
       this.year = this.$q.sessionStorage.getItem("year");
 
       let countryData = this.countryOptions.filter(
-        x => x.iso == this.exp_country
+        (x) => x.iso == this.exp_country
       )[0];
 
       this.country = countryData.label;
       this.region = countryData.region;
 
       if (this.exp_country && this.year) {
-        this.loadingShow();
+        // this.loadingShow();
 
         let urllink =
           this.path_api +
           `/get_country_brief.php?exp_country=${this.exp_country}&year=${this.year}`;
 
         let getData = await Axios.get(urllink);
+
+        this.responseSetData = getData.data[0];
 
         if (getData.data) {
           this.loadingHide();
@@ -2343,12 +2268,12 @@ export default {
           }, 1500);
         }
       }
-    }
+    },
   },
   async mounted() {
     await this.getCountryList();
     this.loadData();
-  }
+  },
 };
 </script>
 
