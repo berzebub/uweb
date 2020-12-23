@@ -100,13 +100,13 @@
       </div>
 
       <div class="q-pa-md" v-else>
-        <div align="center" class="q-my-lg">
+        <div align="center" class="q-my-md">
           <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
         </div>
 
-        <div class="q-mt-xl">
+        <div class="q-mt-md">
           <div class="row justify-center">
-            <div class="col-10 row q-mt-xl">
+            <div class="col-10 row q-mt-md">
               <!-- Imported Content  -->
               <div class="col row font-content" align="center">
                 <div class="col-12 self-start c-blue">
@@ -956,7 +956,7 @@ export default {
       let redConSize = 300;
       let blueConSize = 300;
       if (ratioGVC > 1) {
-        redConSize = (ratioGVC - 1) * 300;
+        redConSize = 300;
         blueConSize = redConSize / ratioGVC;
       } else {
         redConSize = ratioGVC * 300;
