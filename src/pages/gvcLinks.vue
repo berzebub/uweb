@@ -218,21 +218,22 @@
             </div>
           </div>
 
+          <!-- backward gvc exporting sector -->
+
           <div class="col-10 row q-pb-xl self-center">
             <div class="col q-pb-lg">
               <div class="relative-position" v-if="backwardSectorLinkToggle">
                 <div
-                  class="cursor-pointer q-py-xs"
+                  class="c q-py-xs"
                   @click="highchartBackwardSector(item)"
                   v-for="(item, index) in graphBackwardGVCSector"
                   :key="index"
-                  @mouseenter="hoverSector(index, 'backwardSector')"
-                  @mouseleave="outHoverSector(index, 'backwardSector')"
+         
                 >
                   <div class align="right">
                     <div
-                      class="q-pa-sm relative-position"
-                      style="background-color:#2381B8;height:53px;"
+                      class="q-pa-sm cursor-pointer relative-position chart-blue" 
+                      style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
                     >
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
@@ -247,79 +248,6 @@
                       </div>
                     </div>
                   </div>
-
-                  <!-- {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                  }}-->
-                  <!-- <q-img
-                    v-if="backwardSectorHover != index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/blue-graph-' +
-                        (index + 1) +
-                        '.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-left': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="left:10%;"
-                    >
-                      <div class="text-white">{{ item.sector }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>-->
-
-                  <!-- <q-img
-                    v-if="backwardSectorHover == index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/blue-graph-' +
-                        (index + 1) +
-                        'a.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-left': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="left:10%;"
-                    >
-                      <div class="text-white">{{ item.sector }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>-->
                 </div>
 
                 <div align="right" class='c-blue q-pt-md'>
@@ -361,15 +289,6 @@
               </div>
             </div>
 
-            <!-- :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[
-                    index == 0 ? { top: '0px', zIndex: '100' } : {},
-                    index == 1 ? { top: '95px', zIndex: '300' } : {},
-                    index == 2 ? { zIndex: '500' } : {},
-                    index == 3 ? { bottom: '95px', zIndex: '300' } : {},
-                    index == 4 ? { bottom: '0px', zIndex: '100' } : {}
-                  ]"
-            style="left:0;"-->
             <div class="col q-pb-lg self-center">
               <div class="relative-position" v-if="forwardSectorLinkToggle">
                 <div
@@ -377,13 +296,12 @@
                   @click="highchartForwardSector(item)"
                   v-for="(item, index) in graphForwardGVCSector"
                   :key="index"
-                  @mouseenter="hoverSector(index, 'forwardSector')"
-                  @mouseleave="outHoverSector(index, 'forwardSector')"
+                
                 >
                   <div align="left">
                     <div
-                      class="q-pa-sm relative-position"
-                      style="background-color:#8D273D;height:53px;"
+                      class="q-pa-sm relative-position chart-red"
+                      style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
                     >
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
@@ -398,73 +316,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <q-img
-                    v-if="forwardSectorHover != index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/red-graph-' +
-                        (index + 1) +
-                        '.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-right': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">{{ item.sector }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% ,${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>-->
-
-                  <!-- <q-img
-                    v-if="forwardSectorHover == index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/red-graph-' +
-                        (index + 1) +
-                        'a.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-right': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">{{ item.sector }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>-->
                 </div>
 
                 
@@ -511,120 +362,72 @@
         </div>
 
         <div class="row justify-center">
-          <div class="col-10 row">
+          <div class="col-7 row">
             <div class="col q-pa-md">
-              <div class="c-blue font-footer">
+              <div class="c-blue font-footer" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
-                <br />
+                <!-- <br />
                 <span class="text-bold">Source economy</span>
                 <br />
                 <span>Share of foreign value-added in gross exports (%)</span>
                 <br />
-                <span>Foreign value-added ($)</span>
+                <span>Foreign value-added ($)</span> -->
               </div>
             </div>
             <!-- Country Content -->
             <div class="col-3 self-center" align="center"></div>
             <div class="col q-pa-md">
-              <div class="c-red font-footer">
+              <div class="c-red font-footer" align="left">
                 <span class="font-content text-bold">Forward linkages</span>
-                <br />
+                <!-- <br />
                 <span class="text-bold">Improting economy</span>
                 <br />
                 <span>Share of contribution to partner exports, in gross exports (%)</span>
                 <br />
-                <span>Contribution to partner exports ($)</span>
+                <span>Contribution to partner exports ($)</span> -->
               </div>
             </div>
           </div>
 
-          <div class="col-10 row q-py-xl">
-            <div class="col q-py-lg" style="height:560px;">
-              <div class="relative-position" style="height:460px;" v-if="backwardEconomyLinkToggle">
+          <div class="col-10  row q-pb-xl">
+            <div class="col q-pb-lg" >
+              <div class="relative-position" v-if="backwardEconomyLinkToggle">
                 <div
-                  class="cursor-pointer"
+                  class="cursor-pointer q-py-xs"
                   @click="highchartBackwardEconomy(item)"
-                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[
-                    index == 0 ? { top: '0px', zIndex: '100' } : {},
-                    index == 1 ? { top: '95px', zIndex: '300' } : {},
-                    index == 2 ? { zIndex: '500' } : {},
-                    index == 3 ? { bottom: '95px', zIndex: '300' } : {},
-                    index == 4 ? { bottom: '0px', zIndex: '100' } : {}
-                  ]"
-                  style="right:0;"
                   v-for="(item, index) in graphBackwardGVCEconomy"
                   :key="index"
-                  @mouseenter="hoverSector(index, 'backwardEconomy')"
-                  @mouseleave="outHoverSector(index, 'backwardEconomy')"
+              
                 >
-                  <q-img
-                    v-if="backwardEconomyHover != index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/blue-graph-' +
-                        (index + 1) +
-                        '.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-left': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="left:10%;"
+                 <div align="right">
+                    <div
+                      class="q-pa-sm relative-position chart-blue"
+                      style="height:53px;"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.precent)) * item.precent) + '%'"
                     >
-                      <div class="text-white">{{ item.fullName }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
+                      <div class="absolute-right q-pa-sm" style="white-space:nowrap">
+                        <div class="text-black">{{ item.fullName }}</div>
+                        <div class="text-black">
+                          {{ item.precent }}% , ${{
+                          item.value > 1000
+                          ? (item.value / 1000).toFixed(2) + "B"
+                          : item.value + "M"
+                          }}
+                        </div>
                       </div>
-                    </span>
-                  </q-img>
+                    </div>
+                  </div>
+               
+                </div>
 
-                  <q-img
-                    v-if="backwardEconomyHover == index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/blue-graph-' +
-                        (index + 1) +
-                        'a.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-left': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="left:10%;"
-                    >
-                      <div class="text-white">{{ item.fullName }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>
+                  <div align="right" class='q-pt-md c-blue' >
+                <span class="text-bold">Source economy</span>
+                <br />
+                <span>Share of foreign value-added in gross exports (%)</span>
+                <br />
+                <span>Foreign value-added ($)</span>
+
+
                 </div>
               </div>
 
@@ -655,98 +458,52 @@
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-            <div class="col q-py-lg" style="height:560px;">
+            <div class="col q-pb-lg" >
               <div
                 class="relative-position"
-                style="height:460px;"
+               
                 v-show="forwardEconomyLinkToggle"
               >
                 <div
-                  class="cursor-pointer"
+                  class="cursor-pointer q-py-xs"
                   @click="highchartForwardEconomy(item)"
-                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[
-                    index == 0 ? { top: '0px', zIndex: '100' } : {},
-                    index == 1 ? { top: '95px', zIndex: '300' } : {},
-                    index == 2 ? { zIndex: '500' } : {},
-                    index == 3 ? { bottom: '95px', zIndex: '300' } : {},
-                    index == 4 ? { bottom: '0px', zIndex: '100' } : {}
-                  ]"
-                  style="left:0;"
+                 
                   v-for="(item, index) in graphForwardGVCEconomy"
                   :key="index"
-                  @mouseenter="hoverSector(index, 'forwardEconomy')"
-                  @mouseleave="outHoverSector(index, 'forwardEconomy')"
+                 
                 >
-                  <q-img
-                    v-if="forwardEconomyHover != index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/red-graph-' +
-                        (index + 1) +
-                        '.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-right': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="right:10%;direction: rtl;"
-                    >
-                      <div class="text-white">{{ item.fullName }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
-                      </div>
-                    </span>
-                  </q-img>
 
-                  <q-img
-                    v-if="forwardEconomyHover == index"
-                    width="500px"
-                    :src="
-                      require('../../public/arrow/red-graph-' +
-                        (index + 1) +
-                        'a.png')
-                    "
-                  >
-                    <span
-                      :class="{
-                        absolute: index == 0 || index == 1 || index == 2,
-                        'absolute-bottom-right': index == 3 || index == 4
-                      }"
-                      :style="[
-                        index == 0 ? { top: '7%' } : {},
-                        index == 1 ? { top: '11%' } : {},
-                        index == 2 ? { top: '22%' } : {},
-                        index == 3 ? { bottom: '11%' } : {},
-                        index == 4 ? { bottom: '7%' } : {}
-                      ]"
-                      style="right:10%;direction: rtl;"
+                <div align="left">
+                    <div
+                      class="q-pa-sm relative-position chart-red"
+                      style="height:53px;"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.precent)) * item.precent) + '%'"
                     >
-                      <div class="text-white">{{ item.fullName }}</div>
-                      <div class="text-white">
-                        {{ item.precent }}% , ${{
-                        item.value > 1000
-                        ? (item.value / 1000).toFixed(2) + "B"
-                        : item.value + "M"
-                        }}
+                      <div class="absolute-left q-pa-sm" style="white-space:nowrap">
+                        <div class="text-black">{{ item.fullName }}</div>
+                        <div class="text-black">
+                          {{ item.precent }}% , ${{
+                          item.value > 1000
+                          ? (item.value / 1000).toFixed(2) + "B"
+                          : item.value + "M"
+                          }}
+                        </div>
                       </div>
-                    </span>
-                  </q-img>
+                    </div>
+                  </div>
+                </div>
+                 <div align="left" class='q-pt-md' style='color:#8D273D'>
+                <span class="text-bold">Importing economy</span>
+                <br />
+                <span>Share of contribution to partner exports, in gross exports (%)</span>
+                <br />
+                <span>Contribution to partner exports ($)</span>
+
+
                 </div>
               </div>
+
+         
 
               <div v-show="!forwardEconomyLinkToggle" class>
                 <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
@@ -765,6 +522,7 @@
                   ></q-btn>
                 </div>
               </div>
+                  
             </div>
           </div>
         </div>
@@ -1592,6 +1350,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.chart-blue{
+  background-color:#2381B8
+}
+.chart-blue:hover{
+  background-color:#0D4E74
+}
+.chart-red{
+background-color:#8D273D
+}
+.chart-red:hover{
+background-color:#b86b7a
+}
 .box-border {
   border: 1px solid;
 }
