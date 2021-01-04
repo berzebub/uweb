@@ -21,13 +21,13 @@
             @input="selectedExpCountry"
           >
             <template v-slot:prepend v-if="overviewCountry">
-              <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" size="small" />
+              <gb-flag v-if="overviewCountry.code && overviewCountry.code != 'TW'" :code="overviewCountry.code" size="small" />
             </template>
 
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
-                  <gb-flag v-if="scope.opt.code" :code="scope.opt.code" size="small" />
+                  <gb-flag v-if="scope.opt.code " :code="scope.opt.code" size="small" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
@@ -169,7 +169,7 @@
               <!-- Country Content -->
               <div class="col-3 self-center" align="center" style="width:270px;">
                 <div class>
-                  <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
+                  <gb-flag v-if="overviewCountry.code &&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
                 </div>
                 <div class="relative-position">
                   <span class="font-title">{{ overviewCountry.label }}</span>
@@ -282,7 +282,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
+                <gb-flag v-if="overviewCountry.code&&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
@@ -452,7 +452,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag v-if="overviewCountry.code" :code="overviewCountry.code" height="100px" />
+                <gb-flag v-if="overviewCountry.code&&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
