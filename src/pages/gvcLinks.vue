@@ -202,16 +202,10 @@
         </div>
 
         <div class="row justify-center">
-          <div class="col-10 row">
+          <div class="col-7 row ">
             <div class="col q-pa-md">
-              <div class="c-blue font-footer">
+              <div class="c-blue font-footer" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
-                <br />
-                <span class="text-bold">Sector</span>
-                <br />
-                <span>Share of foreign value-added in sectoral gross exports (%)</span>
-                <br />
-                <span>Foreign value-added ($)</span>
               </div>
             </div>
 
@@ -220,40 +214,46 @@
             <div class="col q-pa-md">
               <div class="c-red font-footer">
                 <span class="font-content text-bold">Forward linkages</span>
-                <br />
-                <span class="text-bold">Sector</span>
-                <br />
-                <span>
-                  Share of contribution to partner exports, in sectoral gross
-                  exports (%)
-                </span>
-                <br />
-                <span>Contribution to partner exports ($)</span>
               </div>
             </div>
           </div>
 
-          <div class="col-10 row q-py-xl">
-            <div class="col q-py-lg" style="height:560px;">
-              <div class="relative-position" style="height:460px;" v-if="backwardSectorLinkToggle">
+          <div class="col-10 row q-pb-xl self-center">
+            <div class="col q-pb-lg">
+              <div class="relative-position" v-if="backwardSectorLinkToggle">
                 <div
-                  class="cursor-pointer"
+                  class="cursor-pointer q-py-xs"
                   @click="highchartBackwardSector(item)"
-                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
-                  :style="[
-                    index == 0 ? { top: '0px', zIndex: '100' } : {},
-                    index == 1 ? { top: '95px', zIndex: '300' } : {},
-                    index == 2 ? { zIndex: '500' } : {},
-                    index == 3 ? { bottom: '95px', zIndex: '300' } : {},
-                    index == 4 ? { bottom: '0px', zIndex: '100' } : {}
-                  ]"
-                  style="right:0;"
                   v-for="(item, index) in graphBackwardGVCSector"
                   :key="index"
                   @mouseenter="hoverSector(index, 'backwardSector')"
                   @mouseleave="outHoverSector(index, 'backwardSector')"
                 >
-                  <q-img
+                  <div class align="right">
+                    <div
+                      class="q-pa-sm relative-position"
+                      style="background-color:#2381B8;height:53px;"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
+                    >
+                      <div class="absolute-right q-pa-sm" style="white-space:nowrap">
+                        <div class="text-black">{{ item.sector }}</div>
+                        <div class="text-black">
+                          {{ item.precent }}% , ${{
+                          item.value > 1000
+                          ? (item.value / 1000).toFixed(2) + "B"
+                          : item.value + "M"
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- {{ item.precent }}% , ${{
+                        item.value > 1000
+                        ? (item.value / 1000).toFixed(2) + "B"
+                        : item.value + "M"
+                  }}-->
+                  <!-- <q-img
                     v-if="backwardSectorHover != index"
                     width="500px"
                     :src="
@@ -285,9 +285,9 @@
                         }}
                       </div>
                     </span>
-                  </q-img>
+                  </q-img>-->
 
-                  <q-img
+                  <!-- <q-img
                     v-if="backwardSectorHover == index"
                     width="500px"
                     :src="
@@ -319,7 +319,17 @@
                         }}
                       </div>
                     </span>
-                  </q-img>
+                  </q-img>-->
+                </div>
+
+                <div align="right" class='c-blue q-pt-md'>
+                <span class="text-bold">Sector</span>
+                <br />
+                <span>Share of foreign value-added in sectoral gross exports (%)</span>
+                <br />
+                <span>Foreign value-added ($)</span>
+
+
                 </div>
               </div>
 
@@ -350,12 +360,8 @@
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-            <div class="col q-py-lg" style="height:560px;">
-              <div class="relative-position" style="height:460px;" v-if="forwardSectorLinkToggle">
-                <div
-                  class="cursor-pointer"
-                  @click="highchartForwardSector(item)"
-                  :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
+
+            <!-- :class="index != 2 ? 'absolute' : 'graph-arrow-center'"
                   :style="[
                     index == 0 ? { top: '0px', zIndex: '100' } : {},
                     index == 1 ? { top: '95px', zIndex: '300' } : {},
@@ -363,13 +369,36 @@
                     index == 3 ? { bottom: '95px', zIndex: '300' } : {},
                     index == 4 ? { bottom: '0px', zIndex: '100' } : {}
                   ]"
-                  style="left:0;"
+            style="left:0;"-->
+            <div class="col q-pb-lg self-center">
+              <div class="relative-position" v-if="forwardSectorLinkToggle">
+                <div
+                  class="cursor-pointer q-py-xs"
+                  @click="highchartForwardSector(item)"
                   v-for="(item, index) in graphForwardGVCSector"
                   :key="index"
                   @mouseenter="hoverSector(index, 'forwardSector')"
                   @mouseleave="outHoverSector(index, 'forwardSector')"
                 >
-                  <q-img
+                  <div align="left">
+                    <div
+                      class="q-pa-sm relative-position"
+                      style="background-color:#8D273D;height:53px;"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
+                    >
+                      <div class="absolute-left q-pa-sm" style="white-space:nowrap">
+                        <div class="text-black">{{ item.sector }}</div>
+                        <div class="text-black">
+                          {{ item.precent }}% , ${{
+                          item.value > 1000
+                          ? (item.value / 1000).toFixed(2) + "B"
+                          : item.value + "M"
+                          }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <q-img
                     v-if="forwardSectorHover != index"
                     width="500px"
                     :src="
@@ -401,9 +430,9 @@
                         }}
                       </div>
                     </span>
-                  </q-img>
+                  </q-img>-->
 
-                  <q-img
+                  <!-- <q-img
                     v-if="forwardSectorHover == index"
                     width="500px"
                     :src="
@@ -435,7 +464,18 @@
                         }}
                       </div>
                     </span>
-                  </q-img>
+                  </q-img>-->
+                </div>
+
+                
+                <div align="left" class='q-pt-md' style='color:#8D273D'>
+                <span class="text-bold">Sector</span>
+                <br />
+                <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
+                <br />
+                <span>Contribution to partner exports ($)</span>
+
+
                 </div>
               </div>
 
@@ -774,6 +814,7 @@ export default {
   },
   data() {
     return {
+      test: [50, 60, 70, 30, 90],
       isDisableShare: true,
       countryOptions: [],
 

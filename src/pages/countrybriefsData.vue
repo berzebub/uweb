@@ -54,8 +54,8 @@
         <div align="center" class="q-px-sm" style="height:80px;">
           <span class="text-h6 text-bold">Structure of value-added in {{ region }} exports to world</span>
         </div>
-        <div align="right" class="q-pr-lg">
-          <i style="font-size:16px;">($US, % of gross exports)</i>
+        <div align="center" class="">
+          <i style="font-size:16px;">(% of gross exports)</i>
         </div>
         <div id="container1"></div>
       </div>
@@ -66,8 +66,8 @@
             <br />exports to world
           </span>
         </div>
-        <div align="right" class="q-pr-lg">
-          <i style="font-size:16px;">($US, % of gross exports)</i>
+        <div align="center" class="">
+          <i style="font-size:16px;">(% of gross exports)</i>
         </div>
         <div id="container2"></div>
       </div>
@@ -75,8 +75,8 @@
         <div align="center" class="q-px-sm" style="height:80px;">
           <span class="text-h6 text-bold">Structure of value-added in global exports</span>
         </div>
-        <div align="right" class="q-pr-lg">
-          <i style="font-size:16px;">($US, % of gross exports)</i>
+        <div align="center" class="">
+          <i style="font-size:16px;">(% of gross exports)</i>
         </div>
         <div id="container3"></div>
       </div>
