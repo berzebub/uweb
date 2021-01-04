@@ -27,7 +27,7 @@
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
-                  <gb-flag v-if="scope.opt.code " :code="scope.opt.code" size="small" />
+                  <gb-flag v-if="scope.opt.code && scope.opt.code !='TW' " :code="scope.opt.code" size="small" />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />

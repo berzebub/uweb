@@ -28,14 +28,14 @@
               @input="selectedExporting()"
             >
               <template v-slot:prepend v-if="exportingSelected.code">
-                <gb-flag :code="exportingSelected.code" size="small" />
+                <gb-flag v-if="exportingSelected.code != 'TW'" :code="exportingSelected.code" size="small" />
               </template>
 
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
                     <gb-flag
-                      v-if="scope.opt.code"
+                      v-if="scope.opt.code && scope.opt.code !='TW'"
                       :code="scope.opt.code"
                       size="small"
                     />
@@ -87,7 +87,7 @@
             >
               <template v-slot:prepend v-if="importingSelected.code">
                 <gb-flag
-                  v-if="importingSelected.code"
+                  v-if="importingSelected.code && importingSelected.code !='TW'"
                   :code="importingSelected.code"
                   size="small"
                 />
@@ -97,7 +97,7 @@
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
                     <gb-flag
-                      v-if="scope.opt.code"
+                      v-if="scope.opt.code && scope.opt.code != 'TW'"
                       :code="scope.opt.code"
                       size="small"
                     />

@@ -44,7 +44,7 @@
               >
                 <template v-slot:prepend v-if="overviewCountry">
                   <gb-flag
-                    v-if="overviewCountry.code"
+                    v-if="overviewCountry.code && overviewCountry.code != 'TW'"
                     :code="overviewCountry.code"
                     size="small"
                   />

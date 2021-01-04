@@ -30,7 +30,7 @@
                 >
                   <template v-slot:prepend v-if="showExportingCountry">
                     <gb-flag
-                      v-if="showExportingCountry.code"
+                      v-if="showExportingCountry.code && showExportingCountry.code!='TW'"
                       :code="showExportingCountry.code"
                       size="small"
                     />
@@ -40,7 +40,7 @@
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                       <q-item-section avatar>
                         <gb-flag
-                          v-if="scope.opt.code"
+                          v-if="scope.opt.code && scope.opt.code !='TW'"
                           :code="scope.opt.code"
                           size="small"
                         />
@@ -106,7 +106,7 @@
                 >
                   <template v-slot:prepend v-if="showimportingCountry">
                     <gb-flag
-                      v-if="showimportingCountry.code"
+                      v-if="showimportingCountry.code && showimportingCountry.code!='TW'"
                       :code="showimportingCountry.code"
                       size="small"
                     />
@@ -116,7 +116,7 @@
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                       <q-item-section avatar>
                         <gb-flag
-                          v-if="scope.opt.code"
+                          v-if="scope.opt.code && scope.opt.code !='TW'"
                           :code="scope.opt.code"
                           size="small"
                         />
