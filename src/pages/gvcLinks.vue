@@ -21,13 +21,21 @@
             @input="selectedExpCountry"
           >
             <template v-slot:prepend v-if="overviewCountry">
-              <gb-flag v-if="overviewCountry.code && overviewCountry.code != 'TW'" :code="overviewCountry.code" size="small" />
+              <gb-flag
+                v-if="overviewCountry.code && overviewCountry.code != 'TW'"
+                :code="overviewCountry.code"
+                size="small"
+              />
             </template>
 
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                 <q-item-section avatar>
-                  <gb-flag v-if="scope.opt.code && scope.opt.code !='TW' " :code="scope.opt.code" size="small" />
+                  <gb-flag
+                    v-if="scope.opt.code && scope.opt.code !='TW' "
+                    :code="scope.opt.code"
+                    size="small"
+                  />
                 </q-item-section>
                 <q-item-section>
                   <q-item-label v-html="scope.opt.label" />
@@ -169,7 +177,11 @@
               <!-- Country Content -->
               <div class="col-3 self-center" align="center" style="width:270px;">
                 <div class>
-                  <gb-flag v-if="overviewCountry.code &&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
+                  <gb-flag
+                    v-if="overviewCountry.code &&overviewCountry.code != 'TW'"
+                    :code="overviewCountry.code"
+                    height="100px"
+                  />
                 </div>
                 <div class="relative-position">
                   <span class="font-title">{{ overviewCountry.label }}</span>
@@ -202,7 +214,7 @@
         </div>
 
         <div class="row justify-center">
-          <div class="col-7 row ">
+          <div class="col-7 row">
             <div class="col q-pa-md">
               <div class="c-blue font-footer" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
@@ -228,11 +240,10 @@
                   @click="highchartBackwardSector(item)"
                   v-for="(item, index) in graphBackwardGVCSector"
                   :key="index"
-         
                 >
                   <div class align="right">
                     <div
-                      class="q-pa-sm cursor-pointer relative-position chart-blue" 
+                      class="q-pa-sm cursor-pointer relative-position chart-blue"
                       style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
                     >
@@ -250,14 +261,12 @@
                   </div>
                 </div>
 
-                <div align="right" class='c-blue q-pt-md'>
-                <span class="text-bold">Sector</span>
-                <br />
-                <span>Share of foreign value-added in sectoral gross exports (%)</span>
-                <br />
-                <span>Foreign value-added ($)</span>
-
-
+                <div align="right" class="c-blue q-pt-md">
+                  <span class="text-bold">Sector</span>
+                  <br />
+                  <span>Share of foreign value-added in sectoral gross exports (%)</span>
+                  <br />
+                  <span>Foreign value-added ($)</span>
                 </div>
               </div>
 
@@ -282,7 +291,11 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag v-if="overviewCountry.code&&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
+                <gb-flag
+                  v-if="overviewCountry.code&&overviewCountry.code != 'TW'"
+                  :code="overviewCountry.code"
+                  height="100px"
+                />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
@@ -296,7 +309,6 @@
                   @click="highchartForwardSector(item)"
                   v-for="(item, index) in graphForwardGVCSector"
                   :key="index"
-                
                 >
                   <div align="left">
                     <div
@@ -318,15 +330,12 @@
                   </div>
                 </div>
 
-                
-                <div align="left" class='q-pt-md' style='color:#8D273D'>
-                <span class="text-bold">Sector</span>
-                <br />
-                <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
-                <br />
-                <span>Contribution to partner exports ($)</span>
-
-
+                <div align="left" class="q-pt-md" style="color:#8D273D">
+                  <span class="text-bold">Sector</span>
+                  <br />
+                  <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
+                  <br />
+                  <span>Contribution to partner exports ($)</span>
                 </div>
               </div>
 
@@ -371,7 +380,7 @@
                 <br />
                 <span>Share of foreign value-added in gross exports (%)</span>
                 <br />
-                <span>Foreign value-added ($)</span> -->
+                <span>Foreign value-added ($)</span>-->
               </div>
             </div>
             <!-- Country Content -->
@@ -384,22 +393,21 @@
                 <br />
                 <span>Share of contribution to partner exports, in gross exports (%)</span>
                 <br />
-                <span>Contribution to partner exports ($)</span> -->
+                <span>Contribution to partner exports ($)</span>-->
               </div>
             </div>
           </div>
 
-          <div class="col-10  row q-pb-xl">
-            <div class="col q-pb-lg" >
+          <div class="col-10 row q-pb-xl">
+            <div class="col q-pb-lg">
               <div class="relative-position" v-if="backwardEconomyLinkToggle">
                 <div
                   class="cursor-pointer q-py-xs"
                   @click="highchartBackwardEconomy(item)"
                   v-for="(item, index) in graphBackwardGVCEconomy"
                   :key="index"
-              
                 >
-                 <div align="right">
+                  <div align="right">
                     <div
                       class="q-pa-sm relative-position chart-blue"
                       style="height:53px;"
@@ -417,17 +425,14 @@
                       </div>
                     </div>
                   </div>
-               
                 </div>
 
-                  <div align="right" class='q-pt-md c-blue' >
-                <span class="text-bold">Source economy</span>
-                <br />
-                <span>Share of foreign value-added in gross exports (%)</span>
-                <br />
-                <span>Foreign value-added ($)</span>
-
-
+                <div align="right" class="q-pt-md c-blue">
+                  <span class="text-bold">Source economy</span>
+                  <br />
+                  <span>Share of foreign value-added in gross exports (%)</span>
+                  <br />
+                  <span>Foreign value-added ($)</span>
                 </div>
               </div>
 
@@ -452,28 +457,25 @@
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
               <div>
-                <gb-flag v-if="overviewCountry.code&&overviewCountry.code != 'TW'" :code="overviewCountry.code" height="100px" />
+                <gb-flag
+                  v-if="overviewCountry.code&&overviewCountry.code != 'TW'"
+                  :code="overviewCountry.code"
+                  height="100px"
+                />
               </div>
               <div class="relative-position">
                 <span class="font-title">{{ overviewCountry.label }}</span>
               </div>
             </div>
-            <div class="col q-pb-lg" >
-              <div
-                class="relative-position"
-               
-                v-show="forwardEconomyLinkToggle"
-              >
+            <div class="col q-pb-lg">
+              <div class="relative-position" v-show="forwardEconomyLinkToggle">
                 <div
                   class="cursor-pointer q-py-xs"
                   @click="highchartForwardEconomy(item)"
-                 
                   v-for="(item, index) in graphForwardGVCEconomy"
                   :key="index"
-                 
                 >
-
-                <div align="left">
+                  <div align="left">
                     <div
                       class="q-pa-sm relative-position chart-red"
                       style="height:53px;"
@@ -492,18 +494,14 @@
                     </div>
                   </div>
                 </div>
-                 <div align="left" class='q-pt-md' style='color:#8D273D'>
-                <span class="text-bold">Importing economy</span>
-                <br />
-                <span>Share of contribution to partner exports, in gross exports (%)</span>
-                <br />
-                <span>Contribution to partner exports ($)</span>
-
-
+                <div align="left" class="q-pt-md" style="color:#8D273D">
+                  <span class="text-bold">Importing economy</span>
+                  <br />
+                  <span>Share of contribution to partner exports, in gross exports (%)</span>
+                  <br />
+                  <span>Contribution to partner exports ($)</span>
                 </div>
               </div>
-
-         
 
               <div v-show="!forwardEconomyLinkToggle" class>
                 <div style="border:1px solid;border-radius:10px;" class="q-pa-md">
@@ -522,7 +520,6 @@
                   ></q-btn>
                 </div>
               </div>
-                  
             </div>
           </div>
         </div>
@@ -788,7 +785,10 @@ export default {
       getData = [...getData.data];
 
       this.graphBackwardGVCSector = getData.slice(0, 5);
+      console.log(this.graphBackwardGVCSector);
+      this.graphBackwardGVCSector.sort((a, b) => a.value - b.value);
       this.graphForwardGVCSector = getData.slice(5, 10);
+      this.graphForwardGVCSector.sort((a, b) => a.value - b.value);
 
       this.isGraphGVCSector = true;
     },
@@ -821,8 +821,9 @@ export default {
       });
 
       this.graphBackwardGVCEconomy = getData.slice(0, 5);
+      this.graphBackwardGVCEconomy.sort((a, b) => a.value - b.value);
       this.graphForwardGVCEconomy = getData.slice(5, 10);
-
+      this.graphForwardGVCEconomy.sort((a, b) => a.value - b.value);
       this.isGraphGVCEconomy = true;
     },
 
@@ -1076,6 +1077,7 @@ export default {
       });
 
       getData = getData.data;
+      console.log(getData);
 
       let setColor = ["#E41A1C", "#377EB8", "#4DAF4A", "#FF7F00", "#984EA3"];
 
@@ -1172,7 +1174,6 @@ export default {
     },
 
     async highchartForwardEconomy(val) {
-      console.log(val);
       let urlLink = this.path_api + `/cal_gvc_graph2b.php`;
 
       if (cancelGraph7 !== undefined) {
@@ -1350,17 +1351,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chart-blue{
-  background-color:#2381B8
+.chart-blue {
+  background-color: #2381b8;
 }
-.chart-blue:hover{
-  background-color:#0D4E74
+.chart-blue:hover {
+  background-color: #0d4e74;
 }
-.chart-red{
-background-color:#8D273D
+.chart-red {
+  background-color: #8d273d;
 }
-.chart-red:hover{
-background-color:#b86b7a
+.chart-red:hover {
+  background-color: #b86b7a;
 }
 .box-border {
   border: 1px solid;
