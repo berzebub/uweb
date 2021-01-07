@@ -245,7 +245,7 @@
                     <div
                       class="q-pa-sm cursor-pointer relative-position chart-blue"
                       style="height:53px;"
-                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.sector }}</div>
@@ -314,7 +314,7 @@
                     <div
                       class="q-pa-sm relative-position chart-red"
                       style="height:53px;"
-                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.precent)) * item.precent) + '%'"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphForwardGVCSector.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.sector }}</div>
@@ -411,7 +411,7 @@
                     <div
                       class="q-pa-sm relative-position chart-blue"
                       style="height:53px;"
-                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.precent)) * item.precent) + '%'"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.fullName }}</div>
@@ -479,7 +479,7 @@
                     <div
                       class="q-pa-sm relative-position chart-red"
                       style="height:53px;"
-                      :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.precent)) * item.precent) + '%'"
+                      :style="'width:' + Math.ceil(100/Math.max(...graphForwardGVCEconomy.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.fullName }}</div>
@@ -783,6 +783,9 @@ export default {
       });
 
       getData = [...getData.data];
+      let getDataTemp = getData;
+      getDataTemp.sort((a, b) => a.value - b.value);
+      console.log(getDataTemp[0], getDataTemp[9]);
 
       this.graphBackwardGVCSector = getData.slice(0, 5);
       console.log(this.graphBackwardGVCSector);
