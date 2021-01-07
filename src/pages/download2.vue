@@ -1,10 +1,18 @@
 <template>
   <q-page>
-    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
+    <global-value-chains-header
+      :isShowTinaLink="false"
+      :isDisableShare="false"
+    ></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
       <div style="width:235px" class>
-        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
+        <img
+          style="width:100%"
+          class="full-height"
+          src="../../public/download-side.png"
+          alt
+        />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div style="width:90%;max-width:1200px; margin:auto;">
@@ -108,9 +116,18 @@
             />
           </div>
           <div class="row q-mt-md">
-            <div class="col-12 row justify-center q-col-gutter-md" align="center">
+            <div
+              class="col-12 row justify-center q-col-gutter-md"
+              align="center"
+            >
               <div>
-                <q-btn label="Clear All" outline no-caps style="width:150px;" @click="clearBtn()" />
+                <q-btn
+                  label="Clear All"
+                  outline
+                  no-caps
+                  style="width:150px;"
+                  @click="clearBtn()"
+                />
               </div>
               <div>
                 <download-csv
@@ -120,7 +137,8 @@
                   :data="downloadData"
                   ref="downloadData"
                   @click="test()"
-                >Download Data</download-csv>
+                  >Download Data</download-csv
+                >
 
                 <q-btn
                   v-else
@@ -145,7 +163,12 @@
             <q-space />
             <q-btn
               v-close-popup
-              @click="isAddNewGroupDialog = true,groupSelected = [],groupName = '',isEditGroup = false"
+              @click="
+                (isAddNewGroupDialog = true),
+                  (groupSelected = []),
+                  (groupName = ''),
+                  (isEditGroup = false)
+              "
               label="New group"
               class="text-white"
               no-caps
@@ -168,14 +191,29 @@
             </div>
           </div>
 
-          <div class="row bg-grey-4 q-pa-xs text-black" v-for="(item,index) in tempGroup" :key="index">
+          <div
+            class="row bg-grey-4 q-pa-xs text-black"
+            v-for="(item, index) in tempGroup"
+            :key="index"
+          >
             <div style="width:150px" class="q-pl-md">{{ item.label }}</div>
             <div class="col">{{ item.value.join(", ") }}</div>
             <div align="center" style="width:50px">
-              <q-icon size="xs" class='cursor-pointer' name="fas fa-trash-alt" @click="tempGroup.splice(index,1)"></q-icon>
+              <q-icon
+                size="xs"
+                class="cursor-pointer"
+                name="fas fa-trash-alt"
+                @click="deleteGroup(index)"
+              ></q-icon>
             </div>
             <div align="center" style="width:50px">
-              <q-icon size="xs" v-close-popup @click="editGroup(item,index)" class='cursor-pointer' name="fas fa-edit"></q-icon>
+              <q-icon
+                size="xs"
+                v-close-popup
+                @click="editGroup(item, index)"
+                class="cursor-pointer"
+                name="fas fa-edit"
+              ></q-icon>
             </div>
           </div>
         </q-card-section>
@@ -194,7 +232,10 @@
       <q-card style="width:650px">
         <q-card-section>
           <q-toolbar>
-            <span style="font-size:20px"><span v-if="isEditGroup">Edit</span><span v-else>New</span> Economy group</span>
+            <span style="font-size:20px"
+              ><span v-if="isEditGroup">Edit</span
+              ><span v-else>New</span> Economy group</span
+            >
             <q-space />
           </q-toolbar>
         </q-card-section>
@@ -206,27 +247,47 @@
             <div style="width:65px">
               Name
             </div>
-            <q-input hide-bottom-space="" autofocus="" ref="groupName" class='col' dense="" :rules="[val => !!val]" v-model.trim="groupName"></q-input>
+            <q-input
+              hide-bottom-space=""
+              autofocus=""
+              ref="groupName"
+              class="col"
+              dense=""
+              :rules="[val => !!val]"
+              v-model.trim="groupName"
+            ></q-input>
           </div>
           <div class="row items-end">
             <div style="width:65px">
               Economy
             </div>
-            <q-select hide-bottom-space="" ref="groupSelected" :rules="[val => val.length >= 1]"  map-options="" emit-value="" use-chips="" multiple=""  :options="countryList.filter(x => typeof x.value != 'object')" autofocus="" class='col' dense="" v-model="groupSelected"></q-select>
+            <q-select
+              hide-bottom-space=""
+              ref="groupSelected"
+              :rules="[val => val.length >= 1]"
+              map-options=""
+              emit-value=""
+              use-chips=""
+              multiple=""
+              :options="countryList.filter(x => typeof x.value != 'object')"
+              autofocus=""
+              class="col"
+              dense=""
+              v-model="groupSelected"
+            ></q-select>
           </div>
         </q-card-section>
         <q-card-actions align="center" class="q-pb-md">
           <q-btn
-          @click="isShowEconomyGroupDialog = true"
+            @click="isShowEconomyGroupDialog = true"
             v-close-popup
             label="Cancel"
             no-caps
             style="width:150px;color:black"
             outline=""
           ></q-btn>
-            <q-btn
-          @click="addEconomyGroup()"
-            
+          <q-btn
+            @click="addEconomyGroup()"
             label="Save"
             no-caps
             style="width:150px;background-color:#2C2F30;color:white"
@@ -247,86 +308,83 @@ import myFooter from "../components/footer";
 export default {
   components: {
     myFooter,
-    globalValueChainsHeader,
+    globalValueChainsHeader
   },
   data() {
     return {
-      isEditGroup : false,
+      isEditGroup: false,
       groupSelected: [],
-      groupName : "",
+      groupName: "",
       isAddNewGroupDialog: false,
       isShowEconomyGroupDialog: false,
       indicator: "Imp_cons",
       indicatorList: [
         {
           value: "Imp_cons",
-          label: "Gross exports used in importer's consumption (Imp_cons)",
+          label: "Gross exports used in importer's consumption (Imp_cons)"
         },
         {
           value: "Imp_exp",
-          label:
-            "Grooss exports used in importer's export production (Imp_exp)",
+          label: "Grooss exports used in importer's export production (Imp_exp)"
         },
         {
           value: "Dom_cons",
           label:
-            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)",
+            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)"
         },
         {
           value: "Double",
-          label:
-            "Double counted exports from repeated border crossing (Double)",
+          label: "Double counted exports from repeated border crossing (Double)"
         },
         {
           value: "Imp_cont",
-          label: "Imported content in gross exports (Imp_cont)",
+          label: "Imported content in gross exports (Imp_cont)"
         },
         {
           value: "DVA_tradebalance",
-          label: "Domestice value-added trade balance (DVA_tradebalance)",
+          label: "Domestice value-added trade balance (DVA_tradebalance)"
         },
         {
           value: "DVA_tradebalance_$",
-          label: "Domestice value-added trade balance (DVA_tradebalance_$)",
+          label: "Domestice value-added trade balance (DVA_tradebalance_$)"
         },
         {
           value: "Gross_tradebalance",
-          label: "Gross trade balance (Gross_tradebalance)",
+          label: "Gross trade balance (Gross_tradebalance)"
         },
         {
           value: "Gross_tradebalance_$",
-          label: "Gross trade balance (Gross_tradebalance_$)",
+          label: "Gross trade balance (Gross_tradebalance_$)"
         },
         {
           value: "GVC_participation",
-          label: "GVC participation",
+          label: "GVC participation"
         },
         {
           value: "GVC_participation_$",
-          label: "GVC participation_$",
+          label: "GVC participation_$"
         },
         {
           value: "Back_link_country",
-          label: "Backward linkages, all source countries (Back_link_country)",
+          label: "Backward linkages, all source countries (Back_link_country)"
         },
         {
           value: "Back_link_sector",
-          label: "Backward linkages, all exporting sectors (Back_link_sector)",
+          label: "Backward linkages, all exporting sectors (Back_link_sector)"
         },
         {
           value: "Forward_link_country",
           label:
-            "Forward linkages, all importing countries (Forward_link_country)",
+            "Forward linkages, all importing countries (Forward_link_country)"
         },
         {
           value: "Forward_link_sector",
-          label:
-            "Forward linkages, all exporting sectors (Forward_link_sector)",
+          label: "Forward linkages, all exporting sectors (Forward_link_sector)"
         },
         {
           value: "Gross_exports",
-          label: "Gross exports",
-        },
+          label: "Gross exports"
+        }
       ],
       countryList: [],
       source: null,
@@ -338,75 +396,84 @@ export default {
       yearList: [],
       isShowDownloadBtn: false,
       downloadData: null,
-      tempGroup : [],
-      tempIndex : null
+      tempGroup: [],
+      tempIndex: null
     };
   },
   methods: {
-    editGroup(item,index){
-      this.isEditGroup=true
-      this.groupName= item.label
-      this.groupSelected=item.value
-      this.isAddNewGroupDialog = true
-      this.tempIndex = index
+    deleteGroup(index) {
+      this.tempGroup.splice(index, 1);
+      this.exporting = [];
+      this.importing = [];
+      this.countryList = this.countryList.filter(
+        x => typeof x.value != "object"
+      );
+
+      this.countryList = [...this.tempGroup, ...this.countryList];
     },
-    addEconomyGroup(){
-this.$refs.groupName.validate()
-this.$refs.groupSelected.validate()
+    editGroup(item, index) {
+      this.isEditGroup = true;
+      this.groupName = item.label;
+      this.groupSelected = item.value;
+      this.isAddNewGroupDialog = true;
+      this.tempIndex = index;
+    },
+    addEconomyGroup() {
+      this.$refs.groupName.validate();
+      this.$refs.groupSelected.validate();
 
-if(this.$refs.groupName.hasError || this.$refs.groupSelected.hasError)
-return
+      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError)
+        return;
 
-      if(this.isEditGroup){
-        this.tempGroup[this.tempIndex].label = this.groupName
-        this.tempGroup[this.tempIndex].value = this.groupSelected
-        this.tempIndex = null
-        this.countryList = this.countryList.filter(x => typeof x.value != 'object')
+      if (this.isEditGroup) {
+        this.tempGroup[this.tempIndex].label = this.groupName;
+        this.tempGroup[this.tempIndex].value = this.groupSelected;
+        this.tempIndex = null;
+        this.countryList = this.countryList.filter(
+          x => typeof x.value != "object"
+        );
 
-        this.countryList = [...this.tempGroup,...this.countryList]
-        this.isAddNewGroupDialog = false
+        this.countryList = [...this.tempGroup, ...this.countryList];
+        this.isAddNewGroupDialog = false;
+        this.exporting = [];
+        this.importing = [];
+      } else {
+        // add group
+        this.countryList.unshift({
+          label: this.groupName,
+          value: this.groupSelected
+        });
 
-      }else{
-        // add group    
-        this.countryList.unshift(
-        {
-          label : this.groupName,
-          value : this.groupSelected
-        }
-      )
-
-      this.tempGroup.push( {
-          label : this.groupName,
-          value : this.groupSelected
-        })
-        this.isAddNewGroupDialog = false
+        this.tempGroup.push({
+          label: this.groupName,
+          value: this.groupSelected
+        });
+        this.isAddNewGroupDialog = false;
       }
-   
 
-      this.isAddNewGroupDialog = false,
-      this.isShowEconomyGroupDialog = true
+      (this.isAddNewGroupDialog = false),
+        (this.isShowEconomyGroupDialog = true);
     },
     resetDownloadState() {
       this.isShowDownloadBtn = false;
     },
     loadCountryList() {
       this.countryList = [];
-      countryJson.forEach((data) => {
+      countryJson.forEach(data => {
         let tempCountryList = {
           value: data.iso,
-          label: data.name,
+          label: data.name
         };
         this.countryList.push(tempCountryList);
       });
       this.countryList.sort((a, b) => (a.label < b.label ? -1 : 1));
-     
     },
     loadSectorList() {
       this.sectorList = [];
-      sectorJson.forEach((data) => {
+      sectorJson.forEach(data => {
         let tempSectorList = {
           value: data.id,
-          label: data.name,
+          label: data.name
         };
         this.sectorList.push(tempSectorList);
       });
@@ -415,7 +482,7 @@ return
       this.yearList = [];
       let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
-      data.data.forEach((x) => {
+      data.data.forEach(x => {
         this.yearList.push(x);
       });
     },
@@ -431,31 +498,31 @@ return
       // console.log(this.exporting);
 
       // exporting group
-      let getGroup = this.exporting.filter((x) => typeof x == "object");
+      let getGroup = this.exporting.filter(x => typeof x == "object");
       let tempGroup = [];
-      getGroup.forEach((element) => {
-        element.forEach((x) => tempGroup.push(x));
+      getGroup.forEach(element => {
+        element.forEach(x => tempGroup.push(x));
       });
 
-      let filterExporting = this.exporting.filter((x) => typeof x != "object");
+      let filterExporting = this.exporting.filter(x => typeof x != "object");
       let finalGroup = [...tempGroup, filterExporting[0]];
       finalGroup = [...new Set(finalGroup)];
 
-      let exportingGroup = finalGroup.filter((x) => x);
+      let exportingGroup = finalGroup.filter(x => x);
 
       // importing economy group
 
-      let getImportGroup = this.importing.filter((x) => typeof x == "object");
+      let getImportGroup = this.importing.filter(x => typeof x == "object");
       let tempImportGroup = [];
-      getImportGroup.forEach((element) => {
-        element.forEach((x) => tempImportGroup.push(x));
+      getImportGroup.forEach(element => {
+        element.forEach(x => tempImportGroup.push(x));
       });
 
-      let filterImporting = this.importing.filter((x) => typeof x != "object");
+      let filterImporting = this.importing.filter(x => typeof x != "object");
       let finalImportGroup = [...tempImportGroup, filterImporting[0]];
       finalImportGroup = [...new Set(finalImportGroup)];
 
-      let importingGroup = finalImportGroup.filter((x) => x);
+      let importingGroup = finalImportGroup.filter(x => x);
 
       let _this = this;
       function validateInput() {
@@ -469,28 +536,28 @@ return
             _this.$q.notify({
               message: "Please add an exporting economy",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.importing) {
             _this.$q.notify({
               message: "Please add an importing economy",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.sector) {
             _this.$q.notify({
               message: "Please add a sector",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.year) {
             _this.$q.notify({
               message: "Please add a year",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           return;
@@ -502,7 +569,7 @@ return
           this.$q.notify({
             message: "Please add an source economy",
             color: "red",
-            position: "top",
+            position: "top"
           });
         }
         validateInput();
@@ -523,26 +590,26 @@ return
           exporting: exportingGroup,
           importing: importingGroup,
           sector: this.sector,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "Back_link_sector") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
           source: this.source,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "Forward_link_country") {
         obj = {
           exporting: exportingGroup,
           sector: this.sector,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "Forward_link_sector") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
-          year: this.year,
+          year: this.year
         };
       }
 
@@ -586,14 +653,14 @@ return
 
       this.downloadData = data.data;
       this.isShowDownloadBtn = true;
-    },
+    }
   },
   mounted() {
     this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
     this.loadCountryList();
     this.loadSectorList();
-  },
+  }
 };
 </script>
 
