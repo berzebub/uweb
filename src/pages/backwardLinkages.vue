@@ -28,7 +28,7 @@
                 @filter="filterCountry"
                 @input="selectedExporting()"
               >
-                <template v-slot:prepend v-if="exportingSelected.code">
+                <template v-slot:prepend v-if="exportingSelected.code && exportingSelected.code != 'TW'">
                   <gb-flag :code="exportingSelected.code" size="small" />
                 </template>
 
@@ -36,7 +36,7 @@
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                     <q-item-section avatar>
                       <gb-flag
-                        v-if="scope.opt.code"
+                        v-if="scope.opt.code && scope.opt.code !='TW'"
                         :code="scope.opt.code"
                         size="small"
                       />
@@ -88,7 +88,7 @@
               >
                 <template v-slot:prepend v-if="importingSelected.code">
                   <gb-flag
-                    v-if="importingSelected.code"
+                    v-if="importingSelected.code && importingSelected.code != 'TW'"
                     :code="importingSelected.code"
                     size="small"
                   />
@@ -98,7 +98,7 @@
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                     <q-item-section avatar>
                       <gb-flag
-                        v-if="scope.opt.code"
+                        v-if="scope.opt.code && scope.opt.code !='TW'"
                         :code="scope.opt.code"
                         size="small"
                       />
@@ -146,7 +146,7 @@
             >
               <template v-slot:prepend v-if="sourceEconomySelected.code">
                 <gb-flag
-                  v-if="sourceEconomySelected.code"
+                  v-if="sourceEconomySelected.code && sourceEconomySelected.code != 'TW'"
                   :code="sourceEconomySelected.code"
                   size="small"
                 />
@@ -156,7 +156,7 @@
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                   <q-item-section avatar>
                     <gb-flag
-                      v-if="scope.opt.code"
+                      v-if="scope.opt.code && scope.opt.code !='TW'"
                       :code="scope.opt.code"
                       size="small"
                     />
