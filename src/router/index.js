@@ -123,7 +123,8 @@ Vue.mixin({
           region: element.region,
           iso: element.iso,
           index: element.id,
-          code: element.code
+          code: element.code,
+          region2: element.region2
         };
         tempOptions.push(data);
       });
