@@ -183,7 +183,7 @@ export default {
   mounted() {
     this.$q.sessionStorage.set(
       "shareLink",
-      "unescap.thaiawesomedev.com/global-value-chains"
+      "riva.negotiatetrade.org/#/global-value-chains"
     );
   }
 };

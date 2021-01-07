@@ -64,7 +64,7 @@ const routes = [
         name: "countrybriefs"
       },
       {
-        path: "/countrybriefs/data",
+        path: "/countrybriefs/data/:exp_country?/:year?",
         component: () => import("pages/countrybriefsData.vue"),
         name: "countrybriefsData"
       },

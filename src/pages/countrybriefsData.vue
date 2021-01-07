@@ -24,7 +24,12 @@
           <span>PDF</span>
         </div>
       </q-btn>
-      <q-btn no-caps text-color="white" style="background-color:#2C2F30;">
+      <q-btn
+        no-caps
+        text-color="white"
+        style="background-color:#2C2F30;"
+        @click="isShowShare = true"
+      >
         <div>
           <q-icon class="q-mr-sm" name="fas fa-share-alt" size="14px"></q-icon>
           <span>Share</span>
@@ -677,6 +682,78 @@
         </div>
       </div>
     </div>
+
+    <q-dialog v-model="isShowShare" persistent>
+      <q-card class="relative-position" style="width:400px">
+        <q-icon
+          class="absolute cursor-pointer z-top"
+          style="right:5px;top:5px"
+          name="fas fa-times"
+          size="16px"
+          color="grey-8"
+          flat
+          v-close-popup
+        ></q-icon>
+        <q-card-section>
+          <div class="q-pb-sm">Share</div>
+          <div class="row">
+            <div align="center" class="col fb-hover cursor-pointer">
+              <ShareNetwork
+                network="facebook"
+                :url="$q.sessionStorage.getItem('shareLink')"
+                hashtags=""
+                title
+              >
+                <img src="../../public/facebook.png" alt />
+                <div align="center">Facebook</div>
+              </ShareNetwork>
+            </div>
+            <div align="center" class="col tw-hover cursor-pointer q-px-lg">
+              <ShareNetwork
+                network="twitter"
+                :url="$q.sessionStorage.getItem('shareLink')"
+                title
+                description
+                quote="The hot reload is so fast it\'s near instant. - Evan You"
+                hashtags=""
+              >
+                <img src="../../public/twitter.png" alt />
+                <div align="center">Twitter</div>
+              </ShareNetwork>
+            </div>
+            <div align="center" class="col link-hover cursor-pointer">
+              <ShareNetwork
+                network="linkedIn"
+                :url="$q.sessionStorage.getItem('shareLink')"
+                hashtags=""
+                title
+              >
+                <img src="../../public/linkedin.png" alt />
+                <div align="center">LinkedIn</div>
+              </ShareNetwork>
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-section>
+          <div class="row bg-grey-4 q-pa-sm">
+            <div
+              class="col"
+              style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"
+              id="shareLink"
+            >
+              {{ $q.sessionStorage.getItem("shareLink") }}
+            </div>
+            <div
+              style="width:50px"
+              class="text-blue cursor-pointer"
+              @click="copyLink()"
+            >
+              <b>COPY</b>
+            </div>
+          </div>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -685,6 +762,7 @@ import Axios from "axios";
 export default {
   data() {
     return {
+      isShowShare: false,
       exp_country: "",
       country: "",
       region: "",
@@ -2313,6 +2391,14 @@ export default {
         }
       });
     },
+    copyLink() {
+      var range = document.createRange();
+      range.selectNode(document.getElementById("shareLink"));
+      window.getSelection().removeAllRanges(); // clear current selection
+      window.getSelection().addRange(range); // to select text
+      document.execCommand("copy");
+      window.getSelection().removeAllRanges(); // to deselect
+    },
     async loadData() {
       this.exp_country = this.$q.sessionStorage.getItem("expe");
       this.year = this.$q.sessionStorage.getItem("year");
@@ -2325,6 +2411,13 @@ export default {
       this.region = countryData.region;
 
       if (this.exp_country && this.year) {
+        let link =
+          "riva.negotiatetrade.org/#/countrybriefs/data" +
+          "/" +
+          this.exp_country +
+          "/" +
+          this.year;
+        this.$q.sessionStorage.set("shareLink", link);
         this.loadingShow();
 
         let urllink =
@@ -2346,6 +2439,10 @@ export default {
     }
   },
   async mounted() {
+    if (this.$route.params.exp_country && this.$route.params.year) {
+      this.$q.sessionStorage.set("expe", this.$route.params.exp_country);
+      this.$q.sessionStorage.set("year", this.$route.params.year);
+    }
     await this.getCountryList();
     this.loadData();
   }

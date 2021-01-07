@@ -421,10 +421,7 @@ export default {
     }
   },
   mounted() {
-    this.$q.sessionStorage.set(
-      "shareLink",
-      "unescap.thaiawesomedev.com/download"
-    );
+    this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
     this.loadCountryList();
     this.loadSectorList();

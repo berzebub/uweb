@@ -637,7 +637,7 @@ export default {
         if (this.exp_country && this.year && this.sector) {
           this.isDisableShare = false;
           let link =
-            "unescap.thaiawesomedev.com/forward-linkages" +
+            "riva.negotiatetrade.org/#/forward-linkages" +
             "/" +
             this.exp_country.iso +
             "/" +
@@ -664,7 +664,7 @@ export default {
             this.isDisableTinaLink = false;
           }
           let link =
-            "unescap.thaiawesomedev.com/forward-linkages" +
+            "riva.negotiatetrade.org/#/forward-linkages" +
             "/" +
             this.exp_country.iso +
             "/" +

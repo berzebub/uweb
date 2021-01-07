@@ -107,6 +107,7 @@
         </div>
       </div>
     </div>
+
     <my-footer></my-footer>
   </q-page>
 </template>
