@@ -775,7 +775,7 @@ export default {
       if (cancelGraph2 !== undefined) {
         cancelGraph2();
       }
-
+      console.log(urlLink);
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph2 = c;
@@ -783,12 +783,13 @@ export default {
       });
 
       getData = [...getData.data];
+      console.log(getData);
       let getDataTemp = getData;
-      getDataTemp.sort((a, b) => a.value - b.value);
-      console.log(getDataTemp[0], getDataTemp[9]);
+
+      // console.log(getDataTemp[0], getDataTemp[9]);
 
       this.graphBackwardGVCSector = getData.slice(0, 5);
-      console.log(this.graphBackwardGVCSector);
+      // console.log(this.graphBackwardGVCSector);
       this.graphBackwardGVCSector.sort((a, b) => a.value - b.value);
       this.graphForwardGVCSector = getData.slice(5, 10);
       this.graphForwardGVCSector.sort((a, b) => a.value - b.value);
