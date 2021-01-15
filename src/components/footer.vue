@@ -1,79 +1,60 @@
 <template>
   <div class="bg-transparent">
     <div class="footer-bg container">
-      <div
-        style="height:55px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white"
-      >
-        <div class="row q-pr-lg justify-end items-center fit">
-          <div style="width:90px" align="right">
-            <ShareNetwork
-              network="facebook"
-              title
-              url="https://riva.negotiatetrade.org"
-            >
-              <img
-                style="width:32px"
-                src="../../public/fb-ico.png"
-                class="cursor-pointer"
-              />
-            </ShareNetwork>
-          </div>
-          <div style="width:90px" align="right">
-            <ShareNetwork
-              network="twitter"
-              url="https://riva.negotiatetrade.org"
-              title
-              description
-              quote
-            >
-              <img
-                style="width:32px"
-                src="../../public/twitter-ico.png"
-                alt
-                class="cursor-pointer"
-              />
-            </ShareNetwork>
-          </div>
-          <div style="width:90px" align="right">
-            <ShareNetwork
-              network="linkedIn"
-              url="https://riva.negotiatetrade.org"
-              title
-            >
-              <img
-                style="width:32px"
-                src="../../public/linkin-ico.png"
-                alt
-                class="cursor-pointer"
-              />
-            </ShareNetwork>
+      <div style="height:70px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
+        <div class="row q-pr-lg items-center fit">
+          <div class="row" style="width:100%">
+            <div class="text-white col" align="left">
+              <img src="../../public/rivabanner.png" style="height:68px;" alt />
+            </div>
+            <div class="row" style="width:270px" align="right">
+              <div style="width:90px;" class="q-pt-md" align="right">
+                <ShareNetwork network="facebook" title url="https://riva.negotiatetrade.org">
+                  <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
+                </ShareNetwork>
+              </div>
+              <div style="width:90px" align="right" class="q-pt-md">
+                <ShareNetwork
+                  network="twitter"
+                  url="https://riva.negotiatetrade.org"
+                  title
+                  description
+                  quote
+                >
+                  <img
+                    style="width:32px"
+                    src="../../public/twitter-ico.png"
+                    alt
+                    class="cursor-pointer"
+                  />
+                </ShareNetwork>
+              </div>
+              <div style="width:90px" align="right" class="q-pt-md">
+                <ShareNetwork network="linkedIn" url="https://riva.negotiatetrade.org" title>
+                  <img
+                    style="width:32px"
+                    src="../../public/linkin-ico.png"
+                    alt
+                    class="cursor-pointer"
+                  />
+                </ShareNetwork>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <q-toolbar class="q-px-sm q-pb-sm q-pt-sm items-center">
-        <div
-          class="q-mx-lg cursor-pointer"
-          @click="toUnescap()"
-          style="max-width:180px"
-        >
+        <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
           <q-img style="width:162px" src="../../public/logo.png"></q-img>
         </div>
-        <div
-          class="q-mx-lg cursor-pointer"
-          @click="toFealac()"
-          style="max-width:180px"
-        >
+        <div class="q-mx-lg cursor-pointer" @click="toFealac()" style="max-width:180px">
           <q-img style="width:162px" src="../../public/fealac.png"></q-img>
         </div>
         <q-space />
         <div class="row full-width font-content" align="right">
           <div class="col-12 q-px-md">
             <div class="row justify-between">
-              <div
-                class="text-white"
-                @click="showAboutDialog()"
-                style="text-decoration:none;"
-              >
+              <div class="text-white" @click="showAboutDialog()" style="text-decoration:none;">
                 <span class="cursor-pointer">About</span>
               </div>
               <div
@@ -91,10 +72,8 @@
               >
                 <span>
                   <q-tooltip content-class="bg-indigo">
-                    <span class="text-subtitle1"
-                      >ESCAP Trade, Investment and Innovation Division</span
-                    > </q-tooltip
-                  >ESCAP TIID
+                    <span class="text-subtitle1">ESCAP Trade, Investment and Innovation Division</span>
+                  </q-tooltip>ESCAP TIID
                 </span>
               </div>
               <div
@@ -104,10 +83,8 @@
               >
                 <span>
                   <q-tooltip content-class="bg-indigo" style="font-size:14px">
-                    <span class="text-subtitle1"
-                      >ESCAP Trade Policy and Integration</span
-                    > </q-tooltip
-                  >ESCAP TPI
+                    <span class="text-subtitle1">ESCAP Trade Policy and Integration</span>
+                  </q-tooltip>ESCAP TPI
                 </span>
               </div>
               <div
@@ -121,10 +98,7 @@
           </div>
         </div>
       </q-toolbar>
-      <div
-        class="flex items-center"
-        style="min-height:90px;background-color:rgba(0,0,0,0.70)"
-      >
+      <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.70)">
         <div class="row text-white q-py-sm" style="padding-left:35px">
           <div class="col-5">
             <div class="font-footer">ABOUT RIVA</div>
@@ -136,14 +110,12 @@
               <a
                 href="https://www.unescap.org"
                 style="text-decoration:underline;color:white"
-                >www.unescap.org</a
-              >
+              >www.unescap.org</a>
               RIVA is available on
               <a
                 href="https://riva.negotiatetrade.org"
                 style="text-decoration:underline;color:white"
-                >riva.negotiatetrade.org</a
-              >
+              >riva.negotiatetrade.org</a>
             </div>
           </div>
           <div class="col-2"></div>
@@ -164,22 +136,18 @@
     <q-dialog v-model="isShowAboutDialog">
       <q-card style="width:100%;min-width:750px;border-radius:15px">
         <q-card-section>
-          <div
-            class="bg-white q-pa-md"
-            style="border-radius:10px;"
-            align="center"
-          >
+          <div class="bg-white q-pa-md" style="border-radius:10px;" align="center">
             <div>
               <p class="font-graph">About</p>
               <div style="width:90%;border-bottom:2px solid #283891"></div>
               <div style="height:20px"></div>
-              <span class="font-content"
-                >This online data visualization and distribution platform has
+              <span class="font-content">
+                This online data visualization and distribution platform has
                 been developed with a focus on understanding global value chain
                 linkages between Asia-Pacific and Latin American economies, in
                 addition to more broadly understanding value-chain linkages
-                between economies around the world.</span
-              >
+                between economies around the world.
+              </span>
             </div>
           </div>
         </q-card-section>
@@ -222,7 +190,8 @@
               </ul>
               <div class="font-content" align="left">
                 Requests can be sent to:
-                <br />Trade, Investment and Innovation Division, <br />United
+                <br />Trade, Investment and Innovation Division,
+                <br />United
                 Nations ESCAP, Email: escap-tiid@un.org
               </div>
             </div>
@@ -238,7 +207,7 @@ export default {
   data() {
     return {
       isShowAboutDialog: false,
-      isShowTermOfUseDialog: false
+      isShowTermOfUseDialog: false,
     };
   },
   methods: {
@@ -264,8 +233,8 @@ export default {
       window.open(
         "https://www.unescap.org/our-work/trade-investment-innovation/trade-policy"
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

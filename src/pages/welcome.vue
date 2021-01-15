@@ -12,13 +12,12 @@
         >
           <div style="width:100%">
             <div style="height:15px">&nbsp;</div>
-            <div style="font-size:28px" align="center">
-              Regional Integration
-            </div>
+            <div style="font-size:28px" align="center">Regional Integration</div>
             <div style="height:15px"></div>
             <div style="font-size:18px;letter-spacing:0.2px" align="center">
               ESCAP DigiSRII provides insights on the
-              <br />structure and progress of regional <br />integration in
+              <br />structure and progress of regional
+              <br />integration in
               Asia-Pacific
             </div>
           </div>
@@ -35,11 +34,7 @@
         </div>
       </div>
 
-      <div
-        class="absolute-bottom"
-        style="padding-bottom:20px;padding-right:20px"
-        align="right"
-      >
+      <div class="absolute-bottom" style="padding-bottom:20px;padding-right:20px" align="right">
         <div
           style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
           class="text-white row"
@@ -50,7 +45,8 @@
             <div style="height:15px"></div>
             <div align="center" style="font-size:18px;letter-spacing:0.2px">
               Gain insight into your economy’s participation
-              <br />in GVCs. Uncover the sources of intermediate <br />inputs
+              <br />in GVCs. Uncover the sources of intermediate
+              <br />inputs
               and destinations of domestic value-added
             </div>
           </div>
@@ -63,6 +59,26 @@
               no-caps
             ></q-btn>
           </div>
+
+          <div align="center" class="col-6 q-pt-md">
+            <q-btn
+              @click="goToDownload()"
+              style="width:180px;background-color:#324195;border:1px solid white"
+              label="Download data"
+              class="font-footer"
+              no-caps
+            ></q-btn>
+          </div>
+          <div align="center" class="col-6 q-pt-md">
+            <q-btn
+              @click="goToCountryBriefs()"
+              style="width:180px;background-color:#324195;border:1px solid white"
+              label="Country briefs"
+              class="font-footer"
+              no-caps
+            ></q-btn>
+          </div>
+
           <div style="height:15px">&nbsp;</div>
         </div>
       </div>
@@ -76,16 +92,22 @@
 import myFooter from "../components/footer";
 export default {
   components: {
-    myFooter
+    myFooter,
   },
   methods: {
     goToRegional() {
       this.$router.push("/regional-integration");
     },
     goToGlobal() {
-      this.$router.push("/global-value-chains");
-    }
-  }
+      this.$router.push("/gvc-links");
+    },
+    goToDownload() {
+      this.$router.push("/download");
+    },
+    goToCountryBriefs() {
+      this.$router.push("/countrybriefs");
+    },
+  },
 };
 </script>
 

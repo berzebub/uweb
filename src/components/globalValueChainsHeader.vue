@@ -17,13 +17,12 @@
           class="text-white col-12 text-stroke"
           align="center"
           style="font-size:48px"
-        >
-          Global Value Chains
-        </div>
+        >Global Value Chains</div>
         <div align="center" class="text-stroke text-white font-graph q-pt-lg">
-          Gain insight into your economy’s participation in GVCs. Uncover the
+          Gain insight into your economy’s participation in global value chains (GVCs).
+          <br />Uncover the
           sources of
-          <br />intermediate inputs and destinations of domestic value-added
+          intermediate inputs and destinations of domestic value-added
         </div>
       </div>
 
@@ -40,11 +39,7 @@
           icon="fas fa-share"
         ></q-btn>
       </div>
-      <div
-        class="absolute q-pa-md text-white"
-        style="bottom:0px;right:0px"
-        v-if="isShowTinaLink"
-      >
+      <div class="absolute q-pa-md text-white" style="bottom:0px;right:0px" v-if="isShowTinaLink">
         <q-btn
           :disable="isDisableTina"
           label="TINA Link"
@@ -74,7 +69,7 @@
               <ShareNetwork
                 network="facebook"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                hashtags=""
+                hashtags
                 title
               >
                 <img src="../../public/facebook.png" alt />
@@ -88,7 +83,7 @@
                 title
                 description
                 quote="The hot reload is so fast it\'s near instant. - Evan You"
-                hashtags=""
+                hashtags
               >
                 <img src="../../public/twitter.png" alt />
                 <div align="center">Twitter</div>
@@ -98,7 +93,7 @@
               <ShareNetwork
                 network="linkedIn"
                 :url="$q.sessionStorage.getItem('shareLink')"
-                hashtags=""
+                hashtags
                 title
               >
                 <img src="../../public/linkedin.png" alt />
@@ -113,14 +108,8 @@
               class="col"
               style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"
               id="shareLink"
-            >
-              {{ $q.sessionStorage.getItem("shareLink") }}
-            </div>
-            <div
-              style="width:50px"
-              class="text-blue cursor-pointer"
-              @click="copyLink()"
-            >
+            >{{ $q.sessionStorage.getItem("shareLink") }}</div>
+            <div style="width:50px" class="text-blue cursor-pointer" @click="copyLink()">
               <b>COPY</b>
             </div>
           </div>
@@ -135,21 +124,21 @@ export default {
   props: {
     isShowTinaLink: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isDisableTina: {
       type: Boolean,
-      default: true
+      default: true,
     },
     isDisableShare: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
       isShowShareOptions: false,
-      link: window.location.href
+      link: window.location.href,
     };
   },
   methods: {
@@ -172,9 +161,9 @@ export default {
       window.getSelection().addRange(range); // to select text
       document.execCommand("copy");
       window.getSelection().removeAllRanges(); // to deselect
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 

@@ -64,7 +64,8 @@
 
     <div v-if="exp_country && year">
       <div class="row justify-center q-pa-md">
-        <div class="col-12 row font-content" style="width:900px;" align="center">
+        <div class="col-2 font-graph q-pt-md">Scoll to:</div>
+        <div class="col-8 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
             <q-btn
               class="bg-white q-py-md fit"
@@ -99,6 +100,7 @@
             </q-btn>
           </div>
         </div>
+        <div class="col-2"></div>
       </div>
 
       <q-separator class="no-margin bg-grey-5 shadow-1" id="pageOverview" />
@@ -119,12 +121,12 @@
               <div class="col row font-content" align="center">
                 <div class="col-12 self-start c-blue">
                   <div class="text-bold">
-                    Imported content used in exports
+                    Imported content used in {{ overviewCountry.label }}'s exports
                     <br />(Backward linkages)
                   </div>
 
                   <div class="q-mt-sm" align="center">
-                    Share: {{ graphGVC.import_percent }}% of gross exports
+                    Share: {{ graphGVC.import_percent }}% of {{ overviewCountry.label }}'s gross exports
                     <br />
                     Value: ${{
                     graphGVC.import_value > 1000
@@ -138,14 +140,14 @@
               <div class="col font-content" align="center">
                 <div class="col-12 self-start c-red">
                   <div class="text-bold">
-                    <span>Export of intermediates used in</span>
+                    <span>{{ overviewCountry.label }}'s export of intermediates used in</span>
                     <br />
-                    <span class="text-no-wrap">export production (Forward linkages)</span>
+                    <span class="text-no-wrap">further export production (Forward linkages)</span>
                   </div>
 
                   <div class="q-mt-sm" align="center">
                     <span>
-                      Share: {{ graphGVC.export_percent }}% of gross
+                      Share: {{ graphGVC.export_percent }}% of {{ overviewCountry.label }}'s gross
                       exports
                     </span>
                     <br />
@@ -209,11 +211,16 @@
       </div>
 
       <div class="q-pa-md" v-else>
-        <div align="center" class="q-my-lg">
-          <span class="font-title">key GVC relationships: by exporting sector</span>
+        <div align="center" class="q-mt-lg">
+          <span class="font-title">GVC relationships: top 5 exporting sectors</span>
+        </div>
+        <div align="center">
+          <span
+            class="font-content"
+          >Click on a sector to see the top 5 partner economies associated with it</span>
         </div>
 
-        <div class="row justify-center">
+        <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
               <div class="c-blue font-footer" align="right">
@@ -264,7 +271,7 @@
                 <div align="right" class="c-blue q-pt-md">
                   <span class="text-bold">Sector</span>
                   <br />
-                  <span>Share of foreign value-added in sectoral gross exports (%)</span>
+                  <span>Share of foreign value-added in {{ overviewCountry.label }}'s sectoral gross exports (%)</span>
                   <br />
                   <span>Foreign value-added ($)</span>
                 </div>
@@ -333,7 +340,7 @@
                 <div align="left" class="q-pt-md" style="color:#8D273D">
                   <span class="text-bold">Sector</span>
                   <br />
-                  <span>Share of contribution to partner exports, in sectoral gross exports (%)</span>
+                  <span>Share of {{ overviewCountry.label }}'s sectoral gross exports used in further export production (%)</span>
                   <br />
                   <span>Contribution to partner exports ($)</span>
                 </div>
@@ -366,11 +373,16 @@
       </div>
 
       <div class="q-pa-md" v-else>
-        <div align="center" class="q-my-lg">
-          <span class="font-title">key GVC relationships: by partner economy</span>
+        <div align="center" class="q-mt-lg">
+          <span class="font-title">GVC relationships: top 5 parnter economies</span>
+        </div>
+        <div align="center">
+          <span
+            class="font-content"
+          >Click on a parnter economy to see the top 5 exporting sector associated with it</span>
         </div>
 
-        <div class="row justify-center">
+        <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
               <div class="c-blue font-footer" align="right">
@@ -430,7 +442,7 @@
                 <div align="right" class="q-pt-md c-blue">
                   <span class="text-bold">Source economy</span>
                   <br />
-                  <span>Share of foreign value-added in gross exports (%)</span>
+                  <span>Share of foreign value-added in {{ overviewCountry.label }}'s gross exports (%)</span>
                   <br />
                   <span>Foreign value-added ($)</span>
                 </div>
@@ -497,7 +509,7 @@
                 <div align="left" class="q-pt-md" style="color:#8D273D">
                   <span class="text-bold">Importing economy</span>
                   <br />
-                  <span>Share of contribution to partner exports, in gross exports (%)</span>
+                  <span>Share of {{ overviewCountry.label }}'s gross exports used in further export production (%)</span>
                   <br />
                   <span>Contribution to partner exports ($)</span>
                 </div>
@@ -1304,6 +1316,9 @@ export default {
       this.year = this.$route.params.year
         ? this.$route.params.year
         : this.$q.sessionStorage.getItem("year");
+    }
+    if (this.year == "") {
+      this.year = "2017";
     }
 
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
