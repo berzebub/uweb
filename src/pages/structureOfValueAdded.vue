@@ -831,7 +831,6 @@ export default {
 
       getData = getData.data;
      
-
       let country = [];
       let imp_cons = [];
       let imp_exp = [];
@@ -839,18 +838,49 @@ export default {
       let dom_cons = [];
       let double = [];
       country = getData.map((x)=>x.imp_country)
-      console.log(country)
 
 
       getData.map((x) => {
         country.push(x.imp_country.precent);
-        imp_cons.push(x.imp_cons.precent);
-        imp_exp.push(x.imp_exp.precent);
-        imp_cont.push(x.imp_cont.precent);
-        dom_cons.push(x.dom_cons.precent);
-        double.push(x.double.precent);
+        // imp_cons.push(x.imp_cons.precent);
+
+        imp_cons.push(
+          {
+          value: x.imp_cons.value,
+          y: x.imp_cons.precent,
+          }
+        )
+
+        // imp_exp.push(x.imp_exp.precent);
+
+        imp_exp.push(
+          {
+            value : x.imp_exp.value,
+            y : x.imp_exp.precent
+          }
+        )
+
+
+        // imp_cont.push(x.imp_cont.precent);
+        imp_cont.push(
+          {
+            value : x.imp_cont.value,
+            y : x.imp_cont.precent
+          }
+        );
+        // dom_cons.push(x.dom_cons.precent);
+        dom_cons.push({
+          value : x.dom_cons.value,
+          y : x.dom_cons.precent
+        });
+
+
+        // double.push(x.double.precent);
+        double.push({
+          value : x.double.value,
+          y : x.double.precent
+        });
       });
-      console.log(getData);
       this.isComparisonChart = true;
 
       Highcharts.chart("container1", {
@@ -913,7 +943,33 @@ export default {
         tooltip: {
           useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "<div>{series.name}</div><div>Share: {point.y}%</div>",
+
+          // pointFormat: "<div>{series.name}</div><div>Share: {point.y}%</div><div>Value: " + this + "</div>",
+
+           pointFormatter: function() {
+
+            return (
+
+              // "<div> <span class=''>" + this.series.name + "</span>" +
+              // "<br>" +
+              // "Share: $" +
+              // this.y +
+              // "%" +
+              // "</div>"
+
+              `<div>
+                <span>
+                  ${this.series.name}
+                </span>
+                <br>
+                Share : ${this.y}%
+                <br>
+                Value : $${this.options.value} million
+              </div>`
+            );
+          }
+
+
         },
         plotOptions: {
           column: {
