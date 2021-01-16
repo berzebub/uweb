@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="bg-white">
     <global-value-chains-header
       :isShowTinaLink="true"
       :isDisableShare="isDisableShare"
@@ -28,7 +28,11 @@
               @input="selectedExporting()"
             >
               <template v-slot:prepend v-if="exportingSelected.code">
-                <gb-flag v-if="exportingSelected.code != 'TW'" :code="exportingSelected.code" size="small" />
+                <gb-flag
+                  v-if="exportingSelected.code != 'TW'"
+                  :code="exportingSelected.code"
+                  size="small"
+                />
               </template>
 
               <template v-slot:option="scope">
@@ -42,9 +46,11 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
-                    <q-item-label caption>{{
+                    <q-item-label caption>
+                      {{
                       scope.opt.description
-                    }}</q-item-label>
+                      }}
+                    </q-item-label>
                   </q-item-section>
                 </q-item>
               </template>
@@ -104,9 +110,11 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
-                    <q-item-label caption>{{
+                    <q-item-label caption>
+                      {{
                       scope.opt.description
-                    }}</q-item-label>
+                      }}
+                    </q-item-label>
                   </q-item-section>
                 </q-item>
               </template>
@@ -132,22 +140,18 @@
     </div>
     <!--  -->
 
-    <div
-      v-if="exportingSelected && year && importingSelected && sectorSelected"
-    >
+    <div v-if="exportingSelected && year && importingSelected && sectorSelected">
       <sorry-duplicate v-if="checkDuplicateSelected"></sorry-duplicate>
 
       <div class="bg-white" v-else>
-        <div class="row q-px-md q-py-lg font-content">
+        <!-- <div class="row q-px-md q-py-lg font-content">
           <div class="col q-px-md" align="center">
             <div
               style="border:1px solid;height:60px"
               class="flex flex-center cursor-pointer relative-position"
               v-scroll-to="'#keypolicy'"
               v-ripple
-            >
-              Key policy questions
-            </div>
+            >Key policy questions</div>
           </div>
           <div class="col q-px-md" align="center">
             <div
@@ -155,9 +159,7 @@
               class="flex flex-center cursor-pointer relative-position"
               v-scroll-to="'#structure'"
               v-ripple
-            >
-              Structure of value-added
-            </div>
+            >Structure of value-added</div>
           </div>
           <div class="col q-px-md" align="center">
             <div
@@ -165,9 +167,7 @@
               class="flex flex-center cursor-pointer relative-position"
               v-scroll-to="'#measuring'"
               v-ripple
-            >
-              Measuring trade balance
-            </div>
+            >Measuring trade balance</div>
           </div>
           <div class="col q-px-md" align="center">
             <div
@@ -175,92 +175,97 @@
               class="flex flex-center cursor-pointer relative-position"
               v-ripple
               v-scroll-to="'#comparison'"
-            >
-              Comparison with sub-regional partners
-            </div>
+            >Comparison with sub-regional partners</div>
           </div>
-        </div>
+        </div> -->
 
         <!--  -->
-        <div class="row" style="height:340px">
+        <!-- <div class="row" style="height:340px">
           <div class="col-3">
             <q-img src="../../public/images/image-58.png"></q-img>
           </div>
-          <div
-            class="col flex flex-center"
-            align="center"
-            style="background-color:#E5E1E1"
-          >
+          <div class="col flex flex-center" align="center" style="background-color:#E5E1E1">
             <div class="divRight">
-              <p class="font-24" align="center">
-                How do you disaggregate value-added in gross exports?
-              </p>
+              <p
+                class="font-24"
+                align="center"
+              >How do you disaggregate value-added in gross exports?</p>
 
               <div class="font-content q-pb-sm" align="center">
                 {{ exportingSelected.label }}'s gross exports can be divided
                 into five major parts:
               </div>
               <div class="row q-pt-md" style="width:95%; margin:auto;">
-                <div style="width:20%" align="center">
-                  Used in importer's consumption
-                </div>
-                <div style="width:20%" align="center">
-                  Used in domestic consumption
-                </div>
-                <div style="width:20%" align="center">
-                  Used in importer's export production
-                </div>
+                <div style="width:20%" align="center">Used in importer's consumption</div>
+                <div style="width:20%" align="center">Used in domestic consumption</div>
+                <div style="width:20%" align="center">Used in importer's export production</div>
                 <div style="width:20%" align="center">Imported content</div>
-                <div style="width:20%" align="center">
-                  Double counted exports from repeated border crossing
-                </div>
+                <div
+                  style="width:20%"
+                  align="center"
+                >Double counted exports from repeated border crossing</div>
               </div>
               <div class="bracketLeft"></div>
               <div class="bracketRight"></div>
-              <div class="textLeft font-content">
-                {{ exportingSelected.label }}'s valued-added in exports
-              </div>
+              <div
+                class="textLeft font-content"
+              >{{ exportingSelected.label }}'s valued-added in exports</div>
               <div class="textRight font-content">GVC releated exports</div>
             </div>
           </div>
-        </div>
-        <!--  -->
-        <div style="padding-top:90px;padding-bottom:50px">
-          <p align="center" class="font-24" id="keypolicy">
-            Key policy questions
-          </p>
+        </div> -->
 
-          <div class="font-content" style="padding :0px 60px">
-            <div v-scroll-to="'#structure'" class="cursor-pointer">
-              1.
-              <u>
-                What happens to {{ exportingSelected.label }}’s exports to a
-                selected importer?
-              </u>
+           <div style="height:600px;" >
+ 
+            <div class="font-graph q-pa-md">Key policy questions</div>
+            <div v-if="exportingSelected ==''">
+              <ul>
+                <li>How is an economy’s gross exports produced and utilised?</li>
+                <li>How does this economy’s value-added trade balance differ from its gross trade balance?</li>
+                <li>How are gross exports produced and consumed across other economies in the same region?</li>
+              </ul>
             </div>
-            <div class="cursor-pointer q-pt-sm" v-scroll-to="'#measuring'">
-              2.
-              <u>
-                How does {{ exportingSelected.label }}’s domestic value-added
-                and gross trade balance with the selected imported differ?
-              </u>
+            <div v-else>
+              <ul>
+                <li>How is {{exportingSelected.label}}’s gross exports produced and utilised?</li>
+                <li>How does {{exportingSelected.label}}’s value-added trade balance differ from its gross trade balance?</li>
+                <li>How are gross exports produced and consumed across other economies in the same region?</li>
+              </ul>
             </div>
-            <div class="cursor-pointer q-pt-sm" v-scroll-to="'#comparison'">
-              3.
-              <u>
-                What happens to {{ continent }} economics’ exports to a selected
-                imported?
-              </u>
+    
+         
+       <hr>
+        <div
+          class="row"
+         style="background-color:#E5E1E1;"
+        >
+          <div   style="background-color:#F8F8F6; width:350px;">
+            <q-img src="../../public/images/image-58.png" style="width:350px;"></q-img>
+          </div>
+          <div class="col q-py-md font-content" align="center">
+            <div class="text-black"  v-if="exportingSelected ==''">
+              An economy’s gross exports can be divided into 5 parts, depending
+              <br />on where they come from and how they are used:
             </div>
+             <div class="text-black"  v-else>
+              {{exportingSelected.label}}’s gross exports can be divided into 5 parts, depending
+              <br />on where they come from and how they are used:
+            </div>
+            <q-img style="width:850px;" src="../../src/assets/titlesva.jpg"></q-img>
           </div>
         </div>
+        <hr>
+       
+         </div>
+      </div>
+
         <!-- GRAPH1 -->
         <div style="height:30px" id="structure"></div>
         <div style="width:90%;margin:auto;max-width:1200px">
           <div align="center" class="q-pa-lg" v-if="!isStructureChart">
             <q-spinner-pie color="primary" size="100px" />
           </div>
-          <div v-show="isStructureChart">
+          <div v-show="isStructureChart" class="q-mt-xl">
             <div id="container"></div>
           </div>
 
@@ -269,7 +274,7 @@
           <error-graph
             v-if="errorGraph1"
             :content="
-              `What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`
+              `How are ${exportingSelected.label}'s exports to ${importingSelected.label} produced and utilsed?`
             "
           ></error-graph>
         </div>
@@ -288,7 +293,7 @@
           <error-graph
             v-if="errorGraph3"
             :content="
-              `What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`
+              `How does ${exportingSelected.label}'s gross and domestic value-added trade balance with  ${importingSelected.label} differ?`
             "
           ></error-graph>
         </div>
@@ -309,7 +314,7 @@
           <error-graph
             v-if="errorGraph2"
             :content="
-              `What happens to ${exportingSelected.label}'s exports to ${importingSelected.label}?`
+              `How are ${this.continent} economies’ exports to ${this.importingSelected.label} produced and utilised?`
             "
           ></error-graph>
         </div>
@@ -317,13 +322,60 @@
     </div>
 
     <div v-else>
-      <data-waiting
-        text="Please choose exporting economy, importing economy, exporting sector and year from the drop down menus above"
-      ></data-waiting>
+      <div style="height:750px;" >
+ 
+            <div class="font-graph q-pa-md">Key policy questions</div>
+            <div v-if="exportingSelected ==''">
+              <ul>
+                <li>How is an economy’s gross exports produced and utilised?</li>
+                <li>How does this economy’s value-added trade balance differ from its gross trade balance?</li>
+                <li>How are gross exports produced and consumed across other economies in the same region?</li>
+              </ul>
+            </div>
+            <div v-else>
+              <ul>
+                <li>How is {{exportingSelected.label}}’s gross exports produced and utilised?</li>
+                <li>How does {{exportingSelected.label}}’s value-added trade balance differ from its gross trade balance?</li>
+                <li>How are gross exports produced and consumed across other economies in the same region?</li>
+              </ul>
+            </div>
+    
+         
+       <hr>
+        <div
+          class="row"
+         style="background-color:#E5E1E1;"
+        >
+          <div   style="background-color:#F8F8F6; width:350px;">
+            <q-img src="../../public/images/image-58.png" style="width:350px;"></q-img>
+          </div>
+          <div class="col q-py-md" align="center">
+            <div class="text-black"  v-if="exportingSelected ==''">
+              An economy’s gross exports can be divided into 5 parts, depending
+              <br />on where they come from and how they are used:
+            </div>
+             <div class="text-black"  v-else>
+              {{exportingSelected.label}}’s gross exports can be divided into 5 parts, depending
+              <br />on where they come from and how they are used:
+            </div>
+            <q-img style="width:850px;" src="../../src/assets/titlesva.jpg"></q-img>
+          </div>
+        </div>
+        <hr>
+        <div
+          class=" font-graph text-black q-pt-xl"
+          style="width:100%;"
+          align="center"
+        >
+          Please choose exporting economy, importing economy, exporting sector and year
+          from the drop down menus above
+        </div>
+         </div>
+      </div>
     </div>
 
     <!-- FOOTER -->
-    <div style="height:30px" class="bg-white"></div>
+
     <my-footer></my-footer>
   </q-page>
 </template>
@@ -338,7 +390,7 @@ import errorPage from "../components/error-page";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import myFooter from "../components/footer";
-import dataWaiting from "../components/dataWaiting.vue";
+
 import sorryDuplicate from "../components/sorryDuplicate.vue";
 import errorGraph from "../components/errorGraph.vue";
 let CancelToken = Axios.CancelToken;
@@ -355,9 +407,8 @@ export default {
     globalValueChainsHeader,
     globalValueChainsMenu,
     myFooter,
-    dataWaiting,
     sorryDuplicate,
-    errorGraph
+    errorGraph,
   },
   data() {
     return {
@@ -375,15 +426,15 @@ export default {
           label: "Argentina",
           value: "ARG",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png"
+            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png",
         },
 
         {
           label: "United State",
           value: "USA",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png"
-        }
+            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png",
+        },
       ],
       exportingSelected: "",
       year: "",
@@ -416,13 +467,13 @@ export default {
         imp_exp: 0,
         dom_cons: 0,
         double: 0,
-        imp_cont: 0
+        imp_cont: 0,
       },
       isStructureChart: false,
       isComparisonChart: false,
       isMeasuringChart: false,
 
-      isShowErrorWarning: false
+      isShowErrorWarning: false,
     };
   },
   methods: {
@@ -507,7 +558,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph1 = c;
-        })
+        }),
       });
 
       if (getData.data.text_export_to_import_country == 0) {
@@ -572,15 +623,15 @@ export default {
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" }
+          style: { fontFamily: "roboto" },
         },
         series: [
           {
             dataLabels: {
               enabled: true,
               style: {
-                fontSize: "14px"
-              }
+                fontSize: "14px",
+              },
             },
             type: "treemap",
             layoutAlgorithm: "strip",
@@ -589,37 +640,37 @@ export default {
                 name: `Directly consumed (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
-                label: `Used in ${this.importingSelected.label}’s consumption`
+                label: `Used in ${this.importingSelected.label}’s consumption`,
               },
               {
-                name: `Used in exports (${this.dataChart1Percent.imp_cont}%)`,
+                name: `Used in exports (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
-                label: `Used in ${this.importingSelected.label}’s export <br>production`
+                label: `Used in ${this.importingSelected.label}’s export <br>production`,
               },
               {
                 name: `Domestic consumed (${this.dataChart1Percent.dom_cons}%)`,
                 value: getData.dom_cons,
                 color: "#F99704",
-                label: `Used in ${this.exportingSelected.label}’s domestic <br>consumption`
+                label: `Used in ${this.exportingSelected.label}’s domestic <br>consumption`,
               },
               {
                 name: `Double counted (${this.dataChart1Percent.double}%)`,
                 value: getData.double,
                 color: "#2D9687",
                 label:
-                  "Double counted exports <br>from repeated border crossings"
+                  "Double counted exports <br>from repeated border crossings",
               },
               {
-                name: `Imported content (${this.dataChart1Percent.imp_exp}%)`,
+                name: `Imported content (${this.dataChart1Percent.imp_cont}%)`,
                 value: getData.imp_cont,
                 color: "#9C26B3",
-                label: "Imported content"
-              }
+                label: "Imported content",
+              },
             ],
             showInLegend: true,
-            legendType: "point"
-          }
+            legendType: "point",
+          },
         ],
         legend: {
           useHTML: true,
@@ -627,7 +678,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
 
           align: "right",
@@ -638,39 +689,39 @@ export default {
           symbolHeight: 15,
           symbolRadius: 0,
 
-          labelFormatter: function() {
+          labelFormatter: function () {
             return this.label;
-          }
+          },
         },
         title: {
           style: {
-            fontSize: "24px"
+            fontSize: "24px",
           },
           text:
-            "What happens to " +
+            "How are " +
             this.exportingSelected.label +
             "'s exports to " +
             this.importingSelected.label +
-            "?"
+            " produced and utilised?",
         },
         subtitle: {
-          text: `Gross exports to ${this.importingSelected.label}: $${
+          text: `${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${
             getData.text_export_to_import_country > 1000
               ? (getData.text_export_to_import_country / 1000).toFixed(2) + "B"
               : getData.text_export_to_import_country + "M"
-          } / Gross exports to World: $${
+          } / ${this.exportingSelected.label}'s gross exports to World: $${
             getData.text_export_to_world > 1000
               ? (getData.text_export_to_world / 1000).toFixed(2) + "B"
               : getData.text_export_to_world + "M"
           }`,
-          align: "left"
+          align: "left",
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         tooltip: {
           useHTML: true,
-          pointFormatter: function() {
+          pointFormatter: function () {
             if (this.name.includes("Directly")) {
               return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label}'s consumption</div><div>Share: ${_this.dataChart1Percent.imp_cons}%</div><div>Value: $${this.value} million</div>`;
             } else if (this.name.includes("Used in exports")) {
@@ -680,9 +731,9 @@ export default {
             } else if (this.name.includes("Double counted")) {
               return `<div class='text-weight-bold'>Double counted exports from repeated border crossing</div><div>Share: ${_this.dataChart1Percent.double}%</div><div>Value: $${this.value} million</div>`;
             } else {
-              return `<div class='text-weight-bold'>Used in ${_this.importingSelected.label}'s domestic consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Used in ${_this.exportingSelected.label}'s domestic consumption</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
             }
-          }
+          },
         },
 
         exporting: {
@@ -695,9 +746,9 @@ export default {
                 "downloadJPEG",
                 "separator",
                 "downloadCSV",
-                "downloadXLS"
-              ]
-            }
+                "downloadXLS",
+              ],
+            },
           },
           width: "1920px",
           chartOptions: {
@@ -707,7 +758,7 @@ export default {
                 fontSize: "6px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
-                color: "#00000"
+                color: "#00000",
               },
               align: "right",
               verticalAlign: "middle",
@@ -723,7 +774,7 @@ export default {
               // ${this.label}
               // </div>
 
-              labelFormatter: function() {
+              labelFormatter: function () {
                 return `
 
              <table>
@@ -735,23 +786,23 @@ export default {
 
 
                 `;
-              }
+              },
             },
             title: {
-              style: { fontSize: "12px" }
+              style: { fontSize: "12px" },
             },
             subtitle: {
-              style: { fontSize: "8px" }
+              style: { fontSize: "8px" },
             },
             series: [
               {
                 dataLabels: {
-                  style: { fontSize: "6px" }
-                }
-              }
-            ]
-          }
-        }
+                  style: { fontSize: "6px" },
+                },
+              },
+            ],
+          },
+        },
       });
     },
 
@@ -769,7 +820,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph2 = c;
-        })
+        }),
       });
 
       if (getData.data.show == "off") {
@@ -779,6 +830,7 @@ export default {
       }
 
       getData = getData.data;
+     
 
       let country = [];
       let imp_cons = [];
@@ -786,41 +838,44 @@ export default {
       let imp_cont = [];
       let dom_cons = [];
       let double = [];
+      country = getData.map((x)=>x.imp_country)
+      console.log(country)
 
-      getData.map(x => {
-        country.push(x.imp_country);
-        imp_cons.push(x.imp_cons);
-        imp_exp.push(x.imp_exp);
-        imp_cont.push(x.imp_cont);
-        dom_cons.push(x.dom_cons);
-        double.push(x.double);
+
+      getData.map((x) => {
+        country.push(x.imp_country.precent);
+        imp_cons.push(x.imp_cons.precent);
+        imp_exp.push(x.imp_exp.precent);
+        imp_cont.push(x.imp_cont.precent);
+        dom_cons.push(x.dom_cons.precent);
+        double.push(x.double.precent);
       });
-
+      console.log(getData);
       this.isComparisonChart = true;
 
       Highcharts.chart("container1", {
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%" // 16:9 ratio
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto"
+            fontFamily: "roboto",
           },
-          text: `What happens to ${this.continent} economies’ exports to ${this.importingSelected.label}?`
+          text: `How are ${this.continent} economies’ exports to ${this.importingSelected.label} produced and utilised?`,
         },
         xAxis: {
           labels: {
-            rotation: -90
+            rotation: -90,
           },
-          categories: country
+          categories: country,
         },
         yAxis: {
           min: 0,
           max: 100,
           title: {
-            text: `% of gross exports to ${this.importingSelected.label}`
+            text: `% of gross exports to ${this.importingSelected.label}`,
           },
           stackLabels: {
             enabled: false,
@@ -830,12 +885,12 @@ export default {
                 // theme
                 (Highcharts.defaultOptions.title.style &&
                   Highcharts.defaultOptions.title.style.color) ||
-                "gray"
-            }
-          }
+                "gray",
+            },
+          },
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         legend: {
           useHTML: true,
@@ -843,7 +898,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
           width: 300,
           layout: "vertical",
@@ -853,47 +908,47 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0
+          symbolRadius: 0,
         },
         tooltip: {
           useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "<div>{series.name}</div><div>Value: {point.y}%</div>"
+          pointFormat: "<div>{series.name}</div><div>Share: {point.y}%</div>",
         },
         plotOptions: {
           column: {
             stacking: "normal",
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
         series: [
           {
             name: `Used in ${this.importingSelected.label}'s consumption`,
             data: imp_cons,
-            color: "#2381B8"
+            color: "#2381B8",
           },
           {
             name: `Used in ${this.importingSelected.label}'s export <br> production`,
             data: imp_exp,
-            color: "#EB1E63"
+            color: "#EB1E63",
           },
           {
-            name: `Used in ${this.exportingSelected.label}'s domestic <br>consumption`,
+            name: `Used in  domestic consumption`,
             data: dom_cons,
-            color: "#f99704"
+            color: "#f99704",
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
             data: double,
-            color: "#2D9687"
+            color: "#2D9687",
           },
           {
             name: "Imported content",
             data: imp_cont,
-            color: "#9C26B3"
-          }
+            color: "#9C26B3",
+          },
         ],
         exporting: {
           buttons: {
@@ -903,9 +958,9 @@ export default {
                 "downloadJPEG",
                 "separator",
                 "downloadCSV",
-                "downloadXLS"
-              ]
-            }
+                "downloadXLS",
+              ],
+            },
           },
           width: "1920px",
           chartOptions: {
@@ -920,37 +975,37 @@ export default {
                 fontSize: "7px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
-                color: "#00000"
-              }
+                color: "#00000",
+              },
             },
             title: {
-              style: { fontSize: "12px" }
+              style: { fontSize: "12px" },
             },
             subtitle: {
-              style: { fontSize: "8px" }
+              style: { fontSize: "8px" },
             },
             yAxis: [
               {
                 title: {
                   text: `% of gross exports to ${this.importingSelected.label}`,
-                  style: { fontSize: "6px" }
+                  style: { fontSize: "6px" },
                 },
                 labels: {
-                  style: { fontSize: "6px" }
-                }
-              }
+                  style: { fontSize: "6px" },
+                },
+              },
             ],
             xAxis: [
               {
                 categories: country,
                 labels: {
                   rotation: -90,
-                  style: { fontSize: "6px" }
-                }
-              }
-            ]
-          }
-        }
+                  style: { fontSize: "6px" },
+                },
+              },
+            ],
+          },
+        },
       });
     },
     async setStackChart3() {
@@ -967,7 +1022,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph3 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -987,7 +1042,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
           layout: "vertical",
           align: "right",
@@ -997,42 +1052,42 @@ export default {
           itemMarginTop: 25,
           symbolHeight: 15,
           symbolWidth: 50,
-          symbolRadius: 0
+          symbolRadius: 0,
         },
         chart: {
           type: "column",
-          height: (9 / 16) * 100 + "%" // 16:9 ratio
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
         },
 
         title: {
           style: {
             fontSize: "24px",
-            fontFamily: "roboto"
+            fontFamily: "roboto",
           },
-          text: `How does ${this.exportingSelected.label}'s gross and domestic value-added trade balance with ${this.importingSelected.label} differ?`
+          text: `How does ${this.exportingSelected.label}'s gross and value-added trade balance with ${this.importingSelected.label} differ?`,
         },
         xAxis: {
-          categories: ["", ""]
+          categories: ["", ""],
         },
         yAxis: {
           title: {
-            text: `% of gross exports to ${this.importingSelected.label}`
-          }
+            text: `% of gross exports to ${this.importingSelected.label}`,
+          },
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         series: [
           {
-            name: "Domestic value-added trade balance",
+            name: "Value-added trade balance",
             data: [getData.blue],
-            color: "#2381B8"
+            color: "#2381B8",
           },
           {
             name: "Gross trade balance",
             data: [getData.red],
-            color: "#EB1E63"
-          }
+            color: "#EB1E63",
+          },
         ],
         exporting: {
           buttons: {
@@ -1042,9 +1097,9 @@ export default {
                 "downloadJPEG",
                 "separator",
                 "downloadCSV",
-                "downloadXLS"
-              ]
-            }
+                "downloadXLS",
+              ],
+            },
           },
           width: "1920px",
           chartOptions: {
@@ -1058,38 +1113,38 @@ export default {
                 fontSize: "7px",
                 fontWeight: "medium",
                 fontFamily: "roboto",
-                color: "#00000"
-              }
+                color: "#00000",
+              },
             },
             title: {
-              style: { fontSize: "12px" }
+              style: { fontSize: "12px" },
             },
             subtitle: {
-              style: { fontSize: "8px" }
+              style: { fontSize: "8px" },
             },
             yAxis: [
               {
                 title: {
                   text: `% of gross exports to ${this.importingSelected.label}`,
-                  style: { fontSize: "6px" }
-                }
-              }
-            ]
-          }
+                  style: { fontSize: "6px" },
+                },
+              },
+            ],
+          },
         },
         tooltip: {
           useHTML: true,
           headerFormat: "<b>{point.x}</b><br/>",
           pointFormat:
-            "<div class='text-weight-bold'>{series.name}</div><div> Value : {point.y}%</div>"
-        }
+            "<div class='text-weight-bold'>{series.name}</div><div> Value : {point.y}%</div>",
+        },
       });
     },
 
     filterCountry(val, update) {
       update(async () => {
         this.countryOptionsShow = this.countryOptions.filter(
-          x => x.label.indexOf(val) > -1
+          (x) => x.label.indexOf(val) > -1
         );
       });
     },
@@ -1098,11 +1153,11 @@ export default {
       let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach(element => {
+      data.data.forEach((element) => {
         temp.push({ index: Number(element), label: element });
       });
       this.dataYearList = temp;
-    }
+    },
   },
   async mounted() {
     this.$q.sessionStorage.remove("shareLink");
@@ -1119,13 +1174,17 @@ export default {
         ? this.$route.params.year
         : this.$q.sessionStorage.getItem("year");
     }
+    if (this.year == "") {
+      this.year = 2017;
+      this.displayYear = 2017;
+    }
 
     // Check Session and Params Exporting
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exportingSelected = this.$route.params.expe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.expe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("expe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
           )[0];
       this.countryOptionsShow = this.countryOptions;
       this.continent = this.exportingSelected.region;
@@ -1134,9 +1193,9 @@ export default {
 
     if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
       this.importingSelected = this.$route.params.impe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.impe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("impe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
           )[0];
       this.countryOptionsShow = this.countryOptions;
     }
@@ -1146,6 +1205,7 @@ export default {
         ? this.$route.params.sector
         : this.$q.sessionStorage.getItem("esec");
     }
+    this.sectorSelected = "0";
 
     if (this.validateSelected()) {
       this.renderGraph();
@@ -1154,14 +1214,14 @@ export default {
   computed: {
     checkDuplicateSelected() {
       return this.exportingSelected.iso == this.importingSelected.iso;
-    }
+    },
   },
   beforeDestroy() {
     if (cancelGraph1 != undefined) cancelGraph1();
 
     if (cancelGraph2 != undefined) cancelGraph2();
     if (cancelGraph3 != undefined) cancelGraph3();
-  }
+  },
 };
 </script>
 

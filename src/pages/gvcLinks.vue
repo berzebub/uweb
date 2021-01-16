@@ -178,10 +178,18 @@
 
               <!-- Country Content -->
               <div class="col-3 self-center" align="center" style="width:270px;">
-                <div class>
-                  <gb-flag
-                    v-if="overviewCountry.code &&overviewCountry.code != 'TW'"
-                    :code="overviewCountry.code"
+                <div
+                  v-if="overviewCountry.code &&overviewCountry.code != 'TW' &&overviewCountry.code != 'NP'"
+                >
+                  <img
+                    :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
+                    height="100px"
+                    style="border: 1px solid black"
+                  />
+                </div>
+                <div v-if="overviewCountry.code &&overviewCountry.code == 'NP'">
+                  <img
+                    :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
                     height="100px"
                   />
                 </div>
@@ -297,11 +305,19 @@
             </div>
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
-              <div>
-                <gb-flag
-                  v-if="overviewCountry.code&&overviewCountry.code != 'TW'"
-                  :code="overviewCountry.code"
-                  height="100px"
+              <div
+                v-if="overviewCountry.code &&overviewCountry.code != 'TW' &&overviewCountry.code != 'NP'"
+              >
+                <img
+                  :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
+                  height="80px"
+                  style="border: 1px solid black"
+                />
+              </div>
+              <div v-if="overviewCountry.code &&overviewCountry.code == 'NP'">
+                <img
+                  :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
+                  height="80px"
                 />
               </div>
               <div class="relative-position">
@@ -468,11 +484,19 @@
             </div>
             <!-- Country Content -->
             <div class="col-3 self-center" style="width:200px;" align="center">
-              <div>
-                <gb-flag
-                  v-if="overviewCountry.code&&overviewCountry.code != 'TW'"
-                  :code="overviewCountry.code"
-                  height="100px"
+              <div
+                v-if="overviewCountry.code &&overviewCountry.code != 'TW' &&overviewCountry.code != 'NP'"
+              >
+                <img
+                  :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
+                  height="80px"
+                  style="border: 1px solid black"
+                />
+              </div>
+              <div v-if="overviewCountry.code &&overviewCountry.code == 'NP'">
+                <img
+                  :src="require('../../src/assets/flagfull/' + overviewCountry.code + '.png')"
+                  height="80px"
                 />
               </div>
               <div class="relative-position">
@@ -539,8 +563,30 @@
     </div>
 
     <div v-else>
-      <data-waiting text="Please choose exporting economy and year 
-from the drop down menus above"></data-waiting>
+      <div>
+        <q-img src="../../public/waiting.png" width="100%">
+          <div style="width:100%;background-color: rgba(0, 0, 0, 0.2);" class="text-black">
+            <span class="font-graph">Key policy questions</span>
+            <ul>
+              <li>How much do imports from abroad play a role in an economy’s export production? (backward linkages)</li>
+              <li>Which exporting sectors in this economy rely the most on imported content from other economies? (backward linkages)</li>
+              <li>Which economies contribute the most towards this economy’s exports? (backward linkages)</li>
+              <br />
+              <li>How much does an economy’s value-added in exports contribute to export production in other economies? (forward linkages)</li>
+              <li>Which exporting sectors is this economy contribute the most to export production in other economies? (forward linkages)</li>
+              <li>Which economies are most dependent on this economy’s exports for their own export production? (forward linkages)</li>
+            </ul>
+          </div>
+          <div
+            class="font-graph text-black"
+            style="width:100%;position:relative; top:300px;background-color: rgba(0, 0, 0, 0);"
+            align="center"
+          >
+            Please choose exporting economy and year
+            from the drop down menus above
+          </div>
+        </q-img>
+      </div>
     </div>
 
     <footer-menu></footer-menu>
@@ -557,7 +603,6 @@ import Axios from "axios";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import globalValueChainsMenu from "../components/menu";
 import footerMenu from "../components/footer";
-import dataWaiting from "../components/dataWaiting.vue";
 
 let CancelToken = Axios.CancelToken;
 let source = CancelToken.source();
@@ -577,7 +622,6 @@ export default {
     globalValueChainsHeader,
     globalValueChainsMenu,
     footerMenu,
-    dataWaiting,
   },
   data() {
     return {
