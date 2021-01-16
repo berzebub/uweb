@@ -167,7 +167,9 @@
         </div>
       </div>
 
-      <sorry-duplicate v-show="exp_country.iso == imp_country.iso && activeBy == 'Economy'"></sorry-duplicate>
+      <sorry-duplicate
+        v-show="exp_country.iso == imp_country.iso && activeBy == 'Economy' && exp_country.iso != null"
+      ></sorry-duplicate>
 
       <!--  -->
 
@@ -400,34 +402,10 @@
       </div>
 
       <!-- Economy Data -->
-      <div v-if="this.activeBy == 'Economy' && exp_country.iso != imp_country.iso">
+      <div
+        v-if="this.activeBy == 'Economy' && exp_country.iso != imp_country.iso || exp_country.iso == null"
+      >
         <div v-if="exp_country && imp_country && year">
-          <div class="bg-white q-pa-xl">
-            <div class="q-px-xl bg-white">
-              <!-- Key policy questions -->
-              <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-              <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#exportingMost'">
-                1.
-                <u>
-                  Which sectors in {{ exp_country.label }} are most reliant on
-                  export production in a selected importer?
-                </u>
-              </p>
-              <p
-                class="font-content q-px-sm cursor-pointer"
-                v-scroll-to="'#exportingEconomiesMost'"
-              >
-                2.
-                <u>
-                  Which sectors in {{ exp_country.region }} economies are most
-                  reliant on export production in a selected importer?
-                </u>
-              </p>
-            </div>
-          </div>
-
-          <q-separator class="no-margin bg-grey-5 shadow-1" id="exportingMost" />
-
           <div class="bg-white q-py-xl">
             <div style="width:90%;margin:auto;max-width:1200px">
               <div align="center" class="q-pa-lg" v-if="!isChart3">
@@ -454,10 +432,97 @@
         </div>
 
         <div v-else>
-          <data-waiting
-            text="Please choose exporting economy, exporting sector
- and year from the drop down menus above"
-          ></data-waiting>
+          <div class="row col-12 bg-white">
+            <div class="col-6">
+              <div class="font-content q-pt-md" align="center">
+                <b>Key policy question (Select by exporting sector)</b>
+              </div>
+              <div>
+                <ul>
+                  <li>Where does {{exp_country.label !=null? exp_country.label: 'an economy'}}'s contribute the most towards export production?</li>
+                  <li>How does this compare across economies in the same region?</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="font-content q-pt-md" align="center">
+                <b>Key policy question (Select by importing economy)</b>
+              </div>
+              <div>
+                <ul>
+                  <li>Which sectors in {{exp_country.label !=null? exp_country.label: 'an economy'}}'s are most reliant on export production?</li>
+                  <li>How does this compare across economies in the same region?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="background-color:#E5E1E1;">
+            <div class="col-3 full-height">
+              <q-img class src="../../public/forwardlinks.png"></q-img>
+            </div>
+            <div class="col-9 self-center">
+              <p align="center" class="font-24">
+                Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute towards export
+                production?
+              </p>
+              <div align="center" class="q-px-lg">
+                <div align="center" class="q-px-xs font-content">
+                  <p align="center">
+                    Some part of {{exp_country.label !=null? exp_country.label: 'an economy'}}’s gross exports consist
+                    of intermediate inputs that are used by the direct importer to
+                    produce exports for third economy
+                  </p>
+                </div>
+
+                <div>
+                  <div class="row justify-center">
+                    <div class="col q-px-xs" style="width:170px;">
+                      Exporting economy &nbsp;:
+                      <br />
+                      {{ exp_country.label }}
+                    </div>
+                    <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
+
+                    <div class="col q-px-xs" style="width:170px;">
+                      Exporting sector
+                      <br />
+                      <div class>
+                        <span v-if="activeBy == 'Exporting'">
+                          {{
+                          showSector.label
+                          }}
+                        </span>
+                        <span v-else>All</span>
+                      </div>
+                    </div>
+
+                    <div class="col-1 q-px-xs" style="width:65px">
+                      <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                    </div>
+
+                    <div class="col q-px-xs" style="width:170px;">
+                      Importing economy
+                      <br />
+                      <span v-if="activeBy == 'Economy'">
+                        {{
+                        imp_country.label
+                        }}
+                      </span>
+                      <span v-else>All</span>
+                    </div>
+                    <div class="col-1 q-px-xs" style="width:65px">
+                      <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                    </div>
+                    <div class="col q-mx-sm">Third economies</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="font-graph q-py-lg"
+            align="center"
+          >Please choose exporting economy, importing economy and year from the drop down menus above</div>
         </div>
       </div>
 
@@ -1620,13 +1685,15 @@ export default {
             fontSize: "14px",
           },
           useHTML: true,
-          text: `<br/>Contribution to ${
+          text: `<br/>${this.exp_country.label}'s contribution to ${
             this.imp_country.label
           }'s export production: $${
             getDataSub.contributionto < 1000
               ? getDataSub.contributionto + " million"
               : (getDataSub.contributionto / 1000).toFixed(2) + " billion"
-          } / Gross exports to ${this.imp_country.label}: $${
+          } / ${this.exp_country.label}'s gross exports to ${
+            this.imp_country.label
+          }: $${
             getDataSub.exportto < 1000
               ? getDataSub.exportto + " million"
               : (getDataSub.exportto / 1000).toFixed(2) + " billion"
