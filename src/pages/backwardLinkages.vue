@@ -28,7 +28,10 @@
                 @filter="filterCountry"
                 @input="selectedExporting()"
               >
-                <template v-slot:prepend v-if="exportingSelected.code && exportingSelected.code != 'TW'">
+                <template
+                  v-slot:prepend
+                  v-if="exportingSelected.code && exportingSelected.code != 'TW'"
+                >
                   <gb-flag :code="exportingSelected.code" size="small" />
                 </template>
 
@@ -43,9 +46,7 @@
                     </q-item-section>
                     <q-item-section>
                       <q-item-label v-html="scope.opt.label" />
-                      <q-item-label caption>
-                        {{ scope.opt.description }}
-                      </q-item-label>
+                      <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </template>
@@ -105,9 +106,7 @@
                     </q-item-section>
                     <q-item-section>
                       <q-item-label v-html="scope.opt.label" />
-                      <q-item-label caption>
-                        {{ scope.opt.description }}
-                      </q-item-label>
+                      <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </template>
@@ -163,9 +162,7 @@
                   </q-item-section>
                   <q-item-section>
                     <q-item-label v-html="scope.opt.label" />
-                    <q-item-label caption>
-                      {{ scope.opt.description }}
-                    </q-item-label>
+                    <q-item-label caption>{{ scope.opt.description }}</q-item-label>
                   </q-item-section>
                 </q-item>
               </template>
@@ -182,7 +179,7 @@
               :class="activeSelect == 1 ? 'text-yellow' : 'text-white'"
               @click="selectMenu(1)"
             >
-              select by Exporting
+              Select by exporting
               <br />sector
             </q-btn>
           </div>
@@ -194,7 +191,7 @@
               class="text-white fit font-20"
               @click="selectMenu(2)"
             >
-              select by Source
+              Select by source
               <br />economy
             </q-btn>
           </div>
@@ -203,32 +200,51 @@
       <!--  -->
 
       <sorry-duplicate
-        v-show="exportingSelected.label == importingSelected.label"
+        v-show="exportingSelected.label == importingSelected.label && (exportingSelected.label!=null) "
       ></sorry-duplicate>
-
       <div
-        v-show="isWaiting && exportingSelected.label != importingSelected.label"
+        v-show="isWaiting && exportingSelected.label != importingSelected.label || exportingSelected.label==null || importingSelected.label == null"
       >
-        <data-waiting
+        <!-- <data-waiting
           :text="
             activeSelect == 1
               ? 'Please choose exporting economy, importing economy, exporting sector and year from the drop down menus above'
               : 'Please choose exporting economy, importing economy, source economy and year from the drop down menus above'
           "
-        ></data-waiting>
+        ></data-waiting>-->
+        <div class="row">
+          <div class="col-6">
+            <div class="font-content q-pt-md" align="center">
+              <b>Key policy question (select by exporting sector)</b>
+            </div>
+            <div>
+              <ul>
+                <li>Where does {{exportingSelected.label !=null? exportingSelected.label: 'an economy'}}'s imported content used in its exports come from?</li>
+                <li>How does this compare across economies in the same region?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="font-content q-pt-md" align="center">
+              <b>Key policy question (select by source economy)</b>
+            </div>
+            <div>
+              <ul>
+                <li>How is foreign value-added distributed across {{exportingSelected.label !=null? exportingSelected.label: 'an economy'}}'s exporting sectors?</li>
+                <li>How does this compare across economies in the same region?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div
-        v-if="!isWaiting && exportingSelected.label != importingSelected.label"
-      >
+      <div v-if="!isWaiting && exportingSelected.label != importingSelected.label">
         <div class="row">
           <div class="col-3 full-height">
             <q-img class="fit" src="../../public/images/image-56.png"></q-img>
           </div>
           <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
-            <p align="center" class="font-24">
-              Where does imported content come from?
-            </p>
+            <p align="center" class="font-24">Where does imported content come from?</p>
             <div align="center" class="q-px-lg">
               <p align="center">
                 Some part of {{ exportingSelected.label }}’s gross exports
@@ -239,16 +255,11 @@
               <div class="row justify-around q-pt-md" style="max-width:750px">
                 <div>
                   Source economy
-                  <div v-if="activeSelect == 2">
-                    {{ sourceEconomySelected.label }}
-                  </div>
+                  <div v-if="activeSelect == 2">{{ sourceEconomySelected.label }}</div>
                 </div>
 
                 <div>
-                  <q-img
-                    style="width:60px"
-                    src="../../public/arrow-right.png"
-                  ></q-img>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
                 </div>
                 <div>
                   Exporting economy
@@ -261,10 +272,7 @@
                   <div v-else>All</div>
                 </div>
                 <div>
-                  <q-img
-                    style="width:60px"
-                    src="../../public/arrow-right.png"
-                  ></q-img>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
                 </div>
                 <div>
                   Importing economy
@@ -279,23 +287,15 @@
           <!-- KEY POLICY QUESTION -->
           <div class="q-px-xl bg-white">
             <!-- Key policy questions -->
-            <p align="center" class="font-graph q-py-lg">
-              Key policy questions
-            </p>
-            <p
-              class="font-content q-px-sm cursor-pointer"
-              v-scroll-to="'#importedcountry'"
-            >
+            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
               1.
               <u>
                 Where does {{ exportingSelected.label }}’s imported content come
                 from in exports to a selected importer?
               </u>
             </p>
-            <p
-              class="font-content q-px-sm cursor-pointer"
-              v-scroll-to="'#importedregion'"
-            >
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
               2.
               <u>
                 Where do {{ continent }} economies’ imported content come from
@@ -310,10 +310,7 @@
 
           <!-- GRAPH -->
           <div style="height:30px"></div>
-          <div
-            style="width:90%;margin:auto;max-width:1200px"
-            id="importedcountry"
-          >
+          <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
             <div align="center" class="q-pa-lg" v-if="!isChart">
               <q-spinner-pie color="primary" size="100px" />
             </div>
@@ -329,10 +326,7 @@
             ></error-graph>
           </div>
           <div style="height:30px"></div>
-          <div
-            style="width:90%;margin:auto;max-width:1200px"
-            id="importedregion"
-          >
+          <div style="width:90%;margin:auto;max-width:1200px" id="importedregion">
             <div align="center" class="q-pa-lg" v-if="!isChart1">
               <q-spinner-pie color="primary" size="100px" />
             </div>
@@ -352,28 +346,20 @@
         <div v-show="activeSelect == 2" class="bg-white">
           <div class="q-pa-xl">
             <!-- Key policy questions -->
-            <p align="center" class="font-graph q-py-lg">
-              Key policy questions
-            </p>
-            <p
-              class="font-content q-px-sm cursor-pointer"
-              v-scroll-to="'#importedregion2'"
-            >
+            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion2'">
               1.
-              <u
-                >Which sectors in {{ exportingSelected.label }} rely the most on
-                imported content for exports to a selected importer?</u
-              >
+              <u>
+                Which sectors in {{ exportingSelected.label }} rely the most on
+                imported content for exports to a selected importer?
+              </u>
             </p>
-            <p
-              class="font-content q-px-sm cursor-pointer"
-              v-scroll-to="'#importedcountry1'"
-            >
+            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry1'">
               2.
-              <u
-                >Which sectors in {{ continent }} economies rely the most on
-                imported content for exports to a selected importer?</u
-              >
+              <u>
+                Which sectors in {{ continent }} economies rely the most on
+                imported content for exports to a selected importer?
+              </u>
             </p>
           </div>
           <div class="q-py-lg">
@@ -448,7 +434,7 @@ export default {
     myFooter,
     errorGraph,
     dataWaiting,
-    sorryDuplicate
+    sorryDuplicate,
   },
   data() {
     return {
@@ -470,15 +456,15 @@ export default {
           label: "Argentina",
           value: "ARG",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png"
+            "https://www.iconfinder.com/data/icons/ensign-11/512/16_Ensign_Flag_Nation_Argentina-512.png",
         },
 
         {
           label: "United State",
           value: "USA",
           flag:
-            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png"
-        }
+            "https://www.iconfinder.com/data/icons/ensign-11/512/274_Ensign_Flag_Nation_states-512.png",
+        },
       ],
       exportingSelected: "",
       yearSelected: "",
@@ -519,7 +505,7 @@ export default {
       propertyData: [],
       financialData: [],
       publicwData: [],
-      privatewData: []
+      privatewData: [],
     };
   },
   methods: {
@@ -589,7 +575,7 @@ export default {
     filterCountry(val, update) {
       update(async () => {
         this.countryOptionsShow = this.countryOptions.filter(
-          x => x.label.indexOf(val) > -1
+          (x) => x.label.indexOf(val) > -1
         );
       });
     },
@@ -597,7 +583,7 @@ export default {
       let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
       let temp = [];
-      data.data.forEach(element => {
+      data.data.forEach((element) => {
         temp.push({ index: Number(element), label: element });
       });
       this.dataYearList = temp;
@@ -635,7 +621,7 @@ export default {
     selectedSector() {
       this.$q.sessionStorage.set("esec", this.sectorSelected);
       this.displaySector = this.sectorOptions.filter(
-        x => x.value == this.sectorSelected
+        (x) => x.value == this.sectorSelected
       )[0].label;
       if (this.activeSelect == 1) {
         if (this.validateSelected()) this.renderGraphSector();
@@ -688,7 +674,7 @@ export default {
       let getDataSub = await Axios.get(urlLinkSub, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph1 = c;
-        })
+        }),
       });
 
       if (getDataSub.data.ImportedContent < 1) {
@@ -708,11 +694,11 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph2 = c;
-        })
+        }),
       });
 
-      let summaryValue = getData.data.map(x => x.value);
-      summaryValue = summaryValue.filter(x => x);
+      let summaryValue = getData.data.map((x) => x.value);
+      summaryValue = summaryValue.filter((x) => x);
 
       summaryValue = summaryValue.reduce((a, b) => a + b, 0);
 
@@ -736,7 +722,7 @@ export default {
         return b.value - a.value;
       });
 
-      let getValue = temp.map(x => {
+      let getValue = temp.map((x) => {
         return x.value;
       });
 
@@ -750,7 +736,7 @@ export default {
         if (index < 5) {
           let newData = {
             name: x.name,
-            sum: ((x.value / sumOfValue) * 100).toFixed(2)
+            sum: ((x.value / sumOfValue) * 100).toFixed(2),
           };
 
           graphOneDetailsList.push(newData);
@@ -787,7 +773,7 @@ export default {
       Highcharts.chart("container", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" }
+          style: { fontFamily: "roboto" },
         },
         series: [
           {
@@ -805,16 +791,16 @@ export default {
                   verticalAlign: "top",
                   style: {
                     fontSize: "15px",
-                    fontWeight: "bold"
-                  }
-                }
-              }
+                    fontWeight: "bold",
+                  },
+                },
+              },
             ],
 
             data: getData.data,
             showInLegend: true,
-            legendType: "point"
-          }
+            legendType: "point",
+          },
         ],
         legend: {
           useHTML: true,
@@ -822,7 +808,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
 
           align: "right",
@@ -834,7 +820,7 @@ export default {
           symbolRadius: 0,
           useHTML: true,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             if (this.name == "Europe") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #eb1e63;"></div></td><td style="padding-left:20px;">Europe</td></tr></table></div>';
             } else if (this.name == "Latin America") {
@@ -846,37 +832,37 @@ export default {
             } else if (this.name == "Rest of the world") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
             }
-          }
+          },
         },
         plotOptions: {
           treemap: {
             dataLabels: {
-              enabled: true
-            }
+              enabled: true,
+            },
           },
           series: {
             dataLabels: {
-              enabled: false
-            }
-          }
+              enabled: false,
+            },
+          },
         },
 
         title: {
           style: {
-            fontSize: "24px"
+            fontSize: "24px",
           },
-          text: `Where does ${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label} come from?`
+          text: `Where does ${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label} come from?`,
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         subtitle: {
           useHTML: true,
           style: {
-            fontSize: "14px"
+            fontSize: "14px",
           },
           text: `Gross exports of ${this.exportingSelected.label} in ${this.displaySector} sector(s) to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / Gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub}`,
-          align: "left"
+          align: "left",
         },
         // exporting: this.exportingGraphOptions,
         exporting: {
@@ -889,18 +875,18 @@ export default {
                 "downloadJPEG",
                 "separator",
                 "downloadCSV",
-                "downloadXLS"
-              ]
-            }
+                "downloadXLS",
+              ],
+            },
           },
           width: "1920px",
           chartOptions: {
             chart: {
               events: {
-                load: function() {
+                load: function () {
                   this.legend.update({
                     width: 120,
-                    labelFormatter: function() {
+                    labelFormatter: function () {
                       if (this.name == "Europe") {
                         return '<div  style="padding-bottom:5px;width:100%;white-space: nowrap;"><table><tr><td><div style="width: 7px;height: 7px;background-color: #eb1e63;"></div></td><td style="font-size:8px;padding-left:10px;width:100%;white-space:nowrap">Europe</td></tr></table></div>';
                       } else if (this.name == "Latin America") {
@@ -912,30 +898,30 @@ export default {
                       } else if (this.name == "Rest of the world") {
                         return '<div  style="padding-bottom:5px;width:100%;"><table><tr><td><div style="width: 7px;height: 7px;background-color: #9C26B3;"></div></td><td style="font-size:8px;padding-left:10px;width:100%;white-space:nowrap">Rest of the world</td></tr></table></div>';
                       }
-                    }
+                    },
                   });
-                }
-              }
+                },
+              },
             },
 
             series: [
               {
                 dataLabels: {
-                  style: { fontSize: "6px" }
-                }
-              }
+                  style: { fontSize: "6px" },
+                },
+              },
             ],
             title: {
-              style: { fontSize: "12px" }
+              style: { fontSize: "12px" },
             },
             subtitle: {
-              style: { fontSize: "8px" }
-            }
-          }
+              style: { fontSize: "8px" },
+            },
+          },
         },
         tooltip: {
           useHTML: true,
-          pointFormatter: function() {
+          pointFormatter: function () {
             return (
               "<div> <span class='text-bold'>" +
               this.name +
@@ -946,8 +932,8 @@ export default {
               " million" +
               "</div>"
             );
-          }
-        }
+          },
+        },
       });
     },
     // Graph Two
@@ -971,7 +957,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph3 = c;
-        })
+        }),
       });
 
       if (getData.data.show == "off") {
@@ -983,33 +969,33 @@ export default {
 
       let countryList = [];
 
-      getData.map(x => {
+      getData.map((x) => {
         countryList.push(x[0].exp_country);
       });
 
       let rawData = [];
-      getData.map(x => {
-        let temp = x.filter(y => y.value != 0);
+      getData.map((x) => {
+        let temp = x.filter((y) => y.value != 0);
         rawData.push(temp);
       });
-      rawData.map(x => {
-        x.forEach(y => {
+      rawData.map((x) => {
+        x.forEach((y) => {
           this.chart2RawData.push(y);
         });
       });
 
       //สร้าง Drill down สำหรับ Asia pacific
       let asiaRawData = this.chart2RawData.filter(
-        x => x.area == "Asia-Pacific"
+        (x) => x.area == "Asia-Pacific"
       );
-      countryList.forEach(x => {
-        let data = asiaRawData.filter(y => y.exp_country == x);
+      countryList.forEach((x) => {
+        let data = asiaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
-        data.forEach(z => {
+        data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value
+            y: z.value,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1019,27 +1005,27 @@ export default {
           type: "pie",
           id: x + " - " + "Asia Pacific",
           name: x + " <br> " + "Asia-Pacific",
-          data: dataFinal
+          data: dataFinal,
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
-          drilldown: x + " - " + "Asia Pacific"
+          drilldown: x + " - " + "Asia Pacific",
         };
         this.chart2AsiaPacific.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Europe
-      let europeRawData = this.chart2RawData.filter(x => x.area == "Europe");
-      countryList.forEach(x => {
-        let data = europeRawData.filter(y => y.exp_country == x);
+      let europeRawData = this.chart2RawData.filter((x) => x.area == "Europe");
+      countryList.forEach((x) => {
+        let data = europeRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
-        data.forEach(z => {
+        data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value
+            y: z.value,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1048,29 +1034,29 @@ export default {
           type: "pie",
           id: x + " - " + "Europe",
           name: x + " <br> " + "Europe",
-          data: dataFinal
+          data: dataFinal,
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
-          drilldown: x + " - " + "Europe"
+          drilldown: x + " - " + "Europe",
         };
         this.chart2Europe.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ North America
       let northAmericaRawData = this.chart2RawData.filter(
-        x => x.area == "North America"
+        (x) => x.area == "North America"
       );
-      countryList.forEach(x => {
-        let data = northAmericaRawData.filter(y => y.exp_country == x);
+      countryList.forEach((x) => {
+        let data = northAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
-        data.forEach(z => {
+        data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value
+            y: z.value,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1079,29 +1065,29 @@ export default {
           type: "pie",
           id: x + " - " + "North America",
           name: x + " <br> " + "North America",
-          data: dataFinal
+          data: dataFinal,
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
-          drilldown: x + " - " + "North America"
+          drilldown: x + " - " + "North America",
         };
         this.chart2NorthAmerica.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Latin America
       let latinAmericaRawData = this.chart2RawData.filter(
-        x => x.area == "Latin America"
+        (x) => x.area == "Latin America"
       );
-      countryList.forEach(x => {
-        let data = latinAmericaRawData.filter(y => y.exp_country == x);
+      countryList.forEach((x) => {
+        let data = latinAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
-        data.forEach(z => {
+        data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value
+            y: z.value,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1110,29 +1096,29 @@ export default {
           type: "pie",
           id: x + " - " + "Latin America",
           name: x + " <br> " + "Latin America",
-          data: dataFinal
+          data: dataFinal,
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
-          drilldown: x + " - " + "Latin America"
+          drilldown: x + " - " + "Latin America",
         };
         this.chart2LatinAmerica.push(tempData);
       });
 
       //สร้าง Drill down สำหรับ Rest of the world
       let restRawData = this.chart2RawData.filter(
-        x => x.area == "Rest of the world"
+        (x) => x.area == "Rest of the world"
       );
-      countryList.forEach(x => {
-        let data = restRawData.filter(y => y.exp_country == x);
+      countryList.forEach((x) => {
+        let data = restRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
-        data.forEach(z => {
+        data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value
+            y: z.value,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1141,13 +1127,13 @@ export default {
           type: "pie",
           id: x + " - " + "Rest of the world",
           name: x + " <br> " + "Rest of the world",
-          data: dataFinal
+          data: dataFinal,
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
-          drilldown: x + " - " + "Rest of the world"
+          drilldown: x + " - " + "Rest of the world",
         };
         this.chart2RestOfTheWorld.push(tempData);
       });
@@ -1160,22 +1146,22 @@ export default {
           chart: {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
-            style: { fontFamily: "roboto" }
+            style: { fontFamily: "roboto" },
           },
 
           xAxis: {
             labels: {
-              rotation: -90
+              rotation: -90,
             },
-            type: "category"
+            type: "category",
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           yAxis: {
             min: 0,
             title: {
-              text: `% of gross exports to ${this.importingSelected.label}`
+              text: `% of gross exports to ${this.importingSelected.label}`,
             },
             stackLabels: {
               enabled: false,
@@ -1185,9 +1171,9 @@ export default {
                   // theme
                   (Highcharts.defaultOptions.title.style &&
                     Highcharts.defaultOptions.title.style.color) ||
-                  "gray"
-              }
-            }
+                  "gray",
+              },
+            },
           },
           legend: {
             useHTML: true,
@@ -1195,7 +1181,7 @@ export default {
               fontSize: "14px",
               fontWeight: "medium",
               fontFamily: "roboto",
-              color: "#00000"
+              color: "#00000",
             },
             align: "right",
             verticalAlign: "middle",
@@ -1203,64 +1189,64 @@ export default {
             itemMarginTop: 25,
             symbolHeight: 15,
             symbolWidth: 50,
-            symbolRadius: 0
+            symbolRadius: 0,
           },
 
           tooltip: {
             useHTML: true,
             headerFormat: "<div class='text-weight-bold'>{point.key}</div>",
             pointFormat:
-              "<div class=''>{series.name}</div><div> Value : {point.y}%</div>"
+              "<div class=''>{series.name}</div><div> Value : {point.y}%</div>",
           },
           plotOptions: {
             column: {
               stacking: "normal",
               dataLabels: {
-                enabled: false
-              }
-            }
+                enabled: false,
+              },
+            },
           },
 
           series: [
             {
               name: "Asia-Pacific",
               data: this.chart2AsiaPacific,
-              color: "#2381B8"
+              color: "#2381B8",
             },
             {
               name: "Europe",
               data: this.chart2Europe,
-              color: "#EB1E63"
+              color: "#EB1E63",
             },
             {
               name: "North America",
               data: this.chart2NorthAmerica,
-              color: "#f99704"
+              color: "#f99704",
             },
             {
               name: "Latin America",
               data: this.chart2LatinAmerica,
-              color: "#2D9687"
+              color: "#2D9687",
             },
             {
               name: "Rest of the world",
               data: this.chart2RestOfTheWorld,
-              color: "#9C26B3"
-            }
+              color: "#9C26B3",
+            },
           ],
           drilldown: {
             activeDataLabelStyle: {
               color: "white",
-              textShadow: "0 0 2px black, 0 0 2px black"
+              textShadow: "0 0 2px black, 0 0 2px black",
             },
             showInLegend: false,
-            series: this.chart2DrillDown
+            series: this.chart2DrillDown,
           },
           title: {
             style: {
-              fontSize: "24px"
+              fontSize: "24px",
             },
-            text: `Where do ${this.continent} economies' imported content in exports to ${this.importingSelected.label} come from?`
+            text: `Where do ${this.continent} economies' imported content in exports to ${this.importingSelected.label} come from?`,
           },
           exporting: {
             buttons: {
@@ -1270,17 +1256,17 @@ export default {
                   "downloadJPEG",
                   "separator",
                   "downloadCSV",
-                  "downloadXLS"
-                ]
-              }
+                  "downloadXLS",
+                ],
+              },
             },
             width: "1920px",
             chartOptions: {
               title: {
-                style: { fontSize: "12px" }
+                style: { fontSize: "12px" },
               },
               subtitle: {
-                style: { fontSize: "8px" }
+                style: { fontSize: "8px" },
               },
               legend: {
                 width: 120,
@@ -1293,32 +1279,32 @@ export default {
                   fontSize: "7px",
                   fontWeight: "medium",
                   fontFamily: "roboto",
-                  color: "#00000"
-                }
+                  color: "#00000",
+                },
               },
               yAxis: [
                 {
                   title: {
                     text: `% of gross exports to ${this.importingSelected.label}`,
-                    style: { fontSize: "6px" }
+                    style: { fontSize: "6px" },
                   },
                   labels: {
-                    style: { fontSize: "6px" }
-                  }
-                }
+                    style: { fontSize: "6px" },
+                  },
+                },
               ],
               xAxis: [
                 {
                   labels: {
-                    style: { fontSize: "6px" }
+                    style: { fontSize: "6px" },
                   },
-                  type: "category"
-                }
-              ]
-            }
-          }
+                  type: "category",
+                },
+              ],
+            },
+          },
         },
-        (Highcharts.Tick.prototype.drillable = function() {})
+        (Highcharts.Tick.prototype.drillable = function () {})
       );
     },
 
@@ -1335,12 +1321,12 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph4 = c;
-        })
+        }),
       });
 
       getData = getData.data;
 
-      getData.forEach(element => {
+      getData.forEach((element) => {
         console.log(element.valuePrecent);
         if (element.valuePrecent) {
           element.name = element.name + "(" + element.valuePrecent + "%)";
@@ -1358,7 +1344,7 @@ export default {
       let getDataSub = await Axios.get(urlLinkSub, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph5 = c;
-        })
+        }),
       });
 
       let fromsouceConvert =
@@ -1391,7 +1377,7 @@ export default {
       Highcharts.chart("container3", {
         chart: {
           height: (11 / 16) * 100 + "%", // 16:9 ratio
-          style: { fontFamily: "roboto" }
+          style: { fontFamily: "roboto" },
         },
         series: [
           {
@@ -1409,17 +1395,17 @@ export default {
                   align: "left",
                   verticalAlign: "top",
                   style: {
-                    fontSize: "15px"
+                    fontSize: "15px",
                     // fontWeight: "bold",
-                  }
-                }
-              }
+                  },
+                },
+              },
             ],
 
             data: [...getData],
             showInLegend: true,
-            legendType: "point"
-          }
+            legendType: "point",
+          },
         ],
         legend: {
           useHTML: true,
@@ -1434,7 +1420,7 @@ export default {
             fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
-            color: "#00000"
+            color: "#00000",
           },
 
           align: "center",
@@ -1446,7 +1432,7 @@ export default {
           symbolRadius: 0,
           useHTML: true,
           symbolWidth: 0,
-          labelFormatter: function() {
+          labelFormatter: function () {
             if (this.name == "Agriculture") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #2F978B;"></div></td><td style="padding-left:12px;">Agriculture</td></tr></table></div>';
             } else if (this.name == "Mining") {
@@ -1476,24 +1462,24 @@ export default {
             } else if (this.name == "Private household service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1564C0;"></div></td><td style="padding-left:12px;"><div>Services</div>Private household </td></tr></table></div>';
             }
-          }
+          },
         },
         title: {
           style: {
-            fontSize: "24px"
+            fontSize: "24px",
           },
-          text: `Which sectors in ${this.exportingSelected.label} rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`
+          text: `Which sectors in ${this.exportingSelected.label} rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
         },
         credits: {
-          enabled: false
+          enabled: false,
         },
         subtitle: {
           useHTML: true,
           style: {
-            fontSize: "14px"
+            fontSize: "14px",
           },
           text: `<br/>Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${fromsouceConvert} ${fromsouceUnitSub} / Gross exports to ${this.importingSelected.label}: $${exportToConvert} ${exportToUnitSub}`,
-          align: "left"
+          align: "left",
         },
 
         exporting: {
@@ -1506,23 +1492,23 @@ export default {
                 "downloadJPEG",
                 "separator",
                 "downloadCSV",
-                "downloadXLS"
-              ]
-            }
+                "downloadXLS",
+              ],
+            },
           },
           width: 1920,
           chartOptions: {
             chart: {
               height: (9 / 16) * 100 + "%",
               events: {
-                load: function() {
+                load: function () {
                   this.legend.update({
                     useHTML: true,
                     align: "right",
                     verticalAlign: "middle",
                     width: 150,
 
-                    labelFormatter: function() {
+                    labelFormatter: function () {
                       if (this.name == "Agriculture") {
                         return '<div style="padding:2px;font-size:10px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 7px;height: 7px;background-color: #2F978B;"></div></td><td style="padding-left:3px;font-size:8px;white-space:nowrap">Agriculture</td></tr></table></div>';
                       } else if (this.name == "Mining") {
@@ -1552,36 +1538,36 @@ export default {
                       } else if (this.name == "Private household service") {
                         return '<div style="padding:2px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 7px;height: 7px;background-color: #1564C0;"></div></td><td style="padding-left:3px;font-size:8px;white-space:nowrap">Services Private household </td></tr></table></div>';
                       }
-                    }
+                    },
                   });
-                }
-              }
+                },
+              },
             },
             legend: {
-              enabled: true
+              enabled: true,
             },
             title: {
-              style: { fontSize: "12px" }
+              style: { fontSize: "12px" },
             },
             subtitle: {
-              style: { fontSize: "8px" }
+              style: { fontSize: "8px" },
             },
             series: [
               {
                 dataLabels: {
-                  style: { fontSize: "6px" }
-                }
-              }
-            ]
-          }
+                  style: { fontSize: "6px" },
+                },
+              },
+            ],
+          },
         },
         tooltip: {
           useHTML: true,
-          pointFormatter: function() {
+          pointFormatter: function () {
             console.log(this);
             return `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`;
-          }
-        }
+          },
+        },
       });
       this.isChart2 = true;
     },
@@ -1602,7 +1588,7 @@ export default {
       let getData = await Axios.get(urlLink, {
         cancelToken: new CancelToken(function executor(c) {
           cancelGraph6 = c;
-        })
+        }),
       });
 
       getData = getData.data;
@@ -1613,58 +1599,58 @@ export default {
         return;
       }
 
-      let countryTemp = getData.map(x => x.exp_country);
+      let countryTemp = getData.map((x) => x.exp_country);
       this.countryList = [...new Set(countryTemp)];
       this.countryList.sort();
 
       //Agiculture
       this.agricultureData = [];
-      let agriculture = getData.filter(x => x.grouping == "Agriculture");
+      let agriculture = getData.filter((x) => x.grouping == "Agriculture");
       agriculture.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      agriculture = agriculture.map(x => x.value);
+      agriculture = agriculture.map((x) => x.value);
       for (let i = 0; i < agriculture.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: agriculture[i]
+          y: agriculture[i],
         };
         this.agricultureData.push(temp);
       }
 
       //Mining
       this.miningData = [];
-      let mining = getData.filter(x => x.grouping == "Mining");
+      let mining = getData.filter((x) => x.grouping == "Mining");
       mining.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      mining = mining.map(x => x.value);
+      mining = mining.map((x) => x.value);
       for (let i = 0; i < mining.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: mining[i]
+          y: mining[i],
         };
         this.miningData.push(temp);
       }
 
       //construction
       this.constructionData = [];
-      let construction = getData.filter(x => x.grouping == "Construction");
+      let construction = getData.filter((x) => x.grouping == "Construction");
       construction.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      construction = construction.map(x => x.value);
+      construction = construction.map((x) => x.value);
       for (let i = 0; i < construction.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: construction[i]
+          y: construction[i],
         };
         this.constructionData.push(temp);
       }
 
       //utilities
       this.utilitiesData = [];
-      let utilities = getData.filter(x => x.grouping == "Utilities");
+      let utilities = getData.filter((x) => x.grouping == "Utilities");
       utilities.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      utilities = utilities.map(x => x.value);
+      utilities = utilities.map((x) => x.value);
       for (let i = 0; i < utilities.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: utilities[i]
+          y: utilities[i],
         };
         this.utilitiesData.push(temp);
       }
@@ -1675,7 +1661,8 @@ export default {
       let lowtechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         lowtechTemp = getData.filter(
-          x => x.grouping == "Low tech" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "Low tech" && x.exp_country == this.countryList[i]
         );
         let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         lowtech.push(Number(temp));
@@ -1684,14 +1671,14 @@ export default {
         for (let i = 0; i < lowtechTemp.length; i++) {
           let temp2 = {
             name: lowtechTemp[i].sector,
-            y: lowtechTemp[i].value
+            y: lowtechTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-Low tech",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1700,7 +1687,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-Low tech",
           name: this.countryList[i],
-          y: lowtech[i]
+          y: lowtech[i],
         };
         this.lowtechData.push(temp);
       }
@@ -1711,7 +1698,7 @@ export default {
       let hitechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         hitechTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "High and medium tech" &&
             x.exp_country == this.countryList[i]
         );
@@ -1722,14 +1709,14 @@ export default {
         for (let i = 0; i < hitechTemp.length; i++) {
           let temp2 = {
             name: hitechTemp[i].sector,
-            y: hitechTemp[i].value
+            y: hitechTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-High tech",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1738,7 +1725,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-High tech",
           name: this.countryList[i],
-          y: hitech[i]
+          y: hitech[i],
         };
         this.hightechData.push(temp);
       }
@@ -1749,7 +1736,7 @@ export default {
       let tradeRepairTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         tradeRepairTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Trade and repair service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1760,14 +1747,14 @@ export default {
         for (let i = 0; i < tradeRepairTemp.length; i++) {
           let temp2 = {
             name: tradeRepairTemp[i].sector,
-            y: tradeRepairTemp[i].value
+            y: tradeRepairTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-Trade and repair",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1776,7 +1763,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-Trade and repair",
           name: this.countryList[i],
-          y: tradeRepair[i]
+          y: tradeRepair[i],
         };
         this.tradeRepairData.push(temp);
       }
@@ -1786,7 +1773,7 @@ export default {
       let tourism = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let tourismTemp = getData.filter(
-          x => x.grouping == "Tourism" && x.exp_country == this.countryList[i]
+          (x) => x.grouping == "Tourism" && x.exp_country == this.countryList[i]
         );
         let temp = tourismTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tourism.push(Number(temp));
@@ -1794,7 +1781,7 @@ export default {
       for (let i = 0; i < tourism.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: tourism[i]
+          y: tourism[i],
         };
         this.tourismData.push(temp);
       }
@@ -1805,7 +1792,7 @@ export default {
       let transportTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         transportTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Transport service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1816,14 +1803,14 @@ export default {
         for (let i = 0; i < transportTemp.length; i++) {
           let temp2 = {
             name: transportTemp[i].sector,
-            y: transportTemp[i].value
+            y: transportTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-Transport",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1832,7 +1819,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-Transport",
           name: this.countryList[i],
-          y: transport[i]
+          y: transport[i],
         };
         this.transportData.push(temp);
       }
@@ -1842,7 +1829,7 @@ export default {
 
       for (let i = 0; i < this.countryList.length; i++) {
         let ictTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "ICT service" && x.exp_country == this.countryList[i]
         );
         let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
@@ -1851,7 +1838,7 @@ export default {
       for (let i = 0; i < ict.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: ict[i]
+          y: ict[i],
         };
         this.ictData.push(temp);
       }
@@ -1862,7 +1849,7 @@ export default {
       let propertyTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         propertyTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Property service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1873,14 +1860,14 @@ export default {
         for (let i = 0; i < propertyTemp.length; i++) {
           let temp2 = {
             name: propertyTemp[i].sector,
-            y: propertyTemp[i].value
+            y: propertyTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-Property",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1889,7 +1876,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-Property",
           name: this.countryList[i],
-          y: property[i]
+          y: property[i],
         };
         this.propertyData.push(temp);
       }
@@ -1899,7 +1886,7 @@ export default {
       let financial = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let financialTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Financial service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1909,7 +1896,7 @@ export default {
       for (let i = 0; i < financial.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: financial[i]
+          y: financial[i],
         };
         this.financialData.push(temp);
       }
@@ -1919,7 +1906,7 @@ export default {
       let publicwTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         publicwTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Public and welfare service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1930,14 +1917,14 @@ export default {
         for (let i = 0; i < publicwTemp.length; i++) {
           let temp2 = {
             name: publicwTemp[i].sector,
-            y: publicwTemp[i].value
+            y: publicwTemp[i].value,
           };
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
           data: tempDataDrillDown,
           id: this.countryList[i] + "-Public",
-          type: "pie"
+          type: "pie",
         };
         this.drilldownData.push(lowtechDrillDown);
       }
@@ -1946,7 +1933,7 @@ export default {
         let temp = {
           drilldown: this.countryList[i] + "-Public",
           name: this.countryList[i],
-          y: publicw[i]
+          y: publicw[i],
         };
         this.publicwData.push(temp);
       }
@@ -1956,7 +1943,7 @@ export default {
       let privatew = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let privatewTemp = getData.filter(
-          x =>
+          (x) =>
             x.grouping == "Private household service" &&
             x.exp_country == this.countryList[i]
         );
@@ -1966,7 +1953,7 @@ export default {
       for (let i = 0; i < privatew.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: privatew[i]
+          y: privatew[i],
         };
         this.privatewData.push(temp);
       }
@@ -1978,28 +1965,28 @@ export default {
         {
           chart: {
             type: "column",
-            height: (9 / 16) * 100 + "%" // 16:9 ratio
+            height: (9 / 16) * 100 + "%", // 16:9 ratio
           },
           title: {
             style: {
               fontSize: "24px",
-              fontFamily: "roboto"
+              fontFamily: "roboto",
             },
-            text: `Which sectors in ${this.continent} economies rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`
+            text: `Which sectors in ${this.continent} economies rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
           },
           credits: {
-            enabled: false
+            enabled: false,
           },
           xAxis: {
             labels: {
-              rotation: -90
+              rotation: -90,
             },
-            type: "category"
+            type: "category",
           },
           yAxis: {
             min: 0,
             title: {
-              text: `% of gross exports to ${this.importingSelected.label}`
+              text: `% of gross exports to ${this.importingSelected.label}`,
             },
             stackLabels: {
               enabled: false,
@@ -2009,17 +1996,17 @@ export default {
                   // theme
                   (Highcharts.defaultOptions.title.style &&
                     Highcharts.defaultOptions.title.style.color) ||
-                  "gray"
-              }
-            }
+                  "gray",
+              },
+            },
           },
           plotOptions: {
             column: {
               stacking: "normal",
               dataLabels: {
-                enabled: false
-              }
-            }
+                enabled: false,
+              },
+            },
           },
           legend: {
             useHTML: true,
@@ -2027,7 +2014,7 @@ export default {
               fontSize: "14px",
               fontWeight: "medium",
               fontFamily: "roboto",
-              color: "#00000"
+              color: "#00000",
             },
             layout: "vertical",
             align: "right",
@@ -2037,88 +2024,88 @@ export default {
             itemMarginTop: 25,
             symbolHeight: 15,
             symbolWidth: 50,
-            symbolRadius: 0
+            symbolRadius: 0,
           },
 
           series: [
             {
               name: "Agriculture",
               data: this.agricultureData,
-              color: "#2F978B"
+              color: "#2F978B",
             },
             {
               name: "Mining",
               data: this.miningData,
-              color: "#9A25B1"
+              color: "#9A25B1",
             },
             {
               name: "Construction",
               data: this.constructionData,
-              color: "#8D243B"
+              color: "#8D243B",
             },
             {
               name: "Utilities",
               data: this.utilitiesData,
-              color: "#FA9908"
+              color: "#FA9908",
             },
             {
               name: "Manufacturing-Low tech",
               data: this.lowtechData,
-              color: "#F34336"
+              color: "#F34336",
             },
             {
               name: "Manufacturing-High and medium tech",
               data: this.hightechData,
-              color: "#C3165B"
+              color: "#C3165B",
             },
             {
               name: "Services-Trade and repair",
               data: this.tradeRepairData,
-              color: "#5E6DC1"
+              color: "#5E6DC1",
             },
             {
               name: "Services-Tourism",
               data: this.tourismData,
-              color: "#3F50B8"
+              color: "#3F50B8",
             },
             {
               name: "Services-Transport",
               data: this.transportData,
-              color: "#3949AB"
+              color: "#3949AB",
             },
             {
               name: "Services-ICT",
               data: this.ictData,
-              color: "#1565C0"
+              color: "#1565C0",
             },
             {
               name: "Services-Property",
               data: this.propertyData,
-              color: "#19227D"
+              color: "#19227D",
             },
             {
               name: "Services-Financial",
               data: this.financialData,
-              color: "#43A7F5"
+              color: "#43A7F5",
             },
             {
               name: "Services-Public and welfare",
               data: this.publicwData,
-              color: "#2088E7"
+              color: "#2088E7",
             },
             {
               name: "Services-Private household",
               data: this.privatewData,
-              color: "#1564C0"
-            }
+              color: "#1564C0",
+            },
           ],
           drilldown: {
             activeDataLabelStyle: {
               color: "white",
-              textShadow: "0 0 2px black, 0 0 2px black"
+              textShadow: "0 0 2px black, 0 0 2px black",
             },
             showInLegend: false,
-            series: this.drilldownData
+            series: this.drilldownData,
           },
           exporting: {
             buttons: {
@@ -2128,9 +2115,9 @@ export default {
                   "downloadJPEG",
                   "separator",
                   "downloadCSV",
-                  "downloadXLS"
-                ]
-              }
+                  "downloadXLS",
+                ],
+              },
             },
             width: 1920,
             chartOptions: {
@@ -2147,40 +2134,40 @@ export default {
                   fontSize: "7px",
                   fontWeight: "medium",
                   fontFamily: "roboto",
-                  color: "#00000"
-                }
+                  color: "#00000",
+                },
               },
               title: {
-                style: { fontSize: "12px" }
+                style: { fontSize: "12px" },
               },
               subtitle: {
-                style: { fontSize: "8px" }
+                style: { fontSize: "8px" },
               },
               yAxis: [
                 {
                   title: {
                     text: `% of gross exports to ${this.importingSelected.label}`,
-                    style: { fontSize: "6px" }
+                    style: { fontSize: "6px" },
                   },
                   labels: {
-                    style: { fontSize: "6px" }
-                  }
-                }
+                    style: { fontSize: "6px" },
+                  },
+                },
               ],
               xAxis: [
                 {
                   labels: {
-                    style: { fontSize: "6px" }
+                    style: { fontSize: "6px" },
                   },
-                  type: "category"
-                }
-              ]
-            }
+                  type: "category",
+                },
+              ],
+            },
           },
           tooltip: {
             useHTML: true,
             headerFormat: "",
-            pointFormatter: function() {
+            pointFormatter: function () {
               return (
                 "<div> <span class='text-bold'>" +
                 this.name +
@@ -2195,10 +2182,10 @@ export default {
                 "%" +
                 "</div>"
               );
-            }
-          }
+            },
+          },
         },
-        (Highcharts.Tick.prototype.drillable = function() {})
+        (Highcharts.Tick.prototype.drillable = function () {})
       );
     },
 
@@ -2219,7 +2206,7 @@ export default {
 
       this.setData2();
       this.setStackChart2();
-    }
+    },
   },
   async mounted() {
     this.$q.sessionStorage.remove("shareLink");
@@ -2237,12 +2224,17 @@ export default {
         : this.$q.sessionStorage.getItem("year");
     }
 
+    if (this.year == "") {
+      this.year = "2017";
+      this.displayYear = "2017";
+    }
+
     // Check Session and Params Exporting
     if (this.$q.sessionStorage.has("expe") || this.$route.params.expe) {
       this.exportingSelected = this.$route.params.expe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.expe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.expe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("expe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("expe")
           )[0];
       this.countryOptionsShow = this.countryOptions;
       this.continent = this.exportingSelected.region;
@@ -2251,9 +2243,9 @@ export default {
 
     if (this.$q.sessionStorage.has("impe") || this.$route.params.impe) {
       this.importingSelected = this.$route.params.impe
-        ? this.countryOptions.filter(x => x.iso == this.$route.params.impe)[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.impe)[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("impe")
+            (x) => x.iso == this.$q.sessionStorage.getItem("impe")
           )[0];
       this.countryOptionsShow = this.countryOptions;
     }
@@ -2264,8 +2256,13 @@ export default {
         : this.$q.sessionStorage.getItem("esec");
 
       this.displaySector = this.sectorOptions.filter(
-        x => x.value == this.sectorSelected
+        (x) => x.value == this.sectorSelected
       )[0].label;
+    }
+
+    if (this.sectorSelected == "") {
+      this.sectorSelected = "all";
+      this.displaySector = "all";
     }
 
     if (
@@ -2274,10 +2271,10 @@ export default {
     ) {
       this.sourceEconomySelected = this.$route.params.sectorOrSource
         ? this.countryOptions.filter(
-            x => x.iso == this.$route.params.sectorOrSource
+            (x) => x.iso == this.$route.params.sectorOrSource
           )[0]
         : this.countryOptions.filter(
-            x => x.iso == this.$q.sessionStorage.getItem("sourceE")
+            (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
           )[0];
 
       this.countryOptionsShow = this.countryOptions;
@@ -2313,7 +2310,7 @@ export default {
     if (cancelGraph1 != undefined) cancelGraph1();
     if (cancelGraph2 != undefined) cancelGraph2();
     if (cancelGraph3 != undefined) cancelGraph3();
-  }
+  },
 };
 </script>
 
