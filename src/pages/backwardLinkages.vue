@@ -236,9 +236,80 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-3 full-height">
+            <q-img class="fit" src="../../public/images/image-56.png"></q-img>
+          </div>
+          <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
+            <p align="center" class="font-24">Where does imported content come from?</p>
+            <div align="center" class="q-px-lg">
+              <p align="center">
+                Some part of {{ exportingSelected.label== null? 'an economy' : exportingSelected.label }}’s gross exports
+                consist of imported inputs that originate in other source
+                economies.
+              </p>
+
+              <div class="row justify-around q-pt-md" style="max-width:750px">
+                <div>
+                  Source economy
+                  <div v-if="activeSelect == 2">{{ sourceEconomySelected.label }}</div>
+                </div>
+
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Exporting economy
+                  <div>{{ exportingSelected.label }}</div>
+                </div>
+                <div>:</div>
+                <div>
+                  Exporting sector
+                  <div v-if="activeSelect == 1">{{ displaySector }}</div>
+                  <div v-else>All</div>
+                </div>
+                <div>
+                  <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                </div>
+                <div>
+                  Importing economy
+                  <div>{{ importingSelected.label }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="font-graph q-py-lg" align="center">
+          Please choose exporting economy, importing economy,
+          exporting sector and year from the drop down menus above
+        </div>
       </div>
 
       <div v-if="!isWaiting && exportingSelected.label != importingSelected.label">
+        <div class="row">
+          <div class="col-6">
+            <div class="font-content q-pt-md" align="center">
+              <b>Key policy question (select by exporting sector)</b>
+            </div>
+            <div>
+              <ul>
+                <li>Where does {{exportingSelected.label !=null? exportingSelected.label: 'an economy'}}'s imported content used in its exports come from?</li>
+                <li>How does this compare across economies in the same region?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="font-content q-pt-md" align="center">
+              <b>Key policy question (select by source economy)</b>
+            </div>
+            <div>
+              <ul>
+                <li>How is foreign value-added distributed across {{exportingSelected.label !=null? exportingSelected.label: 'an economy'}}'s exporting sectors?</li>
+                <li>How does this compare across economies in the same region?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <div class="row">
           <div class="col-3 full-height">
             <q-img class="fit" src="../../public/images/image-56.png"></q-img>
@@ -266,7 +337,7 @@
                   <div>{{ exportingSelected.label }}</div>
                 </div>
                 <div>:</div>
-                <div style="color:#283891;width:200px" class="text-weight-bold">
+                <div>
                   Exporting sector
                   <div v-if="activeSelect == 1">{{ displaySector }}</div>
                   <div v-else>All</div>
@@ -284,30 +355,6 @@
         </div>
 
         <div class="bg-white" v-show="activeSelect == 1">
-          <!-- KEY POLICY QUESTION -->
-          <div class="q-px-xl bg-white">
-            <!-- Key policy questions -->
-            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry'">
-              1.
-              <u>
-                Where does {{ exportingSelected.label }}’s imported content come
-                from in exports to a selected importer?
-              </u>
-            </p>
-            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion'">
-              2.
-              <u>
-                Where do {{ continent }} economies’ imported content come from
-                in exports to a selected importer?
-              </u>
-            </p>
-          </div>
-
-          <div class="q-py-lg">
-            <q-separator></q-separator>
-          </div>
-
           <!-- GRAPH -->
           <div style="height:30px"></div>
           <div style="width:90%;margin:auto;max-width:1200px" id="importedcountry">
@@ -344,28 +391,6 @@
         </div>
         <!-- SELECT BY SOURCE ECONOMY -->
         <div v-show="activeSelect == 2" class="bg-white">
-          <div class="q-pa-xl">
-            <!-- Key policy questions -->
-            <p align="center" class="font-graph q-py-lg">Key policy questions</p>
-            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedregion2'">
-              1.
-              <u>
-                Which sectors in {{ exportingSelected.label }} rely the most on
-                imported content for exports to a selected importer?
-              </u>
-            </p>
-            <p class="font-content q-px-sm cursor-pointer" v-scroll-to="'#importedcountry1'">
-              2.
-              <u>
-                Which sectors in {{ continent }} economies rely the most on
-                imported content for exports to a selected importer?
-              </u>
-            </p>
-          </div>
-          <div class="q-py-lg">
-            <q-separator></q-separator>
-          </div>
-
           <!-- GRAPH2 in select by source economy  -->
           <div id="importedregion2" style="height:30px"></div>
           <div style="width:90%;margin:auto;max-width:1200px">
@@ -375,13 +400,13 @@
             <div v-show="isChart2">
               <div id="container3"></div>
             </div>
-
+            <!-- 
             <error-graph
               v-if="errorChart2"
               :content="
                 `Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`
               "
-            ></error-graph>
+            ></error-graph>-->
           </div>
 
           <!-- GRAPH1 in select by source economy  -->
@@ -861,7 +886,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `Gross exports of ${this.exportingSelected.label} in ${this.displaySector} sector(s) to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / Gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub}`,
+          text: `Gross exports of ${this.exportingSelected.label} in ${this.displaySector} sector(s) to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / ${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub}`,
           align: "left",
         },
         // exporting: this.exportingGraphOptions,
@@ -1468,7 +1493,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Which sectors in ${this.exportingSelected.label} rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
+          text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.exportingSelected.label}'s exports to ${this.importingSelected.label} distributed across sectors`,
         },
         credits: {
           enabled: false,
@@ -1478,7 +1503,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `<br/>Imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${fromsouceConvert} ${fromsouceUnitSub} / Gross exports to ${this.importingSelected.label}: $${exportToConvert} ${exportToUnitSub}`,
+          text: `<br/>${this.exportingSelected.label}'s imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${fromsouceConvert} ${fromsouceUnitSub} / ${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${exportToConvert} ${exportToUnitSub}`,
           align: "left",
         },
 
