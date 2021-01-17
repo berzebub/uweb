@@ -64,7 +64,7 @@
 
     <div v-if="exp_country && year">
       <div class="row justify-center q-pa-md">
-        <div class="col-2 font-graph q-pt-md">Scoll to:</div>
+        <div class="col-2 font-graph q-pt-md">Scroll to:</div>
         <div class="col-8 row font-content" style="width:900px;" align="center">
           <div class="col q-pr-lg">
             <q-btn
