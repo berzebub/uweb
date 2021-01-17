@@ -1386,18 +1386,11 @@ export default {
                 "</div>" +
                 "<div> " +
                 this.series.name +
-                " share: " +
+                "<br> Value: " +
                 this.y +
-                "% </div>" +
-                "<div> " +
-                this.series.name +
-                " value: $" +
-                this.options.valueM +
-                " million </div>" +
-                "<div> Total value: $" +
+                "% (" +
                 this.options.sumValueM +
-                " million" +
-                "</div>"
+                "million)</div>"
               );
             },
           },
