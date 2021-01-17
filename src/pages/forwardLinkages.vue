@@ -177,8 +177,7 @@
         class="row"
         style="background-color:#E5E1E1;"
         v-if="
-          (activeBy == 'Exporting' && exp_country && sector && year) ||
-            (activeBy == 'Economy' && exp_country && imp_country && year)
+          (activeBy == 'Exporting' && exp_country && sector && year) 
         "
       >
         <div class="row col-12 bg-white">
@@ -403,7 +402,7 @@
 
       <!-- Economy Data -->
       <div
-        v-if="this.activeBy == 'Economy' && exp_country.iso != imp_country.iso || exp_country.iso == null"
+        v-if="this.activeBy == 'Economy' && (exp_country.iso != imp_country.iso || exp_country.iso == null)"
       >
         <div v-if="exp_country && imp_country && year">
           <div class="bg-white q-py-xl">
@@ -1137,6 +1136,7 @@ export default {
           let temp = {
             name: z.imp_country,
             y: z.value,
+            sumValueM: z.valueM,
           };
           sum += z.value;
 
@@ -1153,7 +1153,7 @@ export default {
         this.chart2DrillDown.push(tempData);
 
         tempData = {
-          sumValueM: sumValueM.toFixed(2),
+          sumValueM: Number(sumValueM).toFixed(2),
           valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
@@ -1176,6 +1176,7 @@ export default {
           let temp = {
             name: z.imp_country,
             y: z.value,
+            sumValueM: z.valueM,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1213,6 +1214,7 @@ export default {
           let temp = {
             name: z.imp_country,
             y: z.value,
+            sumValueM: z.valueM,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1250,6 +1252,7 @@ export default {
           let temp = {
             name: z.imp_country,
             y: z.value,
+            sumValueM: z.valueM,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1287,6 +1290,7 @@ export default {
           let temp = {
             name: z.imp_country,
             y: z.value,
+            sumValueM: z.valueM,
           };
           sum += z.value;
           dataFinal.push(temp);
@@ -1299,7 +1303,7 @@ export default {
         };
         this.chart2DrillDown.push(tempData);
         tempData = {
-          sumValueM: sumValueM.toFixed(2),
+          sumValueM: Number(sumValueM).toFixed(2),
           valueM: valueM,
           name: x,
           y: Number(sum.toFixed(2)),
@@ -1309,14 +1313,26 @@ export default {
       });
 
       this.isChart2 = true;
-
-      Highcharts.chart(
+      var expCountry = this.exp_country.region;
+      var chart = Highcharts.chart(
         "container2",
         {
           chart: {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
             style: { fontFamily: "roboto" },
+            events: {
+              drilldown: function (e) {
+                chart.setTitle({
+                  text: `Where does ${e.point.name} contribute the most towards export production?`,
+                });
+              },
+              drillup: function (e) {
+                chart.setTitle({
+                  text: `Where do ${expCountry} economies contribute the most towards export production? `,
+                });
+              },
+            },
           },
 
           xAxis: {
@@ -1385,12 +1401,10 @@ export default {
                 this.name +
                 "</div>" +
                 "<div> " +
-                this.series.name +
-                "<br> Value: " +
-                this.y +
+                Number(this.y).toFixed(2) +
                 "% (" +
-                this.options.sumValueM +
-                "million)</div>"
+                Number(this.sumValueM).toFixed(2) +
+                " million)</div>"
               );
             },
           },
@@ -1797,39 +1811,50 @@ export default {
 
       //Agiculture
       this.agricultureData = [];
-      let agriculture = getData.filter((x) => x.grouping == "Agriculture");
-      agriculture.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      agriculture = agriculture.map((x) => x.value);
+      let agricultureV = [];
+      let agriculture2 = getData.filter((x) => x.grouping == "Agriculture");
+
+      agriculture2.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      let agriculture = agriculture2.map((x) => x.value);
+      agricultureV = agriculture2.map((x) => x.valueM);
+      console.log(agricultureV);
       for (let i = 0; i < agriculture.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: agriculture[i],
+          value: agricultureV[i],
         };
         this.agricultureData.push(temp);
       }
 
       //Mining
       this.miningData = [];
-      let mining = getData.filter((x) => x.grouping == "Mining");
-      mining.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      mining = mining.map((x) => x.value);
+      let miningV = [];
+      let mining2 = getData.filter((x) => x.grouping == "Mining");
+      mining2.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      let mining = mining2.map((x) => x.value);
+      miningV = mining2.map((x) => x.valueM);
       for (let i = 0; i < mining.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: mining[i],
+          value: miningV[i],
         };
         this.miningData.push(temp);
       }
 
       //construction
       this.constructionData = [];
-      let construction = getData.filter((x) => x.grouping == "Construction");
-      construction.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      construction = construction.map((x) => x.value);
+      let constructionV = [];
+      let construction2 = getData.filter((x) => x.grouping == "Construction");
+      construction2.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+      let construction = construction2.map((x) => x.value);
+      constructionV = construction2.map((x) => x.valueM);
       for (let i = 0; i < construction.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: construction[i],
+          value: constructionV[i],
         };
         this.constructionData.push(temp);
       }
@@ -1850,6 +1875,7 @@ export default {
       //Manufacturing-Low tech
       this.lowtechData = [];
       let lowtech = [];
+      let lowtechV = [];
       let lowtechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         lowtechTemp = getData.filter(
@@ -1859,12 +1885,16 @@ export default {
 
         let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         lowtech.push(Number(temp));
+
+        temp = lowtechTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        lowtechV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < lowtechTemp.length; i++) {
           let temp2 = {
             name: lowtechTemp[i].sector,
             y: lowtechTemp[i].value,
+            value: lowtechTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -1881,6 +1911,7 @@ export default {
           drilldown: this.countryList[i] + "-Low tech",
           name: this.countryList[i],
           y: lowtech[i],
+          value: lowtechV[i],
         };
         this.lowtechData.push(temp);
       }
@@ -1888,6 +1919,7 @@ export default {
       //Manufacturing-high and medium tech
       this.hightechData = [];
       let hitech = [];
+      let hitechV = [];
       let hitechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         hitechTemp = getData.filter(
@@ -1897,12 +1929,16 @@ export default {
         );
         let temp = hitechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         hitech.push(Number(temp));
+
+        temp = hitechTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        hitechV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < hitechTemp.length; i++) {
           let temp2 = {
             name: hitechTemp[i].sector,
             y: hitechTemp[i].value,
+            value: hitechTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -1919,6 +1955,7 @@ export default {
           drilldown: this.countryList[i] + "-High tech",
           name: this.countryList[i],
           y: hitech[i],
+          value: hitechV[i],
         };
         this.hightechData.push(temp);
       }
@@ -1926,6 +1963,7 @@ export default {
       //Service Trade and repair
       this.tradeRepairData = [];
       let tradeRepair = [];
+      let tradeRepairV = [];
       let tradeRepairTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         tradeRepairTemp = getData.filter(
@@ -1935,12 +1973,18 @@ export default {
         );
         let temp = tradeRepairTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tradeRepair.push(Number(temp));
+
+        temp = tradeRepairTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        tradeRepairV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < tradeRepairTemp.length; i++) {
           let temp2 = {
             name: tradeRepairTemp[i].sector,
             y: tradeRepairTemp[i].value,
+            value: tradeRepairTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -1957,6 +2001,7 @@ export default {
           drilldown: this.countryList[i] + "-Trade and repair",
           name: this.countryList[i],
           y: tradeRepair[i],
+          value: tradeRepairV[i],
         };
         this.tradeRepairData.push(temp);
       }
@@ -1964,17 +2009,21 @@ export default {
       //Service Tourism
       this.tourismData = [];
       let tourism = [];
+      let tourismV = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let tourismTemp = getData.filter(
           (x) => x.grouping == "Tourism" && x.exp_country == this.countryList[i]
         );
         let temp = tourismTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tourism.push(Number(temp));
+        temp = tourismTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        tourismV.push(Number(temp));
       }
       for (let i = 0; i < tourism.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: tourism[i],
+          value: tourismV[i],
         };
         this.tourismData.push(temp);
       }
@@ -1982,6 +2031,7 @@ export default {
       //Service Transport
       this.transportData = [];
       let transport = [];
+      let transportV = [];
       let transportTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         transportTemp = getData.filter(
@@ -1991,12 +2041,18 @@ export default {
         );
         let temp = transportTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         transport.push(Number(temp));
+
+        temp = transportTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        transportV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < transportTemp.length; i++) {
           let temp2 = {
             name: transportTemp[i].sector,
             y: transportTemp[i].value,
+            value: transportTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -2013,12 +2069,14 @@ export default {
           drilldown: this.countryList[i] + "-Transport",
           name: this.countryList[i],
           y: transport[i],
+          value: transportV[i],
         };
         this.transportData.push(temp);
       }
       //Service ICT
       this.ictData = [];
       let ict = [];
+      let ictV = [];
 
       for (let i = 0; i < this.countryList.length; i++) {
         let ictTemp = getData.filter(
@@ -2027,11 +2085,14 @@ export default {
         );
         let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         ict.push(Number(temp));
+        temp = ictTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        ictV.push(Number(temp));
       }
       for (let i = 0; i < ict.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: ict[i],
+          value: ictV[i],
         };
         this.ictData.push(temp);
       }
@@ -2039,6 +2100,7 @@ export default {
       //Service property
       this.propertyData = [];
       let property = [];
+      let propertyV = [];
       let propertyTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         propertyTemp = getData.filter(
@@ -2048,12 +2110,18 @@ export default {
         );
         let temp = propertyTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         property.push(Number(temp));
+
+        temp = propertyTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        propertyV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < propertyTemp.length; i++) {
           let temp2 = {
             name: propertyTemp[i].sector,
             y: propertyTemp[i].value,
+            value: propertyTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -2070,6 +2138,7 @@ export default {
           drilldown: this.countryList[i] + "-Property",
           name: this.countryList[i],
           y: property[i],
+          value: propertyV[i],
         };
         this.propertyData.push(temp);
       }
@@ -2077,6 +2146,7 @@ export default {
       //Service Financial
       this.financialData = [];
       let financial = [];
+      let financialV = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let financialTemp = getData.filter(
           (x) =>
@@ -2085,17 +2155,23 @@ export default {
         );
         let temp = financialTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         financial.push(Number(temp));
+        temp = financialTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        financialV.push(Number(temp));
       }
       for (let i = 0; i < financial.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: financial[i],
+          value: financialV[i],
         };
         this.financialData.push(temp);
       }
       //Service public
       this.publicwData = [];
       let publicw = [];
+      let publicwV = [];
       let publicwTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         publicwTemp = getData.filter(
@@ -2105,12 +2181,16 @@ export default {
         );
         let temp = publicwTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         publicw.push(Number(temp));
+
+        temp = publicwTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        publicwV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < publicwTemp.length; i++) {
           let temp2 = {
             name: publicwTemp[i].sector,
             y: publicwTemp[i].value,
+            value: publicwTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -2127,6 +2207,7 @@ export default {
           drilldown: this.countryList[i] + "-Public",
           name: this.countryList[i],
           y: publicw[i],
+          value: publicwV[i],
         };
         this.publicwData.push(temp);
       }
@@ -2134,6 +2215,7 @@ export default {
       //Service private household
       this.privatewData = [];
       let privatew = [];
+      let privatewV = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let privatewTemp = getData.filter(
           (x) =>
@@ -2142,30 +2224,49 @@ export default {
         );
         let temp = privatewTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         privatew.push(Number(temp));
+
+        temp = privatewTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        privatewV.push(Number(temp));
       }
       for (let i = 0; i < privatew.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: privatew[i],
+          value: privatewV[i],
         };
         this.privatewData.push(temp);
       }
 
       this.isChart4 = true;
-
-      Highcharts.chart(
+      var expCountry = this.exp_country.region;
+      var impCountry = this.imp_country.label;
+      var chart = Highcharts.chart(
         "container4",
         {
           chart: {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
+            events: {
+              drilldown: function (e) {
+                chart.setTitle({
+                  text: `Which sectors in ${e.point.name} are most reliant on export production in ${impCountry}?`,
+                });
+              },
+              drillup: function (e) {
+                chart.setTitle({
+                  text: `Which sectors in ${expCountry} economies' are most reliant on export production in ${impCountry}?`,
+                });
+              },
+            },
           },
           title: {
             style: {
               fontSize: "24px",
               fontFamily: "roboto",
             },
-            text: `Which sectors in ${this.exp_country.label} economies are most reliant <br>on export production in ${this.imp_country.label}?`,
+            text: `Which sectors in ${expCountry} economies' are most reliant on export production in ${this.imp_country.label}?`,
           },
           credits: {
             enabled: false,
@@ -2225,20 +2326,31 @@ export default {
             useHTML: true,
             headerFormat: "",
             pointFormatter: function () {
-              return (
-                "<div> <span class='text-bold'>" +
-                this.name +
-                "</span>" +
-                "<br>" +
-                "<div style='display:inline-block;width:8px;height:8px;border-radius:50%;background-color:" +
-                this.color +
-                "'></div>  " +
-                this.series.name +
-                ": " +
-                this.y +
-                "%" +
-                "</div>"
-              );
+              console.log(this.series.name);
+              if (this.series.name != "Series 1") {
+                return (
+                  "<div> <span class='text-bold'>" +
+                  this.name +
+                  "</span><br>" +
+                  this.series.name +
+                  "<br> Value: " +
+                  this.y +
+                  "% ($" +
+                  Number(this.value).toFixed(2) +
+                  " million)</div>"
+                );
+              } else {
+                return (
+                  "<div> <span class='text-bold'>" +
+                  this.name +
+                  "</span>" +
+                  "<br> Value: " +
+                  this.y +
+                  "% ($" +
+                  Number(this.value).toFixed(2) +
+                  " million)</div>"
+                );
+              }
             },
           },
           series: [

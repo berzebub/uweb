@@ -1196,18 +1196,6 @@ export default {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
             style: { fontFamily: "roboto" },
-            events: {
-              drilldown: function (e) {
-                chart.setTitle({
-                  text: `Where does ${e.point.name}'s   imported content in exports to ${countryName} come from?`,
-                });
-              },
-              drillup: function (e) {
-                chart.setTitle({
-                  text: `Where do ${continentName} economies' imported content in exports to ${countryName} come from?`,
-                });
-              },
-            },
           },
 
           xAxis: {
