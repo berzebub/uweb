@@ -991,7 +991,6 @@ export default {
         return;
       }
       getData = getData.data;
-
       let countryList = [];
 
       getData.map((x) => {
@@ -1013,16 +1012,20 @@ export default {
       let asiaRawData = this.chart2RawData.filter(
         (x) => x.area == "Asia-Pacific"
       );
+
       countryList.forEach((x) => {
         let data = asiaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let sumM = 0;
         data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value,
+            y: Number(z.value.toFixed(2)),
+            value: Number(z.valueM.toFixed(2)),
           };
           sum += z.value;
+          sumM += z.valueM;
           dataFinal.push(temp);
         });
 
@@ -1036,6 +1039,7 @@ export default {
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
+          value: Number(sumM.toFixed(2)),
           drilldown: x + " - " + "Asia Pacific",
         };
         this.chart2AsiaPacific.push(tempData);
@@ -1047,12 +1051,15 @@ export default {
         let data = europeRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let sumM = 0;
         data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value,
+            y: Number(z.value.toFixed(2)),
+            value: Number(z.valueM.toFixed(2)),
           };
           sum += z.value;
+          sumM += z.valueM;
           dataFinal.push(temp);
         });
         let tempData = {
@@ -1065,6 +1072,7 @@ export default {
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
+          value: Number(sumM.toFixed(2)),
           drilldown: x + " - " + "Europe",
         };
         this.chart2Europe.push(tempData);
@@ -1078,12 +1086,15 @@ export default {
         let data = northAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let sumM = 0;
         data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value,
+            y: Number(z.value.toFixed(2)),
+            value: Number(z.valueM.toFixed(2)),
           };
           sum += z.value;
+          sumM += z.valueM;
           dataFinal.push(temp);
         });
         let tempData = {
@@ -1096,6 +1107,7 @@ export default {
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
+          value: Number(sumM.toFixed(2)),
           drilldown: x + " - " + "North America",
         };
         this.chart2NorthAmerica.push(tempData);
@@ -1109,12 +1121,15 @@ export default {
         let data = latinAmericaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let sumM = 0;
         data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value,
+            y: Number(z.value.toFixed(2)),
+            value: Number(z.valueM.toFixed(2)),
           };
           sum += z.value;
+          sumM += z.valueM;
           dataFinal.push(temp);
         });
         let tempData = {
@@ -1127,6 +1142,7 @@ export default {
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
+          value: Number(sumM.toFixed(2)),
           drilldown: x + " - " + "Latin America",
         };
         this.chart2LatinAmerica.push(tempData);
@@ -1140,12 +1156,15 @@ export default {
         let data = restRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
         let sum = 0;
+        let sumM = 0;
         data.forEach((z) => {
           let temp = {
             name: z.imp_country,
-            y: z.value,
+            y: Number(z.value.toFixed(2)),
+            value: Number(z.valueM.toFixed(2)),
           };
           sum += z.value;
+          sumM += z.valueM;
           dataFinal.push(temp);
         });
         let tempData = {
@@ -1158,20 +1177,37 @@ export default {
         tempData = {
           name: x,
           y: Number(sum.toFixed(2)),
+          value: Number(sumM.toFixed(2)),
           drilldown: x + " - " + "Rest of the world",
         };
         this.chart2RestOfTheWorld.push(tempData);
       });
 
       this.isChart1 = true;
-
-      Highcharts.chart(
+      var defaultTitle = "Basic drilldown";
+      var drilldownTitle = "More about ";
+      var countryName = this.importingSelected.label;
+      var exportName = this.exportingSelected.label;
+      var continentName = this.continent;
+      var chart = Highcharts.chart(
         "container1",
         {
           chart: {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
             style: { fontFamily: "roboto" },
+            events: {
+              drilldown: function (e) {
+                chart.setTitle({
+                  text: `Where does ${e.point.name}'s   imported content in exports to ${countryName} come from?`,
+                });
+              },
+              drillup: function (e) {
+                chart.setTitle({
+                  text: `Where do ${continentName} economies' imported content in exports to ${countryName} come from?`,
+                });
+              },
+            },
           },
 
           xAxis: {
@@ -1221,7 +1257,7 @@ export default {
             useHTML: true,
             headerFormat: "<div class='text-weight-bold'>{point.key}</div>",
             pointFormat:
-              "<div class=''>{series.name}</div><div> Value : {point.y}%</div>",
+              "<div> Value : {point.y}% (${point.value} million)</div>",
           },
           plotOptions: {
             column: {
@@ -1271,6 +1307,7 @@ export default {
             style: {
               fontSize: "24px",
             },
+
             text: `Where do ${this.continent} economies' imported content in exports to ${this.importingSelected.label} come from?`,
           },
           exporting: {
@@ -1352,7 +1389,7 @@ export default {
       getData = getData.data;
 
       getData.forEach((element) => {
-        console.log(element.valuePrecent);
+        // console.log(element.valuePrecent);
         if (element.valuePrecent) {
           element.name = element.name + "(" + element.valuePrecent + "%)";
         }
@@ -1589,7 +1626,7 @@ export default {
         tooltip: {
           useHTML: true,
           pointFormatter: function () {
-            console.log(this);
+            // console.log(this);
             return `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`;
           },
         },
@@ -1617,7 +1654,6 @@ export default {
       });
 
       getData = getData.data;
-
       if (getData.show == "off") {
         this.errorChart3 = true;
         this.isChart3 = true;
@@ -1632,11 +1668,12 @@ export default {
       this.agricultureData = [];
       let agriculture = getData.filter((x) => x.grouping == "Agriculture");
       agriculture.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      agriculture = agriculture.map((x) => x.value);
+      // agriculture = agriculture.map((x) => x.value);
       for (let i = 0; i < agriculture.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: agriculture[i],
+          y: agriculture[i].value,
+          value: agriculture[i].valueM,
         };
         this.agricultureData.push(temp);
       }
@@ -1645,11 +1682,12 @@ export default {
       this.miningData = [];
       let mining = getData.filter((x) => x.grouping == "Mining");
       mining.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      mining = mining.map((x) => x.value);
+      // mining = mining.map((x) => x.value);
       for (let i = 0; i < mining.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: mining[i],
+          y: mining[i].value,
+          value: mining[i].valueM,
         };
         this.miningData.push(temp);
       }
@@ -1658,11 +1696,12 @@ export default {
       this.constructionData = [];
       let construction = getData.filter((x) => x.grouping == "Construction");
       construction.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      construction = construction.map((x) => x.value);
+      // construction = construction.map((x) => x.value);
       for (let i = 0; i < construction.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: construction[i],
+          y: construction[i].value,
+          value: construction[i].valueM,
         };
         this.constructionData.push(temp);
       }
@@ -1671,11 +1710,12 @@ export default {
       this.utilitiesData = [];
       let utilities = getData.filter((x) => x.grouping == "Utilities");
       utilities.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      utilities = utilities.map((x) => x.value);
+      // utilities = utilities.map((x) => x.value);
       for (let i = 0; i < utilities.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: utilities[i],
+          y: utilities[i].value,
+          value: utilities[i].valueM,
         };
         this.utilitiesData.push(temp);
       }
@@ -1683,6 +1723,7 @@ export default {
       //Manufacturing-Low tech
       this.lowtechData = [];
       let lowtech = [];
+      let lowtechValue = [];
       let lowtechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         lowtechTemp = getData.filter(
@@ -1691,13 +1732,16 @@ export default {
         );
         let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         lowtech.push(Number(temp));
-        //add drill down
+        temp = lowtechTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        lowtechValue.push(Number(temp));
         let tempDataDrillDown = [];
         for (let i = 0; i < lowtechTemp.length; i++) {
           let temp2 = {
             name: lowtechTemp[i].sector,
             y: lowtechTemp[i].value,
+            value: lowtechTemp[i].valueM,
           };
+
           tempDataDrillDown.push(temp2);
         }
         let lowtechDrillDown = {
@@ -1707,12 +1751,12 @@ export default {
         };
         this.drilldownData.push(lowtechDrillDown);
       }
-
       for (let i = 0; i < lowtech.length; i++) {
         let temp = {
           drilldown: this.countryList[i] + "-Low tech",
           name: this.countryList[i],
           y: lowtech[i],
+          value: lowtechValue[i],
         };
         this.lowtechData.push(temp);
       }
@@ -1720,6 +1764,7 @@ export default {
       //Manufacturing-high and medium tech
       this.hightechData = [];
       let hitech = [];
+      let hitechValue = [];
       let hitechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         hitechTemp = getData.filter(
@@ -1729,12 +1774,15 @@ export default {
         );
         let temp = hitechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         hitech.push(Number(temp));
+        temp = hitechTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        hitechValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < hitechTemp.length; i++) {
           let temp2 = {
             name: hitechTemp[i].sector,
             y: hitechTemp[i].value,
+            value: hitechTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -1751,6 +1799,7 @@ export default {
           drilldown: this.countryList[i] + "-High tech",
           name: this.countryList[i],
           y: hitech[i],
+          value: hitechValue[i],
         };
         this.hightechData.push(temp);
       }
@@ -1758,6 +1807,7 @@ export default {
       //Service Trade and repair
       this.tradeRepairData = [];
       let tradeRepair = [];
+      let tradeRepairValue = [];
       let tradeRepairTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         tradeRepairTemp = getData.filter(
@@ -1767,12 +1817,17 @@ export default {
         );
         let temp = tradeRepairTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tradeRepair.push(Number(temp));
+        temp = tradeRepairTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        tradeRepairValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < tradeRepairTemp.length; i++) {
           let temp2 = {
             name: tradeRepairTemp[i].sector,
             y: tradeRepairTemp[i].value,
+            value: tradeRepairTemp[i].valueM,
           };
           tempDataDrillDown.push(temp2);
         }
@@ -1789,6 +1844,7 @@ export default {
           drilldown: this.countryList[i] + "-Trade and repair",
           name: this.countryList[i],
           y: tradeRepair[i],
+          value: tradeRepairValue[i],
         };
         this.tradeRepairData.push(temp);
       }
@@ -1796,17 +1852,21 @@ export default {
       //Service Tourism
       this.tourismData = [];
       let tourism = [];
+      let tourismValue = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let tourismTemp = getData.filter(
           (x) => x.grouping == "Tourism" && x.exp_country == this.countryList[i]
         );
         let temp = tourismTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tourism.push(Number(temp));
+        temp = tourismTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        tourismValue.push(Number(temp));
       }
       for (let i = 0; i < tourism.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: tourism[i],
+          value: tourismValue[i],
         };
         this.tourismData.push(temp);
       }
@@ -1814,6 +1874,7 @@ export default {
       //Service Transport
       this.transportData = [];
       let transport = [];
+      let transportValue = [];
       let transportTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         transportTemp = getData.filter(
@@ -1823,6 +1884,11 @@ export default {
         );
         let temp = transportTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         transport.push(Number(temp));
+
+        temp = transportTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        transportValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < transportTemp.length; i++) {
@@ -1845,12 +1911,14 @@ export default {
           drilldown: this.countryList[i] + "-Transport",
           name: this.countryList[i],
           y: transport[i],
+          value: transportValue[i],
         };
         this.transportData.push(temp);
       }
       //Service ICT
       this.ictData = [];
       let ict = [];
+      let ictValue = [];
 
       for (let i = 0; i < this.countryList.length; i++) {
         let ictTemp = getData.filter(
@@ -1859,11 +1927,15 @@ export default {
         );
         let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         ict.push(Number(temp));
+
+        temp = ictTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        ictValue.push(Number(temp));
       }
       for (let i = 0; i < ict.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: ict[i],
+          value: ictValue[i],
         };
         this.ictData.push(temp);
       }
@@ -1871,6 +1943,7 @@ export default {
       //Service property
       this.propertyData = [];
       let property = [];
+      let propertyValue = [];
       let propertyTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         propertyTemp = getData.filter(
@@ -1880,6 +1953,10 @@ export default {
         );
         let temp = propertyTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         property.push(Number(temp));
+        temp = propertyTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        propertyValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < propertyTemp.length; i++) {
@@ -1902,6 +1979,7 @@ export default {
           drilldown: this.countryList[i] + "-Property",
           name: this.countryList[i],
           y: property[i],
+          value: propertyValue[i],
         };
         this.propertyData.push(temp);
       }
@@ -1909,6 +1987,7 @@ export default {
       //Service Financial
       this.financialData = [];
       let financial = [];
+      let financialValue = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let financialTemp = getData.filter(
           (x) =>
@@ -1917,17 +1996,23 @@ export default {
         );
         let temp = financialTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         financial.push(Number(temp));
+        temp = financialTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        financialValue.push(Number(temp));
       }
       for (let i = 0; i < financial.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: financial[i],
+          value: financialValue[i],
         };
         this.financialData.push(temp);
       }
       //Service public
       this.publicwData = [];
       let publicw = [];
+      let publicwValue = [];
       let publicwTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         publicwTemp = getData.filter(
@@ -1937,6 +2022,9 @@ export default {
         );
         let temp = publicwTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         publicw.push(Number(temp));
+
+        temp = publicwTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        publicwValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
         for (let i = 0; i < publicwTemp.length; i++) {
@@ -1959,6 +2047,7 @@ export default {
           drilldown: this.countryList[i] + "-Public",
           name: this.countryList[i],
           y: publicw[i],
+          value: publicwValue[i],
         };
         this.publicwData.push(temp);
       }
@@ -1966,6 +2055,7 @@ export default {
       //Service private household
       this.privatewData = [];
       let privatew = [];
+      let privatewValue = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let privatewTemp = getData.filter(
           (x) =>
@@ -1974,29 +2064,50 @@ export default {
         );
         let temp = privatewTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         privatew.push(Number(temp));
+
+        temp = privatewTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
+        privatewValue.push(Number(temp));
       }
       for (let i = 0; i < privatew.length; i++) {
         let temp = {
           name: this.countryList[i],
           y: privatew[i],
+          value: privatewValue[i],
         };
         this.privatewData.push(temp);
       }
 
       this.isChart3 = true;
-
-      Highcharts.chart(
+      var sourceName = this.sourceEconomySelected.label;
+      var importName = this.importingSelected.label;
+      var continentName = this.continent;
+      var chart2 = Highcharts.chart(
         "container2",
         {
           chart: {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
+            events: {
+              drilldown: function (e) {
+                chart2.setTitle({
+                  text: `Which sectors in ${e.point.name}'s rely the most imported content from ${sourceName} in exports to ${importName}`,
+                });
+              },
+              drillup: function (e) {
+                chart2.setTitle({
+                  text: `Which sectors in ${continentName} economies rely the most on imported content from ${sourceName} in exports to ${importName}?`,
+                });
+              },
+            },
           },
           title: {
             style: {
               fontSize: "24px",
               fontFamily: "roboto",
             },
+
             text: `Which sectors in ${this.continent} economies rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
           },
           credits: {
@@ -2198,14 +2309,11 @@ export default {
                 this.name +
                 "</span>" +
                 "<br>" +
-                "<div style='display:inline-block;width:8px;height:8px;border-radius:50%;background-color:" +
-                this.color +
-                "'></div>  " +
-                this.series.name +
-                ": " +
+                " Value: " +
                 this.y +
-                "%" +
-                "</div>"
+                "% ($" +
+                Number(this.value).toFixed(2) +
+                " million)</div>"
               );
             },
           },
