@@ -549,6 +549,7 @@
           </div>
           <div class="q-mt-md">
             <span>GVC: global value chain</span>
+            <div>{{ region }}: {{ fullRegion }}</div>
           </div>
           <div class="q-my-md">
             <span class="text-bold text-h5">Disclaimer:</span>
@@ -650,6 +651,7 @@ import Axios from "axios";
 export default {
   data() {
     return {
+      fullRegion : "",
       isShowShare: false,
       exp_country: "",
       country: "",
@@ -2324,6 +2326,7 @@ export default {
 
       this.country = countryData.label;
       this.region = countryData.region2;
+      this.fullRegion = countryData.region
 
       if (this.exp_country && this.year) {
         let link =
