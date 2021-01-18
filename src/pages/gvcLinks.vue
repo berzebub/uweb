@@ -390,12 +390,12 @@
 
       <div class="q-pa-md" v-else>
         <div align="center" class="q-mt-lg">
-          <span class="font-title">GVC relationships: top 5 parnter economies</span>
+          <span class="font-title">GVC relationships: top 5 partner economies</span>
         </div>
         <div align="center">
           <span
             class="font-content"
-          >Click on a parnter economy to see the top 5 exporting sector associated with it</span>
+          >Click on a partner economy to see the top 5 exporting sectors associated with it</span>
         </div>
 
         <div class="row justify-center q-mt-lg">

@@ -215,7 +215,7 @@
         <div class="row">
           <div class="col-6">
             <div class="font-content q-pt-md" align="center">
-              <b>Key policy question (select by exporting sector)</b>
+              <b>Key policy questions (select by exporting sector)</b>
             </div>
             <div>
               <ul>
@@ -226,7 +226,7 @@
           </div>
           <div class="col-6">
             <div class="font-content q-pt-md" align="center">
-              <b>Key policy question (select by source economy)</b>
+              <b>Key policy questions (select by source economy)</b>
             </div>
             <div>
               <ul>
@@ -289,7 +289,7 @@
         <div class="row">
           <div class="col-6">
             <div class="font-content q-pt-md" align="center">
-              <b>Key policy question (select by exporting sector)</b>
+              <b>Key policy questions (select by exporting sector)</b>
             </div>
             <div>
               <ul>
@@ -300,7 +300,7 @@
           </div>
           <div class="col-6">
             <div class="font-content q-pt-md" align="center">
-              <b>Key policy question (select by source economy)</b>
+              <b>Key policy questions (select by source economy)</b>
             </div>
             <div>
               <ul>
@@ -389,6 +389,7 @@
             ></error-graph>
           </div>
         </div>
+
         <!-- SELECT BY SOURCE ECONOMY -->
         <div v-show="activeSelect == 2" class="bg-white">
           <!-- GRAPH2 in select by source economy  -->
@@ -1196,6 +1197,18 @@ export default {
             type: "column",
             height: (9 / 16) * 100 + "%", // 16:9 ratio
             style: { fontFamily: "roboto" },
+            events: {
+              drilldown: function (e) {
+                chart.setTitle({
+                  text: `Where does ${e.point.name}'s imported content in exports to ${countryName} come from?`,
+                });
+              },
+              drillup: function (e) {
+                chart.setTitle({
+                  text: `Where do ${continentName} economies' imported content in exports to ${countryName} come from?`,
+                });
+              },
+            },
           },
 
           xAxis: {
@@ -1518,7 +1531,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.exportingSelected.label}'s exports to ${this.importingSelected.label} distributed across sectors`,
+          text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.exportingSelected.label}'s exports to ${this.importingSelected.label} distributed across sectors?`,
         },
         credits: {
           enabled: false,
@@ -2080,12 +2093,12 @@ export default {
             events: {
               drilldown: function (e) {
                 chart2.setTitle({
-                  text: `Which sectors in ${e.point.name}'s rely the most imported content from ${sourceName} in exports to ${importName}`,
+                  text: `How is ${e.point.name}'s value-added in ${sourceName}'s exports to ${importName} distributed across sectors?`,
                 });
               },
               drillup: function (e) {
                 chart2.setTitle({
-                  text: `Which sectors in ${continentName} economies rely the most on imported content from ${sourceName} in exports to ${importName}?`,
+                  text: `How is ${sourceName}'s value-added in ${continentName} economies' exports to ${importName} <br>distributed across sectors?`,
                 });
               },
             },
@@ -2096,7 +2109,7 @@ export default {
               fontFamily: "roboto",
             },
 
-            text: `Which sectors in ${this.continent} economies rely the most on imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label}?`,
+            text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.continent} economies' exports to ${this.importingSelected.label} <br>distributed across sectors?`,
           },
           credits: {
             enabled: false,

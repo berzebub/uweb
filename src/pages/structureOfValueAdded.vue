@@ -640,7 +640,7 @@ export default {
                 name: `Directly consumed (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
                 color: "#2381B8",
-                label: `Used in ${this.importingSelected.label}’s consumption`,
+                label: `Used in ${this.importingSelected.label}’s <br>consumption`,
               },
               {
                 name: `Used in exports (${this.dataChart1Percent.imp_exp}%)`,
@@ -981,7 +981,7 @@ export default {
         },
         series: [
           {
-            name: `Used in ${this.importingSelected.label}'s consumption`,
+            name: `Used in ${this.importingSelected.label}'s <br>consumption`,
             data: imp_cons,
             color: "#2381B8",
           },
