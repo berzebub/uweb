@@ -111,7 +111,7 @@
 
       <div class="q-pa-md" v-else>
         <div align="center" class="q-my-md">
-          <span class="font-title">{{ overviewCountry.label }}'s key GVC relationships: Overview</span>
+          <span class="font-title">{{ overviewCountry.label }}'s GVC relationships: Overview</span>
         </div>
 
         <div class="q-mt-md">
