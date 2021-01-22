@@ -401,13 +401,11 @@
             <div v-show="isChart2">
               <div id="container3"></div>
             </div>
-            <!-- 
+            
             <error-graph
               v-if="errorChart2"
-              :content="
-                `Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`
-              "
-            ></error-graph>-->
+            
+            ></error-graph>
           </div>
 
           <!-- GRAPH1 in select by source economy  -->
@@ -1373,6 +1371,7 @@ export default {
 
     async setData2() {
       this.isChart2 = false;
+      this.errorChart2 = false
       let urlLink =
         this.path_api +
         `/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
@@ -1387,7 +1386,11 @@ export default {
         }),
       });
 
-      getData = getData.data;
+      getData = getData.data || []
+
+    
+
+
 
       getData.forEach((element) => {
         // console.log(element.valuePrecent);
@@ -1437,6 +1440,13 @@ export default {
 
       getDataSub = getDataSub.data;
 
+        if(!getData.length)
+      {
+        this.errorChart2 = true
+      }
+
+
+
       Highcharts.chart("container3", {
         chart: {
           height: (11 / 16) * 100 + "%", // 16:9 ratio
@@ -1457,6 +1467,7 @@ export default {
                   enabled: false,
                   align: "left",
                   verticalAlign: "top",
+
                   style: {
                     fontSize: "15px",
                     // fontWeight: "bold",
