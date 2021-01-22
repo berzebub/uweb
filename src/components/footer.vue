@@ -1,19 +1,19 @@
 <template>
   <div class="bg-transparent">
     <div class="footer-bg container">
-      <div style="height:70px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
+      <div style="height:50px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
         <div class="row q-pr-lg items-center fit">
           <div class="row" style="width:100%">
-            <div class="text-white col" align="left">
-              <img src="../../public/rivabanner.png" style="height:68px;" alt />
+            <div class="text-white q-px-md col" align="left">
+              <img src="../../public/rivabanner.png" style="height:48px;" alt />
             </div>
             <div class="row" style="width:270px" align="right">
-              <div style="width:90px;" class="q-pt-md" align="right">
+              <div style="width:90px;" class="q-pt-sm" align="right">
                 <ShareNetwork network="facebook" title url="https://riva.negotiatetrade.org">
                   <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
                 </ShareNetwork>
               </div>
-              <div style="width:90px" align="right" class="q-pt-md">
+              <div style="width:90px" align="right" class="q-pt-sm">
                 <ShareNetwork
                   network="twitter"
                   url="https://riva.negotiatetrade.org"
@@ -29,7 +29,7 @@
                   />
                 </ShareNetwork>
               </div>
-              <div style="width:90px" align="right" class="q-pt-md">
+              <div style="width:90px" align="right" class="q-pt-sm">
                 <ShareNetwork network="linkedIn" url="https://riva.negotiatetrade.org" title>
                   <img
                     style="width:32px"
@@ -45,10 +45,10 @@
       </div>
       <q-toolbar class="q-px-sm q-pb-sm q-pt-sm items-center">
         <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
-          <q-img style="width:162px" src="../../public/logo.png"></q-img>
+          <q-img style="width:120px" src="../../public/logo.png"></q-img>
         </div>
         <div class="q-mx-lg cursor-pointer" @click="toFealac()" style="max-width:180px">
-          <q-img style="width:162px" src="../../public/fealac.png"></q-img>
+          <q-img style="width:120px" src="../../public/fealac.png"></q-img>
         </div>
         <q-space />
         <div class="row full-width font-content" align="right">
