@@ -401,11 +401,8 @@
             <div v-show="isChart2">
               <div id="container3"></div>
             </div>
-            
-            <error-graph
-              v-if="errorChart2"
-            
-            ></error-graph>
+
+            <error-graph v-if="errorChart2"></error-graph>
           </div>
 
           <!-- GRAPH1 in select by source economy  -->
@@ -1371,7 +1368,7 @@ export default {
 
     async setData2() {
       this.isChart2 = false;
-      this.errorChart2 = false
+      this.errorChart2 = false;
       let urlLink =
         this.path_api +
         `/cal_back_sector_1.php?exp_country=${this.exportingSelected.iso}&imp_country=${this.importingSelected.iso}&year=${this.displayYear}&source_country=${this.sourceEconomySelected.iso}`;
@@ -1386,11 +1383,7 @@ export default {
         }),
       });
 
-      getData = getData.data || []
-
-    
-
-
+      getData = getData.data || [];
 
       getData.forEach((element) => {
         // console.log(element.valuePrecent);
@@ -1440,12 +1433,9 @@ export default {
 
       getDataSub = getDataSub.data;
 
-        if(!getData.length)
-      {
-        this.errorChart2 = true
+      if (!getData.length) {
+        this.errorChart2 = true;
       }
-
-
 
       Highcharts.chart("container3", {
         chart: {
@@ -2104,7 +2094,7 @@ export default {
             events: {
               drilldown: function (e) {
                 chart2.setTitle({
-                  text: `How is ${e.point.name}'s value-added in ${sourceName}'s exports to ${importName} distributed across sectors?`,
+                  text: `How is ${sourceName}'s value-added in ${e.point.name}'s exports to ${importName} distributed across sectors?`,
                 });
               },
               drillup: function (e) {

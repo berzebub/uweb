@@ -549,7 +549,7 @@
           </div>
           <div class="q-mt-md">
             <span>GVC: global value chain</span>
-            <div>{{ region }}: {{ fullRegion }}</div>
+            <div>{{ region!='Pacific'?region + ": " + fullRegion: '' }}</div>
           </div>
           <div class="q-my-md">
             <span class="text-bold text-h5">Disclaimer:</span>
@@ -651,7 +651,7 @@ import Axios from "axios";
 export default {
   data() {
     return {
-      fullRegion : "",
+      fullRegion: "",
       isShowShare: false,
       exp_country: "",
       country: "",
@@ -685,6 +685,9 @@ export default {
       window.print();
     },
     async renderChart(data) {
+      //Change text Rest of the Latin American Countries to Rest of the LAC
+      const searchRegRex = "/Rest of the Latin American/g";
+      const replaceWith = "Rest of the LAC";
       this.chart1(JSON.parse(data.set1));
       this.chart2(JSON.parse(data.set2));
       this.chart3(JSON.parse(data.set3));
@@ -1002,7 +1005,10 @@ export default {
         setData = [
           {
             name: "2007",
-            data: [set4.valueAddTradeBalance[2007]],
+            data: [
+              set4.valueAddTradeBalance[2007],
+              set5.grossTradeBalance[2007],
+            ],
             color: "#4472C4",
           },
         ];
@@ -1354,8 +1360,11 @@ export default {
         if (coun == this.exp_country) {
           currentCountry = set8[coun];
         }
-
+        if (countryName == "Rest of the Latin American Countries") {
+          countryName = "Rest of the LAC";
+        }
         set8[coun].country = countryName;
+
         set8[coun].total = set8[coun].sum.total;
         set8[coun].ratio = set8[coun].sum.ratio;
 
@@ -1423,22 +1432,20 @@ export default {
               : "th"
           }</span> for GVC reliance in exports in ${this.region}`,
         `Lowest GVC reliance in exports :
-        <br> ${this.region}: ${lowerRegionData.country} (${
-          lowerRegionData.ratio
-        }%)
-        <br> ${lowerAreaData.area}: ${lowerAreaData.country} (${
-          lowerAreaData.ratio
-        }%)
+        <br>  ${this.region}: ${
+          lowerRegionData.country
+        } (${lowerRegionData.ratio.toFixed(1)}%)
+        <br> Asia-Pacific: ${lowerAreaData.country} (${lowerAreaData.ratio}%)
         <br> World: ${newSet8[newSet8.length - 1].country} (${newSet8[
           newSet8.length - 1
         ].ratio.toFixed(1)}%)`,
         `Highest GVC reliance in exports:
-        <br> ${highRegionData.region}: ${
+        <br> ${this.region}: ${
           highRegionData.country
         } (${highRegionData.ratio.toFixed(1)}%)
-        <br> ${this.region}: ${highRegionData.country} (${
-          highRegionData.ratio
-        }%)
+        <br> Asia-Pacific: ${
+          highRegionData.country
+        } (${highRegionData.ratio.toFixed(1)}%)
         <br> World: ${newSet8[1].country} (${newSet8[1].ratio}%)`,
       ];
 
@@ -1559,7 +1566,9 @@ export default {
         if (coun == this.exp_country) {
           currentCountry = set9[coun];
         }
-
+        if (countryName == "Rest of the Latin American Countries") {
+          countryName = "Rest of the LAC";
+        }
         set9[coun].country = countryName;
 
         newSet9.push(set9[coun]);
@@ -1738,7 +1747,9 @@ export default {
         set10[coun].total = sumTotal;
 
         set10[coun].totalValue = sumTotalValue;
-
+        if (countryName == "Rest of the Latin American Countries") {
+          countryName = "Rest of the LAC";
+        }
         set10[coun].country = countryName;
 
         newSet10.push(set10[coun]);
@@ -1950,7 +1961,9 @@ export default {
         if (coun == this.exp_country) {
           currentCountry = set11[coun];
         }
-
+        if (countryName == "Rest of the Latin American Countries") {
+          countryName = "Rest of the LAC";
+        }
         set11[coun].country = countryName;
 
         newSet11.push(set11[coun]);
@@ -2129,7 +2142,9 @@ export default {
         set12[coun].total = sumTotal;
 
         set12[coun].totalValue = sumTotalValue;
-
+        if (countryName == "Rest of the Latin American Countries") {
+          countryName = "Rest of the LAC";
+        }
         set12[coun].country = countryName;
 
         newSet12.push(set12[coun]);
@@ -2326,8 +2341,8 @@ export default {
 
       this.country = countryData.label;
       this.region = countryData.region2;
-      this.fullRegion = countryData.region
-
+      this.fullRegion = countryData.region;
+      // console.log(this.exp_country, this.year);
       if (this.exp_country && this.year) {
         let link =
           "riva.negotiatetrade.org/#/countrybriefs/data" +
