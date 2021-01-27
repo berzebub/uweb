@@ -1,7 +1,7 @@
 <template>
   <q-page class="bg" style="overflow:hidden">
     <div class="relative-position" style="height:calc(100vh - 210px)">
-      <video id="myVideo" autoplay loop muted>
+      <video id="myVideo" autoplay loop muted >
         <source type="video/webm" src="../../public/bgmov.webm" />
       </video>
 
@@ -107,6 +107,9 @@ export default {
     goToCountryBriefs() {
       this.$router.push("/countrybriefs");
     },
+  },
+  mounted () {
+    document.getElementById('myVideo').addEventListener('contextmenu', event => event.preventDefault());
   },
 };
 </script>
