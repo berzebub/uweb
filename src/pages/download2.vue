@@ -1,18 +1,10 @@
 <template>
   <q-page>
-    <global-value-chains-header
-      :isShowTinaLink="false"
-      :isDisableShare="false"
-    ></global-value-chains-header>
+    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
       <div style="width:235px" class>
-        <img
-          style="width:100%"
-          class="full-height"
-          src="../../public/download-side.png"
-          alt
-        />
+        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div style="width:90%;max-width:1200px; margin:auto;">
@@ -116,18 +108,9 @@
             />
           </div>
           <div class="row q-mt-md">
-            <div
-              class="col-12 row justify-center q-col-gutter-md"
-              align="center"
-            >
+            <div class="col-12 row justify-center q-col-gutter-md" align="center">
               <div>
-                <q-btn
-                  label="Clear All"
-                  outline
-                  no-caps
-                  style="width:150px;"
-                  @click="clearBtn()"
-                />
+                <q-btn label="Clear All" outline no-caps style="width:150px;" @click="clearBtn()" />
               </div>
               <div>
                 <download-csv
@@ -137,8 +120,7 @@
                   :data="downloadData"
                   ref="downloadData"
                   @click="test()"
-                  >Download Data</download-csv
-                >
+                >Download Data</download-csv>
 
                 <q-btn
                   v-else
@@ -155,7 +137,7 @@
       </div>
     </div>
     <!-- Economy Group Table Dialog -->
-    <q-dialog v-model="isShowEconomyGroupDialog" persistent="">
+    <q-dialog v-model="isShowEconomyGroupDialog" persistent>
       <q-card style="width:650px">
         <q-card-section>
           <q-toolbar>
@@ -228,14 +210,14 @@
       </q-card>
     </q-dialog>
     <!-- add new group dialog -->
-    <q-dialog v-model="isAddNewGroupDialog" persistent="">
+    <q-dialog v-model="isAddNewGroupDialog" persistent>
       <q-card style="width:650px">
         <q-card-section>
           <q-toolbar>
-            <span style="font-size:20px"
-              ><span v-if="isEditGroup">Edit</span
-              ><span v-else>New</span> Economy group</span
-            >
+            <span style="font-size:20px">
+              <span v-if="isEditGroup">Edit</span>
+              <span v-else>New</span> Economy group
+            </span>
             <q-space />
           </q-toolbar>
         </q-card-section>
@@ -244,35 +226,31 @@
         </div>
         <q-card-section>
           <div class="row items-end">
-            <div style="width:65px">
-              Name
-            </div>
+            <div style="width:65px">Name</div>
             <q-input
-              hide-bottom-space=""
-              autofocus=""
+              hide-bottom-space
+              autofocus
               ref="groupName"
               class="col"
-              dense=""
+              dense
               :rules="[val => !!val]"
               v-model.trim="groupName"
             ></q-input>
           </div>
           <div class="row items-end">
-            <div style="width:65px">
-              Economy
-            </div>
+            <div style="width:65px">Economy</div>
             <q-select
-              hide-bottom-space=""
+              hide-bottom-space
               ref="groupSelected"
               :rules="[val => val.length >= 1]"
-              map-options=""
-              emit-value=""
-              use-chips=""
-              multiple=""
+              map-options
+              emit-value
+              use-chips
+              multiple
               :options="countryList.filter(x => typeof x.value != 'object')"
-              autofocus=""
+              autofocus
               class="col"
-              dense=""
+              dense
               v-model="groupSelected"
             ></q-select>
           </div>
@@ -284,7 +262,7 @@
             label="Cancel"
             no-caps
             style="width:150px;color:black"
-            outline=""
+            outline
           ></q-btn>
           <q-btn
             @click="addEconomyGroup()"
@@ -308,7 +286,7 @@ import myFooter from "../components/footer";
 export default {
   components: {
     myFooter,
-    globalValueChainsHeader
+    globalValueChainsHeader,
   },
   data() {
     return {
@@ -321,70 +299,73 @@ export default {
       indicatorList: [
         {
           value: "Imp_cons",
-          label: "Gross exports used in importer's consumption (Imp_cons)"
+          label: "Gross exports used in importer's consumption (Imp_cons)",
         },
         {
           value: "Imp_exp",
-          label: "Grooss exports used in importer's export production (Imp_exp)"
+          label:
+            "Grooss exports used in importer's export production (Imp_exp)",
         },
         {
           value: "Dom_cons",
           label:
-            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)"
+            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)",
         },
         {
           value: "Double",
-          label: "Double counted exports from repeated border crossing (Double)"
+          label:
+            "Double counted exports from repeated border crossing (Double)",
         },
         {
           value: "Imp_cont",
-          label: "Imported content in gross exports (Imp_cont)"
+          label: "Imported content in gross exports (Imp_cont)",
         },
         {
           value: "DVA_tradebalance",
-          label: "Domestice value-added trade balance (DVA_tradebalance)"
+          label: "Domestice value-added trade balance (DVA_tradebalance)",
         },
         {
           value: "DVA_tradebalance_$",
-          label: "Domestice value-added trade balance (DVA_tradebalance_$)"
+          label: "Domestice value-added trade balance (DVA_tradebalance_$)",
         },
         {
           value: "Gross_tradebalance",
-          label: "Gross trade balance (Gross_tradebalance)"
+          label: "Gross trade balance (Gross_tradebalance)",
         },
         {
           value: "Gross_tradebalance_$",
-          label: "Gross trade balance (Gross_tradebalance_$)"
+          label: "Gross trade balance (Gross_tradebalance_$)",
         },
         {
           value: "GVC_participation",
-          label: "GVC participation"
+          label: "GVC participation",
         },
         {
           value: "GVC_participation_$",
-          label: "GVC participation_$"
+          label: "GVC participation_$",
         },
         {
           value: "Back_link_country",
-          label: "Backward linkages, all source countries (Back_link_country)"
+          label: "Backward linkages, all source countries (Back_link_country)",
         },
         {
           value: "Back_link_sector",
-          label: "Backward linkages, all exporting sectors (Back_link_sector)"
+          label: "Backward linkages, all exporting sectors (Back_link_sector)",
         },
         {
           value: "Forward_link_country",
           label:
-            "Forward linkages, all importing countries (Forward_link_country)"
+            "Forward linkages, all importing countries (Forward_link_country)",
         },
         {
           value: "Forward_link_sector",
-          label: "Forward linkages, all exporting sectors (Forward_link_sector)"
+          label:
+            "Forward linkages, all exporting sectors (Forward_link_sector)",
         },
         {
           value: "Gross_exports",
-          label: "Gross exports"
-        }
+          label: "Gross exports",
+        },
       ],
       countryList: [],
       source: null,
@@ -397,7 +378,7 @@ export default {
       isShowDownloadBtn: false,
       downloadData: null,
       tempGroup: [],
-      tempIndex: null
+      tempIndex: null,
     };
   },
   methods: {
@@ -406,7 +387,7 @@ export default {
       this.exporting = [];
       this.importing = [];
       this.countryList = this.countryList.filter(
-        x => typeof x.value != "object"
+        (x) => typeof x.value != "object"
       );
 
       this.countryList = [...this.tempGroup, ...this.countryList];
@@ -430,7 +411,7 @@ export default {
         this.tempGroup[this.tempIndex].value = this.groupSelected;
         this.tempIndex = null;
         this.countryList = this.countryList.filter(
-          x => typeof x.value != "object"
+          (x) => typeof x.value != "object"
         );
 
         this.countryList = [...this.tempGroup, ...this.countryList];
@@ -441,12 +422,12 @@ export default {
         // add group
         this.countryList.unshift({
           label: this.groupName,
-          value: this.groupSelected
+          value: this.groupSelected,
         });
 
         this.tempGroup.push({
           label: this.groupName,
-          value: this.groupSelected
+          value: this.groupSelected,
         });
         this.isAddNewGroupDialog = false;
       }
@@ -459,10 +440,10 @@ export default {
     },
     loadCountryList() {
       this.countryList = [];
-      countryJson.forEach(data => {
+      countryJson.forEach((data) => {
         let tempCountryList = {
           value: data.iso,
-          label: data.name
+          label: data.name,
         };
         this.countryList.push(tempCountryList);
       });
@@ -470,10 +451,10 @@ export default {
     },
     loadSectorList() {
       this.sectorList = [];
-      sectorJson.forEach(data => {
+      sectorJson.forEach((data) => {
         let tempSectorList = {
           value: data.id,
-          label: data.name
+          label: data.name,
         };
         this.sectorList.push(tempSectorList);
       });
@@ -482,7 +463,7 @@ export default {
       this.yearList = [];
       let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
-      data.data.forEach(x => {
+      data.data.forEach((x) => {
         this.yearList.push(x);
       });
     },
@@ -495,34 +476,38 @@ export default {
       this.isShowDownloadBtn = false;
     },
     async runBtn() {
-      // console.log(this.exporting);
 
       // exporting group
-      let getGroup = this.exporting.filter(x => typeof x == "object");
+      let getGroup = this.exporting.filter((x) => typeof x == "object");
       let tempGroup = [];
-      getGroup.forEach(element => {
-        element.forEach(x => tempGroup.push(x));
+      getGroup.forEach((element) => {
+        element.forEach((x) => tempGroup.push(x));
       });
 
-      let filterExporting = this.exporting.filter(x => typeof x != "object");
-      let finalGroup = [...tempGroup, filterExporting[0]];
+
+
+      let filterExporting = this.exporting.filter((x) => typeof x != "object");
+      let finalGroup = [...tempGroup, ...filterExporting];
+
       finalGroup = [...new Set(finalGroup)];
 
-      let exportingGroup = finalGroup.filter(x => x);
+
+      let exportingGroup = finalGroup.filter((x) => x);
+
+
 
       // importing economy group
-
-      let getImportGroup = this.importing.filter(x => typeof x == "object");
+      let getImportGroup = this.importing.filter((x) => typeof x == "object");
       let tempImportGroup = [];
-      getImportGroup.forEach(element => {
-        element.forEach(x => tempImportGroup.push(x));
+      getImportGroup.forEach((element) => {
+        element.forEach((x) => tempImportGroup.push(x));
       });
 
-      let filterImporting = this.importing.filter(x => typeof x != "object");
-      let finalImportGroup = [...tempImportGroup, filterImporting[0]];
+      let filterImporting = this.importing.filter((x) => typeof x != "object");
+      let finalImportGroup = [...tempImportGroup, ...filterImporting];
       finalImportGroup = [...new Set(finalImportGroup)];
 
-      let importingGroup = finalImportGroup.filter(x => x);
+      let importingGroup = finalImportGroup.filter((x) => x);
 
       let _this = this;
       function validateInput() {
@@ -536,28 +521,28 @@ export default {
             _this.$q.notify({
               message: "Please add an exporting economy",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.importing) {
             _this.$q.notify({
               message: "Please add an importing economy",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.sector) {
             _this.$q.notify({
               message: "Please add a sector",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           if (!_this.year) {
             _this.$q.notify({
               message: "Please add a year",
               color: "red",
-              position: "top"
+              position: "top",
             });
           }
           return;
@@ -569,14 +554,14 @@ export default {
           this.$q.notify({
             message: "Please add an source economy",
             color: "red",
-            position: "top"
+            position: "top",
           });
         }
         validateInput();
       } else {
         validateInput();
       }
-
+      this.loadingShow();
       let obj;
       if (
         !(
@@ -590,26 +575,26 @@ export default {
           exporting: exportingGroup,
           importing: importingGroup,
           sector: this.sector,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Back_link_sector") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
           source: this.source,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Forward_link_country") {
         obj = {
           exporting: exportingGroup,
           sector: this.sector,
-          year: this.year
+          year: this.year,
         };
       } else if (this.indicator == "Forward_link_sector") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
-          year: this.year
+          year: this.year,
         };
       }
 
@@ -652,15 +637,17 @@ export default {
       let data = await Axios.post(url, obj);
 
       this.downloadData = data.data;
+      
+      this.loadingHide();
       this.isShowDownloadBtn = true;
-    }
+    },
   },
   mounted() {
     this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
     this.loadCountryList();
     this.loadSectorList();
-  }
+  },
 };
 </script>
 
