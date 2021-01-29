@@ -34,7 +34,7 @@
 
     <div align="center" class="q-pa-md text-white bg-bar">
       <span style="font-size:26px;">
-        RIVA Global Value Chain Country Briefs:
+        RIVA Global Value Chain (GVC) Country Briefs:
         <br />
         {{ country }}, {{ year }}
       </span>
@@ -44,32 +44,23 @@
     on RIVA)-->
     <div
       class="q-py-sm text-bold bg-bar"
-      style="width:900px;margin: 30px auto 10px auto;font-size:20px;border-radius:5px;"
+      style="width:1000px;margin: 30px auto 10px auto;font-size:20px;border-radius:5px;"
       align="center"
     >
       <div>
-        <span>Structure of value-added in gross exports</span>
-        <span class="relative-position" style="display:inline-block;top:-10px;font-size:12px;">1-5</span>
+        <span class="text-white">Value-added structure of gross exports to the world by exporter</span>
+        <span
+          class="relative-position text-white"
+          style="display:inline-block;top:-10px;font-size:12px;"
+        >1-5</span>
         <span style="font-size:15px;"></span>
       </div>
     </div>
 
     <div class="q-mt-sm row justify-center q-px-md">
       <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold">Structure of value-added in {{ region }} exports to world</span>
-        </div>
-        <div align="center" class>
-          <i style="font-size:16px;">(% of gross exports)</i>
-        </div>
-        <div id="container1"></div>
-      </div>
-      <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold">
-            Structure of value-added in {{ country }}
-            <br />exports to world
-          </span>
+        <div align="center" class="q-px-sm" style="height:40px;">
+          <span class="text-h6 text-bold">{{ fullRegion }}</span>
         </div>
         <div align="center" class>
           <i style="font-size:16px;">(% of gross exports)</i>
@@ -77,8 +68,17 @@
         <div id="container2"></div>
       </div>
       <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:80px;">
-          <span class="text-h6 text-bold">Structure of value-added in global exports</span>
+        <div align="center" class="q-px-sm" style="height:40px;">
+          <span class="text-h6 text-bold">{{ country }}</span>
+        </div>
+        <div align="center" class>
+          <i style="font-size:16px;">(% of gross exports)</i>
+        </div>
+        <div id="container1"></div>
+      </div>
+      <div class="col q-px-sm" align="center">
+        <div align="center" class="q-px-sm" style="height:40px;">
+          <span class="text-h6 text-bold">All economies</span>
         </div>
         <div align="center" class>
           <i style="font-size:16px;">(% of gross exports)</i>
@@ -86,7 +86,11 @@
         <div id="container3"></div>
       </div>
     </div>
-
+    <div
+      class="q-py-sm"
+      style="width:1000px;margin: 30px auto 10px auto;font-size:18px;border-radius:5px;"
+      align="left"
+    >For more details on these indicators, please refer to the Notes section at the bottom of the page</div>
     <!-- Value-added and gross trade balance ^ (link to relevant page on
     RIVA)-->
     <div
@@ -94,9 +98,11 @@
       style="width:1000px;margin: 0px auto 20px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
-      <span>
-        Value-added and gross trade balance
-        <span style="font-size:15px"></span>
+      <span class="text-white">
+        {{ country }}'s gross and value-added trade balance with the world
+        <span
+          style="font-size:15px"
+        ></span>
       </span>
     </div>
 
@@ -121,10 +127,10 @@
         </div>
         <div class="col-5" style="width:500px;">
           <div align="center" class="q-pa-xs">
-            <span class="text-h6 text-bold">Gross and value-added trade balance with the world</span>
+            <span class="text-bold">{{country}}'s gross and value-added trade balance with the world</span>
           </div>
           <div align="right" class="q-px-md">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
           </div>
           <div class id="container4"></div>
         </div>
@@ -138,8 +144,8 @@
       style="width:1000px;margin: 0px auto 10px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
-      <span>
-        Key global value chain relationships
+      <span class="text-white">
+        Global value chain relationships
         <span
           class="relative-position"
           style="display:inline-block;top:-10px;font-size:12px;"
@@ -152,13 +158,10 @@
       <div class="row">
         <div class="col-6 q-pa-sm">
           <div align="center" class="q-px-md">
-            <span style="font-size:18px;" class="text-bold">
-              Top 10 partner economies that {{ country }} relies on for backward
-              and forward linkages
-            </span>
+            <span style="font-size:18px;" class="text-bold">{{ country }}'s top 10 GVC partners</span>
           </div>
-          <div align="right" class="q-px-md" style="margin-top:-15px;">
-            <i style="font-size:16px;">(% of gross exports)</i>
+          <div align="right" class="q-px-md" style="margin-top:0px;">
+            <i style="font-size:12px;">(US$, % of {{country}}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container5" style="border:1px solid grey"></div>
@@ -166,13 +169,13 @@
         </div>
         <div class="col-6 q-pa-sm" style="width:580px;">
           <div align="center" class="q-px-md">
-            <span style="font-size:18px;" class="text-bold">
-              Top 10 exporting sectors in {{ country }} that rely on backward
-              and forward linkages
-            </span>
+            <span
+              style="font-size:18px;"
+              class="text-bold"
+            >{{ country }}'s top 10 GVC-linked exporting sectors</span>
           </div>
-          <div align="right" class="q-px-md" style="margin-top:-15px;">
-            <i style="font-size:16px;">(% of gross exports)</i>
+          <div align="right" class="q-px-md" style="margin-top:0px;">
+            <i style="font-size:12px;">(US$, % of {{country}}'s sectoral gross exports)</i>
           </div>
           <div class="q-pr-xs">
             <div id="container6" style="border:1px solid grey"></div>
@@ -189,7 +192,7 @@
       style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
       align="center"
     >
-      <span>Comparing {{ country }} to its sub-regional partners</span>
+      <span class="text-white">{{ country }} compared to {{fullRegion}} ({{region}})</span>
     </div>
 
     <div class="q-mt-lg">
@@ -201,12 +204,7 @@
               <span style="font-size:15px;"></span>
             </span>
           </div>
-          <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">
-              GVC related trade share for {{ gvcShare.country }}:
-              {{ gvcShare.ratio.toFixed(0) }}% of gross exports
-            </span>
-          </div>
+
           <div>
             <div
               class="row q-mt-xs"
@@ -225,10 +223,10 @@
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">GVC related trade</span>
+            <span style="font-size:18px;" class="text-bold">GVC related exports - {{region}}</span>
           </div>
           <div align="right" class="q-pr-xl">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container7"></div>
@@ -250,7 +248,10 @@
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >Sources of {{ country }}’s imported content used in exports (% of {{ country }}’s gross exports):</span>
           </div>
           <div>
             <div
@@ -269,7 +270,11 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
+            <span class="text-bold" style="font-size:18px;">
+              Sources of {{ region }} imported content used in exports
+              <br />
+              (% of {{ region }} gross exports)
+            </span>
           </div>
           <div class>
             <div
@@ -292,7 +297,7 @@
             <span style="font-size:18px;" class="text-bold">Backward linkages, by source region</span>
           </div>
           <div align="right" class="q-pr-xl">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container8" class></div>
@@ -317,7 +322,10 @@
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >{{ country }}’s use of imported content in exports, by sector (% of {{ country }}’s gross exports):</span>
           </div>
           <div class>
             <div
@@ -336,7 +344,11 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
+            <span class="text-bold" style="font-size:18px;">
+              {{ region }} use of imported content in exports, by sector
+              <br />
+              (% of {{ region }} gross exports):
+            </span>
           </div>
           <!-- SET10A -->
           <div class>
@@ -360,7 +372,7 @@
             <span style="font-size:18px;" class="text-bold">Backward linkages, by exporting sector</span>
           </div>
           <div align="right" class="q-pr-xl">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container9"></div>
@@ -384,7 +396,10 @@
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >{{ country }}’s contribution to further export production, by destination (% of {{ country }}’s gross exports):</span>
           </div>
           <div>
             <div
@@ -403,7 +418,10 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >{{ region }} contribution to further export production, by destination (% of {{ region }} gross exports):</span>
           </div>
           <!-- 11A -->
           <div class>
@@ -427,7 +445,7 @@
             <span style="font-size:18px;" class="text-bold">Forward linkages, by importing region</span>
           </div>
           <div align="right" class="q-pr-xl">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container10"></div>
@@ -452,7 +470,10 @@
             </span>
           </div>
           <div align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ country }}(% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >{{ country }}’s contribution to further export production, by sector (% of {{ country }}’s gross exports):</span>
           </div>
           <div>
             <div
@@ -471,7 +492,10 @@
           </div>
 
           <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">{{ region }} (% of gross exports):</span>
+            <span
+              class="text-bold"
+              style="font-size:18px;"
+            >{{ region }} contribution to further export production, by sector (% of {{ region }} gross exports):</span>
           </div>
           <!-- 12A -->
           <div class>
@@ -495,7 +519,7 @@
             <span style="font-size:18px;" class="text-bold">Forward linkages, by exporting sector</span>
           </div>
           <div align="right" class="q-pr-xl">
-            <i style="font-size:16px;">(% of gross exports)</i>
+            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
           </div>
           <div class="q-pl-md">
             <div id="container11"></div>
@@ -510,17 +534,17 @@
     <div class="q-pa-md" style="width:80%;margin: 150px auto 20px auto">
       <div>
         <div>
-          <span class="text-bold text-h5">Notes:</span>
+          <span class="text-bold text-h6">Notes:</span>
         </div>
-        <div style="font-size:20px;">
+        <div class="font-14">
           <div>
             <ul>
               <li style="list-style:decimal">
-                Used in consumption: Share of domestic value-added in gross
+                Directly consumed: Share of domestic value-added in gross
                 exports that is consumed in the importing economy.
               </li>
               <li style="list-style:decimal">
-                Used in export production: Share of domestic value-added in
+                Used in exports: Share of domestic value-added in
                 gross exports used by importing economy to produce exports.
                 Higher shares are indicative of deeper GVC integration.
               </li>
@@ -539,30 +563,47 @@
                 Imported content: Share of foreign value added in gross exports.
                 Higher shares are indicative of deeper GVC integration.
               </li>
-              <li style="list-style:decimal">Backward linkages: same as ‘Imported content’.</li>
-              <li style="list-style:decimal">Forward linkages: same as ‘Used in export production’.</li>
-              <li style="list-style:decimal">Sectors are grouped based on ADB ERDI classification.</li>
+              <li
+                style="list-style:decimal"
+              >Backward linkages: Share of foreign value added in gross exports.</li>
+              <li
+                style="list-style:decimal"
+              >Forward linkages: Share of domestic value-added in gross exports used by importing economy to produce exports.</li>
+              <li style="list-style:decimal">
+                Sectors are grouped based on ADB ERDI classification. For more details please refer to
+                <u>RIVA techinical notes.</u>
+              </li>
             </ul>
           </div>
           <div>
-            <span class="text-bold text-h5">Abbreviations and acronyms:</span>
+            <span class="text-bold text-h6">Abbreviations and acronyms:</span>
           </div>
-          <div class="q-mt-md">
-            <span>GVC: global value chain</span>
+          <div class="font-14">
+            GVC: global value chain
+            <br />
             <div>{{ region!='Pacific'?region + ": " + fullRegion: '' }}</div>
+            <span>ADB ERDI: Asian Development Bank Development Indicators and Policy Research Division</span>
+            <div>MRIO: Multi-regional input output</div>
           </div>
-          <div class="q-my-md">
-            <span class="text-bold text-h5">Disclaimer:</span>
+
+          <div class="q-mt-md">
+            <span class="text-bold text-h6">Source:</span>
           </div>
-          <div>
+          <div class="font-14">
             <span>
-              RIVA gratefully acknowledges use of data from the ADB MRIO
-              database (currently covering 2007, 2011 and 2017) to analyse
-              global value chains.
+              RIVA, available at
+              <u>https://riva.negotiatetrade.org</u>
             </span>
           </div>
 
           <div class="q-mt-md">
+            <span class="text-bold font-14">Disclaimer:</span>
+          </div>
+          <div style="font-size:12px;">
+            <span>ESCAP gratefully acknowledges the use of ADB-MRIO database as underlying data to estimate GVC indicators in RIVA.</span>
+          </div>
+
+          <div style="font-size:12px;">
             <span>
               The designations employed and the presentation of the material in
               RIVA do not imply the expression of any opinion whatsoever on the
@@ -747,31 +788,31 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "imported content",
+                name: "Imported content",
                 y: set1.importedContent.ratio,
                 total: set1.importedContent.total,
                 color: "#FFC000",
               },
               {
-                name: "double counted",
+                name: "Double counted",
                 y: set1.doubleCounted.ratio,
                 total: set1.doubleCounted.total,
                 color: "#D83964",
               },
               {
-                name: "used in export production",
+                name: "Used in exports",
                 y: set1.usedInExportProduction.ratio,
                 total: set1.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "used in domestic consumption",
+                name: "Used in domestic consumption",
                 y: set1.usedInDomesticConsumption.ratio,
                 total: set1.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "used in consumption",
+                name: "Directly consumed",
                 y: set1.directlyConsumed.ratio,
                 total: set1.directlyConsumed.total,
                 color: "#70AD47",
@@ -832,31 +873,31 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "imported content",
+                name: "Imported content",
                 y: set2.importedContent.ratio,
                 total: set2.importedContent.total,
                 color: "#FFC000",
               },
               {
-                name: "double counted",
+                name: "Double counted",
                 y: set2.doubleCounted.ratio,
                 total: set2.doubleCounted.total,
                 color: "#D83964",
               },
               {
-                name: "used in export production",
+                name: "Used in exports",
                 y: set2.usedInExportProduction.ratio,
                 total: set2.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "used in domestic consumption",
+                name: "Used in domestic consumption",
                 y: set2.usedInDomesticConsumption.ratio,
                 total: set2.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "used in consumption",
+                name: "Directly consumed",
                 y: set2.directlyConsumed.ratio,
                 total: set2.directlyConsumed.total,
                 color: "#70AD47",
@@ -918,31 +959,31 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "imported content",
+                name: "Imported content",
                 y: set3.importedContent.ratio,
                 total: set3.importedContent.total,
                 color: "#FFC000",
               },
               {
-                name: "double counted",
+                name: "Double counted",
                 y: set3.doubleCounted.ratio,
                 total: set3.doubleCounted.total,
                 color: "#D83964",
               },
               {
-                name: "used in export production",
+                name: "Used in exports",
                 y: set3.usedInExportProduction.ratio,
                 total: set3.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "used in domestic consumption",
+                name: "Used in domestic consumption",
                 y: set3.usedInDomesticConsumption.ratio,
                 total: set3.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "used in consumption",
+                name: "Directly consumed",
                 y: set3.directlyConsumed.ratio,
                 total: set3.directlyConsumed.total,
                 color: "#70AD47",
@@ -964,23 +1005,25 @@ export default {
       let year = this.$q.sessionStorage.getItem("year");
 
       let contentYellowList = [
-        `Gross trade <span class=''>${
+        `In ${year}, ${this.country} registerd a gross trade <span class=''>${
           dataSet5.current > 0 ? "surplus" : "deficit"
-        }</span> with the world in <span class=''>${year}</span>, which has <span class=''>${
+        }</span> with the world - an ${
           dataSet5.current > dataSet5[2007] ? "increased" : "decreased"
         }</span> since 2007.`,
 
-        `Value-added trade <span class=''>${
+        `In ${year} ${
+          this.country
+        } registered a  Value-added trade <span class=''>${
           dataSet4.current > 0 ? "surplus" : "deficit"
-        }</span> with the world on <span class=''>${year}</span>, which has <span class=''>${
-          dataSet4.current > dataSet4[2007] ? "increased" : "decreased"
+        }</span> with the world - <span class=''>${
+          dataSet4.current > dataSet4[2007] ? "an increased" : "a decreased"
         }</span> since 2007.`,
 
         `Gross trade balance <span class=''>${
           dataSet5.current > dataSet4.current ? "greater" : "lesser"
         }</span> than value-added trade balance in ${year}, indicating <span class=''>${
           dataSet5.current > dataSet4.current ? "high" : "low"
-        }</span> imported content embodied in exports`,
+        }</span> imported content embodied in exports.`,
 
         `Between 2007 and <span class=''>${year}</span>. gross trade balance has improved <span class=''>${
           dataSet5.current -
@@ -1050,7 +1093,7 @@ export default {
 
         xAxis: {
           type: "category",
-          categories: ["Value added Trade Balance", "Gross trade Balance"],
+          categories: ["Value-added trade balance", "Gross trade Balance"],
         },
         yAxis: {
           labels: {
@@ -1072,6 +1115,7 @@ export default {
               enabled: true,
               color: "black",
               inside: true,
+              format: "{point.y}%",
             },
           },
         },
@@ -1158,7 +1202,7 @@ export default {
           },
           labels: {
             formatter: function () {
-              return Math.abs(this.value);
+              return Math.abs(this.value) + "%";
             },
           },
         },
@@ -1170,7 +1214,11 @@ export default {
               enabled: true,
               color: "black",
               formatter() {
-                return `${this.point.country}, ${this.point.precent}%`;
+                return `${this.point.country}, $${
+                  this.point.value > 1000
+                    ? (this.point.value / 1000).toFixed(2) + "B"
+                    : this.point.value.toFixed(2) + "M"
+                }, ${this.point.precent.toFixed(2)}%`;
               },
             },
             groupPadding: 0,
@@ -1197,6 +1245,10 @@ export default {
             data: newSetBackward,
             color: "#4472C4",
             dataLabels: {
+              style: {
+                fontSize: "9px",
+                fontWeight: 500,
+              },
               align: "right",
             },
           },
@@ -1205,6 +1257,10 @@ export default {
             data: newSetForward,
             color: "#ED7D31",
             dataLabels: {
+              style: {
+                fontSize: "9px",
+                fontWeight: 500,
+              },
               align: "left",
             },
           },
@@ -1244,6 +1300,16 @@ export default {
       });
 
       newSetForward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      for (const item in newSetForward) {
+        newSetForward[item].sector =
+          newSetForward[item].sector[0].toUpperCase() +
+          newSetForward[item].sector.slice(1);
+      }
+      for (const item in newSetBackward) {
+        newSetBackward[item].sector =
+          newSetBackward[item].sector[0].toUpperCase() +
+          newSetBackward[item].sector.slice(1);
+      }
 
       let setMaxValue =
         newSetBackward[newSetBackward.length - 1].precent >
@@ -1281,7 +1347,7 @@ export default {
           },
           labels: {
             formatter: function () {
-              return Math.abs(this.value);
+              return Math.abs(this.value) + "%";
             },
           },
         },
@@ -1293,7 +1359,11 @@ export default {
               enabled: true,
               color: "black",
               formatter() {
-                return `<span >${this.point.sector}, ${this.point.precent}%</span>`;
+                return `<span >${this.point.sector}, $${
+                  this.point.value > 1000
+                    ? (this.point.value / 1000).toFixed(2) + "B"
+                    : this.point.value.toFixed(2) + "M"
+                }, ${this.point.precent}%</span>`;
               },
               allowOverlap: true,
               overflow: "allow",
@@ -1322,7 +1392,12 @@ export default {
             name: "Backward linkages (%)",
             data: newSetBackward,
             color: "#4472C4",
+
             dataLabels: {
+              style: {
+                fontSize: "9px",
+                fontWeight: 500,
+              },
               align: "right",
             },
           },
@@ -1330,7 +1405,12 @@ export default {
             name: "Forward linkages (%)",
             data: newSetForward,
             color: "#ED7D31",
+
             dataLabels: {
+              style: {
+                fontSize: "9px",
+                fontWeight: 500,
+              },
               align: "left",
             },
           },
@@ -1405,11 +1485,10 @@ export default {
 
       let RankingOfTheWorld = [...newSet8];
 
-      RankingOfTheWorld = RankingOfTheWorld.filter(
-        (x) => x.region == currentCountry.region
-      )
-        .map((x) => x.ratio)
-        .indexOf(currentCountry.ratio);
+      RankingOfTheWorld =
+        RankingOfTheWorld.filter((x) => x.region == currentCountry.region)
+          .map((x) => x.ratio)
+          .indexOf(currentCountry.ratio) + 1;
 
       newSet8.splice(
         newSet8.map((x) => x.country).indexOf(currentCountry.country),
@@ -1419,9 +1498,9 @@ export default {
       newSet8.unshift(currentCountry);
 
       let gvcReliance = [
-        `${
-          currentCountry.country
-        } is ranked ${RankingOfTheWorld}<span class="relative-position"
+        `GVC-related export rellance: ${currentCountry.ratio.toFixed(
+          0
+        )}% of gross exports <br>(${RankingOfTheWorld}<span class="relative-position"
           style="display:inline-block;top:-10px;font-size:12px;">${
             RankingOfTheWorld == 1
               ? "st"
@@ -1430,23 +1509,25 @@ export default {
               : RankingOfTheWorld == 3
               ? "rd"
               : "th"
-          }</span> for GVC reliance in exports in ${this.region}`,
-        `Lowest GVC reliance in exports :
+          }</span> largest in ${this.region})`,
+        `The least GVC rellance for exports :
         <br>  ${this.region}: ${
           lowerRegionData.country
         } (${lowerRegionData.ratio.toFixed(1)}%)
-        <br> Asia-Pacific: ${lowerAreaData.country} (${lowerAreaData.ratio}%)
+        <br> Asia-Pacific: ${
+          lowerAreaData.country
+        } (${lowerAreaData.ratio.toFixed(1)}%)
         <br> World: ${newSet8[newSet8.length - 1].country} (${newSet8[
           newSet8.length - 1
         ].ratio.toFixed(1)}%)`,
-        `Highest GVC reliance in exports:
+        `The hightes GVC rellance for exports :
         <br> ${this.region}: ${
           highRegionData.country
         } (${highRegionData.ratio.toFixed(1)}%)
         <br> Asia-Pacific: ${
           highRegionData.country
         } (${highRegionData.ratio.toFixed(1)}%)
-        <br> World: ${newSet8[1].country} (${newSet8[1].ratio}%)`,
+        <br> World: ${newSet8[1].country} (${newSet8[1].ratio.toFixed(1)}%)`,
       ];
 
       this.gvcRelianceList = gvcReliance;
@@ -1485,6 +1566,11 @@ export default {
           title: {
             text: "",
           },
+          labels: {
+            formatter() {
+              return `${this.value}%`;
+            },
+          },
         },
         legend: {
           enabled: true,
@@ -1511,7 +1597,7 @@ export default {
         },
         series: [
           {
-            name: "Used in China's export production",
+            name: "Used in export production (forward linkages)",
             data: usedInExportRatio,
             color: "#4080B3",
           },
@@ -1584,11 +1670,18 @@ export default {
       newSet9.unshift(currentCountry);
 
       let backSourceRegionList = [
-        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(2)}%)`,
-        `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
-        `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
-        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
-        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`,
+        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(1)}%)`,
+        `Europe (${currentCountry.europe.ratio.toFixed(1)}%)`,
+        `North America (${currentCountry.northAmerica.ratio.toFixed(1)}%)`,
+        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(1)}%)`,
+        `Rest of the world (${currentCountry.row.ratio.toFixed(1)}%)`,
+        `Total (${
+          Number(currentCountry.row.ratio.toFixed(1)) +
+          Number(currentCountry.latinAmerica.ratio.toFixed(1)) +
+          Number(currentCountry.northAmerica.ratio.toFixed(1)) +
+          Number(currentCountry.europe.ratio.toFixed(1)) +
+          Number(currentCountry.asiaPacific.ratio.toFixed(1))
+        }%)`,
       ];
 
       this.backSourceRegionList = backSourceRegionList;
@@ -1596,11 +1689,18 @@ export default {
       let set9a = JSON.parse(this.responseSetData.set9a);
 
       let backSourceRegionList2 = [
-        `Asia-Pacific (${set9a.asiaPacific.value}%)`,
-        `Europe (${set9a.europe.value}%)`,
-        `North America (${set9a.northAmerica.value}%)`,
-        `Latin America (${set9a.latinAmerica.value}%)`,
-        `Rest of the world (${set9a.row.value}%)`,
+        `Asia-Pacific (${set9a.asiaPacific.value.toFixed(1)}%)`,
+        `Europe (${set9a.europe.value.toFixed(1)}%)`,
+        `North America (${set9a.northAmerica.value.toFixed(1)}%)`,
+        `Latin America (${set9a.latinAmerica.value.toFixed(1)}%)`,
+        `Rest of the world (${set9a.row.value.toFixed(1)}%)`,
+        `Total (${
+          Number(set9a.row.value.toFixed(1)) +
+          Number(set9a.latinAmerica.value.toFixed(1)) +
+          Number(set9a.northAmerica.value.toFixed(1)) +
+          Number(set9a.europe.value.toFixed(1)) +
+          Number(set9a.asiaPacific.value.toFixed(1))
+        }%)`,
       ];
 
       this.backSourceRegionList2 = backSourceRegionList2;
@@ -1638,6 +1738,11 @@ export default {
         yAxis: {
           title: {
             text: "",
+          },
+          labels: {
+            formatter() {
+              return `${this.value}%`;
+            },
           },
         },
         legend: {
@@ -1848,6 +1953,12 @@ export default {
         `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
           1
         )}%)`,
+        `Total (${
+          Number(currentGrossData[3].ratio.toFixed(1)) +
+          Number(currentGrossData[2].ratio.toFixed(1)) +
+          Number(currentGrossData[1].ratio.toFixed(1)) +
+          Number(currentGrossData[0].ratio.toFixed(1))
+        }%)`,
       ];
 
       this.backSourceSectorList = backSourceSectorList;
@@ -1856,6 +1967,7 @@ export default {
       // console.log(set10a);
 
       let tempSet10a = [];
+      let sumTemp = 0;
       for (const item in set10a) {
         tempSet10a.push({
           name: item,
@@ -1868,6 +1980,15 @@ export default {
       tempSet10a = tempSet10a.sort((a, b) => b.value - a.value);
 
       tempSet10a = tempSet10a.slice(0, 4);
+      for (const item in tempSet10a) {
+        tempSet10a[item].value = Number(tempSet10a[item].value.toFixed(1));
+        sumTemp += Number(tempSet10a[item].value);
+      }
+
+      tempSet10a.push({
+        name: "Total",
+        value: sumTemp.toFixed(1),
+      });
 
       let backSourceSectorList2 = tempSet10a;
 
@@ -1894,6 +2015,11 @@ export default {
         yAxis: {
           title: {
             text: "",
+          },
+          labels: {
+            formatter() {
+              return `${this.value}%`;
+            },
           },
         },
         legend: {
@@ -1979,11 +2105,11 @@ export default {
       newSet11.unshift(currentCountry);
 
       let forSourceRegionList = [
-        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(2)}%)`,
-        `Europe (${currentCountry.europe.ratio.toFixed(2)}%)`,
-        `North America (${currentCountry.northAmerica.ratio.toFixed(2)}%)`,
-        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(2)}%)`,
-        `Rest of the world (${currentCountry.row.ratio.toFixed(2)}%)`,
+        `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(1)}%)`,
+        `Europe (${currentCountry.europe.ratio.toFixed(1)}%)`,
+        `North America (${currentCountry.northAmerica.ratio.toFixed(1)}%)`,
+        `Latin America (${currentCountry.latinAmerica.ratio.toFixed(1)}%)`,
+        `Rest of the world (${currentCountry.row.ratio.toFixed(1)}%)`,
       ];
 
       this.forSourceRegionList = forSourceRegionList;
@@ -1991,11 +2117,11 @@ export default {
       let temp11a = JSON.parse(this.responseSetData.set11a);
 
       let forSourceRegionList2 = [
-        `Asia-Pacific (${temp11a.asiaPacific}%)`,
-        `Europe (${temp11a.europe}%)`,
-        `North America (${temp11a.northAmerica}%)`,
-        `Latin America (${temp11a.latinAmerica}%)`,
-        `Rest of the world (${temp11a.row}%)`,
+        `Asia-Pacific (${temp11a.asiaPacific.toFixed(1)}%)`,
+        `Europe (${temp11a.europe.toFixed(1)}%)`,
+        `North America (${temp11a.northAmerica.toFixed(1)}%)`,
+        `Latin America (${temp11a.latinAmerica.toFixed(1)}%)`,
+        `Rest of the world (${temp11a.row.toFixed(1)}%)`,
       ];
 
       this.forSourceRegionList2 = forSourceRegionList2;
@@ -2033,6 +2159,11 @@ export default {
         yAxis: {
           title: {
             text: "",
+          },
+          labels: {
+            formatter() {
+              return `${this.value}%`;
+            },
           },
         },
         legend: {
@@ -2232,16 +2363,16 @@ export default {
 
       let forSourceSectorList = [
         `${currentGrossData[0].name} (${currentGrossData[0].ratio.toFixed(
-          2
+          1
         )}%)`,
         `${currentGrossData[1].name} (${currentGrossData[1].ratio.toFixed(
-          2
+          1
         )}%)`,
         `${currentGrossData[2].name} (${currentGrossData[2].ratio.toFixed(
-          2
+          1
         )}%)`,
         `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
-          2
+          1
         )}%)`,
       ];
 
@@ -2264,6 +2395,11 @@ export default {
       temp12a = temp12a.slice(0, 4);
 
       let forSourceSectorList2 = temp12a;
+      for (const item in forSourceSectorList2) {
+        forSourceSectorList2[item].value = Number(
+          forSourceSectorList2[item].value
+        ).toFixed(1);
+      }
 
       this.forSourceSectorList2 = forSourceSectorList2;
 
@@ -2288,6 +2424,11 @@ export default {
         yAxis: {
           title: {
             text: "",
+          },
+          labels: {
+            formatter() {
+              return `${this.value}%`;
+            },
           },
         },
         legend: {
