@@ -33,7 +33,7 @@
     </div>
 
     <div align="center" class="q-pa-md text-white bg-bar">
-      <span style="font-size:26px;">
+      <span style="font-size:20px;">
         RIVA Global Value Chain (GVC) Country Briefs:
         <br />
         {{ country }}, {{ year }}
@@ -44,7 +44,7 @@
     on RIVA)-->
     <div
       class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 30px auto 10px auto;font-size:20px;border-radius:5px;"
+      style="width:1000px;margin: 10px auto 10px auto;font-size:20px;border-radius:5px;"
       align="center"
     >
       <div>
@@ -87,8 +87,7 @@
       </div>
     </div>
     <div
-      class="q-py-sm"
-      style="width:1000px;margin: 30px auto 10px auto;font-size:18px;border-radius:5px;"
+      style="width:1000px;margin: 0px auto 10px auto;font-size:16px"
       align="left"
     >For more details on these indicators, please refer to the Notes section at the bottom of the page</div>
     <!-- Value-added and gross trade balance ^ (link to relevant page on
@@ -112,7 +111,7 @@
           <div class="q-pl-xl">
             <div
               class="row q-mt-sm"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in contentYellowList"
               :key="index"
             >
@@ -152,6 +151,10 @@
         >6-7</span>
         <span style="font-size:15px;"></span>
       </span>
+    </div>
+    <div class="row" style="width:1000px;margin: 0px auto 10px auto; font-size:16px;">
+      <div class="col-6 q-px-md">{{keyText1}}</div>
+      <div class="col-6 q-px-md">{{keyText2}}</div>
     </div>
 
     <div class="q-mt-sm">
@@ -208,7 +211,7 @@
           <div>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in gvcRelianceList"
               :key="index"
             >
@@ -223,7 +226,7 @@
         </div>
         <div class="col-7">
           <div align="center">
-            <span style="font-size:18px;" class="text-bold">GVC related exports - {{region}}</span>
+            <span style="font-size:16px;" class="text-bold">GVC related exports - {{region}}</span>
           </div>
           <div align="right" class="q-pr-xl">
             <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
@@ -256,7 +259,7 @@
           <div>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in backSourceRegionList"
               :key="index"
             >
@@ -279,7 +282,7 @@
           <div class>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in backSourceRegionList2"
               :key="index"
             >
@@ -330,7 +333,7 @@
           <div class>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in backSourceSectorList"
               :key="index"
             >
@@ -354,7 +357,7 @@
           <div class>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in backSourceSectorList2"
               :key="index"
             >
@@ -404,7 +407,7 @@
           <div>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in forSourceRegionList"
               :key="index"
             >
@@ -427,7 +430,7 @@
           <div class>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in forSourceRegionList2"
               :key="index"
             >
@@ -478,7 +481,7 @@
           <div>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in forSourceSectorList"
               :key="index"
             >
@@ -501,7 +504,7 @@
           <div class>
             <div
               class="row q-mt-xs"
-              style="font-size:18px;"
+              style="font-size:16px;"
               v-for="(item, index) in forSourceSectorList2"
               :key="index"
             >
@@ -531,7 +534,7 @@
     <div class="break"></div>
 
     <!-- Notes: -->
-    <div class="q-pa-md" style="width:80%;margin: 150px auto 20px auto">
+    <div class="q-pa-md" style="width:80%;margin: 100px auto 20px auto">
       <div>
         <div>
           <span class="text-bold text-h6">Notes:</span>
@@ -718,6 +721,9 @@ export default {
 
       isPrint: false,
       responseSetData: [],
+
+      keyText1: "123",
+      keyText2: "",
     };
   },
   methods: {
@@ -746,7 +752,7 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 400,
+          height: 360,
         },
         title: {
           text: "",
@@ -772,7 +778,7 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230,
+            size: 200,
           },
         },
 
@@ -832,7 +838,7 @@ export default {
       Highcharts.chart("container2", {
         chart: {
           type: "pie",
-          height: 400,
+          height: 360,
         },
         title: {
           text: "",
@@ -858,7 +864,7 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230,
+            size: 200,
           },
         },
 
@@ -918,7 +924,7 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 400,
+          height: 360,
         },
         title: {
           text: "",
@@ -944,7 +950,7 @@ export default {
             },
             showInLegend: true,
             borderWidth: 1,
-            size: 230,
+            size: 200,
           },
         },
         tooltip: {
@@ -1025,14 +1031,14 @@ export default {
           dataSet5.current > dataSet4.current ? "high" : "low"
         }</span> imported content embodied in exports.`,
 
-        `Between 2007 and <span class=''>${year}</span>. gross trade balance has improved <span class=''>${
+        `Between 2007 and <span class=''>${year}</span>, growth in gross trade balance has been <span class=''>${
           dataSet5.current -
             dataSet5[2007] -
             (dataSet4.current - dataSet4[2007]) >
           0
-            ? "more"
-            : "less"
-        }</span> than value added trade balance, indicating <span class=''>${
+            ? "larger"
+            : "smaller"
+        }</span> than growth in value added trade balance, indicating <span class=''>${
           dataSet5.current -
             dataSet5[2007] -
             (dataSet4.current - dataSet4[2007]) >
@@ -1171,6 +1177,19 @@ export default {
       });
 
       newSetForward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      this.keyText1 = `In ${this.year}, ${Math.abs(
+        newSetBackward[0].y.toFixed(1)
+      )}% ($${newSetBackward[0].value.toFixed(1)}M) of ${
+        this.country
+      }'s gross exports to the world came from the ${
+        newSetBackward[0].country
+      } in the form of imported content, and ${Math.abs(
+        newSetForward[0].y.toFixed(1)
+      )}% ($${newSetForward[0].value.toFixed(1)}M) of ${
+        this.country
+      }'s gross exports to the world were used for further export production in ${
+        newSetForward[0].country
+      }`;
 
       Highcharts.chart("container5", {
         chart: {
@@ -1316,6 +1335,16 @@ export default {
         newSetForward[newSetForward.length - 1].precent
           ? newSetBackward[newSetBackward.length - 1].precent
           : newSetForward[newSetForward.length - 1].precent;
+
+      this.keyText2 = `In ${this.year}, ${Math.abs(
+        newSetBackward[0].y.toFixed(1)
+      )}% ($${newSetBackward[0].value.toFixed(1)}M) of ${
+        this.country
+      }'s ${newSetBackward[0].sector.toLowerCase()} sector gross exports to the world comprised imported content, and ${Math.abs(
+        newSetForward[0].y.toFixed(1)
+      )}% ($${newSetForward[0].value.toFixed(1)}M) of ${
+        this.country
+      }'s ${newSetForward[0].sector.toLowerCase()} gross exports to the world were used in further export production.`;
 
       Highcharts.chart("container6", {
         chart: {
