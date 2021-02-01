@@ -1,5 +1,9 @@
 <template>
-  <q-page class="bg-white q-pb-md" style="width:209mm;height:fit-content;">
+  <q-page class="bg-white q-pb-md"  style="width:209mm;height:fit-content;">
+
+ 
+
+
     <div class="q-pa-md" id="printSection" align="right">
       <q-btn
         :disable="!isPrint"
@@ -13,7 +17,7 @@
           <span>print</span>
         </div>
       </q-btn>
-      <q-btn class="q-mx-md" no-caps text-color="white" style="background-color:#2C2F30;">
+      <q-btn    :disable="!isPrint" @click="downloadPDF()" class="q-mx-md" no-caps text-color="white" style="background-color:#2C2F30;">
         <div>
           <q-icon class="q-mr-sm" name="fas fa-upload" size="14px"></q-icon>
           <span>PDF</span>
@@ -32,7 +36,9 @@
       </q-btn>
     </div>
 
-    <div align="center" class="q-pa-md text-white bg-bar">
+    <div ref="content" >
+
+    <div align="center"  class="q-pa-md text-white bg-bar">
       <span style="font-size:20px;">
         RIVA Global Value Chain (GVC) Country Briefs:
         <br />
@@ -624,6 +630,7 @@
         </div>
       </div>
     </div>
+    </div>
 
     <q-dialog v-model="isShowShare" persistent>
       <q-card class="relative-position" style="width:400px">
@@ -695,6 +702,12 @@
 
 <script>
 import Axios from "axios";
+
+import {jsPDF} from 'jspdf' 
+import domtoimage from 'dom-to-image';
+import html2canvas from "html2canvas"
+
+
 export default {
   data() {
     return {
@@ -2578,6 +2591,39 @@ export default {
           }, 1500);
         }
       }
+    },
+    downloadPDF(){
+      this.loadingShow()
+      let _this = this
+    domtoimage
+    .toPng(this.$refs.content)
+    .then(function(dataUrl) {
+      var img = new Image();
+      img.src = dataUrl;
+      const doc = new jsPDF({
+        orientation: "portrait",
+        format: [1400,900]
+      });
+      doc.addImage(img, "JPEG", 20, 20);
+      const date = new Date();
+      const filename =
+        "countrybriefs_" +
+        date.getFullYear() +
+        ("0" + (date.getMonth() + 1)).slice(-2) +
+        ("0" + date.getDate()).slice(-2) +
+        ("0" + date.getHours()).slice(-2) +
+        ("0" + date.getMinutes()).slice(-2) +
+        ("0" + date.getSeconds()).slice(-2) +
+        ".pdf";
+      doc.save(filename);
+      _this.loadingHide()
+    })
+    .catch(function(error) {
+      console.error("oops, something went wrong!", error);
+      _this.loadingHide()
+    });
+
+
     },
   },
   async mounted() {
