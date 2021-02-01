@@ -38,6 +38,8 @@
 
     <div ref="content" >
 
+      <div class='printPage '>
+
     <div align="center"  class="q-pa-md text-white bg-bar">
       <span style="font-size:20px;">
         RIVA Global Value Chain (GVC) Country Briefs:
@@ -195,10 +197,12 @@
         </div>
       </div>
     </div>
-
+</div>
     <div class="break"></div>
 
     <!-- Comparing Thailand to its sub-regional partners -->
+
+    <div class='printPage '>
     <div
       class="q-py-sm text-bold bg-bar"
       style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
@@ -393,8 +397,11 @@
       </div>
     </div>
 
+</div>
     <div class="break"></div>
 
+
+<div class='printPage'>
     <!-- Forward Linkages -->
     <div class="q-mt-xl">
       <div class="row">
@@ -539,9 +546,11 @@
         </div>
       </div>
     </div>
+    </div>
 
     <div class="break"></div>
 
+<div class='printPage '>
     <!-- Notes: -->
     <div class="q-pa-md" style="width:80%;margin: 100px auto 20px auto">
       <div>
@@ -630,6 +639,8 @@
         </div>
       </div>
     </div>
+
+    </div>
     </div>
 
     <q-dialog v-model="isShowShare" persistent>
@@ -706,6 +717,8 @@ import Axios from "axios";
 import {jsPDF} from 'jspdf' 
 import domtoimage from 'dom-to-image';
 import html2canvas from "html2canvas"
+
+import html2PDF from 'jspdf-html2canvas';
 
 
 export default {
@@ -2593,35 +2606,69 @@ export default {
       }
     },
     downloadPDF(){
-      this.loadingShow()
-      let _this = this
-    domtoimage
-    .toPng(this.$refs.content)
-    .then(function(dataUrl) {
-      var img = new Image();
-      img.src = dataUrl;
-      const doc = new jsPDF({
-        orientation: "portrait",
-        format: [1400,900]
-      });
-      doc.addImage(img, "JPEG", 20, 20);
-      const date = new Date();
-      const filename =
-        "countrybriefs_" +
-        date.getFullYear() +
-        ("0" + (date.getMonth() + 1)).slice(-2) +
-        ("0" + date.getDate()).slice(-2) +
-        ("0" + date.getHours()).slice(-2) +
-        ("0" + date.getMinutes()).slice(-2) +
-        ("0" + date.getSeconds()).slice(-2) +
-        ".pdf";
-      doc.save(filename);
-      _this.loadingHide()
-    })
-    .catch(function(error) {
-      console.error("oops, something went wrong!", error);
-      _this.loadingHide()
-    });
+
+
+    //   this.loadingShow()
+    //   let _this = this
+    // domtoimage
+    // .toPng(this.$refs.content)
+    // .then(function(dataUrl) {
+    //   var img = new Image();
+    //   img.src = dataUrl;
+    //   const doc = new jsPDF({
+    //     orientation: "portrait",
+    //     format: [1400,900]
+    //   });
+    //   doc.addImage(img, "JPEG", 20, 20);
+    //   const date = new Date();
+    //   const filename =
+    //     "countrybriefs_" +
+    //     date.getFullYear() +
+    //     ("0" + (date.getMonth() + 1)).slice(-2) +
+    //     ("0" + date.getDate()).slice(-2) +
+    //     ("0" + date.getHours()).slice(-2) +
+    //     ("0" + date.getMinutes()).slice(-2) +
+    //     ("0" + date.getSeconds()).slice(-2) +
+    //     ".pdf";
+    //   doc.save(filename);
+    //   _this.loadingHide()
+    // })
+    // .catch(function(error) {
+    //   console.error("oops, something went wrong!", error);
+    //   _this.loadingHide()
+    // });
+
+  //    const doc = new jsPDF();
+  //  /** WITH CSS */
+  //  var canvasElement = document.createElement('canvas');
+  //   html2canvas(this.$refs.content, { canvas: canvasElement 
+  //     }).then(function (canvas) {
+  //   const img = canvas.toDataURL("image/jpeg", 0.8);
+  //   doc.addImage(img,'JPEG',20,20);
+  //   doc.save("sample.pdf");
+  //  });
+
+let _this = this
+this.loadingShow()
+let pages = document.getElementsByClassName("printPage")
+
+  html2PDF(pages,
+  {
+
+    html2canvas: {
+    scrollX: 0,
+    scrollY: -window.scrollY,
+  },
+    jsPDF: {
+      format: 'a4',
+    },
+    imageType: 'image/jpeg',
+    output: './pdf/generate.pdf'
+  }).then(() => {
+    _this.loadingHide()
+  })
+
+
 
 
     },
@@ -2648,6 +2695,9 @@ export default {
 
 .set-p-right {
   padding-right: 0px;
+}
+.printPage{
+  padding-top:10px
 }
 
 @media print {
