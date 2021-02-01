@@ -161,7 +161,10 @@
       <div class="row">
         <div class="col-6 q-pa-sm">
           <div align="center" class="q-px-md">
-            <span style="font-size:18px;" class="text-bold">{{ country }}'s top 10 GVC partners</span>
+            <span
+              style="font-size:18px;"
+              class="text-bold"
+            >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC partners</span>
           </div>
           <div align="right" class="q-px-md" style="margin-top:0px;">
             <i style="font-size:12px;">(US$, % of {{country}}'s gross exports)</i>
@@ -175,7 +178,7 @@
             <span
               style="font-size:18px;"
               class="text-bold"
-            >{{ country }}'s top 10 GVC-linked exporting sectors</span>
+            >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC-linked exporting sectors</span>
           </div>
           <div align="right" class="q-px-md" style="margin-top:0px;">
             <i style="font-size:12px;">(US$, % of {{country}}'s sectoral gross exports)</i>
@@ -1613,8 +1616,9 @@ export default {
           },
         },
         tooltip: {
+          valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}%",
         },
         plotOptions: {
           column: {
@@ -1748,6 +1752,13 @@ export default {
       latinAmericas = newSet9.map((x) => x.latinAmerica.ratio);
       rows = newSet9.map((x) => x.row.ratio);
 
+      countryList.unshift(this.region);
+      asiaPacifics.unshift(set9a.asiaPacific.value);
+      europes.unshift(set9a.europe.value);
+      northAmericas.unshift(set9a.northAmerica.value);
+      latinAmericas.unshift(set9a.latinAmerica.value);
+      rows.unshift(set9a.row.value);
+
       Highcharts.chart("container8", {
         chart: {
           type: "column",
@@ -1786,8 +1797,9 @@ export default {
           },
         },
         tooltip: {
+          valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}%",
         },
         plotOptions: {
           column: {
@@ -1996,12 +2008,14 @@ export default {
       // console.log(set10a);
 
       let tempSet10a = [];
+      let show10a = [];
       let sumTemp = 0;
       for (const item in set10a) {
         tempSet10a.push({
           name: item,
           value: set10a[item].value,
         });
+        show10a.push(set10a[item].value);
       }
 
       tempSet10a = tempSet10a.filter((x) => x.value != undefined);
@@ -2024,6 +2038,11 @@ export default {
       this.backSourceSectorList2 = tempSet10a;
 
       countryList = newSet10.map((x) => x.country);
+
+      countryList.unshift(this.region);
+      for (let i = 0; i < 14; i++) {
+        sectorList[i].data.unshift(show10a[i]);
+      }
 
       Highcharts.chart("container9", {
         chart: {
@@ -2063,8 +2082,9 @@ export default {
           },
         },
         tooltip: {
+          valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}%",
         },
         plotOptions: {
           column: {
@@ -2169,6 +2189,13 @@ export default {
       latinAmericas = newSet11.map((x) => x.latinAmerica.ratio);
       rows = newSet11.map((x) => x.row.ratio);
 
+      countryList.unshift(this.region);
+      asiaPacifics.unshift(temp11a.asiaPacific);
+      europes.unshift(temp11a.europe);
+      northAmericas.unshift(temp11a.northAmerica);
+      latinAmericas.unshift(temp11a.latinAmerica);
+      rows.unshift(temp11a.row);
+
       Highcharts.chart("container10", {
         chart: {
           type: "column",
@@ -2207,8 +2234,9 @@ export default {
           },
         },
         tooltip: {
+          valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}%",
         },
         plotOptions: {
           column: {
@@ -2408,13 +2436,16 @@ export default {
       this.forSourceSectorList = forSourceSectorList;
 
       let set12a = JSON.parse(this.responseSetData.set12a);
-
+      console.log(set12a.Agriculture.value);
+      console.log(sectorList);
+      let show12a = [];
       let temp12a = [];
       for (const item in set12a) {
         temp12a.push({
           name: item,
           value: set12a[item].value,
         });
+        show12a.push(set12a[item].value);
       }
 
       temp12a = temp12a.filter((x) => x.value != undefined);
@@ -2433,6 +2464,11 @@ export default {
       this.forSourceSectorList2 = forSourceSectorList2;
 
       countryList = newSet12.map((x) => x.country);
+
+      countryList.unshift(this.region);
+      for (let i = 0; i < 14; i++) {
+        sectorList[i].data.unshift(show12a[i]);
+      }
 
       Highcharts.chart("container11", {
         chart: {
@@ -2472,8 +2508,9 @@ export default {
           },
         },
         tooltip: {
+          valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+          pointFormat: "{series.name}: {point.y}%",
         },
         plotOptions: {
           column: {
