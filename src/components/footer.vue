@@ -1,16 +1,16 @@
 <template>
   <div class="bg-transparent">
     <div class="footer-bg container">
-      <div style="height:50px;background-color:rgba(0,0,0,0.70);border-bottom:2px solid white">
+      <div style="height:40px;background-color:rgba(0,0,0,0.70);border-bottom:1px solid white">
         <div class="row q-pr-lg items-center fit">
           <div class="row" style="width:100%">
             <div class="text-white q-px-md col" align="left">
-              <img src="../../public/rivabanner.png" style="height:48px;" alt />
+              <img src="../../public/rivabanner.png" style="height:38px;" alt />
             </div>
             <div class="row" style="width:270px" align="right">
               <div style="width:90px;" class="q-pt-sm" align="right">
                 <ShareNetwork network="facebook" title url="https://riva.negotiatetrade.org">
-                  <img style="width:32px" src="../../public/fb-ico.png" class="cursor-pointer" />
+                  <img style="width:22px" src="../../public/fb-ico.png" class="cursor-pointer" />
                 </ShareNetwork>
               </div>
               <div style="width:90px" align="right" class="q-pt-sm">
@@ -22,7 +22,7 @@
                   quote
                 >
                   <img
-                    style="width:32px"
+                    style="width:22px"
                     src="../../public/twitter-ico.png"
                     alt
                     class="cursor-pointer"
@@ -32,7 +32,7 @@
               <div style="width:90px" align="right" class="q-pt-sm">
                 <ShareNetwork network="linkedIn" url="https://riva.negotiatetrade.org" title>
                   <img
-                    style="width:32px"
+                    style="width:22px"
                     src="../../public/linkin-ico.png"
                     alt
                     class="cursor-pointer"
@@ -43,7 +43,7 @@
           </div>
         </div>
       </div>
-      <q-toolbar class="q-px-sm q-pb-sm q-pt-sm items-center">
+      <q-toolbar class="q-px-sm items-center">
         <div class="q-mx-lg cursor-pointer" @click="toUnescap()" style="max-width:180px">
           <q-img style="width:120px" src="../../public/logo.png"></q-img>
         </div>
@@ -98,11 +98,11 @@
           </div>
         </div>
       </q-toolbar>
-      <div class="flex items-center" style="min-height:90px;background-color:rgba(0,0,0,0.70)">
+      <div class="flex items-center" style="min-height:70px;background-color:rgba(0,0,0,0.70)">
         <div class="row text-white q-py-sm" style="padding-left:35px">
           <div class="col-5">
             <div class="font-footer">ABOUT RIVA</div>
-            <div style="font-size:12px">
+            <div style="font-size:11px">
               RIVA is an initiative of the Trade, Investment and Innovation
               Division of the United Nations Economic and Social Commission for
               Asia and the Pacific, located in Bangkok, Thailand. For questions,
@@ -121,7 +121,7 @@
           <div class="col-2"></div>
           <div class="col-5 q-pr-md">
             <div class="font-footer">DISCLAIMER</div>
-            <div style="font-size:12px">
+            <div style="font-size:11px">
               RIVA gratefully acknowledges use of data from the ADB MRIO
               database (currently covering 2007, 2011 and 2017) to analyze
               global value chains and from the Asian Development Bank, ILO, IMF,
