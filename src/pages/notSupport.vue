@@ -6,7 +6,7 @@
         class="q-pa-md row items-center justify-center"
       >
         <div class="col" style="font-size:18px">
-          <p class="text-white" align="center">This website is designed for desktop only.</p>
+          <p class="text-white" align="center">This website is designed for desktop only. It can be viewed from mobile devices using the 'Request desktop site' option.</p>
         </div>
       </div>
     </div>
