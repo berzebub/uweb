@@ -568,7 +568,7 @@ export default {
       }
 
       getData = getData.data;
-      this.dataChart1Percent.imp_cons = (
+         this.dataChart1Percent.imp_cons = (
         (getData.imp_cons /
           (getData.imp_cons +
             getData.imp_exp +

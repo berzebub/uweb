@@ -49,7 +49,11 @@
     },
     {
         "id": "12",
-        "name": "basic metals and fabricated metal"
+        "name": "basic metals"
+    },
+    {
+        "id": "36",
+        "name": "fabricated metals"
     },
     {
         "id": "13",
@@ -57,11 +61,19 @@
     },
     {
         "id": "14",
-        "name": "electrical and optical equipment"
+        "name": "computer electronic and optical equipment"
+    },
+    {
+        "id": "37",
+        "name": "electrical machinery and apparatus nec."
     },
     {
         "id": "15",
-        "name": "transport equipment"
+        "name": "motor vehicles"
+    },
+    {
+        "id": "38",
+        "name": "other transport equipment"
     },
     {
         "id": "16",

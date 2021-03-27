@@ -17,125 +17,248 @@
         </div>
 
         <div
-          class="bg-white q-py-lg q-px-xl rounded-borders"
+          class="bg-white q-pb-lg rounded-borders"
           style="width:90%;max-width:1200px; margin:auto;"
         >
-          <div align="right">
-            <q-btn
-              @click="isShowEconomyGroupDialog = true"
-              label="Economy group"
-              style="width:150px;background-color:#2C2F30;color:white"
-              no-caps
-            ></q-btn>
+          <!-- //header name and logout -->
+          <div
+            class="row q-mb-md"
+            style="height:40px;background-color:#2C2F30;color:white; line-height:40px; border-radius:5px 5px 0px 0px;"
+          >
+            <div
+              class="col q-px-lg"
+              align="left"
+              style="  text-decoration: underline;"
+            >test@gmail.com</div>
+            <div class="col q-px-lg" align="right">
+              <q-icon name="fas fa-sign-out-alt" size="sm" />
+            </div>
           </div>
-          <div>
-            <q-select
-              v-model="indicator"
-              :options="indicatorList"
-              label="indicator (select one)"
-              emit-value
-              map-options
-              @input="resetDownloadState()"
-            />
+
+          <!-- menu open save and economy group -->
+          <div class="row">
+            <div class="col q-pl-lg" align="left">
+              <q-icon name="fas fa-folder-open" size="md" />
+              <q-icon name="fas fa-save" size="md" class="q-px-lg" />
+            </div>
+            <div align="right" class="q-px-lg q-pb-sm col">
+              <q-btn
+                @click="isShowEconomyGroupDialog = true"
+                label="Economy group"
+                style="width:150px;background-color:#2C2F30;color:white"
+                no-caps
+              ></q-btn>
+            </div>
           </div>
-          <!-- exporting country -->
-          <div>
-            <q-select
-              v-model="exporting"
-              :options="countryList"
-              label="Exporting economy"
-              multiple
-              emit-value
-              map-options
-              use-chips
-              @input="resetDownloadState()"
-            />
-          </div>
-          <!-- importing country -->
-          <div>
-            <q-select
-              v-show="indicator != 'Forward_link_country'"
-              v-model="importing"
-              :options="countryList"
-              label="Importing economy"
-              multiple
-              emit-value
-              map-options
-              use-chips
-              @input="resetDownloadState()"
-            />
-          </div>
-          <!-- Sector -->
-          <div>
-            <q-select
-              v-show="
+
+          <hr />
+          <div class="q-px-lg">
+            <div>
+              <q-select
+                v-model="indicator"
+                :options="indicatorList"
+                label="indicator (select one)"
+                emit-value
+                map-options
+                @input="resetDownloadState()"
+              />
+            </div>
+
+            <!-- exporting country -->
+            <div>
+              <q-select
+                v-model="exporting"
+                :options="countryList"
+                label="Exporting economy"
+                multiple
+                emit-value
+                map-options
+                use-chips
+                @input="resetDownloadState()"
+              />
+            </div>
+            <!-- importing country -->
+            <div>
+              <q-select
+                v-show="indicator != 'Forward_link_country'"
+                v-model="importing"
+                :options="countryList"
+                label="Importing economy"
+                multiple
+                emit-value
+                map-options
+                use-chips
+                @input="resetDownloadState()"
+              />
+            </div>
+            <!-- Sector -->
+            <div>
+              <q-select
+                v-show="
                 indicator != 'Back_link_sector' &&
                   indicator != 'Forward_link_sector'
               "
-              v-model="sector"
-              :options="sectorList"
-              label="Exporting sector"
-              multiple
-              emit-value
-              map-options
-              use-chips
-              @input="resetDownloadState()"
-            />
-          </div>
-          <!-- Source country -->
-          <div>
-            <q-select
-              v-show="indicator == 'Back_link_sector'"
-              v-model="source"
-              :options="countryList"
-              label="Source economy"
-              multiple
-              emit-value
-              map-options
-              use-chips
-              @input="resetDownloadState()"
-            />
-          </div>
-          <!-- year -->
-          <div>
-            <q-select
-              @input="resetDownloadState()"
-              v-model="year"
-              use-chips
-              :options="yearList"
-              label="Year"
-              multiple
-            />
-          </div>
-          <div class="row q-mt-md">
-            <div class="col-12 row justify-center q-col-gutter-md" align="center">
-              <div>
-                <q-btn label="Clear All" outline no-caps style="width:150px;" @click="clearBtn()" />
-              </div>
-              <div>
-                <download-csv
-                  v-if="isShowDownloadBtn"
-                  class="bg-secondary text-white cursor-pointer"
-                  style="width:150px;border-radius:3px;height:35px;line-height:35px;"
-                  :data="downloadData"
-                  ref="downloadData"
-                  @click="test()"
-                >Download Data</download-csv>
+                v-model="sector"
+                :options="sectorList"
+                label="Exporting sector"
+                multiple
+                emit-value
+                map-options
+                use-chips
+                @input="resetDownloadState()"
+              />
+            </div>
+            <!-- Source country -->
+            <div>
+              <q-select
+                v-show="indicator == 'Back_link_sector'"
+                v-model="source"
+                :options="countryList"
+                label="Source economy"
+                multiple
+                emit-value
+                map-options
+                use-chips
+                @input="resetDownloadState()"
+              />
+            </div>
+            <!-- year -->
+            <div>
+              <q-select
+                @input="resetDownloadState()"
+                v-model="year"
+                use-chips
+                :options="yearList"
+                label="Year"
+                multiple
+              />
+            </div>
+            <div class="row q-mt-md">
+              <div class="col-12 row justify-center q-col-gutter-md" align="center">
+                <div>
+                  <q-btn
+                    label="Clear All"
+                    outline
+                    no-caps
+                    style="width:150px;"
+                    @click="clearBtn()"
+                  />
+                </div>
+                <div>
+                  <download-csv
+                    v-if="isShowDownloadBtn"
+                    class="bg-secondary text-white cursor-pointer"
+                    style="width:150px;border-radius:3px;height:35px;line-height:35px;"
+                    :data="downloadData"
+                    ref="downloadData"
+                    @click="test()"
+                  >Download Data</download-csv>
 
-                <q-btn
-                  v-else
-                  label="Generate"
-                  no-caps
-                  style="width:150px;background-color:#2C2F30;"
-                  class="text-white"
-                  @click="runBtn()"
-                />
+                  <q-btn
+                    v-else
+                    label="Generate"
+                    no-caps
+                    style="width:150px;background-color:#2C2F30;"
+                    class="text-white"
+                    @click="runBtn()"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Login Dialog -->
+    <q-dialog v-model="isLogin" persistent>
+      <q-card style="width:450px; height:370px; ">
+        <div style="background-color:#2C2F30" class="q-pa-sm" align="center">
+          <img src="../assets/logodialog.png" alt />
+        </div>
+        <div class="q-pa-md" align="center">Please log in to access the download data page</div>
+        <div class="q-px-lg">
+          <div>
+            <q-input outlined v-model="login.email" label="Email" dense type="email" />
+          </div>
+          <div class="q-pt-md q-pb-sm">
+            <q-input
+              v-model="login.password"
+              dense
+              label="Password"
+              outlined
+              :type="isPwd ? 'password' : 'text'"
+            >
+              <template v-slot:append>
+                <q-icon
+                  :name="isPwd ? 'visibility_off' : 'visibility'"
+                  class="cursor-pointer"
+                  @click="isPwd = !isPwd"
+                />
+              </template>
+            </q-input>
+          </div>
+          <div style="text-decoration:underline" align="right">Forgot password?</div>
+          <div>
+            <q-btn
+              label="Log in"
+              style="width:400px;background-color:#2C2F30;color:white"
+              no-caps
+              class="q-mt-md"
+            ></q-btn>
+          </div>
+          <div align="center" class="q-pt-lg">
+            Not a Riva member?
+            <span style="color:#2381B8;text-decoration:underline">Sign up here</span>
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
+
+    <!-- Sign up dialog -->
+    <q-dialog v-model="isSignUp" persistent>
+      <q-card style="width:450px; height:520px; ">
+        <div style="background-color:#2C2F30" class="q-pa-sm" align="center">
+          <img src="../assets/logodialog.png" alt />
+        </div>
+
+        <div class="q-px-lg q-py-lg">
+          <div>
+            <q-input outlined v-model="signUp.email" label="Email" dense type="email" />
+          </div>
+          <div class="q-pt-md q-pb-sm">
+            <q-input v-model="signUp.password" dense label="Password" outlined></q-input>
+          </div>
+          <div class="q-pt-md q-pb-sm">
+            <q-input v-model="signUp.confirmPassword" dense label="Confirm password" outlined></q-input>
+          </div>
+          <div class="q-pt-md q-pb-sm">
+            <q-select
+              outlined
+              label="Country"
+              dense
+              map-options
+              emit-value
+              v-model="signUp.country"
+              :options="countryAllList"
+            ></q-select>
+          </div>
+
+          <div>
+            <q-btn
+              label="Log in"
+              style="width:400px;background-color:#2C2F30;color:white"
+              no-caps
+              class="q-mt-md"
+            ></q-btn>
+          </div>
+          <div align="center" class="q-pt-lg">
+            Not a Riva member?
+            <span style="color:#2381B8;text-decoration:underline">Sign up here</span>
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
     <!-- Economy Group Table Dialog -->
     <q-dialog v-model="isShowEconomyGroupDialog" persistent>
       <q-card style="width:650px">
@@ -280,6 +403,7 @@
 <script>
 import Axios from "axios";
 import countryJson from "../../public/country_list.json";
+import countryAll from "../assets/country.json";
 import sectorJson from "../../public/sector.json";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import myFooter from "../components/footer";
@@ -290,6 +414,21 @@ export default {
   },
   data() {
     return {
+      isLogin: false, //เปิดปิด login dialog
+      login: {
+        email: "",
+        password: "",
+      },
+      signUp: {
+        email: "",
+        password: "",
+        confirmPassword: "",
+        country: "",
+        Organization: "NGO",
+      },
+      isPwd: false,
+      isSignUp: true, //เปิดปิด Sign up dialog
+      countryAllList: [],
       isEditGroup: false,
       groupSelected: [],
       groupName: "",
@@ -448,13 +587,22 @@ export default {
         this.countryList.push(tempCountryList);
       });
       this.countryList.sort((a, b) => (a.label < b.label ? -1 : 1));
+
+      this.countryAllList = [];
+      countryAll.forEach((data) => {
+        let temp = {
+          value: data.iso,
+          label: data.Country,
+        };
+        this.countryAllList.push(temp);
+      });
     },
     loadSectorList() {
       this.sectorList = [];
       sectorJson.forEach((data) => {
         let tempSectorList = {
           value: data.id,
-          label: data.name,
+          label: data.Country,
         };
         this.sectorList.push(tempSectorList);
       });
@@ -476,7 +624,6 @@ export default {
       this.isShowDownloadBtn = false;
     },
     async runBtn() {
-
       // exporting group
       let getGroup = this.exporting.filter((x) => typeof x == "object");
       let tempGroup = [];
@@ -484,17 +631,12 @@ export default {
         element.forEach((x) => tempGroup.push(x));
       });
 
-
-
       let filterExporting = this.exporting.filter((x) => typeof x != "object");
       let finalGroup = [...tempGroup, ...filterExporting];
 
       finalGroup = [...new Set(finalGroup)];
 
-
       let exportingGroup = finalGroup.filter((x) => x);
-
-
 
       // importing economy group
       let getImportGroup = this.importing.filter((x) => typeof x == "object");
@@ -637,7 +779,7 @@ export default {
       let data = await Axios.post(url, obj);
 
       this.downloadData = data.data;
-      
+
       this.loadingHide();
       this.isShowDownloadBtn = true;
     },
