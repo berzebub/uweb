@@ -1,9 +1,5 @@
 <template>
-  <q-page class="bg-white q-pb-md"  style="width:209mm;height:fit-content;">
-
- 
-
-
+  <q-page class="bg-white q-pb-md" style="width:209mm;height:fit-content;">
     <div class="q-pa-md" id="printSection" align="right">
       <q-btn
         :disable="!isPrint"
@@ -17,7 +13,14 @@
           <span>print</span>
         </div>
       </q-btn>
-      <q-btn    :disable="!isPrint" @click="downloadPDF()" class="q-mx-md" no-caps text-color="white" style="background-color:#2C2F30;">
+      <q-btn
+        :disable="!isPrint"
+        @click="downloadPDF()"
+        class="q-mx-md"
+        no-caps
+        text-color="white"
+        style="background-color:#2C2F30;"
+      >
         <div>
           <q-icon class="q-mr-sm" name="fas fa-upload" size="14px"></q-icon>
           <span>PDF</span>
@@ -36,611 +39,659 @@
       </q-btn>
     </div>
 
-    <div ref="content" >
-
-      <div class='printPage '>
-
-    <div align="center"  class="q-pa-md text-white bg-bar">
-      <span style="font-size:20px;">
-        RIVA Global Value Chain (GVC) Country Briefs:
-        <br />
-        {{ country }}, {{ year }}
-      </span>
-    </div>
-
-    <!-- Structure of value-added in gross exports1-5 ^ (link to relevant page
-    on RIVA)-->
-    <div
-      class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 10px auto 10px auto;font-size:20px;border-radius:5px;"
-      align="center"
-    >
-      <div>
-        <span class="text-white">Value-added structure of gross exports to the world by exporter</span>
-        <span
-          class="relative-position text-white"
-          style="display:inline-block;top:-10px;font-size:12px;"
-        >1-5</span>
-        <span style="font-size:15px;"></span>
-      </div>
-    </div>
-
-    <div class="q-mt-sm row justify-center q-px-md">
-      <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:40px;">
-          <span class="text-h6 text-bold">{{ fullRegion }}</span>
-        </div>
-        <div align="center" class>
-          <i style="font-size:16px;">(% of gross exports)</i>
-        </div>
-        <div id="container2"></div>
-      </div>
-      <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:40px;">
-          <span class="text-h6 text-bold">{{ country }}</span>
-        </div>
-        <div align="center" class>
-          <i style="font-size:16px;">(% of gross exports)</i>
-        </div>
-        <div id="container1"></div>
-      </div>
-      <div class="col q-px-sm" align="center">
-        <div align="center" class="q-px-sm" style="height:40px;">
-          <span class="text-h6 text-bold">All economies</span>
-        </div>
-        <div align="center" class>
-          <i style="font-size:16px;">(% of gross exports)</i>
-        </div>
-        <div id="container3"></div>
-      </div>
-    </div>
-    <div
-      style="width:1000px;margin: 0px auto 10px auto;font-size:16px"
-      align="left"
-    >For more details on these indicators, please refer to the Notes section at the bottom of the page</div>
-    <!-- Value-added and gross trade balance ^ (link to relevant page on
-    RIVA)-->
-    <div
-      class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 0px auto 20px auto;font-size:22px;border-radius:5px;"
-      align="center"
-    >
-      <span class="text-white">
-        {{ country }}'s gross and value-added trade balance with the world
-        <span
-          style="font-size:15px"
-        ></span>
-      </span>
-    </div>
-
-    <div class="q-px-xl">
-      <div class="row justify-center">
-        <div class="col q-pa-xs q-mb-md" v-if="year != '2007'">
-          <div class="q-pl-xl">
-            <div
-              class="row q-mt-sm"
-              style="font-size:16px;"
-              v-for="(item, index) in contentYellowList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-5" style="width:500px;">
-          <div align="center" class="q-pa-xs">
-            <span class="text-bold">{{country}}'s gross and value-added trade balance with the world</span>
-          </div>
-          <div align="right" class="q-px-md">
-            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
-          </div>
-          <div class id="container4"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Key global value chain relationships6-7 ^ (link to relevant page on
-    RIVA)-->
-    <div
-      class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 0px auto 10px auto;font-size:22px;border-radius:5px;"
-      align="center"
-    >
-      <span class="text-white">
-        Global value chain relationships
-        <span
-          class="relative-position"
-          style="display:inline-block;top:-10px;font-size:12px;"
-        >6-7</span>
-        <span style="font-size:15px;"></span>
-      </span>
-    </div>
-    <div class="row" style="width:1000px;margin: 0px auto 10px auto; font-size:16px;">
-      <div class="col-6 q-px-md">{{keyText1}}</div>
-      <div class="col-6 q-px-md">{{keyText2}}</div>
-    </div>
-
-    <div class="q-mt-sm">
-      <div class="row">
-        <div class="col-6 q-pa-sm">
-          <div align="center" class="q-px-md">
-            <span
-              style="font-size:18px;"
-              class="text-bold"
-            >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC partners</span>
-          </div>
-          <div align="right" class="q-px-md" style="margin-top:0px;">
-            <i style="font-size:12px;">(US$, % of {{country}}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container5" style="border:1px solid grey"></div>
-          </div>
-        </div>
-        <div class="col-6 q-pa-sm" style="width:580px;">
-          <div align="center" class="q-px-md">
-            <span
-              style="font-size:18px;"
-              class="text-bold"
-            >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC-linked exporting sectors</span>
-          </div>
-          <div align="right" class="q-px-md" style="margin-top:0px;">
-            <i style="font-size:12px;">(US$, % of {{country}}'s sectoral gross exports)</i>
-          </div>
-          <div class="q-pr-xs">
-            <div id="container6" style="border:1px solid grey"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-</div>
-    <div class="break"></div>
-
-    <!-- Comparing Thailand to its sub-regional partners -->
-
-    <div class='printPage '>
-    <div
-      class="q-py-sm text-bold bg-bar"
-      style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
-      align="center"
-    >
-      <span class="text-white">{{ country }} compared to {{fullRegion}} ({{region}})</span>
-    </div>
-
-    <div class="q-mt-lg">
-      <div class="row">
-        <div class="col q-pl-xl">
-          <div align="left">
-            <span style="font-size:18px;" class="text-bold text-grey-7">
-              Participation in GVCs
-              <span style="font-size:15px;"></span>
-            </span>
-          </div>
-
-          <div>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in gvcRelianceList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <div align="center">
-            <span style="font-size:16px;" class="text-bold">GVC related exports - {{region}}</span>
-          </div>
-          <div align="right" class="q-pr-xl">
-            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container7"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Backward Linkages -->
-    <div class="q-mt-lg">
-      <div class="row">
-        <div class="col q-pl-xl">
-          <div align="left">
-            <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages
-              <span class="relative-position" style="top:-10px;font-size:12px;">6</span>
-              (by source region)
-              <span style="font-size:15px;"></span>
-            </span>
-          </div>
-          <div align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >Sources of {{ country }}’s imported content used in exports (% of {{ country }}’s gross exports):</span>
-          </div>
-          <div>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in backSourceRegionList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">
-              Sources of {{ region }} imported content used in exports
-              <br />
-              (% of {{ region }} gross exports)
-            </span>
-          </div>
-          <div class>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in backSourceRegionList2"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <div align="center">
-            <span style="font-size:18px;" class="text-bold">Backward linkages, by source region</span>
-          </div>
-          <div align="right" class="q-pr-xl">
-            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container8" class></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="q-mt-lg">
-      <div class="row">
-        <div class="col q-pl-xl">
-          <div align="left">
-            <span style="font-size:18px;" class="text-bold text-grey-7">
-              Backward linkages
-              <span class="relative-position" style="top:-10px;font-size:12px;">6</span>
-              (by exporting sector
-              <span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-              >8</span>)
-              <span style="font-size:15px;"></span>
-            </span>
-          </div>
-          <div align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >{{ country }}’s use of imported content in exports, by sector (% of {{ country }}’s gross exports):</span>
-          </div>
-          <div class>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in backSourceSectorList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span class="text-bold" style="font-size:18px;">
-              {{ region }} use of imported content in exports, by sector
-              <br />
-              (% of {{ region }} gross exports):
-            </span>
-          </div>
-          <!-- SET10A -->
-          <div class>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in backSourceSectorList2"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="`${item.name} (${item.value}%)`"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <div align="center">
-            <span style="font-size:18px;" class="text-bold">Backward linkages, by exporting sector</span>
-          </div>
-          <div align="right" class="q-pr-xl">
-            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container9"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-</div>
-    <div class="break"></div>
-
-
-<div class='printPage'>
-    <!-- Forward Linkages -->
-    <div class="q-mt-xl">
-      <div class="row">
-        <div class="col q-pl-xl">
-          <div align="left">
-            <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages
-              <span class="relative-position" style="top:-10px;font-size:12px;">7</span>
-              (by importing region)
-              <span style="font-size:15px;"></span>
-            </span>
-          </div>
-          <div align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >{{ country }}’s contribution to further export production, by destination (% of {{ country }}’s gross exports):</span>
-          </div>
-          <div>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in forSourceRegionList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >{{ region }} contribution to further export production, by destination (% of {{ region }} gross exports):</span>
-          </div>
-          <!-- 11A -->
-          <div class>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in forSourceRegionList2"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <div align="center">
-            <span style="font-size:18px;" class="text-bold">Forward linkages, by importing region</span>
-          </div>
-          <div align="right" class="q-pr-xl">
-            <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container10"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="q-mt-xl">
-      <div class="row">
-        <div class="col q-pl-xl">
-          <div align="left">
-            <span style="font-size:18px;" class="text-bold text-grey-7">
-              Forward linkages
-              <span class="relative-position" style="top:-10px;font-size:12px;">7</span>
-              (by exporting sector
-              <span
-                class="relative-position"
-                style="top:-10px;font-size:12px;"
-              >8</span>)
-              <span style="font-size:15px;"></span>
-            </span>
-          </div>
-          <div align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >{{ country }}’s contribution to further export production, by sector (% of {{ country }}’s gross exports):</span>
-          </div>
-          <div>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in forSourceSectorList"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="item"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="q-mt-md" align="left" v-if="gvcShare">
-            <span
-              class="text-bold"
-              style="font-size:18px;"
-            >{{ region }} contribution to further export production, by sector (% of {{ region }} gross exports):</span>
-          </div>
-          <!-- 12A -->
-          <div class>
-            <div
-              class="row q-mt-xs"
-              style="font-size:16px;"
-              v-for="(item, index) in forSourceSectorList2"
-              :key="index"
-            >
-              <div class="col-1 relative-position self-start" style="width:30px;padding-top:7px;">
-                <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
-              </div>
-              <div class="col self-start">
-                <span v-html="`${item.name} (${item.value}%)`"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-7">
-          <div align="center">
-            <span style="font-size:18px;" class="text-bold">Forward linkages, by exporting sector</span>
-          </div>
-          <div align="right" class="q-pr-xl">
-            <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
-          </div>
-          <div class="q-pl-md">
-            <div id="container11"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-
-    <div class="break"></div>
-
-<div class='printPage '>
-    <!-- Notes: -->
-    <div class="q-pa-md" style="width:80%;margin: 100px auto 20px auto">
-      <div>
-        <div>
-          <span class="text-bold text-h6">Notes:</span>
-        </div>
-        <div class="font-14">
-          <div>
-            <ul>
-              <li style="list-style:decimal">
-                Directly consumed: Share of domestic value-added in gross
-                exports that is consumed in the importing economy.
-              </li>
-              <li style="list-style:decimal">
-                Used in exports: Share of domestic value-added in
-                gross exports used by importing economy to produce exports.
-                Higher shares are indicative of deeper GVC integration.
-              </li>
-              <li style="list-style:decimal">
-                Used in domestic consumption: Share of domestic value-added in
-                gross exports that returns home via imports and is consumed
-                domestically.
-              </li>
-              <li style="list-style:decimal">
-                Double counted exports: Share of intermediate trade flows in
-                gross exports that are recorded multiple times from repeated
-                border crossings. Higher shares are indicative of deeper GVC
-                integration.
-              </li>
-              <li style="list-style:decimal">
-                Imported content: Share of foreign value added in gross exports.
-                Higher shares are indicative of deeper GVC integration.
-              </li>
-              <li
-                style="list-style:decimal"
-              >Backward linkages: Share of foreign value added in gross exports.</li>
-              <li
-                style="list-style:decimal"
-              >Forward linkages: Share of domestic value-added in gross exports used by importing economy to produce exports.</li>
-              <li style="list-style:decimal">
-                Sectors are grouped based on ADB ERDI classification. For more details please refer to
-                <u>RIVA techinical notes.</u>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <span class="text-bold text-h6">Abbreviations and acronyms:</span>
-          </div>
-          <div class="font-14">
-            GVC: global value chain
+    <div ref="content">
+      <div class="printPage">
+        <div align="center" class="q-pa-md text-white bg-bar">
+          <span style="font-size:20px;">
+            RIVA Global Value Chain (GVC) Country Briefs:
             <br />
-            <div>{{ region!='Pacific'?region + ": " + fullRegion: '' }}</div>
-            <span>ADB ERDI: Asian Development Bank Development Indicators and Policy Research Division</span>
-            <div>MRIO: Multi-regional input output</div>
-          </div>
+            {{ country }}, {{ year }}
+          </span>
+        </div>
 
-          <div class="q-mt-md">
-            <span class="text-bold text-h6">Source:</span>
+        <!-- Structure of value-added in gross exports1-5 ^ (link to relevant page
+        on RIVA)-->
+        <div
+          class="q-py-sm text-bold bg-bar"
+          style="width:1000px;margin: 10px auto 10px auto;font-size:20px;border-radius:5px;"
+          align="center"
+        >
+          <div>
+            <span class="text-white">Value-added structure of gross exports to the world by exporter</span>
+            <span
+              class="relative-position text-white"
+              style="display:inline-block;top:-10px;font-size:12px;"
+            >1-5</span>
+            <span style="font-size:15px;"></span>
           </div>
-          <div class="font-14">
-            <span>
-              RIVA, available at
-              <u>https://riva.negotiatetrade.org</u>
-            </span>
-          </div>
+        </div>
 
-          <div class="q-mt-md">
-            <span class="text-bold font-14">Disclaimer:</span>
+        <div class="q-mt-sm row justify-center q-px-md">
+          <div class="col q-px-sm" align="center">
+            <div align="center" class="q-px-sm" style="height:40px;">
+              <span class="text-h6 text-bold">{{ fullRegion }}</span>
+            </div>
+            <div align="center" class>
+              <i style="font-size:16px;">(% of gross exports)</i>
+            </div>
+            <div id="container2"></div>
           </div>
-          <div style="font-size:12px;">
-            <span>ESCAP gratefully acknowledges the use of ADB-MRIO database as underlying data to estimate GVC indicators in RIVA.</span>
+          <div class="col q-px-sm" align="center">
+            <div align="center" class="q-px-sm" style="height:40px;">
+              <span class="text-h6 text-bold">{{ country }}</span>
+            </div>
+            <div align="center" class>
+              <i style="font-size:16px;">(% of gross exports)</i>
+            </div>
+            <div id="container1"></div>
           </div>
+          <div class="col q-px-sm" align="center">
+            <div align="center" class="q-px-sm" style="height:40px;">
+              <span class="text-h6 text-bold">All economies</span>
+            </div>
+            <div align="center" class>
+              <i style="font-size:16px;">(% of gross exports)</i>
+            </div>
+            <div id="container3"></div>
+          </div>
+        </div>
+        <div
+          style="width:1000px;margin: 0px auto 10px auto;font-size:16px"
+          align="left"
+        >For more details on these indicators, please refer to the Notes section at the bottom of the page</div>
+        <!-- Value-added and gross trade balance ^ (link to relevant page on
+        RIVA)-->
+        <div
+          class="q-py-sm text-bold bg-bar"
+          style="width:1000px;margin: 0px auto 20px auto;font-size:22px;border-radius:5px;"
+          align="center"
+        >
+          <span class="text-white">
+            {{ country }}'s gross and value-added trade balance with the world
+            <span
+              style="font-size:15px"
+            ></span>
+          </span>
+        </div>
 
-          <div style="font-size:12px;">
-            <span>
-              The designations employed and the presentation of the material in
-              RIVA do not imply the expression of any opinion whatsoever on the
-              part of the Secretariat of the United Nations concerning the legal
-              status of any country, territory, city or area or of its
-              authorities, or concerning the delimitation of its frontiers or
-              boundaries. Opinions, figures and estimates set forth in this
-              publication should not necessarily be considered as reflecting the
-              views or carrying the endorsement of the United Nations.
-            </span>
+        <div class="q-px-xl">
+          <div class="row justify-center">
+            <div class="col q-pa-xs q-mb-md" v-if="year != '2007'">
+              <div class="q-pl-xl">
+                <div
+                  class="row q-mt-sm"
+                  style="font-size:16px;"
+                  v-for="(item, index) in contentYellowList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-5" style="width:500px;">
+              <div align="center" class="q-pa-xs">
+                <span
+                  class="text-bold"
+                >{{country}}'s gross and value-added trade balance with the world</span>
+              </div>
+              <div align="right" class="q-px-md">
+                <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
+              </div>
+              <div class id="container4"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key global value chain relationships6-7 ^ (link to relevant page on
+        RIVA)-->
+        <div
+          class="q-py-sm text-bold bg-bar"
+          style="width:1000px;margin: 0px auto 10px auto;font-size:22px;border-radius:5px;"
+          align="center"
+        >
+          <span class="text-white">
+            Global value chain relationships
+            <span
+              class="relative-position"
+              style="display:inline-block;top:-10px;font-size:12px;"
+            >6-7</span>
+            <span style="font-size:15px;"></span>
+          </span>
+        </div>
+        <div class="row" style="width:1000px;margin: 0px auto 10px auto; font-size:16px;">
+          <div class="col-6 q-px-md">{{keyText1}}</div>
+          <div class="col-6 q-px-md">{{keyText2}}</div>
+        </div>
+
+        <div class="q-mt-sm">
+          <div class="row">
+            <div class="col-6 q-pa-sm">
+              <div align="center" class="q-px-md">
+                <span
+                  style="font-size:18px;"
+                  class="text-bold"
+                >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC partners</span>
+              </div>
+              <div align="right" class="q-px-md" style="margin-top:0px;">
+                <i style="font-size:12px;">(US$, % of {{country}}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container5" style="border:1px solid grey"></div>
+              </div>
+            </div>
+            <div class="col-6 q-pa-sm" style="width:580px;">
+              <div align="center" class="q-px-md">
+                <span
+                  style="font-size:18px;"
+                  class="text-bold"
+                >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC-linked exporting sectors</span>
+              </div>
+              <div align="right" class="q-px-md" style="margin-top:0px;">
+                <i style="font-size:12px;">(US$, % of {{country}}'s sectoral gross exports)</i>
+              </div>
+              <div class="q-pr-xs">
+                <div id="container6" style="border:1px solid grey"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div class="break"></div>
 
-    </div>
+      <!-- Comparing Thailand to its sub-regional partners -->
+
+      <div class="printPage">
+        <div
+          class="q-py-sm text-bold bg-bar"
+          style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
+          align="center"
+        >
+          <span class="text-white">{{ country }} compared to {{fullRegion}} ({{region}})</span>
+        </div>
+
+        <div class="q-mt-lg">
+          <div class="row">
+            <div class="col q-pl-xl">
+              <div align="left">
+                <span style="font-size:18px;" class="text-bold text-grey-7">
+                  Participation in GVCs
+                  <span style="font-size:15px;"></span>
+                </span>
+              </div>
+
+              <div>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in gvcRelianceList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div align="center">
+                <span style="font-size:16px;" class="text-bold">GVC related exports - {{region}}</span>
+              </div>
+              <div align="right" class="q-pr-xl">
+                <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container7"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Backward Linkages -->
+        <div class="q-mt-lg">
+          <div class="row">
+            <div class="col q-pl-xl">
+              <div align="left">
+                <span style="font-size:18px;" class="text-bold text-grey-7">
+                  Backward linkages
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >6</span>
+                  (by source region)
+                  <span style="font-size:15px;"></span>
+                </span>
+              </div>
+              <div align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >Sources of {{ country }}’s imported content used in exports (% of {{ country }}’s gross exports):</span>
+              </div>
+              <div>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in backSourceRegionList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-mt-md" align="left" v-if="gvcShare">
+                <span class="text-bold" style="font-size:18px;">
+                  Sources of {{ region }} imported content used in exports
+                  <br />
+                  (% of {{ region }} gross exports)
+                </span>
+              </div>
+              <div class>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in backSourceRegionList2"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div align="center">
+                <span style="font-size:18px;" class="text-bold">Backward linkages, by source region</span>
+              </div>
+              <div align="right" class="q-pr-xl">
+                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container8" class></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-mt-lg">
+          <div class="row">
+            <div class="col q-pl-xl">
+              <div align="left">
+                <span style="font-size:18px;" class="text-bold text-grey-7">
+                  Backward linkages
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >6</span>
+                  (by exporting sector
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >8</span>)
+                  <span style="font-size:15px;"></span>
+                </span>
+              </div>
+              <div align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >{{ country }}’s use of imported content in exports, by sector (% of {{ country }}’s gross exports):</span>
+              </div>
+              <div class>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in backSourceSectorList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-mt-md" align="left" v-if="gvcShare">
+                <span class="text-bold" style="font-size:18px;">
+                  {{ region }} use of imported content in exports, by sector
+                  <br />
+                  (% of {{ region }} gross exports):
+                </span>
+              </div>
+              <!-- SET10A -->
+              <div class>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in backSourceSectorList2"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="`${item.name} (${item.value}%)`"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div align="center">
+                <span
+                  style="font-size:18px;"
+                  class="text-bold"
+                >Backward linkages, by exporting sector</span>
+              </div>
+              <div align="right" class="q-pr-xl">
+                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container9"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="break"></div>
+
+      <div class="printPage">
+        <!-- Forward Linkages -->
+        <div class="q-mt-xl">
+          <div class="row">
+            <div class="col q-pl-xl">
+              <div align="left">
+                <span style="font-size:18px;" class="text-bold text-grey-7">
+                  Forward linkages
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >7</span>
+                  (by importing region)
+                  <span style="font-size:15px;"></span>
+                </span>
+              </div>
+              <div align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >{{ country }}’s contribution to further export production, by destination (% of {{ country }}’s gross exports):</span>
+              </div>
+              <div>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in forSourceRegionList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-mt-md" align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >{{ region }} contribution to further export production, by destination (% of {{ region }} gross exports):</span>
+              </div>
+              <!-- 11A -->
+              <div class>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in forSourceRegionList2"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div align="center">
+                <span
+                  style="font-size:18px;"
+                  class="text-bold"
+                >Forward linkages, by importing region</span>
+              </div>
+              <div align="right" class="q-pr-xl">
+                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container10"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="q-mt-xl">
+          <div class="row">
+            <div class="col q-pl-xl">
+              <div align="left">
+                <span style="font-size:18px;" class="text-bold text-grey-7">
+                  Forward linkages
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >7</span>
+                  (by exporting sector
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >8</span>)
+                  <span style="font-size:15px;"></span>
+                </span>
+              </div>
+              <div align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >{{ country }}’s contribution to further export production, by sector (% of {{ country }}’s gross exports):</span>
+              </div>
+              <div>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in forSourceSectorList"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="item"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="q-mt-md" align="left" v-if="gvcShare">
+                <span
+                  class="text-bold"
+                  style="font-size:18px;"
+                >{{ region }} contribution to further export production, by sector (% of {{ region }} gross exports):</span>
+              </div>
+              <!-- 12A -->
+              <div class>
+                <div
+                  class="row q-mt-xs"
+                  style="font-size:16px;"
+                  v-for="(item, index) in forSourceSectorList2"
+                  :key="index"
+                >
+                  <div
+                    class="col-1 relative-position self-start"
+                    style="width:30px;padding-top:7px;"
+                  >
+                    <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
+                  </div>
+                  <div class="col self-start">
+                    <span v-html="`${item.name} (${item.value}%)`"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7">
+              <div align="center">
+                <span
+                  style="font-size:18px;"
+                  class="text-bold"
+                >Forward linkages, by exporting sector</span>
+              </div>
+              <div align="right" class="q-pr-xl">
+                <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
+              </div>
+              <div class="q-pl-md">
+                <div id="container11"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="break"></div>
+
+      <div class="printPage">
+        <!-- Notes: -->
+        <div class="q-pa-md" style="width:80%;margin: 100px auto 20px auto">
+          <div>
+            <div>
+              <span class="text-bold text-h6">Notes:</span>
+            </div>
+            <div class="font-14">
+              <div>
+                <ul>
+                  <li style="list-style:decimal">
+                    Directly consumed: Share of domestic value-added in gross
+                    exports that is consumed in the importing economy.
+                  </li>
+                  <li style="list-style:decimal">
+                    Used in exports: Share of domestic value-added in
+                    gross exports used by importing economy to produce exports.
+                    Higher shares are indicative of deeper GVC integration.
+                  </li>
+                  <li style="list-style:decimal">
+                    Used in domestic consumption: Share of domestic value-added in
+                    gross exports that returns home via imports and is consumed
+                    domestically.
+                  </li>
+                  <li style="list-style:decimal">
+                    Double counted exports: Share of intermediate trade flows in
+                    gross exports that are recorded multiple times from repeated
+                    border crossings. Higher shares are indicative of deeper GVC
+                    integration.
+                  </li>
+                  <li style="list-style:decimal">
+                    Imported content: Share of foreign value added in gross exports.
+                    Higher shares are indicative of deeper GVC integration.
+                  </li>
+                  <li
+                    style="list-style:decimal"
+                  >Backward linkages: Share of foreign value added in gross exports.</li>
+                  <li
+                    style="list-style:decimal"
+                  >Forward linkages: Share of domestic value-added in gross exports used by importing economy to produce exports.</li>
+                  <li style="list-style:decimal">
+                    Sectors are grouped based on ADB ERDI classification. For more details please refer to
+                    <u>RIVA techinical notes.</u>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <span class="text-bold text-h6">Abbreviations and acronyms:</span>
+              </div>
+              <div class="font-14">
+                GVC: global value chain
+                <br />
+                <div>{{ region!='Pacific'?region + ": " + fullRegion: '' }}</div>
+                <span>ADB ERDI: Asian Development Bank Development Indicators and Policy Research Division</span>
+                <div>MRIO: Multi-regional input output</div>
+              </div>
+
+              <div class="q-mt-md">
+                <span class="text-bold text-h6">Source:</span>
+              </div>
+              <div class="font-14">
+                <span>
+                  RIVA, available at
+                  <u>https://riva.negotiatetrade.org</u>
+                </span>
+              </div>
+
+              <div class="q-mt-md">
+                <span class="text-bold font-14">Disclaimer:</span>
+              </div>
+              <div style="font-size:12px;">
+                <span>ESCAP gratefully acknowledges the use of ADB-MRIO database as underlying data to estimate GVC indicators in RIVA.</span>
+              </div>
+
+              <div style="font-size:12px;">
+                <span>
+                  The designations employed and the presentation of the material in
+                  RIVA do not imply the expression of any opinion whatsoever on the
+                  part of the Secretariat of the United Nations concerning the legal
+                  status of any country, territory, city or area or of its
+                  authorities, or concerning the delimitation of its frontiers or
+                  boundaries. Opinions, figures and estimates set forth in this
+                  publication should not necessarily be considered as reflecting the
+                  views or carrying the endorsement of the United Nations.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <q-dialog v-model="isShowShare" persistent>
@@ -714,12 +765,11 @@
 <script>
 import Axios from "axios";
 
-import {jsPDF} from 'jspdf' 
-import domtoimage from 'dom-to-image';
-import html2canvas from "html2canvas"
+import { jsPDF } from "jspdf";
+import domtoimage from "dom-to-image";
+import html2canvas from "html2canvas";
 
-import html2PDF from 'jspdf-html2canvas';
-
+import html2PDF from "jspdf-html2canvas";
 
 export default {
   data() {
@@ -781,7 +831,7 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 360,
+          height: 400,
         },
         title: {
           text: "",
@@ -823,7 +873,7 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "Imported content",
+                name: "Foreign production consumed by the importer",
                 y: set1.importedContent.ratio,
                 total: set1.importedContent.total,
                 color: "#FFC000",
@@ -835,19 +885,20 @@ export default {
                 color: "#D83964",
               },
               {
-                name: "Used in exports",
+                name: "Domestic production used in the <Br> importer’s exports",
                 y: set1.usedInExportProduction.ratio,
                 total: set1.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "Used in domestic consumption",
+                name:
+                  "Domestic production that returns via <br> the importer’s exports",
                 y: set1.usedInDomesticConsumption.ratio,
                 total: set1.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "Directly consumed",
+                name: "Domestic production consumed by the importer",
                 y: set1.directlyConsumed.ratio,
                 total: set1.directlyConsumed.total,
                 color: "#70AD47",
@@ -867,7 +918,7 @@ export default {
       Highcharts.chart("container2", {
         chart: {
           type: "pie",
-          height: 360,
+          height: 400,
         },
         title: {
           text: "",
@@ -908,7 +959,7 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "Imported content",
+                name: "Foreign production consumed by the importer",
                 y: set2.importedContent.ratio,
                 total: set2.importedContent.total,
                 color: "#FFC000",
@@ -920,19 +971,20 @@ export default {
                 color: "#D83964",
               },
               {
-                name: "Used in exports",
+                name: "Domestic production used in the <br>importer’s exports",
                 y: set2.usedInExportProduction.ratio,
                 total: set2.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "Used in domestic consumption",
+                name:
+                  "Domestic production that returns via <br>the importer’s exports",
                 y: set2.usedInDomesticConsumption.ratio,
                 total: set2.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "Directly consumed",
+                name: "Domestic production consumed by the importer",
                 y: set2.directlyConsumed.ratio,
                 total: set2.directlyConsumed.total,
                 color: "#70AD47",
@@ -953,7 +1005,7 @@ export default {
         chart: {
           type: "pie",
           borderRadius: 5,
-          height: 360,
+          height: 400,
         },
         title: {
           text: "",
@@ -994,7 +1046,7 @@ export default {
             colorByPoint: true,
             data: [
               {
-                name: "Imported content",
+                name: "Foreign production consumed by the importer",
                 y: set3.importedContent.ratio,
                 total: set3.importedContent.total,
                 color: "#FFC000",
@@ -1006,19 +1058,20 @@ export default {
                 color: "#D83964",
               },
               {
-                name: "Used in exports",
+                name: "Domestic production used in the <br>importer’s exports",
                 y: set3.usedInExportProduction.ratio,
                 total: set3.usedInExportProduction.total,
                 color: "#ED7D31",
               },
               {
-                name: "Used in domestic consumption",
+                name:
+                  "Domestic production that returns via <br> the importer’s exports",
                 y: set3.usedInDomesticConsumption.ratio,
                 total: set3.usedInDomesticConsumption.total,
                 color: "#997300",
               },
               {
-                name: "Directly consumed",
+                name: "Domestic production consumed by the importer",
                 y: set3.directlyConsumed.ratio,
                 total: set3.directlyConsumed.total,
                 color: "#70AD47",
@@ -1040,18 +1093,18 @@ export default {
       let year = this.$q.sessionStorage.getItem("year");
 
       let contentYellowList = [
-        `In ${year}, ${this.country} registerd a gross trade <span class=''>${
+        `In ${year}, ${this.country} registered a gross trade <span class=''>${
           dataSet5.current > 0 ? "surplus" : "deficit"
         }</span> with the world - an ${
-          dataSet5.current > dataSet5[2007] ? "increased" : "decreased"
+          dataSet5.current > dataSet5[2007] ? "increase" : "decrease"
         }</span> since 2007.`,
 
         `In ${year} ${
           this.country
-        } registered a  Value-added trade <span class=''>${
+        } registered a  value-added trade <span class=''>${
           dataSet4.current > 0 ? "surplus" : "deficit"
         }</span> with the world - <span class=''>${
-          dataSet4.current > dataSet4[2007] ? "an increased" : "a decreased"
+          dataSet4.current > dataSet4[2007] ? "an increase" : "a decrease"
         }</span> since 2007.`,
 
         `Gross trade balance <span class=''>${
@@ -1206,19 +1259,35 @@ export default {
       });
 
       newSetForward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      let showMoneyInText1 = newSetBackward[0].value.toFixed(1);
+      if (showMoneyInText1 >= 1000) {
+        showMoneyInText1 =
+          "$" + Number(showMoneyInText1 / 1000).toFixed(1) + "B";
+      } else {
+        showMoneyInText1 = "$" + Number(showMoneyInText1).toFixed(1) + "M";
+      }
+
+      let showMoneyInText1_2 = newSetForward[0].value.toFixed(1);
+      if (showMoneyInText1_2 >= 1000) {
+        showMoneyInText1_2 =
+          "$" + Number(showMoneyInText1_2 / 1000).toFixed(1) + "B";
+      } else {
+        showMoneyInText1_2 = "$" + Number(showMoneyInText1_2).toFixed(1) + "M";
+      }
+
       this.keyText1 = `In ${this.year}, ${Math.abs(
         newSetBackward[0].y.toFixed(1)
-      )}% ($${newSetBackward[0].value.toFixed(1)}M) of ${
+      )}% (${showMoneyInText1}) of ${
         this.country
-      }'s gross exports to the world came from the ${
+      }'s gross exports to the world came from ${
         newSetBackward[0].country
       } in the form of imported content, and ${Math.abs(
         newSetForward[0].y.toFixed(1)
-      )}% ($${newSetForward[0].value.toFixed(1)}M) of ${
+      )}% (${showMoneyInText1_2}) of ${
         this.country
       }'s gross exports to the world were used for further export production in ${
         newSetForward[0].country
-      }`;
+      }.`;
 
       Highcharts.chart("container5", {
         chart: {
@@ -1259,6 +1328,9 @@ export default {
           bar: {
             stacking: "normal",
             dataLabels: {
+              style: {
+                textOutline: 0,
+              },
               enabled: true,
               color: "black",
               formatter() {
@@ -1277,10 +1349,10 @@ export default {
         tooltip: {
           formatter: function () {
             return (
-              "<b>" +
+              "<br>" +
               this.series.name +
               this.point.category +
-              "</b><br/>" +
+              "</br><br/>" +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
@@ -1365,15 +1437,31 @@ export default {
           ? newSetBackward[newSetBackward.length - 1].precent
           : newSetForward[newSetForward.length - 1].precent;
 
+      let showMoneyInText2 = newSetBackward[0].value.toFixed(1);
+      if (showMoneyInText2 >= 1000) {
+        showMoneyInText2 =
+          "$" + Number(showMoneyInText2 / 1000).toFixed(1) + "B";
+      } else {
+        showMoneyInText2 = "$" + Number(showMoneyInText2).toFixed(1) + "M";
+      }
+
+      let showMoneyInText2_2 = newSetForward[0].value.toFixed(1);
+      if (showMoneyInText2_2 >= 1000) {
+        showMoneyInText2_2 =
+          "$" + Number(showMoneyInText2_2 / 1000).toFixed(1) + "B";
+      } else {
+        showMoneyInText2_2 = "$" + Number(showMoneyInText2_2).toFixed(1) + "M";
+      }
+
       this.keyText2 = `In ${this.year}, ${Math.abs(
         newSetBackward[0].y.toFixed(1)
-      )}% ($${newSetBackward[0].value.toFixed(1)}M) of ${
-        this.country
-      }'s ${newSetBackward[0].sector.toLowerCase()} sector gross exports to the world comprised imported content, and ${Math.abs(
+      )}% (${showMoneyInText2}) of ${this.country}'s ${
+        newSetBackward[0].sector
+      } sector gross exports to the world comprised imported content, and ${Math.abs(
         newSetForward[0].y.toFixed(1)
-      )}% ($${newSetForward[0].value.toFixed(1)}M) of ${
-        this.country
-      }'s ${newSetForward[0].sector.toLowerCase()} gross exports to the world were used in further export production.`;
+      )}% (${showMoneyInText2_2}) of ${this.country}'s ${
+        newSetForward[0].sector
+      } gross exports to the world were used in further export production.`;
 
       Highcharts.chart("container6", {
         chart: {
@@ -1414,6 +1502,9 @@ export default {
           bar: {
             stacking: "normal",
             dataLabels: {
+              style: {
+                textOutline: 0,
+              },
               enabled: true,
               color: "black",
               formatter() {
@@ -2605,72 +2696,64 @@ export default {
         }
       }
     },
-    downloadPDF(){
+    downloadPDF() {
+      //   this.loadingShow()
+      //   let _this = this
+      // domtoimage
+      // .toPng(this.$refs.content)
+      // .then(function(dataUrl) {
+      //   var img = new Image();
+      //   img.src = dataUrl;
+      //   const doc = new jsPDF({
+      //     orientation: "portrait",
+      //     format: [1400,900]
+      //   });
+      //   doc.addImage(img, "JPEG", 20, 20);
+      //   const date = new Date();
+      //   const filename =
+      //     "countrybriefs_" +
+      //     date.getFullYear() +
+      //     ("0" + (date.getMonth() + 1)).slice(-2) +
+      //     ("0" + date.getDate()).slice(-2) +
+      //     ("0" + date.getHours()).slice(-2) +
+      //     ("0" + date.getMinutes()).slice(-2) +
+      //     ("0" + date.getSeconds()).slice(-2) +
+      //     ".pdf";
+      //   doc.save(filename);
+      //   _this.loadingHide()
+      // })
+      // .catch(function(error) {
+      //   console.error("oops, something went wrong!", error);
+      //   _this.loadingHide()
+      // });
 
+      //    const doc = new jsPDF();
+      //  /** WITH CSS */
+      //  var canvasElement = document.createElement('canvas');
+      //   html2canvas(this.$refs.content, { canvas: canvasElement
+      //     }).then(function (canvas) {
+      //   const img = canvas.toDataURL("image/jpeg", 0.8);
+      //   doc.addImage(img,'JPEG',20,20);
+      //   doc.save("sample.pdf");
+      //  });
 
-    //   this.loadingShow()
-    //   let _this = this
-    // domtoimage
-    // .toPng(this.$refs.content)
-    // .then(function(dataUrl) {
-    //   var img = new Image();
-    //   img.src = dataUrl;
-    //   const doc = new jsPDF({
-    //     orientation: "portrait",
-    //     format: [1400,900]
-    //   });
-    //   doc.addImage(img, "JPEG", 20, 20);
-    //   const date = new Date();
-    //   const filename =
-    //     "countrybriefs_" +
-    //     date.getFullYear() +
-    //     ("0" + (date.getMonth() + 1)).slice(-2) +
-    //     ("0" + date.getDate()).slice(-2) +
-    //     ("0" + date.getHours()).slice(-2) +
-    //     ("0" + date.getMinutes()).slice(-2) +
-    //     ("0" + date.getSeconds()).slice(-2) +
-    //     ".pdf";
-    //   doc.save(filename);
-    //   _this.loadingHide()
-    // })
-    // .catch(function(error) {
-    //   console.error("oops, something went wrong!", error);
-    //   _this.loadingHide()
-    // });
+      let _this = this;
+      this.loadingShow();
+      let pages = document.getElementsByClassName("printPage");
 
-  //    const doc = new jsPDF();
-  //  /** WITH CSS */
-  //  var canvasElement = document.createElement('canvas');
-  //   html2canvas(this.$refs.content, { canvas: canvasElement 
-  //     }).then(function (canvas) {
-  //   const img = canvas.toDataURL("image/jpeg", 0.8);
-  //   doc.addImage(img,'JPEG',20,20);
-  //   doc.save("sample.pdf");
-  //  });
-
-let _this = this
-this.loadingShow()
-let pages = document.getElementsByClassName("printPage")
-
-  html2PDF(pages,
-  {
-
-    html2canvas: {
-    scrollX: 0,
-    scrollY: -window.scrollY,
-  },
-    jsPDF: {
-      format: 'a4',
-    },
-    imageType: 'image/jpeg',
-    output: './pdf/generate.pdf'
-  }).then(() => {
-    _this.loadingHide()
-  })
-
-
-
-
+      html2PDF(pages, {
+        html2canvas: {
+          scrollX: 0,
+          scrollY: -window.scrollY,
+        },
+        jsPDF: {
+          format: "a4",
+        },
+        imageType: "image/jpeg",
+        output: "./pdf/generate.pdf",
+      }).then(() => {
+        _this.loadingHide();
+      });
     },
   },
   async mounted() {
@@ -2696,8 +2779,8 @@ let pages = document.getElementsByClassName("printPage")
 .set-p-right {
   padding-right: 0px;
 }
-.printPage{
-  padding-top:10px
+.printPage {
+  padding-top: 10px;
 }
 
 @media print {
