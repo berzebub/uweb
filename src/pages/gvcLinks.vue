@@ -265,7 +265,7 @@
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.sector }}</div>
                         <div class="text-black">
-                          {{ item.precent }}% , ${{
+                          {{ item.precent.toFixed(2) }}% , ${{
                           item.value > 1000
                           ? (item.value / 1000).toFixed(2) + "B"
                           : item.value + "M"
@@ -342,7 +342,7 @@
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
                         <div class="text-black">{{ item.sector }}</div>
                         <div class="text-black">
-                          {{ item.precent }}% , ${{
+                          {{ item.precent.toFixed(2) }}% , ${{
                           item.value > 1000
                           ? (item.value / 1000).toFixed(2) + "B"
                           : item.value + "M"

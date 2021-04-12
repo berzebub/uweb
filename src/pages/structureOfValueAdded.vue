@@ -830,6 +830,7 @@ export default {
       }
 
       getData = getData.data;
+
      
       let country = [];
       let imp_cons = [];
@@ -881,6 +882,7 @@ export default {
           y : x.double.precent
         });
       });
+            console.log(country);
       this.isComparisonChart = true;
 
       Highcharts.chart("container1", {
