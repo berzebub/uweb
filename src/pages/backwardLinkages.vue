@@ -987,6 +987,7 @@ export default {
         return;
       }
       getData = getData.data;
+      console.log(getData);
       let countryList = [];
 
       getData.map((x) => {
