@@ -1490,7 +1490,7 @@ export default {
                 "<div> " +
                 Number(this.y).toFixed(2) +
                 "% (" +
-                Number(this.sumValueM).toFixed(2) +
+                Number(this.valueM).toFixed(2) +
                 " million)</div>"
               );
             },
@@ -1890,8 +1890,9 @@ export default {
           cancelGraph6 = c;
         }),
       });
-
+      console.log(urlLink);
       getData = getData.data;
+      console.log(getData);
       let countryTemp = getData.map((x) => x.exp_country);
       this.countryList = [...new Set(countryTemp)];
       this.countryList.sort();
@@ -1902,9 +1903,10 @@ export default {
       let agriculture2 = getData.filter((x) => x.grouping == "Agriculture");
 
       agriculture2.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+
       let agriculture = agriculture2.map((x) => x.value);
       agricultureV = agriculture2.map((x) => x.valueM);
-      console.log(agricultureV);
+
       for (let i = 0; i < agriculture.length; i++) {
         let temp = {
           name: this.countryList[i],
