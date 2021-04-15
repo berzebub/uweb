@@ -41,13 +41,22 @@
 
     <div ref="content">
       <div class="printPage">
-        <div align="center" class="q-pa-md text-white bg-bar">
-          <span style="font-size:20px;">
-            RIVA Global Value Chain (GVC) Country Briefs:
-            <br />
-            {{ country }}, {{ year }}
-          </span>
+        <div align="center">
+          <img src="../../public/unescap.jpg" style="width: 250px;" alt />
+          <div class="row">
+            <div class="col-6">
+              <img src="../../public/rivalogo.jpg" style="width: 80%;" alt />
+            </div>
+            <div class="col-6" style="font-size:18px; padding-top:10px;">
+              <b>
+                Global Value Chain (GVC) Country Briefs:
+                <br />
+                <span style="color:#E1D047">{{ country }}, {{ year }}</span>
+              </b>
+            </div>
+          </div>
         </div>
+        <hr />
 
         <!-- Structure of value-added in gross exports1-5 ^ (link to relevant page
         on RIVA)-->
@@ -251,7 +260,7 @@
                 <span style="font-size:16px;" class="text-bold">GVC related exports - {{region}}</span>
               </div>
               <div align="right" class="q-pr-xl">
-                <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
+                <i style="font-size:12px;">(% of gross exports)</i>
               </div>
               <div class="q-pl-md">
                 <div id="container7"></div>
@@ -272,6 +281,10 @@
                     style="top:-10px;font-size:12px;"
                   >6</span>
                   (by source region)
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >9</span>
                   <span style="font-size:15px;"></span>
                 </span>
               </div>
@@ -331,7 +344,7 @@
                 <span style="font-size:18px;" class="text-bold">Backward linkages, by source region</span>
               </div>
               <div align="right" class="q-pr-xl">
-                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+                <i style="font-size:12px;">(% of gross exports)</i>
               </div>
               <div class="q-pl-md">
                 <div id="container8" class></div>
@@ -418,7 +431,7 @@
                 >Backward linkages, by exporting sector</span>
               </div>
               <div align="right" class="q-pr-xl">
-                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+                <i style="font-size:12px;">(% of gross exports)</i>
               </div>
               <div class="q-pl-md">
                 <div id="container9"></div>
@@ -442,6 +455,10 @@
                     style="top:-10px;font-size:12px;"
                   >7</span>
                   (by importing region)
+                  <span
+                    class="relative-position"
+                    style="top:-10px;font-size:12px;"
+                  >9</span>
                   <span style="font-size:15px;"></span>
                 </span>
               </div>
@@ -504,7 +521,7 @@
                 >Forward linkages, by importing region</span>
               </div>
               <div align="right" class="q-pr-xl">
-                <i style="font-size:12px;">(% of {{ country }}'s gross exports)</i>
+                <i style="font-size:12px;">(% of gross exports)</i>
               </div>
               <div class="q-pl-md">
                 <div id="container10"></div>
@@ -590,7 +607,7 @@
                 >Forward linkages, by exporting sector</span>
               </div>
               <div align="right" class="q-pr-xl">
-                <i style="font-size:12px;">(% of {{country}}'s gross exports)</i>
+                <i style="font-size:12px;">(% of gross exports)</i>
               </div>
               <div class="q-pl-md">
                 <div id="container11"></div>
@@ -613,16 +630,16 @@
               <div>
                 <ul>
                   <li style="list-style:decimal">
-                    Directly consumed: Share of domestic value-added in gross
+                    Domestic production consumed by the importer: Share of domestic value-added in gross
                     exports that is consumed in the importing economy.
                   </li>
                   <li style="list-style:decimal">
-                    Used in exports: Share of domestic value-added in
+                    Domestic production used in the importer’s exports: Share of domestic value-added in
                     gross exports used by importing economy to produce exports.
                     Higher shares are indicative of deeper GVC integration.
                   </li>
                   <li style="list-style:decimal">
-                    Used in domestic consumption: Share of domestic value-added in
+                    Domestic production that returns via the importer’s exports: Share of domestic value-added in
                     gross exports that returns home via imports and is consumed
                     domestically.
                   </li>
@@ -633,7 +650,7 @@
                     integration.
                   </li>
                   <li style="list-style:decimal">
-                    Imported content: Share of foreign value added in gross exports.
+                    Foreign production consumed by the importer: Share of foreign value added in gross exports.
                     Higher shares are indicative of deeper GVC integration.
                   </li>
                   <li
@@ -644,6 +661,10 @@
                   >Forward linkages: Share of domestic value-added in gross exports used by importing economy to produce exports.</li>
                   <li style="list-style:decimal">
                     Sectors are grouped based on ADB ERDI classification. For more details please refer to
+                    <u>RIVA techinical notes.</u>
+                  </li>
+                  <li style="list-style:decimal">
+                    Regional classification of Asia-Pacific economies follows ESCAP sub-regions while regional classification for other economies is based on United Nations Statistical Division (UNSD) methodology. For more details please refer to
                     <u>RIVA techinical notes.</u>
                   </li>
                 </ul>
@@ -851,7 +872,14 @@ export default {
             cursor: "pointer",
             dataLabels: {
               enabled: true,
-              format: "<b>{point.percentage:.1f}</b> %",
+              // format: "<b>{point.percentage:.1f}</b> %",
+              formatter: function () {
+                if (this.point.percentage > 1.5) {
+                  return (
+                    Highcharts.numberFormat(this.point.percentage, 1) + "%"
+                  );
+                }
+              },
               distance: -50,
               color: "black",
             },
@@ -863,7 +891,17 @@ export default {
 
         tooltip: {
           formatter: function () {
-            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+            if (this.point.options.total >= 1000) {
+              let tempNumber = (this.point.options.total / 1000).toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} billion`;
+            } else {
+              let tempNumber = this.point.options.total.toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} million`;
+            }
           },
         },
 
@@ -939,8 +977,15 @@ export default {
             cursor: "pointer",
             dataLabels: {
               enabled: true,
-              format: "<b>{point.percentage:.1f}</b> %",
+              formatter: function () {
+                if (this.point.percentage > 1.5) {
+                  return (
+                    Highcharts.numberFormat(this.point.percentage, 1) + "%"
+                  );
+                }
+              },
               distance: -50,
+              color: "black",
             },
             showInLegend: true,
             borderWidth: 1,
@@ -950,7 +995,17 @@ export default {
 
         tooltip: {
           formatter: function () {
-            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+            if (this.point.options.total >= 1000) {
+              let tempNumber = (this.point.options.total / 1000).toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} billion`;
+            } else {
+              let tempNumber = this.point.options.total.toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} million`;
+            }
           },
         },
         series: [
@@ -1026,8 +1081,15 @@ export default {
             cursor: "pointer",
             dataLabels: {
               enabled: true,
-              format: "<b>{point.percentage:.1f}</b> %",
+              formatter: function () {
+                if (this.point.percentage > 1.5) {
+                  return (
+                    Highcharts.numberFormat(this.point.percentage, 1) + "%"
+                  );
+                }
+              },
               distance: -50,
+              color: "black",
             },
             showInLegend: true,
             borderWidth: 1,
@@ -1036,7 +1098,17 @@ export default {
         },
         tooltip: {
           formatter: function () {
-            return `<b>$${this.point.options.total}</b> , <b>${this.y}%</b>`;
+            if (this.point.options.total >= 1000) {
+              let tempNumber = (this.point.options.total / 1000).toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} billion`;
+            } else {
+              let tempNumber = this.point.options.total.toFixed(1);
+              return `<b>${this.point.name}</b><br>
+              Share: ${this.y}%<br>
+              Value:  $${tempNumber} million`;
+            }
           },
         },
 
@@ -1209,9 +1281,8 @@ export default {
         },
 
         tooltip: {
-          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-          pointFormat:
-            '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>',
+          headerFormat: "<b>Value-added/Gross trade balance</b><br>",
+          pointFormat: "Value: {point.y:.1f}%<br/>",
         },
 
         series: setData,
@@ -1233,7 +1304,7 @@ export default {
 
         let newData = {
           ...x,
-          y: Number("-" + x.precent),
+          y: Number("-" + x.value),
           country: realName,
         };
 
@@ -1242,7 +1313,7 @@ export default {
         return newData;
       });
 
-      newSetBackward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      newSetBackward.sort((a, b) => Number(b.value) - Number(a.value));
 
       let newSetForward = set6.forward.map((x) => {
         let realName = this.countryOptions.filter(
@@ -1251,14 +1322,14 @@ export default {
 
         let newData = {
           ...x,
-          y: x.precent,
+          y: x.value,
           country: realName,
         };
 
         return newData;
       });
 
-      newSetForward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      newSetForward.sort((a, b) => Number(b.value) - Number(a.value));
       let showMoneyInText1 = newSetBackward[0].value.toFixed(1);
       if (showMoneyInText1 >= 1000) {
         showMoneyInText1 =
@@ -1348,11 +1419,21 @@ export default {
 
         tooltip: {
           formatter: function () {
+            let tempValue;
+            if (this.point.value > 1000) {
+              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempValue = this.point.precent.toFixed(2) + " million";
+            }
             return (
-              "<br>" +
+              "<b>" +
               this.series.name +
-              this.point.category +
-              "</br><br/>" +
+              "</b><br/><b>" +
+              this.point.country +
+              "</b><br>" +
+              "Value: " +
+              tempValue +
+              "<br>Share: " +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
@@ -1400,18 +1481,18 @@ export default {
       let newSetBackward = set7.backward.map((x) => {
         let newData = {
           ...x,
-          y: Number("-" + x.precent),
+          y: Number("-" + x.value),
         };
 
         return newData;
       });
 
-      newSetBackward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      newSetBackward.sort((a, b) => Number(b.value) - Number(a.value));
 
       let newSetForward = set7.forward.map((x) => {
         let newData = {
           ...x,
-          y: x.precent,
+          y: x.value,
         };
 
         setCategories.push("");
@@ -1419,7 +1500,7 @@ export default {
         return newData;
       });
 
-      newSetForward.sort((a, b) => Number(b.precent) - Number(a.precent));
+      newSetForward.sort((a, b) => Number(b.value) - Number(a.value));
       for (const item in newSetForward) {
         newSetForward[item].sector =
           newSetForward[item].sector[0].toUpperCase() +
@@ -1432,10 +1513,10 @@ export default {
       }
 
       let setMaxValue =
-        newSetBackward[newSetBackward.length - 1].precent >
-        newSetForward[newSetForward.length - 1].precent
-          ? newSetBackward[newSetBackward.length - 1].precent
-          : newSetForward[newSetForward.length - 1].precent;
+        newSetBackward[newSetBackward.length - 1].value >
+        newSetForward[newSetForward.length - 1].value
+          ? newSetBackward[newSetBackward.length - 1].value
+          : newSetForward[newSetForward.length - 1].value;
 
       let showMoneyInText2 = newSetBackward[0].value.toFixed(1);
       if (showMoneyInText2 >= 1000) {
@@ -1525,11 +1606,21 @@ export default {
 
         tooltip: {
           formatter: function () {
+            let tempValue;
+            if (this.point.value > 1000) {
+              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempValue = this.point.precent.toFixed(2) + " million";
+            }
             return (
               "<b>" +
               this.series.name +
-              this.point.category +
-              "</b><br/>" +
+              "</b><br/><b>" +
+              this.point.sector +
+              "</b><br>" +
+              "Value: " +
+              tempValue +
+              "<br>Share: " +
               Highcharts.numberFormat(Math.abs(this.point.y), 1) +
               "%"
             );
@@ -1647,7 +1738,7 @@ export default {
       newSet8.unshift(currentCountry);
 
       let gvcReliance = [
-        `GVC-related export rellance: ${currentCountry.ratio.toFixed(
+        `GVC-related export reliance: ${currentCountry.ratio.toFixed(
           0
         )}% of gross exports <br>(${RankingOfTheWorld}<span class="relative-position"
           style="display:inline-block;top:-10px;font-size:12px;">${
@@ -1659,7 +1750,7 @@ export default {
               ? "rd"
               : "th"
           }</span> largest in ${this.region})`,
-        `The least GVC rellance for exports :
+        `The least GVC reliance for exports :
         <br>  ${this.region}: ${
           lowerRegionData.country
         } (${lowerRegionData.ratio.toFixed(1)}%)
@@ -1669,7 +1760,7 @@ export default {
         <br> World: ${newSet8[newSet8.length - 1].country} (${newSet8[
           newSet8.length - 1
         ].ratio.toFixed(1)}%)`,
-        `The hightes GVC rellance for exports :
+        `The highest GVC reliance for exports :
         <br> ${this.region}: ${
           highRegionData.country
         } (${highRegionData.ratio.toFixed(1)}%)
@@ -1965,10 +2056,10 @@ export default {
       let colors = [
         "#4F958B",
         "#8E33AB",
-        "#822D3C",
-        "#ED9D39",
-        "#E05241",
-        "#B32E5B",
+        "#F34336",
+        "#C3165B",
+        "#FA9908",
+        "#8D243B",
         "#616FBB",
         "#4152B2",
         "#3C4BA5",
@@ -2402,10 +2493,10 @@ export default {
       let colors = [
         "#4F958B",
         "#8E33AB",
-        "#822D3C",
-        "#ED9D39",
-        "#E05241",
-        "#B32E5B",
+        "#F34336",
+        "#C3165B",
+        "#FA9908",
+        "#8D243B",
         "#616FBB",
         "#4152B2",
         "#3C4BA5",
@@ -2478,6 +2569,7 @@ export default {
             let newData = {
               name: sector,
               data: [],
+              data2: [],
               color: colors[i],
               value2: 0,
             };
@@ -2487,11 +2579,12 @@ export default {
             sectorList[i].data.push(x[sector].ratio);
 
             sectorList[i].value2 += x[sector].value;
-
+            // sectorList[i].data2.push(x[sector].value);
             i++;
           }
         }
       });
+      // console.log(sectorList);
 
       let i = 0;
 
@@ -2553,8 +2646,8 @@ export default {
       this.forSourceSectorList = forSourceSectorList;
 
       let set12a = JSON.parse(this.responseSetData.set12a);
-      console.log(set12a.Agriculture.value);
-      console.log(sectorList);
+      // console.log(set12a.Agriculture.value);
+      // console.log(sectorList);
       let show12a = [];
       let temp12a = [];
       for (const item in set12a) {
@@ -2586,7 +2679,6 @@ export default {
       for (let i = 0; i < 14; i++) {
         sectorList[i].data.unshift(show12a[i]);
       }
-
       Highcharts.chart("container11", {
         chart: {
           type: "column",
@@ -2627,7 +2719,7 @@ export default {
         tooltip: {
           valueDecimals: 1,
           headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          pointFormat: "{series.name}: {point.y}% ",
         },
         plotOptions: {
           column: {
