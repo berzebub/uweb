@@ -42,12 +42,12 @@
     <div ref="content">
       <div class="printPage">
         <div align="center">
-          <img src="../../public/unescap.jpg" style="width: 250px;" alt />
+          <img src="../../public/unescap.jpg" style="width: 200px;" alt />
           <div class="row">
             <div class="col-6">
-              <img src="../../public/rivalogo.jpg" style="width: 80%;" alt />
+              <img src="../../public/rivalogo.jpg" style="width: 60%;" alt />
             </div>
-            <div class="col-6" style="font-size:18px; padding-top:10px;">
+            <div class="col-6" style="font-size:15px; padding-top:5px;">
               <b>
                 Global Value Chain (GVC) Country Briefs:
                 <br />
@@ -62,7 +62,7 @@
         on RIVA)-->
         <div
           class="q-py-sm text-bold bg-bar"
-          style="width:1000px;margin: 10px auto 10px auto;font-size:20px;border-radius:5px;"
+          style="width:1000px;margin: 2px auto 2px auto;font-size:16px;border-radius:5px;"
           align="center"
         >
           <div>
@@ -77,42 +77,42 @@
 
         <div class="q-mt-sm row justify-center q-px-md">
           <div class="col q-px-sm" align="center">
-            <div align="center" class="q-px-sm" style="height:40px;">
-              <span class="text-h6 text-bold">{{ fullRegion }}</span>
+            <div align="center" class="q-px-sm" style="height:22px;">
+              <span class="text-bold" style="font-size:16px;">{{ fullRegion }}</span>
             </div>
             <div align="center" class>
-              <i style="font-size:16px;">(% of gross exports)</i>
+              <i style="font-size:14px;">(% of gross exports)</i>
             </div>
             <div id="container2"></div>
           </div>
           <div class="col q-px-sm" align="center">
-            <div align="center" class="q-px-sm" style="height:40px;">
-              <span class="text-h6 text-bold">{{ country }}</span>
+            <div align="center" class="q-px-sm" style="height:22px;">
+              <span class="text-bold" style="font-size:16px;">{{ country }}</span>
             </div>
             <div align="center" class>
-              <i style="font-size:16px;">(% of gross exports)</i>
+              <i style="font-size:14px;">(% of gross exports)</i>
             </div>
             <div id="container1"></div>
           </div>
           <div class="col q-px-sm" align="center">
-            <div align="center" class="q-px-sm" style="height:40px;">
-              <span class="text-h6 text-bold">All economies</span>
+            <div align="center" class="q-px-sm" style="height:22px;">
+              <span class="text-bold" style="font-size:16px;">All economies</span>
             </div>
             <div align="center" class>
-              <i style="font-size:16px;">(% of gross exports)</i>
+              <i style="font-size:14px;">(% of gross exports)</i>
             </div>
             <div id="container3"></div>
           </div>
         </div>
         <div
-          style="width:1000px;margin: 0px auto 10px auto;font-size:16px"
+          style="width:1000px;margin: 0px auto 8px auto;font-size:14px"
           align="left"
         >For more details on these indicators, please refer to the Notes section at the bottom of the page</div>
         <!-- Value-added and gross trade balance ^ (link to relevant page on
         RIVA)-->
         <div
           class="q-py-sm text-bold bg-bar"
-          style="width:1000px;margin: 0px auto 20px auto;font-size:22px;border-radius:5px;"
+          style="width:1000px;margin: 2px auto 2px auto;font-size:16px;border-radius:5px;"
           align="center"
         >
           <span class="text-white">
@@ -161,16 +161,17 @@
 
         <!-- Key global value chain relationships6-7 ^ (link to relevant page on
         RIVA)-->
+        <!-- <div style="margin-top: 370px;"></div> -->
         <div
           class="q-py-sm text-bold bg-bar"
-          style="width:1000px;margin: 0px auto 10px auto;font-size:22px;border-radius:5px;"
+          style="width:1000px;margin: 2px auto 2px auto;font-size:16px;border-radius:5px;"
           align="center"
         >
           <span class="text-white">
             Global value chain relationships
             <span
               class="relative-position"
-              style="display:inline-block;top:-10px;font-size:12px;"
+              style="display:inline-block;top:-10px;font-size:10px;"
             >6-7</span>
             <span style="font-size:15px;"></span>
           </span>
@@ -185,7 +186,7 @@
             <div class="col-6 q-pa-sm">
               <div align="center" class="q-px-md">
                 <span
-                  style="font-size:18px;"
+                  style="font-size:16px;"
                   class="text-bold"
                 >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC partners</span>
               </div>
@@ -199,7 +200,7 @@
             <div class="col-6 q-pa-sm" style="width:580px;">
               <div align="center" class="q-px-md">
                 <span
-                  style="font-size:18px;"
+                  style="font-size:16px;"
                   class="text-bold"
                 >{{ country=="Rest of the Latin American Countries"? "Rest of the LAC": country }}'s top 10 GVC-linked exporting sectors</span>
               </div>
@@ -220,7 +221,7 @@
       <div class="printPage">
         <div
           class="q-py-sm text-bold bg-bar"
-          style="width:1000px;margin: 30px auto 20px auto;font-size:22px;border-radius:5px;"
+          style="width:1000px;margin: 2px auto 2px auto;font-size:16px;border-radius:5px;"
           align="center"
         >
           <span class="text-white">{{ country }} compared to {{fullRegion}} ({{region}})</span>
@@ -418,7 +419,7 @@
                     <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
                   </div>
                   <div class="col self-start">
-                    <span v-html="`${item.name} (${item.value}%)`"></span>
+                    <span v-html="`${item.name} (${item.ratio}%)`"></span>
                   </div>
                 </div>
               </div>
@@ -594,7 +595,7 @@
                     <div style="border:1px solid black;border-radius:50%;width:10px;height:10px;"></div>
                   </div>
                   <div class="col self-start">
-                    <span v-html="`${item.name} (${item.value}%)`"></span>
+                    <span v-html="`${item.name} (${item.ratio.toFixed(1)}%)`"></span>
                   </div>
                 </div>
               </div>
@@ -1242,7 +1243,7 @@ export default {
         chart: {
           type: "column",
           width: 450,
-          height: 300,
+          height: 250,
         },
         title: {
           text: "",
@@ -1363,7 +1364,7 @@ export default {
       Highcharts.chart("container5", {
         chart: {
           type: "bar",
-          height: 370,
+          height: 300,
         },
         title: {
           text: "",
@@ -1389,6 +1390,7 @@ export default {
             text: null,
           },
           labels: {
+            enabled: false,
             formatter: function () {
               return Math.abs(this.value) + "%";
             },
@@ -1423,7 +1425,7 @@ export default {
             if (this.point.value > 1000) {
               tempValue = (this.point.value / 1000).toFixed(2) + " billion";
             } else {
-              tempValue = this.point.precent.toFixed(2) + " million";
+              tempValue = this.point.value.toFixed(2) + " million";
             }
             return (
               "<b>" +
@@ -1547,7 +1549,7 @@ export default {
       Highcharts.chart("container6", {
         chart: {
           type: "bar",
-          height: 370,
+          height: 300,
         },
         title: {
           text: "",
@@ -1573,6 +1575,7 @@ export default {
             text: null,
           },
           labels: {
+            enabled: false,
             formatter: function () {
               return Math.abs(this.value) + "%";
             },
@@ -1782,14 +1785,40 @@ export default {
 
       countryList = setNewData.map((x) => x.country);
 
-      usedInExportRatio = setNewData.map((x) => x.usedInExportProduction.ratio);
-      importedContentRatio = setNewData.map((x) => x.importedContent.ratio);
-      doubleCountedRatio = setNewData.map((x) => x.doubleCounted.ratio);
+      // usedInExportRatio = setNewData.map((x) => x.usedInExportProduction.ratio);
+      // importedContentRatio = setNewData.map((x) => x.importedContent.ratio);
+      // doubleCountedRatio = setNewData.map((x) => x.doubleCounted.ratio);
+      for (const item in setNewData) {
+        let tempData = {
+          name: setNewData[item].country,
+          value: setNewData[item].usedInExportProduction.total,
+          y: setNewData[item].usedInExportProduction.ratio,
+        };
+        usedInExportRatio.push(tempData);
+      }
+
+      for (const item in setNewData) {
+        let tempData = {
+          name: setNewData[item].country,
+          value: setNewData[item].importedContent.total,
+          y: setNewData[item].importedContent.ratio,
+        };
+        importedContentRatio.push(tempData);
+      }
+
+      for (const item in setNewData) {
+        let tempData = {
+          name: setNewData[item].country,
+          value: setNewData[item].doubleCounted.total,
+          y: setNewData[item].doubleCounted.ratio,
+        };
+        doubleCountedRatio.push(tempData);
+      }
 
       Highcharts.chart("container7", {
         chart: {
           type: "column",
-          height: 450,
+          height: 400,
           width: 650,
         },
         title: {
@@ -1799,7 +1828,7 @@ export default {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90,
+            rotation: -45,
           },
         },
         yAxis: {
@@ -1824,10 +1853,32 @@ export default {
           },
         },
         tooltip: {
-          valueDecimals: 1,
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          formatter: function () {
+            let svalue = 0;
+            if (this.point.value >= 1000) {
+              svalue = (this.point.value / 1000).toFixed(1) + " billion";
+            } else {
+              svalue = this.point.value.toFixed(1) + " million";
+            }
+            let yvalue = this.point.y.toFixed(1);
+            return (
+              "<b>" +
+              countryList[this.point.x] +
+              "</b><br/>" +
+              this.series.name +
+              ": " +
+              yvalue +
+              "%" +
+              "<br>Value: $" +
+              svalue
+            );
+          },
         },
+        // tooltip: {
+        //   valueDecimals: 1,
+        //   headerFormat: "<b>{point.x}</b><br/>",
+        //   pointFormat: "{series.name}: {point.y}%",
+        // },
         plotOptions: {
           column: {
             stacking: "normal",
@@ -1927,20 +1978,20 @@ export default {
 
       this.backSourceRegionList = backSourceRegionList;
 
-      let set9a = JSON.parse(this.responseSetData.set9a);
+      let temp9a = JSON.parse(this.responseSetData.set9a);
 
       let backSourceRegionList2 = [
-        `Asia-Pacific (${set9a.asiaPacific.value.toFixed(1)}%)`,
-        `Europe (${set9a.europe.value.toFixed(1)}%)`,
-        `North America (${set9a.northAmerica.value.toFixed(1)}%)`,
-        `Latin America (${set9a.latinAmerica.value.toFixed(1)}%)`,
-        `Rest of the world (${set9a.row.value.toFixed(1)}%)`,
+        `Asia-Pacific (${temp9a.asiaPacific.ratio.toFixed(1)}%)`,
+        `Europe (${temp9a.europe.ratio.toFixed(1)}%)`,
+        `North America (${temp9a.northAmerica.ratio.toFixed(1)}%)`,
+        `Latin America (${temp9a.latinAmerica.ratio.toFixed(1)}%)`,
+        `Rest of the world (${temp9a.row.ratio.toFixed(1)}%)`,
         `Total (${
-          Number(set9a.row.value.toFixed(1)) +
-          Number(set9a.latinAmerica.value.toFixed(1)) +
-          Number(set9a.northAmerica.value.toFixed(1)) +
-          Number(set9a.europe.value.toFixed(1)) +
-          Number(set9a.asiaPacific.value.toFixed(1))
+          Number(temp9a.row.ratio.toFixed(1)) +
+          Number(temp9a.latinAmerica.ratio.toFixed(1)) +
+          Number(temp9a.northAmerica.ratio.toFixed(1)) +
+          Number(temp9a.europe.ratio.toFixed(1)) +
+          Number(temp9a.asiaPacific.ratio.toFixed(1))
         }%)`,
       ];
 
@@ -1954,23 +2005,109 @@ export default {
       let latinAmericas = [];
       let rows = [];
 
-      asiaPacifics = newSet9.map((x) => x.asiaPacific.ratio);
-      europes = newSet9.map((x) => x.europe.ratio);
-      northAmericas = newSet9.map((x) => x.northAmerica.ratio);
-      latinAmericas = newSet9.map((x) => x.latinAmerica.ratio);
-      rows = newSet9.map((x) => x.row.ratio);
+      // asiaPacifics = newSet9.map((x) => x.asiaPacific.ratio);
+      // europes = newSet9.map((x) => x.europe.ratio);
+      // northAmericas = newSet9.map((x) => x.northAmerica.ratio);
+      // latinAmericas = newSet9.map((x) => x.latinAmerica.ratio);
+      // rows = newSet9.map((x) => x.row.ratio);
+
+      // countryList.unshift(this.region);
+      // asiaPacifics.unshift(temp9a.asiaPacific.value);
+      // europes.unshift(temp9a.europe.value);
+      // northAmericas.unshift(temp9a.northAmerica.value);
+      // latinAmericas.unshift(temp9a.latinAmerica.value);
+      // rows.unshift(temp9a.row.value);
+      //reassign array
+      for (const item in newSet9) {
+        let temp = {
+          name: newSet9[item]["country"],
+          value: newSet9[item]["asiaPacific"]["value"],
+          y: newSet9[item]["asiaPacific"]["ratio"],
+        };
+        asiaPacifics.push(temp);
+      }
+
+      for (const item in newSet9) {
+        let temp = {
+          name: newSet9[item]["country"],
+          value: newSet9[item]["europe"]["value"],
+          y: newSet9[item]["europe"]["ratio"],
+        };
+        europes.push(temp);
+      }
+
+      for (const item in newSet9) {
+        let temp = {
+          name: newSet9[item]["country"],
+          value: newSet9[item]["northAmerica"]["value"],
+          y: newSet9[item]["northAmerica"]["ratio"],
+        };
+        northAmericas.push(temp);
+      }
+
+      for (const item in newSet9) {
+        let temp = {
+          name: newSet9[item]["country"],
+          value: newSet9[item]["latinAmerica"]["value"],
+          y: newSet9[item]["latinAmerica"]["ratio"],
+        };
+        latinAmericas.push(temp);
+      }
+
+      for (const item in newSet9) {
+        let temp = {
+          name: newSet9[item]["country"],
+          value: newSet9[item]["row"]["value"],
+          y: newSet9[item]["row"]["ratio"],
+        };
+        rows.push(temp);
+      }
+
+      // asiaPacifics = newSet11.map((x) => x.asiaPacific.ratio);
+      // europes = newSet11.map((x) => x.europe.ratio);
+      // northAmericas = newSet11.map((x) => x.northAmerica.ratio);
+      // latinAmericas = newSet11.map((x) => x.latinAmerica.ratio);
+      // rows = newSet11.map((x) => x.row.ratio);
 
       countryList.unshift(this.region);
-      asiaPacifics.unshift(set9a.asiaPacific.value);
-      europes.unshift(set9a.europe.value);
-      northAmericas.unshift(set9a.northAmerica.value);
-      latinAmericas.unshift(set9a.latinAmerica.value);
-      rows.unshift(set9a.row.value);
+      let temp9asia = {
+        name: this.region,
+        value: temp9a.asiaPacific.value,
+        y: temp9a.asiaPacific.ratio,
+      };
+      asiaPacifics.unshift(temp9asia);
+      let temp9aeurope = {
+        name: this.region,
+        value: temp9a.europe.value,
+        y: temp9a.europe.ratio,
+      };
+      europes.unshift(temp9aeurope);
+
+      let temp9anorth = {
+        name: this.region,
+        value: temp9a.northAmerica.value,
+        y: temp9a.northAmerica.ratio,
+      };
+      northAmericas.unshift(temp9anorth);
+
+      let temp9alatin = {
+        name: this.region,
+        value: temp9a.latinAmerica.value,
+        y: temp9a.latinAmerica.ratio,
+      };
+      latinAmericas.unshift(temp9alatin);
+
+      let temp9arows = {
+        name: this.region,
+        value: temp9a.row.value,
+        y: temp9a.row.ratio,
+      };
+      rows.unshift(temp9arows);
 
       Highcharts.chart("container8", {
         chart: {
           type: "column",
-          height: 450,
+          height: 400,
           width: 650,
         },
         title: {
@@ -1980,7 +2117,7 @@ export default {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90,
+            rotation: -45,
           },
         },
         yAxis: {
@@ -2005,9 +2142,30 @@ export default {
           },
         },
         tooltip: {
-          valueDecimals: 1,
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          formatter: function () {
+            let svalue = 0;
+            if (this.point.value >= 1000) {
+              svalue = (this.point.value / 1000).toFixed(1) + " billion";
+            } else {
+              svalue = this.point.value.toFixed(1) + " million";
+            }
+            let yvalue = this.point.y.toFixed(1);
+            return (
+              "<b>" +
+              countryList[this.point.x] +
+              "</b><br/>" +
+              this.series.name +
+              "<br>Value: $" +
+              svalue +
+              "<br>Share: " +
+              yvalue +
+              "%"
+            );
+          },
+          // valueDecimals: 1,
+          // headerFormat: "<br>{point.x}</br><br/>",
+          // pointFormat:
+          //   "{series.name}<br> Value: ${point.value} <br>Share: {point.y}%  ",
         },
         plotOptions: {
           column: {
@@ -2132,6 +2290,7 @@ export default {
             let newData = {
               name: sector,
               data: [],
+              data2: [],
               color: colors[i],
               value2: 0,
             };
@@ -2141,7 +2300,7 @@ export default {
             sectorList[i].data.push(x[sector].ratio);
 
             sectorList[i].value2 += x[sector].value;
-
+            sectorList[i].data2.push(x[sector].value);
             i++;
           }
         }
@@ -2189,6 +2348,11 @@ export default {
         })
         .sort((a, b) => Number(b.value) - Number(a.value));
 
+      let totalx = 0;
+      for (const item in currentGrossData) {
+        totalx += currentGrossData[item].ratio;
+      }
+
       let backSourceSectorList = [
         `${currentGrossData[0].name} (${currentGrossData[0].ratio.toFixed(
           1
@@ -2202,12 +2366,7 @@ export default {
         `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
           1
         )}%)`,
-        `Total (${
-          Number(currentGrossData[3].ratio.toFixed(1)) +
-          Number(currentGrossData[2].ratio.toFixed(1)) +
-          Number(currentGrossData[1].ratio.toFixed(1)) +
-          Number(currentGrossData[0].ratio.toFixed(1))
-        }%)`,
+        `Total (${Number(totalx.toFixed(1))}%)`,
       ];
 
       this.backSourceSectorList = backSourceSectorList;
@@ -2217,29 +2376,37 @@ export default {
 
       let tempSet10a = [];
       let show10a = [];
+      let show10b = [];
       let sumTemp = 0;
       for (const item in set10a) {
         tempSet10a.push({
           name: item,
           value: set10a[item].value,
+          ratio: set10a[item].ratio,
         });
         show10a.push(set10a[item].value);
+        show10b.push(set10a[item].ratio);
       }
 
-      tempSet10a = tempSet10a.filter((x) => x.value != undefined);
+      tempSet10a = tempSet10a.filter((x) => x.ratio != undefined);
 
-      tempSet10a = tempSet10a.sort((a, b) => b.value - a.value);
-
+      tempSet10a = tempSet10a.sort((a, b) => b.ratio - a.ratio);
+      let tempSet10ax = tempSet10a;
       tempSet10a = tempSet10a.slice(0, 4);
-      for (const item in tempSet10a) {
-        tempSet10a[item].value = Number(tempSet10a[item].value.toFixed(1));
-        sumTemp += Number(tempSet10a[item].value);
+
+      for (const item in tempSet10ax) {
+        console.log(tempSet10ax[item].ratio);
+        // tempSet10a[item].value = Number(tempSet10a[item].ratio.toFixed(1));
+        if (tempSet10ax[item].ratio != undefined) {
+          sumTemp += tempSet10ax[item].ratio;
+        }
       }
 
       tempSet10a.push({
         name: "Total",
-        value: sumTemp.toFixed(1),
+        ratio: sumTemp.toFixed(1),
       });
+      console.log(tempSet10a);
 
       let backSourceSectorList2 = tempSet10a;
 
@@ -2249,13 +2416,143 @@ export default {
 
       countryList.unshift(this.region);
       for (let i = 0; i < 14; i++) {
-        sectorList[i].data.unshift(show10a[i]);
+        sectorList[i].data.unshift(show10b[i]);
+        sectorList[i].data2.unshift(show10a[i]);
+      }
+      //แตก sectionList ออกมาเป็นแต่ละ section
+      let agriculture01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[0]["data"][item],
+          value: sectorList[0]["data2"][item],
+        };
+        agriculture01.push(temp);
+      }
+      let mining01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[1]["data"][item],
+          value: sectorList[1]["data2"][item],
+        };
+        mining01.push(temp);
+      }
+      let lowtech01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[2]["data"][item],
+          value: sectorList[2]["data2"][item],
+        };
+        lowtech01.push(temp);
+      }
+
+      let hightech01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[3]["data"][item],
+          value: sectorList[3]["data2"][item],
+        };
+        hightech01.push(temp);
+      }
+      let utilities01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[4]["data"][item],
+          value: sectorList[4]["data2"][item],
+        };
+        utilities01.push(temp);
+      }
+      let construction01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[5]["data"][item],
+          value: sectorList[5]["data2"][item],
+        };
+        construction01.push(temp);
+      }
+      let trade01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[6]["data"][item],
+          value: sectorList[6]["data2"][item],
+        };
+        trade01.push(temp);
+      }
+      let tourism01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[7]["data"][item],
+          value: sectorList[7]["data2"][item],
+        };
+        tourism01.push(temp);
+      }
+      let transport01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[8]["data"][item],
+          value: sectorList[8]["data2"][item],
+        };
+        transport01.push(temp);
+      }
+      let ictservice01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[9]["data"][item],
+          value: sectorList[9]["data2"][item],
+        };
+        ictservice01.push(temp);
+      }
+      let financialService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[10]["data"][item],
+          value: sectorList[10]["data2"][item],
+        };
+        financialService01.push(temp);
+      }
+      let propertyService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[11]["data"][item],
+          value: sectorList[11]["data2"][item],
+        };
+        propertyService01.push(temp);
+      }
+      let publicService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[12]["data"][item],
+          value: sectorList[12]["data2"][item],
+        };
+        publicService01.push(temp);
+      }
+
+      let privateService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[12]["data"][item],
+          value: sectorList[12]["data2"][item],
+        };
+        privateService01.push(temp);
       }
 
       Highcharts.chart("container9", {
         chart: {
           type: "column",
-          height: 450,
+          height: 400,
           width: 650,
         },
         title: {
@@ -2265,7 +2562,7 @@ export default {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90,
+            rotation: -45,
           },
         },
         yAxis: {
@@ -2290,9 +2587,30 @@ export default {
           },
         },
         tooltip: {
-          valueDecimals: 1,
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          formatter: function () {
+            let svalue = 0;
+            if (this.point.value >= 1000) {
+              svalue = (this.point.value / 1000).toFixed(1) + " billion";
+            } else {
+              svalue = this.point.value.toFixed(1) + " million";
+            }
+            let yvalue = this.point.y.toFixed(1);
+            return (
+              "<b>" +
+              countryList[this.point.x] +
+              "</b><br/>" +
+              this.series.name +
+              "<br>Value: $" +
+              svalue +
+              "<br>Share: " +
+              yvalue +
+              "%"
+            );
+          },
+          // valueDecimals: 1,
+          // headerFormat: "<br>{point.x}</br><br/>",
+          // pointFormat:
+          //   "{series.name}<br> Value: ${point.value} <br>Share: {point.y}%  ",
         },
         plotOptions: {
           column: {
@@ -2303,7 +2621,78 @@ export default {
           },
         },
 
-        series: sectorList,
+        series: [
+          {
+            name: "Agriculture",
+            data: agriculture01,
+            color: colors[0],
+          },
+          {
+            name: "Mining",
+            data: mining01,
+            color: colors[1],
+          },
+          {
+            name: "Low tech",
+            data: lowtech01,
+            color: colors[2],
+          },
+          {
+            name: "High and medium tech",
+            data: hightech01,
+            color: colors[3],
+          },
+          {
+            name: "Utilities",
+            data: utilities01,
+            color: colors[4],
+          },
+          {
+            name: "Construction",
+            data: construction01,
+            color: colors[5],
+          },
+          {
+            name: "Trade and repair service",
+            data: trade01,
+            color: colors[6],
+          },
+          {
+            name: "Tourism",
+            data: tourism01,
+            color: colors[7],
+          },
+          {
+            name: "Transport service",
+            data: transport01,
+            color: colors[8],
+          },
+          {
+            name: "ICT service",
+            data: ictservice01,
+            color: colors[9],
+          },
+          {
+            name: "Financial service",
+            data: financialService01,
+            color: colors[10],
+          },
+          {
+            name: "Property service",
+            data: propertyService01,
+            color: colors[11],
+          },
+          {
+            name: "Public and welfare service",
+            data: publicService01,
+            color: colors[12],
+          },
+          {
+            name: "Private household service",
+            data: privateService01,
+            color: colors[13],
+          },
+        ],
         credits: {
           enabled: false,
         },
@@ -2360,25 +2749,39 @@ export default {
       );
 
       newSet11.unshift(currentCountry);
-
+      let totalTempData =
+        currentCountry.asiaPacific.ratio +
+        currentCountry.europe.ratio +
+        currentCountry.northAmerica.ratio +
+        currentCountry.latinAmerica.ratio +
+        currentCountry.row.ratio;
       let forSourceRegionList = [
         `Asia-Pacific (${currentCountry.asiaPacific.ratio.toFixed(1)}%)`,
         `Europe (${currentCountry.europe.ratio.toFixed(1)}%)`,
         `North America (${currentCountry.northAmerica.ratio.toFixed(1)}%)`,
         `Latin America (${currentCountry.latinAmerica.ratio.toFixed(1)}%)`,
         `Rest of the world (${currentCountry.row.ratio.toFixed(1)}%)`,
+        `Total (${totalTempData.toFixed(1)}%)`,
       ];
 
       this.forSourceRegionList = forSourceRegionList;
 
       let temp11a = JSON.parse(this.responseSetData.set11a);
 
+      let totalTempData2 =
+        temp11a.asiaPacific.ratio +
+        temp11a.europe.ratio +
+        temp11a.northAmerica.ratio +
+        temp11a.latinAmerica.ratio +
+        temp11a.row.ratio;
+
       let forSourceRegionList2 = [
-        `Asia-Pacific (${temp11a.asiaPacific.toFixed(1)}%)`,
-        `Europe (${temp11a.europe.toFixed(1)}%)`,
-        `North America (${temp11a.northAmerica.toFixed(1)}%)`,
-        `Latin America (${temp11a.latinAmerica.toFixed(1)}%)`,
-        `Rest of the world (${temp11a.row.toFixed(1)}%)`,
+        `Asia-Pacific (${temp11a.asiaPacific.ratio.toFixed(1)}%)`,
+        `Europe (${temp11a.europe.ratio.toFixed(1)}%)`,
+        `North America (${temp11a.northAmerica.ratio.toFixed(1)}%)`,
+        `Latin America (${temp11a.latinAmerica.ratio.toFixed(1)}%)`,
+        `Rest of the world (${temp11a.row.ratio.toFixed(1)}%)`,
+        `Total (${totalTempData2.toFixed(1)}%)`,
       ];
 
       this.forSourceRegionList2 = forSourceRegionList2;
@@ -2391,18 +2794,94 @@ export default {
       let latinAmericas = [];
       let rows = [];
 
-      asiaPacifics = newSet11.map((x) => x.asiaPacific.ratio);
-      europes = newSet11.map((x) => x.europe.ratio);
-      northAmericas = newSet11.map((x) => x.northAmerica.ratio);
-      latinAmericas = newSet11.map((x) => x.latinAmerica.ratio);
-      rows = newSet11.map((x) => x.row.ratio);
+      //reassign array
+      for (const item in newSet11) {
+        let temp = {
+          name: newSet11[item]["country"],
+          value: newSet11[item]["asiaPacific"]["value"],
+          y: newSet11[item]["asiaPacific"]["ratio"],
+        };
+        asiaPacifics.push(temp);
+      }
+
+      for (const item in newSet11) {
+        let temp = {
+          name: newSet11[item]["country"],
+          value: newSet11[item]["europe"]["value"],
+          y: newSet11[item]["europe"]["ratio"],
+        };
+        europes.push(temp);
+      }
+
+      for (const item in newSet11) {
+        let temp = {
+          name: newSet11[item]["country"],
+          value: newSet11[item]["northAmerica"]["value"],
+          y: newSet11[item]["northAmerica"]["ratio"],
+        };
+        northAmericas.push(temp);
+      }
+
+      for (const item in newSet11) {
+        let temp = {
+          name: newSet11[item]["country"],
+          value: newSet11[item]["latinAmerica"]["value"],
+          y: newSet11[item]["latinAmerica"]["ratio"],
+        };
+        latinAmericas.push(temp);
+      }
+
+      for (const item in newSet11) {
+        let temp = {
+          name: newSet11[item]["country"],
+          value: newSet11[item]["row"]["value"],
+          y: newSet11[item]["row"]["ratio"],
+        };
+        rows.push(temp);
+      }
+
+      // asiaPacifics = newSet11.map((x) => x.asiaPacific.ratio);
+      // europes = newSet11.map((x) => x.europe.ratio);
+      // northAmericas = newSet11.map((x) => x.northAmerica.ratio);
+      // latinAmericas = newSet11.map((x) => x.latinAmerica.ratio);
+      // rows = newSet11.map((x) => x.row.ratio);
 
       countryList.unshift(this.region);
-      asiaPacifics.unshift(temp11a.asiaPacific);
-      europes.unshift(temp11a.europe);
-      northAmericas.unshift(temp11a.northAmerica);
-      latinAmericas.unshift(temp11a.latinAmerica);
-      rows.unshift(temp11a.row);
+      let temp11asia = {
+        name: this.region,
+        value: temp11a.asiaPacific.value,
+        y: temp11a.asiaPacific.ratio,
+      };
+      asiaPacifics.unshift(temp11asia);
+      let temp11aeurope = {
+        name: this.region,
+        value: temp11a.europe.value,
+        y: temp11a.europe.ratio,
+      };
+      europes.unshift(temp11aeurope);
+
+      let temp11anorth = {
+        name: this.region,
+        value: temp11a.northAmerica.value,
+        y: temp11a.northAmerica.ratio,
+      };
+      northAmericas.unshift(temp11anorth);
+
+      let temp11alatin = {
+        name: this.region,
+        value: temp11a.latinAmerica.value,
+        y: temp11a.latinAmerica.ratio,
+      };
+      latinAmericas.unshift(temp11alatin);
+
+      let temp11arows = {
+        name: this.region,
+        value: temp11a.row.value,
+        y: temp11a.row.ratio,
+      };
+      rows.unshift(temp11arows);
+      // latinAmericas.unshift(temp11a.latinAmerica);
+      // rows.unshift(temp11a.row);
 
       Highcharts.chart("container10", {
         chart: {
@@ -2417,7 +2896,7 @@ export default {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90,
+            rotation: -45,
           },
         },
         yAxis: {
@@ -2442,9 +2921,30 @@ export default {
           },
         },
         tooltip: {
-          valueDecimals: 1,
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}%",
+          formatter: function () {
+            let svalue = 0;
+            if (this.point.value >= 1000) {
+              svalue = (this.point.value / 1000).toFixed(1) + " billion";
+            } else {
+              svalue = this.point.value.toFixed(1) + " million";
+            }
+            let yvalue = this.point.y.toFixed(1);
+            return (
+              "<b>" +
+              countryList[this.point.x] +
+              "</b><br/>" +
+              this.series.name +
+              "<br>Value: $" +
+              svalue +
+              "<br>Share: " +
+              yvalue +
+              "%"
+            );
+          },
+          // valueDecimals: 1,
+          // headerFormat: "<br>{point.x}</br><br/>",
+          // pointFormat:
+          //   "{series.name}<br> Value: ${point.value} <br>Share: {point.y}%  ",
         },
         plotOptions: {
           column: {
@@ -2461,7 +2961,7 @@ export default {
             color: "#4080B3",
           },
           {
-            name: "Europe",
+            name: "Europes",
             data: europes,
             color: "#D83964",
           },
@@ -2517,7 +3017,6 @@ export default {
       for (const coun in set12) {
         let countryName = this.countryOptions.filter((x) => x.iso == coun)[0]
           .label;
-
         let sumTotal = 0;
         let sumTotalValue = 0;
 
@@ -2579,12 +3078,11 @@ export default {
             sectorList[i].data.push(x[sector].ratio);
 
             sectorList[i].value2 += x[sector].value;
-            // sectorList[i].data2.push(x[sector].value);
+            sectorList[i].data2.push(x[sector].value);
             i++;
           }
         }
       });
-      // console.log(sectorList);
 
       let i = 0;
 
@@ -2627,6 +3125,10 @@ export default {
           return newData;
         })
         .sort((a, b) => Number(b.value) - Number(a.value));
+      let tempdataF1 = 0;
+      for (const item in currentGrossData) {
+        tempdataF1 += currentGrossData[item].ratio;
+      }
 
       let forSourceSectorList = [
         `${currentGrossData[0].name} (${currentGrossData[0].ratio.toFixed(
@@ -2641,27 +3143,33 @@ export default {
         `${currentGrossData[3].name} (${currentGrossData[3].ratio.toFixed(
           1
         )}%)`,
+        `Total (${tempdataF1.toFixed(1)}%)`,
       ];
 
       this.forSourceSectorList = forSourceSectorList;
 
       let set12a = JSON.parse(this.responseSetData.set12a);
-      // console.log(set12a.Agriculture.value);
-      // console.log(sectorList);
       let show12a = [];
+      let show12b = [];
       let temp12a = [];
       for (const item in set12a) {
         temp12a.push({
           name: item,
           value: set12a[item].value,
+          ratio: set12a[item].ratio,
         });
         show12a.push(set12a[item].value);
+        show12b.push(set12a[item].ratio);
       }
+      temp12a = temp12a.filter((x) => x.ratio != undefined);
 
-      temp12a = temp12a.filter((x) => x.value != undefined);
-
-      temp12a = temp12a.sort((a, b) => b.value - a.value);
-
+      temp12a = temp12a.sort((a, b) => b.ratio - a.ratio);
+      let temp12ax = temp12a;
+      let tempDataF2 = 0;
+      for (const item in temp12ax) {
+        tempDataF2 += temp12ax[item].ratio;
+      }
+      console.log(tempDataF2);
       temp12a = temp12a.slice(0, 4);
 
       let forSourceSectorList2 = temp12a;
@@ -2672,13 +3180,151 @@ export default {
       }
 
       this.forSourceSectorList2 = forSourceSectorList2;
+      let tempAdd = {
+        name: "Total",
+        ratio: tempDataF2,
+      };
+      this.forSourceSectorList2.push(tempAdd);
 
       countryList = newSet12.map((x) => x.country);
 
       countryList.unshift(this.region);
+
       for (let i = 0; i < 14; i++) {
-        sectorList[i].data.unshift(show12a[i]);
+        sectorList[i].data.unshift(show12b[i]);
+        sectorList[i].data2.unshift(show12a[i]);
       }
+
+      //แตก sectionList ออกมาเป็นแต่ละ section
+      let agriculture01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[0]["data"][item],
+          value: sectorList[0]["data2"][item],
+        };
+        agriculture01.push(temp);
+      }
+      let mining01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[1]["data"][item],
+          value: sectorList[1]["data2"][item],
+        };
+        mining01.push(temp);
+      }
+      let lowtech01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[2]["data"][item],
+          value: sectorList[2]["data2"][item],
+        };
+        lowtech01.push(temp);
+      }
+
+      let hightech01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[3]["data"][item],
+          value: sectorList[3]["data2"][item],
+        };
+        hightech01.push(temp);
+      }
+      let utilities01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[4]["data"][item],
+          value: sectorList[4]["data2"][item],
+        };
+        utilities01.push(temp);
+      }
+      let construction01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[5]["data"][item],
+          value: sectorList[5]["data2"][item],
+        };
+        construction01.push(temp);
+      }
+      let trade01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[6]["data"][item],
+          value: sectorList[6]["data2"][item],
+        };
+        trade01.push(temp);
+      }
+      let tourism01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[7]["data"][item],
+          value: sectorList[7]["data2"][item],
+        };
+        tourism01.push(temp);
+      }
+      let transport01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[8]["data"][item],
+          value: sectorList[8]["data2"][item],
+        };
+        transport01.push(temp);
+      }
+      let ictservice01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[9]["data"][item],
+          value: sectorList[9]["data2"][item],
+        };
+        ictservice01.push(temp);
+      }
+      let financialService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[10]["data"][item],
+          value: sectorList[10]["data2"][item],
+        };
+        financialService01.push(temp);
+      }
+      let propertyService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[11]["data"][item],
+          value: sectorList[11]["data2"][item],
+        };
+        propertyService01.push(temp);
+      }
+      let publicService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[12]["data"][item],
+          value: sectorList[12]["data2"][item],
+        };
+        publicService01.push(temp);
+      }
+
+      let privateService01 = [];
+      for (const item in countryList) {
+        let temp = {
+          name: countryList[item],
+          y: sectorList[12]["data"][item],
+          value: sectorList[12]["data2"][item],
+        };
+        privateService01.push(temp);
+      }
+
       Highcharts.chart("container11", {
         chart: {
           type: "column",
@@ -2692,7 +3338,7 @@ export default {
           categories: countryList,
           labels: {
             enabled: true,
-            rotation: -90,
+            rotation: -45,
           },
         },
         yAxis: {
@@ -2717,9 +3363,30 @@ export default {
           },
         },
         tooltip: {
-          valueDecimals: 1,
-          headerFormat: "<b>{point.x}</b><br/>",
-          pointFormat: "{series.name}: {point.y}% ",
+          formatter: function () {
+            let svalue = 0;
+            if (this.point.value >= 1000) {
+              svalue = (this.point.value / 1000).toFixed(1) + " billion";
+            } else {
+              svalue = this.point.value.toFixed(1) + " million";
+            }
+            let yvalue = this.point.y.toFixed(1);
+            return (
+              "<b>" +
+              countryList[this.point.x] +
+              "</b><br/>" +
+              this.series.name +
+              "<br>Value: $" +
+              svalue +
+              "<br>Share: " +
+              yvalue +
+              "%"
+            );
+          },
+          // valueDecimals: 1,
+          // headerFormat: "<br>{point.x}</br><br/>",
+          // pointFormat:
+          //   "{series.name}<br> Value: ${point.value} <br>Share: {point.y}%  ",
         },
         plotOptions: {
           column: {
@@ -2730,7 +3397,79 @@ export default {
           },
         },
 
-        series: sectorList,
+        // series: sectorList,
+        series: [
+          {
+            name: "Agriculture",
+            data: agriculture01,
+            color: colors[0],
+          },
+          {
+            name: "Mining",
+            data: mining01,
+            color: colors[1],
+          },
+          {
+            name: "Low tech",
+            data: lowtech01,
+            color: colors[2],
+          },
+          {
+            name: "High and medium tech",
+            data: hightech01,
+            color: colors[3],
+          },
+          {
+            name: "Utilities",
+            data: utilities01,
+            color: colors[4],
+          },
+          {
+            name: "Construction",
+            data: construction01,
+            color: colors[5],
+          },
+          {
+            name: "Trade and repair service",
+            data: trade01,
+            color: colors[6],
+          },
+          {
+            name: "Tourism",
+            data: tourism01,
+            color: colors[7],
+          },
+          {
+            name: "Transport service",
+            data: transport01,
+            color: colors[8],
+          },
+          {
+            name: "ICT service",
+            data: ictservice01,
+            color: colors[9],
+          },
+          {
+            name: "Financial service",
+            data: financialService01,
+            color: colors[10],
+          },
+          {
+            name: "Property service",
+            data: propertyService01,
+            color: colors[11],
+          },
+          {
+            name: "Public and welfare service",
+            data: publicService01,
+            color: colors[12],
+          },
+          {
+            name: "Private household service",
+            data: privateService01,
+            color: colors[13],
+          },
+        ],
         credits: {
           enabled: false,
         },
@@ -2758,7 +3497,6 @@ export default {
       this.country = countryData.label;
       this.region = countryData.region2;
       this.fullRegion = countryData.region;
-      // console.log(this.exp_country, this.year);
       if (this.exp_country && this.year) {
         let link =
           "riva.negotiatetrade.org/#/countrybriefs/data" +
@@ -2789,46 +3527,6 @@ export default {
       }
     },
     downloadPDF() {
-      //   this.loadingShow()
-      //   let _this = this
-      // domtoimage
-      // .toPng(this.$refs.content)
-      // .then(function(dataUrl) {
-      //   var img = new Image();
-      //   img.src = dataUrl;
-      //   const doc = new jsPDF({
-      //     orientation: "portrait",
-      //     format: [1400,900]
-      //   });
-      //   doc.addImage(img, "JPEG", 20, 20);
-      //   const date = new Date();
-      //   const filename =
-      //     "countrybriefs_" +
-      //     date.getFullYear() +
-      //     ("0" + (date.getMonth() + 1)).slice(-2) +
-      //     ("0" + date.getDate()).slice(-2) +
-      //     ("0" + date.getHours()).slice(-2) +
-      //     ("0" + date.getMinutes()).slice(-2) +
-      //     ("0" + date.getSeconds()).slice(-2) +
-      //     ".pdf";
-      //   doc.save(filename);
-      //   _this.loadingHide()
-      // })
-      // .catch(function(error) {
-      //   console.error("oops, something went wrong!", error);
-      //   _this.loadingHide()
-      // });
-
-      //    const doc = new jsPDF();
-      //  /** WITH CSS */
-      //  var canvasElement = document.createElement('canvas');
-      //   html2canvas(this.$refs.content, { canvas: canvasElement
-      //     }).then(function (canvas) {
-      //   const img = canvas.toDataURL("image/jpeg", 0.8);
-      //   doc.addImage(img,'JPEG',20,20);
-      //   doc.save("sample.pdf");
-      //  });
-
       let _this = this;
       this.loadingShow();
       let pages = document.getElementsByClassName("printPage");
