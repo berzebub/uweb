@@ -43,11 +43,13 @@
                 </template>
 
                 <template v-slot:option="scope" v-if="exp_country.code != 'TW'">
-
-
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                    <q-item-section avatar >
-                      <gb-flag v-if="scope.opt.code && scope.opt.code !='TW'" :code="scope.opt.code" size="small" />
+                    <q-item-section avatar>
+                      <gb-flag
+                        v-if="scope.opt.code && scope.opt.code !='TW'"
+                        :code="scope.opt.code"
+                        size="small"
+                      />
                     </q-item-section>
                     <q-item-section>
                       <q-item-label v-html="scope.opt.label" />
@@ -99,7 +101,7 @@
 
 <script>
 import Axios from "axios";
-import countryJson from "../../public/country_list.json";
+import countryJson from "../../public/country_list_short.json";
 import sectorJson from "../../public/sector.json";
 import globalValueChainsHeader from "../components/globalValueChainsHeader";
 import myFooter from "../components/footer";
@@ -260,7 +262,7 @@ export default {
     },
   },
   async mounted() {
-    await this.getCountryList();
+    await this.getCountryListShort();
     await this.getYear();
     this.selectedYear();
 

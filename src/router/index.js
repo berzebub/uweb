@@ -43,6 +43,7 @@ export default function (/* { store, ssrContext } */) {
   return Router;
 }
 import countryJson from "../../public/country_list.json";
+import countryJsonShort from "../../public/country_list_short.json";
 import sectorJson from "../../public/sector.json";
 
 Vue.mixin({
@@ -117,6 +118,30 @@ Vue.mixin({
       // CID = country id
       // impEc = Importing economy id
       countryJson.forEach(element => {
+        let data = {
+          label: element.name,
+          value: element.id,
+          region: element.region,
+          iso: element.iso,
+          index: element.id,
+          code: element.code,
+          region2: element.region2
+        };
+        tempOptions.push(data);
+      });
+      tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
+
+      this.countryOptions = tempOptions;
+      // this.countrySelected = ""
+      // this.importingEconomy = ""
+      // this.sourceEconomy = ""
+    },
+    getCountryListShort() {
+      let tempOptions = [];
+
+      // CID = country id
+      // impEc = Importing economy id
+      countryJsonShort.forEach(element => {
         let data = {
           label: element.name,
           value: element.id,
