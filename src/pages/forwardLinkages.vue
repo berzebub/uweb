@@ -1483,16 +1483,37 @@ export default {
             useHTML: true,
             headerFormat: "",
             pointFormatter: function () {
-              return (
-                "<div class='text-bold'>" +
-                this.name +
-                "</div>" +
-                "<div> " +
-                Number(this.y).toFixed(2) +
-                "% (" +
-                Number(this.valueM).toFixed(2) +
-                " million)</div>"
-              );
+              // if (this.series.name != "Series 1") {
+              console.log(this.series.name);
+              if (
+                this.series.name == "Asia-Pacific" ||
+                this.series.name == "Europe" ||
+                this.series.name == "Latin America" ||
+                this.series.name == "North America" ||
+                this.series.name == "Rest of the world"
+              ) {
+                return (
+                  "<div class='text-bold'>" +
+                  this.series.name +
+                  "</div>" +
+                  "<div> " +
+                  Number(this.y).toFixed(2) +
+                  "% (" +
+                  Number(this.valueM).toFixed(2) +
+                  " million)</div>"
+                );
+              } else {
+                return (
+                  "<div class='text-bold'>" +
+                  this.name +
+                  "</div>" +
+                  "<div> " +
+                  Number(this.y).toFixed(2) +
+                  "% (" +
+                  Number(this.sumValueM).toFixed(2) +
+                  " million)</div>"
+                );
+              }
             },
           },
           plotOptions: {
