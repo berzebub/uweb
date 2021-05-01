@@ -1421,26 +1421,32 @@ export default {
 
         tooltip: {
           formatter: function () {
-            let tempValue;
-            if (this.point.value > 1000) {
-              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
-            } else {
-              tempValue = this.point.value.toFixed(2) + " million";
-            }
-            return (
-              "<b>" +
-              this.series.name +
-              "</b><br/><b>" +
-              this.point.country +
-              "</b><br>" +
-              "Value: " +
-              tempValue +
-              "<br>Share: " +
-              Highcharts.numberFormat(Math.abs(this.point.y), 1) +
-              "%"
-            );
+            return false;
           },
         },
+
+        // tooltip: {
+        //   formatter: function () {
+        //     let tempValue;
+        //     if (this.point.value > 1000) {
+        //       tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+        //     } else {
+        //       tempValue = this.point.value.toFixed(2) + " million";
+        //     }
+        //     return (
+        //       "<b>" +
+        //       this.series.name +
+        //       "</b><br/><b>" +
+        //       this.point.country +
+        //       "</b><br>" +
+        //       "Value: " +
+        //       tempValue +
+        //       "<br>Share: " +
+        //       Highcharts.numberFormat(Math.abs(this.point.percent), 1) +
+        //       "%"
+        //     );
+        //   },
+        // },
 
         series: [
           {
@@ -1503,6 +1509,8 @@ export default {
       });
 
       newSetForward.sort((a, b) => Number(b.value) - Number(a.value));
+      newSetForward = newSetForward.splice(0, 10);
+
       for (const item in newSetForward) {
         newSetForward[item].sector =
           newSetForward[item].sector[0].toUpperCase() +
@@ -1545,6 +1553,8 @@ export default {
       )}% (${showMoneyInText2_2}) of ${this.country}'s ${
         newSetForward[0].sector
       } gross exports to the world were used in further export production.`;
+
+      newSetBackward = newSetBackward.splice(0, 10);
 
       Highcharts.chart("container6", {
         chart: {
@@ -1606,29 +1616,33 @@ export default {
             grouping: false,
           },
         },
-
         tooltip: {
           formatter: function () {
-            let tempValue;
-            if (this.point.value > 1000) {
-              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
-            } else {
-              tempValue = this.point.precent.toFixed(2) + " million";
-            }
-            return (
-              "<b>" +
-              this.series.name +
-              "</b><br/><b>" +
-              this.point.sector +
-              "</b><br>" +
-              "Value: " +
-              tempValue +
-              "<br>Share: " +
-              Highcharts.numberFormat(Math.abs(this.point.y), 1) +
-              "%"
-            );
+            return false;
           },
         },
+        // tooltip: {
+        //   formatter: function () {
+        //     let tempValue;
+        //     if (this.point.value > 1000) {
+        //       tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+        //     } else {
+        //       tempValue = this.point.precent.toFixed(2) + " million";
+        //     }
+        //     return (
+        //       "<b>" +
+        //       this.series.name +
+        //       "</b><br/><b>" +
+        //       this.point.sector +
+        //       "</b><br>" +
+        //       "Value: " +
+        //       tempValue +
+        //       "<br>Share: " +
+        //       Highcharts.numberFormat(Math.abs(this.point.y), 1) +
+        //       "%"
+        //     );
+        //   },
+        // },
 
         series: [
           {
