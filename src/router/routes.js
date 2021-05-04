@@ -112,6 +112,12 @@ const routes = [
         name: "backwardLinkages"
       },
 
+      {
+        path: "/validation/:id",
+        component: () => import("pages/validation.vue"),
+        name: "validation"
+      },
+
       //       expe
       // impe
       // year
