@@ -432,28 +432,12 @@
         "region2": "ENEA"
     },
     {
-        "id": "56",
-        "name": "Rest of the Latin American Countries",
-        "region": "Latin America and the Caribbean",
-        "iso": "RoLAC",
-        "code": "",
-        "region2": "LAC"
-    },
-    {
         "id": "57",
         "name": "Romania",
         "region": "Eastern Europe",
         "iso": "ROU",
         "code": "RO",
         "region2": "EE"
-    },
-    {
-        "id": "58",
-        "name": "Rest of the World",
-        "region": "-",
-        "iso": "RoW",
-        "code": "",
-        "region2": ""
     },
     {
         "id": "59",

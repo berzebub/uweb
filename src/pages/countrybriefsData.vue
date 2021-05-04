@@ -42,12 +42,12 @@
     <div ref="content">
       <div class="printPage">
         <div align="center">
-          <img src="../../public/unescap.jpg" style="width: 200px;" alt />
+          <img src="../../public/unescap.jpg" style="width: 220px;" alt />
           <div class="row">
             <div class="col-6">
-              <img src="../../public/rivalogo.jpg" style="width: 60%;" alt />
+              <img src="../../public/rivalogo.jpg" style="width: 80%;" alt />
             </div>
-            <div class="col-6" style="font-size:15px; padding-top:5px;">
+            <div class="col-6" style="font-size:18px; padding-top:5px;">
               <b>
                 Global Value Chain (GVC) Country Briefs:
                 <br />
@@ -177,8 +177,16 @@
           </span>
         </div>
         <div class="row" style="width:1000px;margin: 0px auto 10px auto; font-size:16px;">
-          <div class="col-6 q-px-md">{{keyText1}}</div>
-          <div class="col-6 q-px-md">{{keyText2}}</div>
+          <div
+            class="col-6 q-px-md"
+            style="text-align: justify;
+  text-justify: inter-word;"
+          >{{keyText1}}</div>
+          <div
+            class="col-6 q-px-md"
+            style="text-align: justify;
+  text-justify: inter-word;"
+          >{{keyText2}}</div>
         </div>
 
         <div class="q-mt-sm">
@@ -365,10 +373,11 @@
                     style="top:-10px;font-size:12px;"
                   >6</span>
                   (by exporting sector
+                  )
                   <span
                     class="relative-position"
                     style="top:-10px;font-size:12px;"
-                  >8</span>)
+                  >8</span>
                   <span style="font-size:15px;"></span>
                 </span>
               </div>
@@ -542,10 +551,11 @@
                     style="top:-10px;font-size:12px;"
                   >7</span>
                   (by exporting sector
+                  )
                   <span
                     class="relative-position"
                     style="top:-10px;font-size:12px;"
-                  >8</span>)
+                  >8</span>
                   <span style="font-size:15px;"></span>
                 </span>
               </div>
@@ -915,32 +925,32 @@ export default {
                 name: "Foreign production consumed by the importer",
                 y: set1.importedContent.ratio,
                 total: set1.importedContent.total,
-                color: "#FFC000",
+                color: "#9034AD",
               },
               {
                 name: "Double counted",
                 y: set1.doubleCounted.ratio,
                 total: set1.doubleCounted.total,
-                color: "#D83964",
+                color: "#4E9487",
               },
               {
                 name: "Domestic production used in the <Br> importer’s exports",
                 y: set1.usedInExportProduction.ratio,
                 total: set1.usedInExportProduction.total,
-                color: "#ED7D31",
+                color: "#D83964",
               },
               {
                 name:
                   "Domestic production that returns via <br> the importer’s exports",
                 y: set1.usedInDomesticConsumption.ratio,
                 total: set1.usedInDomesticConsumption.total,
-                color: "#997300",
+                color: "#EB9B38",
               },
               {
                 name: "Domestic production consumed by the importer",
                 y: set1.directlyConsumed.ratio,
                 total: set1.directlyConsumed.total,
-                color: "#70AD47",
+                color: "#4080B3",
               },
             ],
           },
@@ -1018,32 +1028,32 @@ export default {
                 name: "Foreign production consumed by the importer",
                 y: set2.importedContent.ratio,
                 total: set2.importedContent.total,
-                color: "#FFC000",
+                color: "#9034AD",
               },
               {
                 name: "Double counted",
                 y: set2.doubleCounted.ratio,
                 total: set2.doubleCounted.total,
-                color: "#D83964",
+                color: "#4E9487",
               },
               {
                 name: "Domestic production used in the <br>importer’s exports",
                 y: set2.usedInExportProduction.ratio,
                 total: set2.usedInExportProduction.total,
-                color: "#ED7D31",
+                color: "#D83964",
               },
               {
                 name:
                   "Domestic production that returns via <br>the importer’s exports",
                 y: set2.usedInDomesticConsumption.ratio,
                 total: set2.usedInDomesticConsumption.total,
-                color: "#997300",
+                color: "#EB9B38",
               },
               {
                 name: "Domestic production consumed by the importer",
                 y: set2.directlyConsumed.ratio,
                 total: set2.directlyConsumed.total,
-                color: "#70AD47",
+                color: "#4080B3",
               },
             ],
           },
@@ -1122,32 +1132,32 @@ export default {
                 name: "Foreign production consumed by the importer",
                 y: set3.importedContent.ratio,
                 total: set3.importedContent.total,
-                color: "#FFC000",
+                color: "#9034AD",
               },
               {
                 name: "Double counted",
                 y: set3.doubleCounted.ratio,
                 total: set3.doubleCounted.total,
-                color: "#D83964",
+                color: "#4E9487",
               },
               {
                 name: "Domestic production used in the <br>importer’s exports",
                 y: set3.usedInExportProduction.ratio,
                 total: set3.usedInExportProduction.total,
-                color: "#ED7D31",
+                color: "#D83964",
               },
               {
                 name:
                   "Domestic production that returns via <br> the importer’s exports",
                 y: set3.usedInDomesticConsumption.ratio,
                 total: set3.usedInDomesticConsumption.total,
-                color: "#997300",
+                color: "#EB9B38",
               },
               {
                 name: "Domestic production consumed by the importer",
                 y: set3.directlyConsumed.ratio,
                 total: set3.directlyConsumed.total,
-                color: "#70AD47",
+                color: "#4080B3",
               },
             ],
           },
@@ -1348,18 +1358,22 @@ export default {
       }
 
       this.keyText1 = `In ${this.year}, ${Math.abs(
-        newSetBackward[0].y.toFixed(1)
+        newSetBackward[0].precent.toFixed(1)
       )}% (${showMoneyInText1}) of ${
         this.country
       }'s gross exports to the world came from ${
         newSetBackward[0].country
       } in the form of imported content, and ${Math.abs(
-        newSetForward[0].y.toFixed(1)
+        newSetForward[0].precent.toFixed(1)
       )}% (${showMoneyInText1_2}) of ${
         this.country
       }'s gross exports to the world were used for further export production in ${
         newSetForward[0].country
       }.`;
+      let maxData =
+        newSetBackward[0].value > newSetForward[0].value
+          ? newSetBackward[0].value
+          : newSetForward[0].value;
 
       Highcharts.chart("container5", {
         chart: {
@@ -1389,6 +1403,8 @@ export default {
           title: {
             text: null,
           },
+          min: -maxData,
+          max: maxData,
           labels: {
             enabled: false,
             formatter: function () {
@@ -1425,28 +1441,25 @@ export default {
           },
         },
 
-        // tooltip: {
-        //   formatter: function () {
-        //     let tempValue;
-        //     if (this.point.value > 1000) {
-        //       tempValue = (this.point.value / 1000).toFixed(2) + " billion";
-        //     } else {
-        //       tempValue = this.point.value.toFixed(2) + " million";
-        //     }
-        //     return (
-        //       "<b>" +
-        //       this.series.name +
-        //       "</b><br/><b>" +
-        //       this.point.country +
-        //       "</b><br>" +
-        //       "Value: " +
-        //       tempValue +
-        //       "<br>Share: " +
-        //       Highcharts.numberFormat(Math.abs(this.point.percent), 1) +
-        //       "%"
-        //     );
-        //   },
-        // },
+        tooltip: {
+          formatter: function () {
+            let tempValue;
+            if (this.point.value > 1000) {
+              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempValue = this.point.value.toFixed(2) + " million";
+            }
+            return (
+              "<b>" +
+              this.series.name +
+              "</b><br/><b>" +
+              this.point.country +
+              "</b><br>" +
+              "Value: " +
+              tempValue
+            );
+          },
+        },
 
         series: [
           {
@@ -1545,17 +1558,20 @@ export default {
       }
 
       this.keyText2 = `In ${this.year}, ${Math.abs(
-        newSetBackward[0].y.toFixed(1)
+        newSetBackward[0].precent.toFixed(1)
       )}% (${showMoneyInText2}) of ${this.country}'s ${
         newSetBackward[0].sector
       } sector gross exports to the world comprised imported content, and ${Math.abs(
-        newSetForward[0].y.toFixed(1)
+        newSetForward[0].precent.toFixed(1)
       )}% (${showMoneyInText2_2}) of ${this.country}'s ${
         newSetForward[0].sector
-      } gross exports to the world were used in further export production.`;
+      } sector gross exports to the world were used in further export production.`;
 
       newSetBackward = newSetBackward.splice(0, 10);
-
+      let maxData =
+        newSetBackward[0].value > newSetForward[0].value
+          ? newSetBackward[0].value
+          : newSetForward[0].value;
       Highcharts.chart("container6", {
         chart: {
           type: "bar",
@@ -1584,6 +1600,8 @@ export default {
           title: {
             text: null,
           },
+          min: -maxData,
+          max: maxData,
           labels: {
             enabled: false,
             formatter: function () {
@@ -1621,28 +1639,25 @@ export default {
             return false;
           },
         },
-        // tooltip: {
-        //   formatter: function () {
-        //     let tempValue;
-        //     if (this.point.value > 1000) {
-        //       tempValue = (this.point.value / 1000).toFixed(2) + " billion";
-        //     } else {
-        //       tempValue = this.point.precent.toFixed(2) + " million";
-        //     }
-        //     return (
-        //       "<b>" +
-        //       this.series.name +
-        //       "</b><br/><b>" +
-        //       this.point.sector +
-        //       "</b><br>" +
-        //       "Value: " +
-        //       tempValue +
-        //       "<br>Share: " +
-        //       Highcharts.numberFormat(Math.abs(this.point.y), 1) +
-        //       "%"
-        //     );
-        //   },
-        // },
+        tooltip: {
+          formatter: function () {
+            let tempValue;
+            if (this.point.value > 1000) {
+              tempValue = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempValue = this.point.precent.toFixed(2) + " million";
+            }
+            return (
+              "<b>" +
+              this.series.name +
+              "</b><br/><b>" +
+              this.point.sector +
+              "</b><br>" +
+              "Value: " +
+              this.point.y
+            );
+          },
+        },
 
         series: [
           {
@@ -1903,19 +1918,21 @@ export default {
         },
         series: [
           {
-            name: "Used in export production (forward linkages)",
+            name:
+              "Domestic production used in the importer’s exports (forward linkages)",
             data: usedInExportRatio,
-            color: "#4080B3",
+            color: "#9034AD",
           },
           {
-            name: "Imported content (backward linkages)",
+            name:
+              "Foreign production consumed by the importer (backward linkages)",
             data: importedContentRatio,
             color: "#D83964",
           },
           {
-            name: "Double counted exports from repeated border crossings",
+            name: "Double counted",
             data: doubleCountedRatio,
-            color: "#EB9B38",
+            color: "#4E9487",
           },
         ],
         credits: {
@@ -2409,7 +2426,7 @@ export default {
       tempSet10a = tempSet10a.slice(0, 4);
 
       for (const item in tempSet10ax) {
-        console.log(tempSet10ax[item].ratio);
+        // console.log(tempSet10ax[item].ratio);
         // tempSet10a[item].value = Number(tempSet10a[item].ratio.toFixed(1));
         if (tempSet10ax[item].ratio != undefined) {
           sumTemp += tempSet10ax[item].ratio;
@@ -2420,7 +2437,7 @@ export default {
         name: "Total",
         ratio: sumTemp.toFixed(1),
       });
-      console.log(tempSet10a);
+      // console.log(tempSet10a);
 
       let backSourceSectorList2 = tempSet10a;
 
@@ -2975,7 +2992,7 @@ export default {
             color: "#4080B3",
           },
           {
-            name: "Europes",
+            name: "Europe",
             data: europes,
             color: "#D83964",
           },
@@ -3183,7 +3200,7 @@ export default {
       for (const item in temp12ax) {
         tempDataF2 += temp12ax[item].ratio;
       }
-      console.log(tempDataF2);
+      // console.log(tempDataF2);
       temp12a = temp12a.slice(0, 4);
 
       let forSourceSectorList2 = temp12a;
