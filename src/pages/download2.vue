@@ -29,7 +29,7 @@
               class="col q-px-lg"
               align="left"
               style="  text-decoration: underline;"
-            >test@gmail.com</div>
+            >{{ email }}</div>
             <div class="col q-px-lg" align="right">
               <q-icon name="fas fa-sign-out-alt" size="sm" />
             </div>
@@ -178,85 +178,160 @@
         </div>
         <div class="q-pa-md" align="center">Please log in to access the download data page</div>
         <div class="q-px-lg">
-          <div>
-            <q-input outlined v-model="login.email" label="Email" dense type="email" />
-          </div>
-          <div class="q-pt-md q-pb-sm">
-            <q-input
-              v-model="login.password"
-              dense
-              label="Password"
-              outlined
-              :type="isPwd ? 'password' : 'text'"
-            >
-              <template v-slot:append>
-                <q-icon
-                  :name="isPwd ? 'visibility_off' : 'visibility'"
-                  class="cursor-pointer"
-                  @click="isPwd = !isPwd"
-                />
-              </template>
-            </q-input>
-          </div>
-          <div style="text-decoration:underline" align="right">Forgot password?</div>
-          <div>
-            <q-btn
-              label="Log in"
-              style="width:400px;background-color:#2C2F30;color:white"
-              no-caps
-              class="q-mt-md"
-            ></q-btn>
-          </div>
-          <div align="center" class="q-pt-lg">
-            Not a Riva member?
-            <span style="color:#2381B8;text-decoration:underline">Sign up here</span>
-          </div>
+          <q-form @submit="signIn()">
+            <div>
+              <q-input
+                outlined
+                v-model="login.email"
+                label="Email"
+                dense
+                type="email"
+                :rules="[val => !!val]"
+                ref="password"
+                hide-bottom-space
+              />
+            </div>
+            <div class="q-pt-md q-pb-sm">
+              <q-input
+                v-model="login.password"
+                dense
+                label="Password"
+                outlined
+                :type="isPwd ? 'password' : 'text'"
+                hide-bottom-space
+                :rules="[val => !!val]"
+                ref="password"
+              >
+                <template v-slot:append>
+                  <q-icon
+                    :name="isPwd ? 'visibility_off' : 'visibility'"
+                    class="cursor-pointer"
+                    @click="isPwd = !isPwd"
+                  />
+                </template>
+              </q-input>
+            </div>
+            <div style="text-decoration:underline" align="right">Forgot password?</div>
+            <div>
+              <q-btn
+                type="submit"
+                label="Log in"
+                style="width:400px;background-color:#2C2F30;color:white"
+                no-caps
+                class="q-mt-md"
+              ></q-btn>
+            </div>
+            <div align="center" class="q-pt-lg">
+              Not a Riva member?
+              <span
+                style="color:#2381B8;text-decoration:underline"
+                @click="isSignUp = true,isLogin = false"
+                class="cursor-pointer"
+              >Sign up for a free account</span>
+            </div>
+          </q-form>
         </div>
       </q-card>
     </q-dialog>
 
     <!-- Sign up dialog -->
     <q-dialog v-model="isSignUp" persistent>
-      <q-card style="width:450px; height:520px; ">
+      <q-card style="width:450px; ">
         <div style="background-color:#2C2F30" class="q-pa-sm" align="center">
           <img src="../assets/logodialog.png" alt />
         </div>
 
-        <div class="q-px-lg q-py-lg">
-          <div>
-            <q-input outlined v-model="signUp.email" label="Email" dense type="email" />
-          </div>
-          <div class="q-pt-md q-pb-sm">
-            <q-input v-model="signUp.password" dense label="Password" outlined></q-input>
-          </div>
-          <div class="q-pt-md q-pb-sm">
-            <q-input v-model="signUp.confirmPassword" dense label="Confirm password" outlined></q-input>
-          </div>
-          <div class="q-pt-md q-pb-sm">
-            <q-select
-              outlined
-              label="Country"
-              dense
-              map-options
-              emit-value
-              v-model="signUp.country"
-              :options="countryAllList"
-            ></q-select>
-          </div>
+        <q-form @submit="register()">
+          <div class="q-px-lg q-py-lg">
+            <div>
+              <q-input
+                hide-bottom-space
+                :rules="[val => !!val]"
+                ref="email"
+                outlined
+                v-model="signUp.email"
+                label="Email"
+                dense
+                type="email"
+              />
+            </div>
+            <div class="q-pt-md q-pb-sm">
+              <q-input
+                hide-bottom-space
+                :rules="[val => !!val]"
+                ref="password"
+                v-model="signUp.password"
+                dense
+                label="Password"
+                type="password"
+                outlined
+              ></q-input>
+            </div>
+            <div class="q-pt-md q-pb-sm">
+              <q-input
+                hide-bottom-space
+                type="password"
+                :rules="[val => val == signUp.password]"
+                ref="confirm"
+                v-model="signUp.confirmPassword"
+                dense
+                label="Confirm password"
+                outlined
+              ></q-input>
+            </div>
+            <div class="q-pt-md q-pb-sm">
+              <q-select
+                :rules="[val => val != '--- Please Select ---']"
+                ref="country"
+                outlined
+                label="Country"
+                dense
+                map-options
+                emit-value
+                v-model="signUp.country"
+                :options="countryAllList"
+                hide-bottom-space
+              ></q-select>
+            </div>
 
-          <div>
-            <q-btn
-              label="Log in"
-              style="width:400px;background-color:#2C2F30;color:white"
-              no-caps
-              class="q-mt-md"
-            ></q-btn>
+            <div class="q-pt-md q-pb-sm">
+              <q-select
+                hide-bottom-space
+                :rules="[val => val != '--- Please Select ---']"
+                ref="organization"
+                outlined
+                label="Organization"
+                dense
+                map-options
+                emit-value
+                v-model="signUp.Organization"
+                :options="organizationOptions"
+              ></q-select>
+            </div>
+
+            <div class="q-pt-md">
+              <q-checkbox v-model="signUp.isSubscribe" label="Subscribe for lastest updates"></q-checkbox>
+            </div>
+
+            <div>
+              <q-btn
+                label="Sign up"
+                style="width:400px;background-color:#2C2F30;color:white"
+                no-caps
+                class="q-mt-md"
+                type="submit"
+              ></q-btn>
+            </div>
+            <div align="center" class="q-pt-lg">
+              Not a Riva member?
+              <span
+                style="color:#2381B8;text-decoration:underline"
+                @click="isSignUp = false,isLogin = true"
+                class="cursor-pointer"
+              >Sign in</span>
+            </div>
           </div>
-          <div align="center" class="q-pt-lg">
-            Not a Riva member?
-            <span style="color:#2381B8;text-decoration:underline">Sign up here</span>
-          </div>
-        </div>
+        </q-form>
       </q-card>
     </q-dialog>
     <!-- Economy Group Table Dialog -->
@@ -414,6 +489,15 @@ export default {
   },
   data() {
     return {
+      email : "",
+      organizationOptions: [
+        "Academic",
+        "Government",
+        "International Organisation",
+        "NGO",
+        "Private sector",
+        "Think tank",
+      ],
       isLogin: false, //เปิดปิด login dialog
       login: {
         email: "",
@@ -423,11 +507,12 @@ export default {
         email: "",
         password: "",
         confirmPassword: "",
-        country: "",
-        Organization: "NGO",
+        country: "--- Please Select ---",
+        Organization: "--- Please Select ---",
+        isSubscribe: false,
       },
-      isPwd: false,
-      isSignUp: true, //เปิดปิด Sign up dialog
+      isPwd: true,
+      isSignUp: false, //เปิดปิด Sign up dialog
       countryAllList: [],
       isEditGroup: false,
       groupSelected: [],
@@ -783,8 +868,74 @@ export default {
       this.loadingHide();
       this.isShowDownloadBtn = true;
     },
+
+
+    async getEmail(id){
+          const url = this.path_api + "/getEmail.php?id=" + id;
+      const result = await Axios.get(url);
+
+      this.email = result.data[0].email;
+    },
+
+    async signIn() {
+      this.loadingShow();
+      const url = this.path_api + "/signIn.php";
+      const obj = {
+        email: this.login.email,
+        password: this.login.password,
+      };
+      let data = await Axios.post(url, obj);
+
+      if(data.data == 0)
+      {
+        // Failed Login
+        this.$q.notify(
+          {
+            message : "Incorrect email address or password",
+            color : "red"
+          }
+        )
+      }else{
+        // Success Login
+        this.$q.sessionStorage.set("uid",data.data[0].id)
+        this.getEmail(data.data[0].id)
+        this.isLogin = false
+      }
+
+      
+      this.loadingHide();
+    },
+
+    async register() {
+      this.loadingShow();
+      const url = this.path_api + "/signup.php";
+      const obj = {
+        email: this.signUp.email,
+        password: this.signUp.password,
+        country: this.signUp.country,
+        organization: this.signUp.Organization,
+        isSubscribe: this.signUp.isSubscribe,
+      };
+      let data = await Axios.post(url, obj);
+
+      if (data.data == 0) {
+        this.$q.notify({
+          message: "This email has already been taken.",
+          color: "red",
+        });
+      }
+
+      this.loadingHide();
+    },
   },
   mounted() {
+
+    if(!this.$q.sessionStorage.has("uid"))
+    {
+      this.isLogin = true
+    }else{
+      this.getEmail(this.$q.sessionStorage.getItem("uid"))
+    }
     this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
     this.loadCountryList();
