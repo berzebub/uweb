@@ -25,11 +25,7 @@
             class="row q-mb-md"
             style="height:40px;background-color:#2C2F30;color:white; line-height:40px; border-radius:5px 5px 0px 0px;"
           >
-            <div
-              class="col q-px-lg"
-              align="left"
-              style="  text-decoration: underline;"
-            >{{ email }}</div>
+            <div class="col q-px-lg" align="left" style="  text-decoration: underline;">{{ email }}</div>
             <div class="col q-px-lg" align="right">
               <q-icon name="fas fa-sign-out-alt" size="sm" />
             </div>
@@ -38,8 +34,18 @@
           <!-- menu open save and economy group -->
           <div class="row">
             <div class="col q-pl-lg" align="left">
-              <q-icon name="fas fa-folder-open" size="md" />
-              <q-icon name="fas fa-save" size="md" class="q-px-lg" />
+              <q-icon
+                name="fas fa-folder-open"
+                size="md"
+                class="cursor-pointer"
+                @click="isShowQueryList = true"
+              />
+              <q-icon
+                name="fas fa-save"
+                size="md"
+                class="q-px-lg cursor-pointer"
+                @click="isEditQuery = false,query = '',isShowSaveQuery = true,queryIndexTemp = ''"
+              />
             </div>
             <div align="right" class="q-px-lg q-pb-sm col">
               <q-btn
@@ -472,6 +478,85 @@
       </q-card>
     </q-dialog>
     <my-footer></my-footer>
+
+    <q-dialog v-model="isShowQueryList">
+      <q-card style="min-width:500px;width:100%">
+        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+          <q-toolbar-title>
+            <div class="q-pl-md">Open query</div>
+          </q-toolbar-title>
+          <q-space></q-space>
+
+          <q-btn icon="fas fa-times" v-close-popup flat></q-btn>
+        </q-toolbar>
+        <q-card-section class="no-padding">
+          <!-- <div class="q-px-md q-py-md">
+            Query name
+            <q-input v-model="query" label="Query name" dense outlined></q-input>
+          </div>-->
+
+          <div
+            v-for="(item,index) in queryList"
+            :key="index"
+            class="row items-center q-px-md q-py-sm"
+            :class="index %2 != 0 ? 'bg-grey-3' : null"
+          >
+            <div class="col">{{ item }}</div>
+            <div style="width:70px">
+              <q-btn icon="fas fa-trash-alt" @click="deleteQuery(index)" flat></q-btn>
+            </div>
+            <div style="width:70px">
+              <q-btn icon="fas fa-edit" @click="editQuery(index)" flat></q-btn>
+            </div>
+          </div>
+
+          <div v-if="queryList.length == 0" class='q-pa-md'>
+            No Query Found
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="center" class="q-pb-md">
+          <q-btn
+            label="Load"
+            text-color="white"
+            @click="loadQuery()"
+            no-caps
+            style="width:200px;background-color:#2C2F30"
+          ></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="isShowSaveQuery">
+      <q-card style="width:500px">
+        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+          <q-toolbar-title>
+            <div class="q-pl-md">
+              <span v-if="isEditQuery">Edit query</span>
+              <span v-else>Save query</span>
+            </div>
+          </q-toolbar-title>
+          <q-space></q-space>
+
+          <q-btn icon="fas fa-times" v-close-popup flat></q-btn>
+        </q-toolbar>
+        <q-card-section class="no-padding">
+          <div class="q-px-md q-py-md">
+            Query name
+            <q-input v-model="query" label="Query name" dense outlined></q-input>
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="center" class="q-pb-md">
+          <q-btn
+            label="Save"
+            text-color="white"
+            @click="saveQuery()"
+            no-caps
+            style="width:200px;background-color:#2C2F30"
+          ></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -489,7 +574,13 @@ export default {
   },
   data() {
     return {
-      email : "",
+      queryIndexTemp: "",
+      isEditQuery: false,
+      query: "",
+      queryList: [],
+      isShowQueryList: false,
+      isShowSaveQuery: false,
+      email: "",
       organizationOptions: [
         "Academic",
         "Government",
@@ -869,12 +960,12 @@ export default {
       this.isShowDownloadBtn = true;
     },
 
-
-    async getEmail(id){
-          const url = this.path_api + "/getEmail.php?id=" + id;
+    async getEmail(id) {
+      const url = this.path_api + "/getEmail.php?id=" + id;
       const result = await Axios.get(url);
 
       this.email = result.data[0].email;
+      this.queryList = JSON.parse(result.data[0].query);
     },
 
     async signIn() {
@@ -886,23 +977,19 @@ export default {
       };
       let data = await Axios.post(url, obj);
 
-      if(data.data == 0)
-      {
+      if (data.data == 0) {
         // Failed Login
-        this.$q.notify(
-          {
-            message : "Incorrect email address or password",
-            color : "red"
-          }
-        )
-      }else{
+        this.$q.notify({
+          message: "Incorrect email address or password",
+          color: "red",
+        });
+      } else {
         // Success Login
-        this.$q.sessionStorage.set("uid",data.data[0].id)
-        this.getEmail(data.data[0].id)
-        this.isLogin = false
+        this.$q.sessionStorage.set("uid", data.data[0].id);
+        this.getEmail(data.data[0].id);
+        this.isLogin = false;
       }
 
-      
       this.loadingHide();
     },
 
@@ -927,14 +1014,71 @@ export default {
 
       this.loadingHide();
     },
+    deleteQuery(index) {
+      this.$q
+        .dialog({
+          title: "Confirm",
+          message: "Would you like to delete the query?",
+          cancel: true,
+          persistent: true,
+        })
+        .onOk(() => {
+          this.queryList.splice(index, 1);
+           this.$q.notify({
+          message: "Query Deleted",
+          color: "teal",
+        });
+          this.updateQueryToDb();
+        });
+    },
+    saveQuery() {
+      if (this.isEditQuery) {
+        this.queryList[this.queryIndexTemp] = this.query
+        this.queryList.push("")
+        this.queryList.pop()
+           this.$q.notify({
+          message: "Query Updated",
+          color: "teal",
+        });
+        this.isShowSaveQuery = false
+         this.updateQueryToDb();
+      } else {
+        this.queryList.push(this.query);
+        this.query = "";
+        this.isShowSaveQuery = false;
+        this.$q.notify({
+          message: "Query Added",
+          color: "teal",
+        });
+        this.updateQueryToDb();
+      }
+    },
+    editQuery(index) {
+      this.queryIndexTemp = index;
+      this.query = this.queryList[index];
+      this.isShowSaveQuery = true;
+      this.isEditQuery = true;
+    },
+    loadQuery() {},
+    async updateQueryToDb() {
+      this.loadingShow();
+      const url = this.path_api + "/update_query.php";
+      const obj = {
+        uid: this.$q.sessionStorage.getItem("uid"),
+        query: JSON.stringify(this.queryList),
+      };
+      let data = await Axios.post(url, obj);
+
+      console.log(data.data);
+
+      this.loadingHide();
+    },
   },
   mounted() {
-
-    if(!this.$q.sessionStorage.has("uid"))
-    {
-      this.isLogin = true
-    }else{
-      this.getEmail(this.$q.sessionStorage.getItem("uid"))
+    if (!this.$q.sessionStorage.has("uid")) {
+      this.isLogin = true;
+    } else {
+      this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
     this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
