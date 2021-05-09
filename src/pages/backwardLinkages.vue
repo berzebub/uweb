@@ -361,7 +361,7 @@
             <div align="center" class="q-pa-lg" v-if="!isChart">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart">
+            <div v-show="isChart && (!errorGraph1 && !errorGraph2 && !errorChart2 && !errorChart3)">
               <div id="container"></div>
             </div>
 
@@ -369,7 +369,7 @@
               :content="
                 `Where does ${exportingSelected.label} imported content in exports to ${importingSelected.label} come from?`
               "
-              v-if="errorGraph1"
+              v-if="isChart && (errorGraph1 || errorGraph2 || errorChart2 || errorChart3)"
             ></error-graph>
           </div>
           <div style="height:30px"></div>
@@ -377,16 +377,19 @@
             <div align="center" class="q-pa-lg" v-if="!isChart1">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart1">
+            <div
+              v-show="isChart1 && (!errorGraph2 && !errorGraph1 && !errorChart2 && !errorChart3)"
+            >
               <div id="container1"></div>
             </div>
 
-            <error-graph
-              :content="
+            <div v-if="isChart1 &&(errorGraph2 || errorGraph1 || errorChart2 || errorChart3)" >
+              <error-graph
+                :content="
                 `Where do ${continent} economies' imported content in exports to ${importingSelected.label} come from?`
               "
-              v-if="errorGraph2"
-            ></error-graph>
+              ></error-graph>
+            </div>
           </div>
         </div>
 
@@ -398,11 +401,11 @@
             <div align="center" class="q-pa-lg" v-if="!isChart2">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart2">
+            <div v-show="isChart2 && (!errorChart2 && !errorGraph1 && !errorGraph2 && !errorChart3)">
               <div id="container3"></div>
             </div>
 
-            <error-graph v-if="errorChart2"></error-graph>
+            <error-graph v-if="isChart2 && (errorChart2 || errorGraph1 || errorGraph2 || errorChart3)"></error-graph>
           </div>
 
           <!-- GRAPH1 in select by source economy  -->
@@ -411,12 +414,12 @@
             <div align="center" class="q-pa-lg" v-if="!isChart3">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart3">
+            <div v-show="isChart3 && (!errorChart3 && !errorChart2 && !errorGraph1 && !errorGraph2)">
               <div id="container2"></div>
             </div>
 
             <error-graph
-              v-if="errorChart3"
+              v-if="isChart3 && (errorChart3 || errorChart2 || errorGraph1 || errorGraph2)"
               :content="
                 `Which sectors in ${exportingSelected.label} rely the most on imported from ${sourceEconomySelected.label} in exports to ${importingSelected.label}?`
               "
@@ -1639,6 +1642,7 @@ export default {
     // Graph Two in souce economy
     async setStackChart2() {
       this.isChart3 = false;
+      this.errorChart3 = false;
       this.chart3RawData = [];
       this.countryList = [];
 
