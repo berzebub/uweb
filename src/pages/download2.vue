@@ -510,9 +510,7 @@
             </div>
           </div>
 
-          <div v-if="queryList.length == 0" class='q-pa-md'>
-            No Query Found
-          </div>
+          <div v-if="queryList.length == 0" class="q-pa-md">No Query Found</div>
         </q-card-section>
 
         <q-card-actions align="center" class="q-pb-md">
@@ -961,7 +959,7 @@ export default {
     },
 
     async getEmail(id) {
-      const url = this.path_api + "/getEmail.php?id=" + id;
+      const url = this.path_api2 + "/getEmail.php?id=" + id;
       const result = await Axios.get(url);
 
       this.email = result.data[0].email;
@@ -970,7 +968,7 @@ export default {
 
     async signIn() {
       this.loadingShow();
-      const url = this.path_api + "/signIn.php";
+      const url = this.path_api2 + "/signIn.php";
       const obj = {
         email: this.login.email,
         password: this.login.password,
@@ -995,7 +993,7 @@ export default {
 
     async register() {
       this.loadingShow();
-      const url = this.path_api + "/signup.php";
+      const url = this.path_api2 + "/signup.php";
       const obj = {
         email: this.signUp.email,
         password: this.signUp.password,
@@ -1038,24 +1036,24 @@ export default {
         })
         .onOk(() => {
           this.queryList.splice(index, 1);
-           this.$q.notify({
-          message: "Query Deleted",
-          color: "teal",
-        });
+          this.$q.notify({
+            message: "Query Deleted",
+            color: "teal",
+          });
           this.updateQueryToDb();
         });
     },
     saveQuery() {
       if (this.isEditQuery) {
-        this.queryList[this.queryIndexTemp] = this.query
-        this.queryList.push("")
-        this.queryList.pop()
-           this.$q.notify({
+        this.queryList[this.queryIndexTemp] = this.query;
+        this.queryList.push("");
+        this.queryList.pop();
+        this.$q.notify({
           message: "Query Updated",
           color: "teal",
         });
-        this.isShowSaveQuery = false
-         this.updateQueryToDb();
+        this.isShowSaveQuery = false;
+        this.updateQueryToDb();
       } else {
         this.queryList.push(this.query);
         this.query = "";
@@ -1076,7 +1074,7 @@ export default {
     loadQuery() {},
     async updateQueryToDb() {
       this.loadingShow();
-      const url = this.path_api + "/update_query.php";
+      const url = this.path_api2 + "/update_query.php";
       const obj = {
         uid: this.$q.sessionStorage.getItem("uid"),
         query: JSON.stringify(this.queryList),
