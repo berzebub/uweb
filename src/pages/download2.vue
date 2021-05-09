@@ -27,7 +27,7 @@
           >
             <div class="col q-px-lg" align="left" style="  text-decoration: underline;">{{ email }}</div>
             <div class="col q-px-lg" align="right">
-              <q-icon name="fas fa-sign-out-alt" size="sm" />
+              <q-icon class="cursor-pointer" @click="signOut()" name="fas fa-sign-out-alt" size="sm" />
             </div>
           </div>
 
@@ -984,8 +984,14 @@ export default {
       } else {
         // Success Login
         this.$q.sessionStorage.set("uid", data.data[0].id);
-        this.getEmail(data.data[0].id);
+        await this.getEmail(data.data[0].id);
         this.isLogin = false;
+        this.$q.notify(
+          {
+            message : `Welcome ${this.email}`,
+            color : "secondary"
+          }
+        )
       }
 
       this.loadingHide();
@@ -1085,6 +1091,22 @@ export default {
 
       this.loadingHide();
     },
+    signOut(){
+      this.$q
+        .dialog({
+          html : true,
+          title: "Sign Out",
+          message: `Are you sure you want to sign out?`,
+          cancel: true,
+          persistent: true,
+          ok : "Sign Out"
+        })
+        .onOk(() => {
+          this.email = ""
+          this.$q.sessionStorage.remove("uid")
+          this.isLogin = true
+        });
+    }
   },
   mounted() {
     if (!this.$q.sessionStorage.has("uid")) {
