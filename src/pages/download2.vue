@@ -778,7 +778,7 @@ export default {
       sectorJson.forEach((data) => {
         let tempSectorList = {
           value: data.id,
-          label: data.Country,
+          label: data.name,
         };
         this.sectorList.push(tempSectorList);
       });
@@ -1009,6 +1009,20 @@ export default {
         this.$q.notify({
           message: "This email has already been taken.",
           color: "red",
+        });
+      }else{
+        this.$q
+        .dialog({
+          html : true,
+          title: "Please verify your email address",
+          message: `You're almost there! We sent an email to <br><b>${this.signUp.email}</b><br><br> Just click on the link in that email to complete your signup.<br>If you don't see it, you may need to check your spam folder.`,
+          cancel: true,
+          persistent: true,
+          ok : "Login"
+        })
+        .onOk(() => {
+          this.isSignUp = false
+          this.isLogin = true
         });
       }
 
