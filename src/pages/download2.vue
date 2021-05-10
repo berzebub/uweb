@@ -27,7 +27,12 @@
           >
             <div class="col q-px-lg" align="left" style="  text-decoration: underline;">{{ email }}</div>
             <div class="col q-px-lg" align="right">
-              <q-icon class="cursor-pointer" @click="signOut()" name="fas fa-sign-out-alt" size="sm" />
+              <q-icon
+                class="cursor-pointer"
+                @click="signOut()"
+                name="fas fa-sign-out-alt"
+                size="sm"
+              />
             </div>
           </div>
 
@@ -86,7 +91,7 @@
             <!-- importing country -->
             <div>
               <q-select
-                v-show="indicator != 'Forward_link_country'"
+                v-show="indicator != 'in_07'"
                 v-model="importing"
                 :options="countryList"
                 label="Importing economy"
@@ -101,8 +106,8 @@
             <div>
               <q-select
                 v-show="
-                indicator != 'Back_link_sector' &&
-                  indicator != 'Forward_link_sector'
+                indicator != 'in_06' &&
+                  indicator != 'in_08'
               "
                 v-model="sector"
                 :options="sectorList"
@@ -117,7 +122,7 @@
             <!-- Source country -->
             <div>
               <q-select
-                v-show="indicator == 'Back_link_sector'"
+                v-show="indicator == 'in_06'"
                 v-model="source"
                 :options="countryList"
                 label="Source economy"
@@ -231,7 +236,7 @@
               Not a Riva member?
               <span
                 style="color:#2381B8;text-decoration:underline"
-                @click="isSignUp = true,isLogin = false"
+                @click="clearData()"
                 class="cursor-pointer"
               >Sign up for a free account</span>
             </div>
@@ -269,14 +274,14 @@
                 v-model="signUp.password"
                 dense
                 label="Password"
-                type="password"
+                type="text"
                 outlined
               ></q-input>
             </div>
             <div class="q-pt-md q-pb-sm">
               <q-input
                 hide-bottom-space
-                type="password"
+                type="text"
                 :rules="[val => val == signUp.password]"
                 ref="confirm"
                 v-model="signUp.confirmPassword"
@@ -608,75 +613,42 @@ export default {
       groupName: "",
       isAddNewGroupDialog: false,
       isShowEconomyGroupDialog: false,
-      indicator: "Imp_cons",
+      indicator: "in_01",
       indicatorList: [
         {
-          value: "Imp_cons",
-          label: "Gross exports used in importer's consumption (Imp_cons)",
+          value: "in_01",
+          label: "Structure of value added",
         },
         {
-          value: "Imp_exp",
-          label:
-            "Grooss exports used in importer's export production (Imp_exp)",
+          value: "in_02",
+          label: "Value-added trade balance",
         },
         {
-          value: "Dom_cons",
-          label:
-            "Grooss exports that return home and used in the exporter's domestic consumption (Dom_cons)",
+          value: "in_03",
+          label: "Gross trade balance",
         },
         {
-          value: "Double",
-          label:
-            "Double counted exports from repeated border crossing (Double)",
-        },
-        {
-          value: "Imp_cont",
-          label: "Imported content in gross exports (Imp_cont)",
-        },
-        {
-          value: "DVA_tradebalance",
-          label: "Domestice value-added trade balance (DVA_tradebalance)",
-        },
-        {
-          value: "DVA_tradebalance_$",
-          label: "Domestice value-added trade balance (DVA_tradebalance_$)",
-        },
-        {
-          value: "Gross_tradebalance",
-          label: "Gross trade balance (Gross_tradebalance)",
-        },
-        {
-          value: "Gross_tradebalance_$",
-          label: "Gross trade balance (Gross_tradebalance_$)",
-        },
-        {
-          value: "GVC_participation",
+          value: "in_04",
           label: "GVC participation",
         },
         {
-          value: "GVC_participation_$",
-          label: "GVC participation_$",
+          value: "in_05",
+          label: "Backward linkages (by exporting sector)",
         },
         {
-          value: "Back_link_country",
-          label: "Backward linkages, all source countries (Back_link_country)",
+          value: "in_06",
+          label: "Backward linkages (by source economy)",
         },
         {
-          value: "Back_link_sector",
-          label: "Backward linkages, all exporting sectors (Back_link_sector)",
+          value: "in_07",
+          label: "Forward linkages (by exporting sector)",
         },
         {
-          value: "Forward_link_country",
-          label:
-            "Forward linkages, all importing countries (Forward_link_country)",
+          value: "in_08",
+          label: "Forward linakages (by importing economy)",
         },
         {
-          value: "Forward_link_sector",
-          label:
-            "Forward linkages, all exporting sectors (Forward_link_sector)",
-        },
-        {
-          value: "Gross_exports",
+          value: "in_09",
           label: "Gross exports",
         },
       ],
@@ -695,6 +667,16 @@ export default {
     };
   },
   methods: {
+    clearData() {
+      this.isSignUp = true;
+      this.isLogin = false;
+      this.signUp.email = "";
+      this.signUp.password = "";
+      this.signUp.confirmPassword = "";
+      this.country = "--- Please Select ---";
+      this.Organization = "--- Please Select ---";
+      this.isSubscribe = false;
+    },
     deleteGroup(index) {
       this.tempGroup.splice(index, 1);
       this.exporting = [];
@@ -794,7 +776,7 @@ export default {
       this.importing = null;
       this.sector = null;
       this.year = null;
-      this.indicator = "Imp_cons";
+      this.indicator = "in_01";
       this.isShowDownloadBtn = false;
     },
     async runBtn() {
@@ -881,9 +863,9 @@ export default {
       let obj;
       if (
         !(
-          this.indicator == "Back_link_sector" ||
-          this.indicator == "Forward_link_country" ||
-          this.indicator == "Forward_link_sector"
+          this.indicator == "in_06" ||
+          this.indicator == "in_07" ||
+          this.indicator == "in_08"
         )
       ) {
         this.sector.sort();
@@ -893,20 +875,20 @@ export default {
           sector: this.sector,
           year: this.year,
         };
-      } else if (this.indicator == "Back_link_sector") {
+      } else if (this.indicator == "in_06") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
           source: this.source,
           year: this.year,
         };
-      } else if (this.indicator == "Forward_link_country") {
+      } else if (this.indicator == "in_07") {
         obj = {
           exporting: exportingGroup,
           sector: this.sector,
           year: this.year,
         };
-      } else if (this.indicator == "Forward_link_sector") {
+      } else if (this.indicator == "in_08") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
@@ -915,45 +897,30 @@ export default {
       }
 
       let url = "";
-      if (this.indicator == "Imp_cons") {
-        url = this.path_api + "/indicator_imp_cons2.php";
-      } else if (this.indicator == "Imp_exp") {
-        url = this.path_api + "/indicator_imp_exp2.php";
-      } else if (this.indicator == "Dom_cons") {
-        url = this.path_api + "/indicator_dom_cons2.php";
-      } else if (this.indicator == "Double") {
-        url = this.path_api + "/indicator_double2.php";
-      } else if (this.indicator == "Imp_cont") {
-        url = this.path_api + "/indicator_imp_cont2.php";
-      } else if (this.indicator == "DVA_tradebalance") {
-        url = this.path_api + "/indicator_dva_tradebalance2.php";
-      } else if (this.indicator == "DVA_tradebalance_$") {
-        url = this.path_api + "/indicator_dva_tradebalance_m.php";
-      } else if (this.indicator == "Gross_tradebalance") {
-        url = this.path_api + "/indicator_gross_tradebalance2.php";
-      } else if (this.indicator == "Gross_tradebalance_$") {
-        url = this.path_api + "/indicator_gross_tradebalance_m.php";
-      } else if (this.indicator == "GVC_participation") {
-        url = this.path_api + "/indicator_gvc_participation2.php";
-      } else if (this.indicator == "GVC_participation_$") {
-        url = this.path_api + "/indicator_gvc_participation_m.php";
-      } else if (this.indicator == "Back_link_country") {
-        url = this.path_api + "/indicator_back_link_country2.php";
-      } else if (this.indicator == "Back_link_sector") {
-        url = this.path_api + "/indicator_back_link_sector2.php";
-      } else if (this.indicator == "Forward_link_country") {
-        url = this.path_api + "/indicator_forward_link_country2.php";
-      } else if (this.indicator == "Forward_link_sector") {
-        url = this.path_api + "/indicator_forward_link_sector2.php";
-      } else if (this.indicator == "Forward_link_sector") {
-        url = this.path_api + "/indicator_forward_link_sector2.php";
-      } else if (this.indicator == "Gross_exports") {
-        url = this.path_api + "/indicator_gross_exports2.php";
+      if (this.indicator == "in_01") {
+        url = this.path_api + "/in_01.php";
+      } else if (this.indicator == "in_02") {
+        url = this.path_api + "/in_02.php";
+      } else if (this.indicator == "in_03") {
+        url = this.path_api + "/in_03.php";
+      } else if (this.indicator == "in_04") {
+        url = this.path_api + "/in_04.php";
+      } else if (this.indicator == "in_05") {
+        url = this.path_api + "/in_05.php";
+      } else if (this.indicator == "in_06") {
+        url = this.path_api + "/in_06.php";
+      } else if (this.indicator == "in_07") {
+        url = this.path_api + "/in_07.php";
+      } else if (this.indicator == "in_08") {
+        url = this.path_api + "/in_08.php";
+      } else if (this.indicator == "in_09") {
+        url = this.path_api + "/in_09.php";
       }
+      console.log(obj);
+
       let data = await Axios.post(url, obj);
-
       this.downloadData = data.data;
-
+      console.log(this.downloadData);
       this.loadingHide();
       this.isShowDownloadBtn = true;
     },
@@ -963,18 +930,23 @@ export default {
       const result = await Axios.get(url);
 
       this.email = result.data[0].email;
-      this.queryList = JSON.parse(result.data[0].query);
+
+      if (result.data[0].query == "") {
+        this.queryList = "";
+      } else {
+        this.queryList = JSON.parse(result.data[0].query);
+      }
     },
 
     async signIn() {
       this.loadingShow();
       const url = this.path_api2 + "/signIn.php";
+
       const obj = {
         email: this.login.email,
         password: this.login.password,
       };
       let data = await Axios.post(url, obj);
-
       if (data.data == 0) {
         // Failed Login
         this.$q.notify({
@@ -986,12 +958,10 @@ export default {
         this.$q.sessionStorage.set("uid", data.data[0].id);
         await this.getEmail(data.data[0].id);
         this.isLogin = false;
-        this.$q.notify(
-          {
-            message : `Welcome ${this.email}`,
-            color : "secondary"
-          }
-        )
+        this.$q.notify({
+          message: `Welcome ${this.email}`,
+          color: "secondary",
+        });
       }
 
       this.loadingHide();
@@ -1014,20 +984,20 @@ export default {
           message: "This email has already been taken.",
           color: "red",
         });
-      }else{
+      } else {
         this.$q
-        .dialog({
-          html : true,
-          title: "Please verify your email address",
-          message: `You're almost there! We sent an email to <br><b>${this.signUp.email}</b><br><br> Just click on the link in that email to complete your signup.<br>If you don't see it, you may need to check your spam folder.`,
-          cancel: true,
-          persistent: true,
-          ok : "Login"
-        })
-        .onOk(() => {
-          this.isSignUp = false
-          this.isLogin = true
-        });
+          .dialog({
+            html: true,
+            title: "Please verify your email address",
+            message: `You're almost there! We sent an email to <br><b>${this.signUp.email}</b><br><br> Just click on the link in that email to complete your signup.<br>If you don't see it, you may need to check your spam folder.`,
+            cancel: true,
+            persistent: true,
+            ok: "Login",
+          })
+          .onOk(() => {
+            this.isSignUp = false;
+            this.isLogin = true;
+          });
       }
 
       this.loadingHide();
@@ -1087,26 +1057,26 @@ export default {
       };
       let data = await Axios.post(url, obj);
 
-      console.log(data.data);
+      // console.log(data.data);
 
       this.loadingHide();
     },
-    signOut(){
+    signOut() {
       this.$q
         .dialog({
-          html : true,
+          html: true,
           title: "Sign Out",
           message: `Are you sure you want to sign out?`,
           cancel: true,
           persistent: true,
-          ok : "Sign Out"
+          ok: "Sign Out",
         })
         .onOk(() => {
-          this.email = ""
-          this.$q.sessionStorage.remove("uid")
-          this.isLogin = true
+          this.email = "";
+          this.$q.sessionStorage.remove("uid");
+          this.isLogin = true;
         });
-    }
+    },
   },
   mounted() {
     if (!this.$q.sessionStorage.has("uid")) {
