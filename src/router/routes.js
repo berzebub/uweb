@@ -10,6 +10,57 @@ const routes = [
     name: "download2"
   },
   {
+    path: "/dataentry",
+    component: () => import("pages/login.vue"),
+    name: "login"
+  },
+  {
+    path: "/year",
+    component: () => import("layouts/MainLayout2.vue"),
+    children: [
+      {
+        path: "/year",
+        component: () => import("pages/year.vue"),
+        name: "year"
+      },
+      {
+        path: "/data",
+        component: () => import("pages/data.vue"),
+        name: "data"
+      },
+      {
+        path: "/logout",
+        component: () => import("pages/logout.vue"),
+        name: "logout"
+      },
+      {
+        path: "/profile",
+        component: () => import("pages/profile.vue"),
+        name: "profile"
+      },
+      {
+        path: "/profile/edit",
+        component: () => import("pages/profileinput.vue"),
+        name: "profileEdit"
+      },
+      {
+        path: "/user",
+        component: () => import("pages/user.vue"),
+        name: "user"
+      },
+      {
+        path: "/userfromweb",
+        component: () => import("pages/userfromweb.vue"),
+        name: "userfromweb"
+      },
+      {
+        path: "/countrybrief",
+        component: () => import("pages/countrybrief.vue"),
+        name: "countrybrief"
+      },
+    ]
+  },
+  {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [

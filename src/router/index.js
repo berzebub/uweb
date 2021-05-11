@@ -4,6 +4,8 @@ import VueRouter from "vue-router";
 import routes from "./routes";
 import JsonCSV from "vue-json-csv";
 import CountryFlag from "vue-country-flag";
+import axios from "axios";
+import VueAxios from "vue-axios";
 
 import VueFlags from "@growthbunker/vueflags";
 import VueSocialSharing from "vue-social-sharing";
@@ -15,6 +17,7 @@ Vue.use(HighchartsVue);
 Vue.component("downloadCsv", JsonCSV);
 Vue.component("country-flag", CountryFlag);
 Vue.use(VueSocialSharing);
+Vue.use(VueAxios, axios);
 Vue.use(VueFlags, {
   // Specify the path of the folder where the flags are stored.
   iconPath: "../flags"
@@ -45,10 +48,11 @@ export default function (/* { store, ssrContext } */) {
 import countryJson from "../../public/country_list.json";
 import countryJsonShort from "../../public/country_list_short.json";
 import sectorJson from "../../public/sector.json";
-
+import json from "../../public/json/country_list.json";
 Vue.mixin({
   data() {
     return {
+      serverPath: "https://riva.negotiatetrade.org/",
       path_api2: "https://riva.negotiatetrade.org/u_api",
       // path_api2: "http://localhost/u_api",
       // path_api: "http://localhost/u_api",

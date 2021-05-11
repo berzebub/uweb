@@ -26,6 +26,7 @@
     "jspdf-html2canvas": "^1.4.9",
     "quasar": "^1.0.0",
     "serve-static": "^1.14.1",
+    "vue-axios": "^3.2.4",
     "vue-country-flag": "^2.0.1",
     "vue-i18n": "^8.0.0",
     "vue-json-csv": "^1.2.11",
