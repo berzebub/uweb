@@ -515,7 +515,7 @@
             </div>
           </div>
 
-          <div v-if="queryList.length == 0" class="q-pa-md">No Query Found</div>
+          <div v-if="!queryList" class="q-pa-md">No Query Found</div>
         </q-card-section>
 
         <q-card-actions align="center" class="q-pb-md">
@@ -932,9 +932,9 @@ export default {
       this.email = result.data[0].email;
 
       if (result.data[0].query == "") {
-        this.queryList = "";
+        this.queryList = []
       } else {
-        this.queryList = JSON.parse(result.data[0].query);
+        this.queryList = JSON.parse(result.data[0].query) || []
       }
     },
 
@@ -970,6 +970,7 @@ export default {
     async register() {
       this.loadingShow();
       const url = this.path_api2 + "/signup.php";
+
       const obj = {
         email: this.signUp.email,
         password: this.signUp.password,
@@ -978,6 +979,8 @@ export default {
         isSubscribe: this.signUp.isSubscribe,
       };
       let data = await Axios.post(url, obj);
+
+
 
       if (data.data == 0) {
         this.$q.notify({
