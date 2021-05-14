@@ -66,7 +66,7 @@ export default {
         },
         {
           label:
-            "Step 3 : Value-added structure of grossexports to world by exporter",
+            "Step 3 : Value-added structure of gross exports to world by exporter",
           value: 3,
         },
         {
