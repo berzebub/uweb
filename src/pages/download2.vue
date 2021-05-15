@@ -243,7 +243,12 @@
                 style="color:#2381B8;text-decoration:underline"
                 @click="clearData()"
                 class="cursor-pointer"
-              >Sign up for a free account</span>
+              >Sign up for a free account</span> / Back to
+              <span
+                style="color:#2381B8;text-decoration:underline"
+                @click="homeLink()"
+                class="cursor-pointer"
+              >Home</span>
             </div>
           </q-form>
         </div>
@@ -696,6 +701,9 @@ export default {
       if (!this.$q.sessionStorage.has("uid")) {
         this.isLogin = true;
       }
+    },
+    homeLink() {
+      this.$router.push("/");
     },
     async sendEmailRecovery() {
       this.$q.loading.show();
