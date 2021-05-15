@@ -118,6 +118,7 @@
 </template>
 
 <script>
+import XLSX from "xlsx"; // import xlsx
 export default {
   data() {
     return {
@@ -188,7 +189,24 @@ export default {
   },
   methods: {
     exportData() {
-      console.log("export Data");
+      // console.log("export Data");
+      let exportData = [];
+
+      this.userData.forEach((element) => {
+        exportData.push({
+          Email: element.email,
+          Password: element.password,
+          Country: element.country,
+          Organization: element.organization,
+          Validation: element.is_validation == "1" ? "Yes" : "No",
+          Subscribe: element.is_subscribe == "1" ? "Yes" : "No",
+        });
+      });
+
+      const dataWS = XLSX.utils.json_to_sheet(exportData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, dataWS);
+      XLSX.writeFile(wb, "export.xlsx");
     },
     loadUser() {
       this.loadingShow();

@@ -499,9 +499,9 @@
 
           <q-btn icon="fas fa-times" v-close-popup flat></q-btn>
         </q-toolbar>
-        <q-card-section class="no-padding ">
+        <q-card-section class="no-padding">
           <div class="q-px-sm row justify-between q-pt-md">
-            <q-select style="width:75%" :options="queryList"  v-model="querySelected"></q-select>
+            <q-select style="width:75%" :options="queryList" v-model="querySelected"></q-select>
             <q-btn flat icon="fas fa-trash-alt" @click="deleteQuery()"></q-btn>
             <q-btn flat icon="fas fa-pencil-alt" @click="editQuery()"></q-btn>
           </div>
@@ -993,12 +993,12 @@ export default {
         this.queryList = [];
       } else {
         let queryList = JSON.parse(result.data[0].query) || [];
-        queryList.forEach((element,index) => {
-          element.index = index
+        queryList.forEach((element, index) => {
+          element.index = index;
         });
 
         console.log(queryList);
-        this.queryList = queryList
+        this.queryList = queryList;
       }
     },
 
@@ -1077,7 +1077,7 @@ export default {
         })
         .onOk(() => {
           this.queryList.splice(this.querySelected.index, 1);
-          this.querySelected = "--- Please Select ---"
+          this.querySelected = "--- Please Select ---";
           this.$q.notify({
             message: "Query Deleted",
             color: "teal",
@@ -1087,51 +1087,48 @@ export default {
         });
     },
     saveQuery() {
-      if(!this.query)
-      {
-            this.$q.notify({
-            message: "Please enter query name.",
-            color: "red",
-          });
-
-      }else{
-         if (this.isEditQuery) {
-        this.queryList[this.queryIndexTemp].label = this.query;
-        this.queryList.push("");
-        this.queryList.pop();
+      if (!this.query) {
         this.$q.notify({
-          message: "Query Updated",
-          color: "teal",
+          message: "Please enter query name.",
+          color: "red",
         });
-        this.isShowSaveQuery = false;
-        this.updateQueryToDb();
       } else {
-        let query = {
-          indicator: this.indicator,
-          exporting: this.exporting,
-          importing: this.importing,
-          exportingSector: this.sector,
-          year: this.year,
-          name: this.query,
-        };
+        if (this.isEditQuery) {
+          this.queryList[this.queryIndexTemp].label = this.query;
+          this.queryList.push("");
+          this.queryList.pop();
+          this.$q.notify({
+            message: "Query Updated",
+            color: "teal",
+          });
+          this.isShowSaveQuery = false;
+          this.updateQueryToDb();
+        } else {
+          let query = {
+            indicator: this.indicator,
+            exporting: this.exporting,
+            importing: this.importing,
+            exportingSector: this.sector,
+            year: this.year,
+            name: this.query,
+          };
 
-        this.queryList.push({
-          label: this.query,
-          value: query,
-        });
-        this.query = "";
-        this.isShowSaveQuery = false;
-        this.$q.notify({
-          message: "Query Added",
-          color: "teal",
-        });
-        this.updateQueryToDb();
+          this.queryList.push({
+            label: this.query,
+            value: query,
+          });
+          this.query = "";
+          this.isShowSaveQuery = false;
+          this.$q.notify({
+            message: "Query Added",
+            color: "teal",
+          });
+          this.updateQueryToDb();
+        }
       }
-      }
-     
     },
     editQuery() {
-      let index = this.querySelected.index
+      let index = this.querySelected.index;
       this.queryIndexTemp = index;
       this.query = this.queryList[index].label;
       this.isShowSaveQuery = true;
@@ -1155,7 +1152,7 @@ export default {
       let data = await Axios.post(url, obj);
 
       // console.log(data.data);
-      this.getEmail(this.$q.sessionStorage.getItem("uid"))
+      this.getEmail(this.$q.sessionStorage.getItem("uid"));
 
       this.loadingHide();
     },
