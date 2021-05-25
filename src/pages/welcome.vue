@@ -1,11 +1,11 @@
 <template>
   <q-page class="bg" style="overflow:hidden">
     <div class="relative-position" style="height:calc(100vh - 210px)">
-      <video id="myVideo" autoplay loop muted >
+      <video id="myVideo" autoplay loop muted>
         <source type="video/webm" src="../../public/bgmov.webm" />
       </video>
 
-      <div style="padding-top:20px;padding-left:20px" class="absolute">
+      <div style="padding-top:20px;padding-left:20px" class="absolute" v-show="false">
         <div
           style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
           class="text-white row"
@@ -34,7 +34,34 @@
         </div>
       </div>
 
-      <div class="absolute-bottom" style="padding-bottom:20px;padding-right:20px" align="right">
+      <div class="absolute absolute-center" align="center">
+        <div
+          style="background-color:rgba(44,42,44,0.6);width:600px;border-radius:5px;"
+          class="text-white row"
+        >
+          <div style="width:100%" class="q-pt-md">
+            <img src="../../public/logobig.png" width="400px" alt />
+            <div style="height:15px">&nbsp;</div>
+          </div>
+          <div align="center" class="col-12">
+            <q-btn
+              @click.stop="goToGlobal()"
+              style="width:180px;background-color:#000000;border:1px solid #F4B802"
+              label="Get started"
+              class="font-content"
+              no-caps
+            ></q-btn>
+          </div>
+          <div style="height:15px">&nbsp;</div>
+        </div>
+      </div>
+
+      <div
+        class="absolute-bottom"
+        style="padding-bottom:20px;padding-right:20px"
+        align="right"
+        v-show="false"
+      >
         <div
           style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
           class="text-white row"
@@ -108,8 +135,10 @@ export default {
       this.$router.push("/countrybriefs");
     },
   },
-  mounted () {
-    document.getElementById('myVideo').addEventListener('contextmenu', event => event.preventDefault());
+  mounted() {
+    document
+      .getElementById("myVideo")
+      .addEventListener("contextmenu", (event) => event.preventDefault());
   },
 };
 </script>

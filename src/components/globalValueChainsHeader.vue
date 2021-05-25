@@ -28,7 +28,7 @@
 
       <div
         class="absolute q-pa-md text-white"
-        style="bottom:0px;"
+        style="top:0px;"
         :style="isShowTinaLink ? 'right:140px' : 'right:0px'"
       >
         <q-btn
@@ -39,7 +39,7 @@
           icon="fas fa-share"
         ></q-btn>
       </div>
-      <div class="absolute q-pa-md text-white" style="bottom:0px;right:0px" v-if="isShowTinaLink">
+      <div class="absolute q-pa-md text-white" style="top:0px;right:0px" v-if="isShowTinaLink">
         <q-btn
           :disable="isDisableTina"
           label="TINA Link"
@@ -47,6 +47,28 @@
           outline
           icon="fas fa-share"
           @click="toTinaLink()"
+        ></q-btn>
+      </div>
+      <div class="absolute q-pa-md text-white" style="bottom:100px;right:0px">
+        <q-btn label="Download data" no-caps outline @click="goToDownload()" style="width:150px;"></q-btn>
+      </div>
+      <div class="absolute q-pa-md text-white" style="bottom:50px;right:0px">
+        <q-btn
+          label="Country briefs"
+          no-caps
+          outline
+          @click="goToCountryBriefs()"
+          style="width:150px;"
+        ></q-btn>
+      </div>
+      <div class="absolute q-pa-md text-white" style="bottom:0px;right:0px">
+        <q-btn
+          label="Techincal notes"
+          no-caps
+          outline
+          @click="toTinaLink()"
+          style="width:150px;"
+          disable
         ></q-btn>
       </div>
     </div>
@@ -142,6 +164,12 @@ export default {
     };
   },
   methods: {
+    goToDownload() {
+      this.$router.push("/download");
+    },
+    goToCountryBriefs() {
+      this.$router.push("/countrybriefs");
+    },
     toTinaLink() {
       let exp_country = this.$q.sessionStorage.getItem("expe");
       let imp_country = this.$q.sessionStorage.getItem("impe");
@@ -169,10 +197,7 @@ export default {
 
 <style lang="scss" scoped>
 .bg {
-  background-image: url("../../public/bg-global-value.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #04284d;
 }
 .fb-hover :hover {
   transform: scale(1.1);
