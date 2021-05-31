@@ -74,7 +74,7 @@
               Gain insight into your economy’s participation
               <br />in GVCs. Uncover the sources of intermediate
               <br />inputs
-              and destinations of domestic value-added
+              and destinations of domestic value-added.
             </div>
           </div>
           <div align="center" class="col-12 q-pt-md">

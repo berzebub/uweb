@@ -22,7 +22,7 @@
           Gain insight into your economy’s participation in global value chains (GVCs).
           <br />Uncover the
           sources of
-          intermediate inputs and destinations of domestic value-added
+          intermediate inputs and destinations of domestic value-added.
         </div>
       </div>
 

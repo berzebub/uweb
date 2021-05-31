@@ -9,7 +9,7 @@
         <p class="font-graph">Objectives</p>
         <p
           class="font-content"
-        >This online data visualization and distribution platform has been developed – with financial support from the Forum for East Asia-Latin America Cooperation and raw data provided by the Asian Development Bank from their Multi-Regional Input-Output database – with a focus on understanding global value chain linkages between Asia-Pacific and Latin American economies, in addition to more broadly understanding value-chain linkages between economies around the world.</p>
+        >RIVA Value Chain Analyzer in an online tool developed by ESCAP to support policy makers, analysts and researchers to better understand their economy's integration in global value chains (GVCs). RIVA Value Chain Analyzer provides data and indicators based on estimated trade in value added flows between 72 economies in 38 sectors for 2007, 2011 and 2017.</p>
       </div>
     </div>
   </q-page>

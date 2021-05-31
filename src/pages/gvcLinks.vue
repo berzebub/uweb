@@ -119,9 +119,10 @@
             <div class="col-10 row q-mt-md">
               <!-- Imported Content  -->
               <div class="col row font-content" align="center">
-                <div class="col-12 self-start" style="color:#9C26B3">
+                <div class="col-12 self-start text-teal">
                   <div class="text-bold">
-                    Imported content used in {{ overviewCountry.label }}'s exports
+                    Foreign production consumed by the importer
+                    <!-- Imported content used in {{ overviewCountry.label }}'s exports -->
                     <br />(Backward linkages)
                   </div>
 
@@ -140,9 +141,10 @@
               <div class="col font-content" align="center">
                 <div class="col-12 self-start" style="color: #EB1E63">
                   <div class="text-bold">
-                    <span>{{ overviewCountry.label }}'s export of intermediates used in</span>
+                    <!-- <span>{{ overviewCountry.label }}'s export of intermediates used in</span> -->
+                    <span>Domestic production used in</span>
                     <br />
-                    <span class="text-no-wrap">further export production (Forward linkages)</span>
+                    <span class="text-no-wrap">the importer's exports(Forward linkages)</span>
                   </div>
 
                   <div class="q-mt-sm" align="center">
@@ -170,7 +172,7 @@
                   <q-img
                     :width="leftContainer"
                     class="absolute-center"
-                    :src="require('../../public/arrow/bluecon2.png')"
+                    :src="require('../../public/arrow/greencon.png')"
                   ></q-img>
                   <!-- graphGVC.import_value -->
                 </div>
@@ -231,7 +233,7 @@
         <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
-              <div class="font-footer" align="right" style="color:#9C26B3">
+              <div class="font-footer text-teal" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
               </div>
             </div>
@@ -258,8 +260,8 @@
                 >
                   <div class align="right">
                     <div
-                      class="q-pa-sm cursor-pointer relative-position"
-                      style="height:53px; background-color: #9C26B3;"
+                      class="q-pa-sm cursor-pointer relative-position bg-teal"
+                      style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
@@ -401,7 +403,7 @@
         <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
-              <div class="font-footer" align="right" style="color:#9C26B3">
+              <div class="font-footer text-teal" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
                 <!-- <br />
                 <span class="text-bold">Source economy</span>
@@ -437,8 +439,8 @@
                 >
                   <div align="right">
                     <div
-                      class="q-pa-sm relative-position"
-                      style="height:53px; background-color:#9C26B3"
+                      class="q-pa-sm relative-position bg-teal"
+                      style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-right q-pa-sm" style="white-space:nowrap">
