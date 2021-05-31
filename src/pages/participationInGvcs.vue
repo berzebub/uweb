@@ -388,7 +388,7 @@ export default {
         this.path_api +
         `/cal_participation.php?exp_country=${this.exp_country.iso}&imp_country=${this.imp_country.iso}&year=${this.year}&sector=${this.sector}`;
 
-      console.log(urlLink);
+      // console.log(urlLink);
 
       if (cancelGraph !== undefined) {
         cancelGraph();
@@ -405,12 +405,13 @@ export default {
       )[0].region;
 
       getData = getData.data;
-      console.log(getData);
+      // console.log(getData);
 
       let countryList = [];
       let forwardList = [];
       let backwardList = [];
       let doubleList = [];
+      let finalList = [];
 
       getData.map((x) => {
         countryList.push(x.country);
@@ -436,25 +437,38 @@ export default {
         };
 
         doubleList.push(newDouble);
+
+        let newFinal = {
+          y: x.final,
+          name: x.final,
+          valM: x.final_v,
+        };
+        finalList.push(newFinal);
       });
 
-      // console.log(forwardList);
-      // console.log(backwardList);
-      // console.log(doubleList);
+      console.log(forwardList);
+      console.log(backwardList);
+      console.log(doubleList);
+      console.log(finalList);
 
       forwardList.forEach((element, index) => {
         forwardList[index]["totalY"] =Number(element.valM +
           backwardList[index]["valM"] +
-          doubleList[index]["valM"]).toFixed(2)
+          doubleList[index]["valM"] + finalList[index]['valM']).toFixed(2)
           ;
         backwardList[index]["totalY"] = Number(element.valM +
           backwardList[index]["valM"] +
-          doubleList[index]["valM"]).toFixed(2)
+          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2)
           ;
         doubleList[index]["totalY"] =
           Number(element.valM +
           backwardList[index]["valM"] +
-          doubleList[index]["valM"]).toFixed(2);
+          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2);
+
+          finalList[index]["totalY"] =
+          Number(element.valM +
+          backwardList[index]["valM"] +
+          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2);
       });
 
       this.isChart = true;
@@ -550,12 +564,12 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000",
           },
-          width: 300,
+          width: 350,
           layout: "vertical",
           enabled: true,
           align: "right",
@@ -583,19 +597,24 @@ export default {
         },
         series: [
           {
-            name: `Used in ${this.imp_country.label}'s export production <br>(forward linkages)`,
+            name: `Produced in ${this.exp_country.label} - used in <br>${this.imp_country.label}'s exports (forward linkages)`,
             data: forwardList,
-            color: "#2381B8",
-          },
-          {
-            name: "Imported content (backward linkages)",
-            data: backwardList,
             color: "#EB1E63",
           },
           {
-            name: "Double counted exports from <br>repeated border crossings",
-            data: doubleList,
+            name: `Produced in  ${this.exp_country.label} - used in <br>${this.imp_country.label}'s exports consumed in <br>${this.exp_country.label} (forward linkages)`,
+            data: finalList,
             color: "#f99704",
+          },
+          {
+            name: "Double counted exports from <br> repeated border crossings",
+            data: doubleList,
+            color: "#9C26B3",
+          },
+          {
+            name: `Produced abroad (used in ${this.exp_country.label}'s <br>exports) - consumed in ${this.imp_country.label} <br>(backward linkages)`,
+            data: backwardList,
+            color: "#2D9687",
           },
         ],
         title: {

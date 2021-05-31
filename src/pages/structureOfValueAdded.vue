@@ -652,8 +652,8 @@ export default {
           {
                 name: `Intermediate domestic production <br>consumed by the importer (${this.dataChart1Percent.imp_cons}%)`,
                 value: getData.imp_cons,
-                color: "#73FEFF",
-                label: `Intermediate output produced in ${this.exportingSelected.label} - <br> consumed in ${this.importingSelected.label}`,
+                color: "#37C9D2",
+                label: `Intermediate output produced in <br>${this.exportingSelected.label} -  consumed in <br> ${this.importingSelected.label}`,
               },
               {
                 name: `Final domestic production <br>comsumed by the importer (${this.dataChart1Percent.final}%)`,
@@ -665,7 +665,7 @@ export default {
                 name: `Domestic production used in <br>the importer's exports (${this.dataChart1Percent.imp_exp}%)`,
                 value: getData.imp_exp,
                 color: "#EB1E63",
-                label: `Produced in ${this.exportingSelected.label} - used in <br> ${this.importingSelected.label}`,
+                label: `Produced in ${this.exportingSelected.label} - used in <br> ${this.importingSelected.label}'s exports`,
               },
               {
                 name: `Domestic production that returns <br>via the importer's exports (${this.dataChart1Percent.dom_cons}%)`,
@@ -694,7 +694,7 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000",
@@ -702,7 +702,7 @@ export default {
 
           align: "right",
           verticalAlign: "middle",
-          width: 300,
+          width: 350,
           itemMarginTop: 20,
           symbolWidth: 50,
           symbolHeight: 15,
@@ -746,7 +746,7 @@ export default {
             } else if (this.name.includes("Final domestic")) {
               return `<div class='text-weight-bold'>Final output produced in ${_this.exportingSelected.label} - consumed in ${_this.importingSelected.label}</div><div>Share: ${_this.dataChart1Percent.final}%</div><div>Value: $${this.value} million</div>`;
             } else if (this.name.includes("Domestic production used")) {
-              return `<div class='text-weight-bold'>Produced in ${_this.exportingSelected.label} - used in ${_this.importingSelected.label}</div><div>Share: ${_this.dataChart1Percent.imp_exp}%</div><div>Value: $${this.value} million</div>`;
+              return `<div class='text-weight-bold'>Produced in ${_this.exportingSelected.label} - used in ${_this.importingSelected.label}'s exports</div><div>Share: ${_this.dataChart1Percent.imp_exp}%</div><div>Value: $${this.value} million</div>`;
             }
             else if (this.name.includes("Domestic production that")) {
               return `<div class='text-weight-bold'>Produced in ${_this.exportingSelected.label} - used in  ${_this.importingSelected.label} exports consumed in ${_this.exportingSelected.label}</div><div>Share: ${_this.dataChart1Percent.dom_cons}%</div><div>Value: $${this.value} million</div>`;
@@ -860,12 +860,19 @@ export default {
       let imp_cont = [];
       let dom_cons = [];
       let double = [];
+      let final = [];
       country = getData.map((x)=>x.imp_country)
 
 
       getData.map((x) => {
         country.push(x.imp_country.precent);
         // imp_cons.push(x.imp_cons.precent);
+        final.push(
+           {
+          value: x.final.value,
+          y: x.final.precent,
+          }
+        )
 
         imp_cons.push(
           {
@@ -949,12 +956,12 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000",
           },
-          width: 300,
+          width: 350,
           layout: "vertical",
           enabled: true,
           align: "right",
@@ -1005,29 +1012,34 @@ export default {
         },
         series: [
           {
-            name: `Used in ${this.importingSelected.label}'s <br>consumption`,
+            name: `Intermediate output produced in <br>${this.exportingSelected.label} - consumed in <br>${this.importingSelected.label}`,
             data: imp_cons,
+            color: "#37C9D2",
+          },
+          {
+            name: `Final output produced in ${this.exportingSelected.label} - <br>consumed in ${this.importingSelected.label}`,
+            data: final,
             color: "#2381B8",
           },
           {
-            name: `Used in ${this.importingSelected.label}'s export <br> production`,
+            name: `Produced in ${this.exportingSelected.label} - used in <br>${this.importingSelected.label}'s exports`,
             data: imp_exp,
             color: "#EB1E63",
           },
           {
-            name: `Used in  domestic consumption`,
+            name: `Produced in ${this.exportingSelected.label} - used in <br>${this.importingSelected.label} exports consumed in <br>${this.exportingSelected.label}`,
             data: dom_cons,
             color: "#f99704",
           },
           {
             name: "Double counted exports from <br>repeated border crossings",
             data: double,
-            color: "#2D9687",
+            color: "#9C26B3",
           },
           {
-            name: "Imported content",
+            name: `Produced abroad (used in <br> ${this.exportingSelected.label}'s  exports) - consumed in <br> ${this.importingSelected.label}`,
             data: imp_cont,
-            color: "#9C26B3",
+            color: "#2D9687",
           },
         ],
         exporting: {
