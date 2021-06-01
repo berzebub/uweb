@@ -1,8 +1,8 @@
 <template>
   <q-page class="bg" style="overflow:hidden">
     <div class="relative-position" style="height:calc(100vh - 210px)">
-      <video id="myVideo" autoplay loop muted>
-        <source type="video/webm" src="../../public/bgmov.webm" />
+      <video id="myVideo" autoplay loop muted >
+        <source type="video/mp4" src="../../public/bg-hd.mp4" />
       </video>
 
       <div style="padding-top:20px;padding-left:20px" class="absolute" v-show="false">
