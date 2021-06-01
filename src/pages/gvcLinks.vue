@@ -119,9 +119,10 @@
             <div class="col-10 row q-mt-md">
               <!-- Imported Content  -->
               <div class="col row font-content" align="center">
-                <div class="col-12 self-start c-blue">
+                <div class="col-12 self-start text-teal">
                   <div class="text-bold">
-                    Imported content used in {{ overviewCountry.label }}'s exports
+                    Foreign production consumed by the importer
+                    <!-- Imported content used in {{ overviewCountry.label }}'s exports -->
                     <br />(Backward linkages)
                   </div>
 
@@ -138,11 +139,12 @@
               </div>
               <!-- Export Content  -->
               <div class="col font-content" align="center">
-                <div class="col-12 self-start c-red">
+                <div class="col-12 self-start" style="color: #EB1E63">
                   <div class="text-bold">
-                    <span>{{ overviewCountry.label }}'s export of intermediates used in</span>
+                    <!-- <span>{{ overviewCountry.label }}'s export of intermediates used in</span> -->
+                    <span>Domestic production used in</span>
                     <br />
-                    <span class="text-no-wrap">further export production (Forward linkages)</span>
+                    <span class="text-no-wrap">the importer's exports(Forward linkages)</span>
                   </div>
 
                   <div class="q-mt-sm" align="center">
@@ -170,7 +172,7 @@
                   <q-img
                     :width="leftContainer"
                     class="absolute-center"
-                    :src="require('../../public/arrow/bluecon.png')"
+                    :src="require('../../public/arrow/greencon.png')"
                   ></q-img>
                   <!-- graphGVC.import_value -->
                 </div>
@@ -203,7 +205,7 @@
                   <q-img
                     :width="rightContainer"
                     class="absolute-center"
-                    :src="require('../../public/arrow/redcon.png')"
+                    :src="require('../../public/arrow/redcon2.png')"
                   ></q-img>
                 </div>
               </div>
@@ -231,7 +233,7 @@
         <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
-              <div class="c-blue font-footer" align="right">
+              <div class="font-footer text-teal" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
               </div>
             </div>
@@ -239,7 +241,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" align="center"></div>
             <div class="col q-pa-md">
-              <div class="c-red font-footer">
+              <div class="font-footer" style="color: #EB1E63">
                 <span class="font-content text-bold">Forward linkages</span>
               </div>
             </div>
@@ -258,7 +260,7 @@
                 >
                   <div class align="right">
                     <div
-                      class="q-pa-sm cursor-pointer relative-position chart-blue"
+                      class="q-pa-sm cursor-pointer relative-position bg-teal"
                       style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCSector.map(x => x.value)) * item.value) + '%'"
                     >
@@ -276,7 +278,7 @@
                   </div>
                 </div>
 
-                <div align="right" class="c-blue q-pt-md">
+                <div align="right" class="q-pt-md">
                   <span class="text-bold">Sector</span>
                   <br />
                   <span>Share of foreign value-added in {{ overviewCountry.label }}'s sectoral gross exports (%)</span>
@@ -335,8 +337,8 @@
                 >
                   <div align="left">
                     <div
-                      class="q-pa-sm relative-position chart-red"
-                      style="height:53px;"
+                      class="q-pa-sm relative-position"
+                      style="height:53px; background-color: #EB1E63"
                       :style="'width:' + Math.ceil(100/Math.max(...graphForwardGVCSector.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
@@ -353,7 +355,7 @@
                   </div>
                 </div>
 
-                <div align="left" class="q-pt-md" style="color:#8D273D">
+                <div align="left" class="q-pt-md">
                   <span class="text-bold">Sector</span>
                   <br />
                   <span>Share of {{ overviewCountry.label }}'s sectoral gross exports used in further export production (%)</span>
@@ -401,7 +403,7 @@
         <div class="row justify-center q-mt-lg">
           <div class="col-7 row">
             <div class="col q-pa-md">
-              <div class="c-blue font-footer" align="right">
+              <div class="font-footer text-teal" align="right">
                 <span class="font-content text-bold">Backward linkages</span>
                 <!-- <br />
                 <span class="text-bold">Source economy</span>
@@ -414,7 +416,7 @@
             <!-- Country Content -->
             <div class="col-3 self-center" align="center"></div>
             <div class="col q-pa-md">
-              <div class="c-red font-footer" align="left">
+              <div class="font-footer" align="left" style="color:#EB1E63">
                 <span class="font-content text-bold">Forward linkages</span>
                 <!-- <br />
                 <span class="text-bold">Improting economy</span>
@@ -437,7 +439,7 @@
                 >
                   <div align="right">
                     <div
-                      class="q-pa-sm relative-position chart-blue"
+                      class="q-pa-sm relative-position bg-teal"
                       style="height:53px;"
                       :style="'width:' + Math.ceil(100/Math.max(...graphBackwardGVCEconomy.map(x => x.value)) * item.value) + '%'"
                     >
@@ -455,7 +457,7 @@
                   </div>
                 </div>
 
-                <div align="right" class="q-pt-md c-blue">
+                <div align="right" class="q-pt-md">
                   <span class="text-bold">Source economy</span>
                   <br />
                   <span>Share of foreign value-added in {{ overviewCountry.label }}'s gross exports (%)</span>
@@ -513,8 +515,8 @@
                 >
                   <div align="left">
                     <div
-                      class="q-pa-sm relative-position chart-red"
-                      style="height:53px;"
+                      class="q-pa-sm relative-position"
+                      style="height:53px; background-color: #EB1E63"
                       :style="'width:' + Math.ceil(100/Math.max(...graphForwardGVCEconomy.map(x => x.value)) * item.value) + '%'"
                     >
                       <div class="absolute-left q-pa-sm" style="white-space:nowrap">
@@ -530,7 +532,7 @@
                     </div>
                   </div>
                 </div>
-                <div align="left" class="q-pt-md" style="color:#8D273D">
+                <div align="left" class="q-pt-md">
                   <span class="text-bold">Importing economy</span>
                   <br />
                   <span>Share of {{ overviewCountry.label }}'s gross exports used in further export production (%)</span>

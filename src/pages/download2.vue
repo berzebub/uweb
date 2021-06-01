@@ -222,7 +222,12 @@
                 </template>
               </q-input>
             </div>
-            <div style="text-decoration:underline" align="right">Forgot password?</div>
+            <div
+              style="text-decoration:underline"
+              class="cursor-pointer"
+              @click="isShowForgotPasswordDialog = true,isLogin = false"
+              align="right"
+            >Forgot password?</div>
             <div>
               <q-btn
                 type="submit"
@@ -238,7 +243,12 @@
                 style="color:#2381B8;text-decoration:underline"
                 @click="clearData()"
                 class="cursor-pointer"
-              >Sign up for a free account</span>
+              >Sign up for a free account</span> / Back to
+              <span
+                style="color:#2381B8;text-decoration:underline"
+                @click="homeLink()"
+                class="cursor-pointer"
+              >Home</span>
             </div>
           </q-form>
         </div>
@@ -495,30 +505,16 @@
           <q-btn icon="fas fa-times" v-close-popup flat></q-btn>
         </q-toolbar>
         <q-card-section class="no-padding">
-          <!-- <div class="q-px-md q-py-md">
-            Query name
-            <q-input v-model="query" label="Query name" dense outlined></q-input>
-          </div>-->
-
-          <div
-            v-for="(item,index) in queryList"
-            :key="index"
-            class="row items-center q-px-md q-py-sm"
-            :class="index %2 != 0 ? 'bg-grey-3' : null"
-          >
-            <div class="col">{{ item }}</div>
-            <div style="width:70px">
-              <q-btn icon="fas fa-trash-alt" @click="deleteQuery(index)" flat></q-btn>
-            </div>
-            <div style="width:70px">
-              <q-btn icon="fas fa-edit" @click="editQuery(index)" flat></q-btn>
-            </div>
+          <div class="q-px-sm row justify-between q-pt-md">
+            <q-select style="width:75%" :options="queryList" v-model="querySelected"></q-select>
+            <q-btn flat icon="fas fa-trash-alt" @click="deleteQuery()"></q-btn>
+            <q-btn flat icon="fas fa-pencil-alt" @click="editQuery()"></q-btn>
           </div>
 
           <div v-if="!queryList" class="q-pa-md">No Query Found</div>
         </q-card-section>
 
-        <q-card-actions align="center" class="q-pb-md">
+        <q-card-actions align="center" class="q-py-md">
           <q-btn
             label="Load"
             text-color="white"
@@ -560,6 +556,37 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="isShowForgotPasswordDialog" persistent>
+      <q-card style="width:500px">
+        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+          <q-toolbar-title>
+            <div class="q-pl-md">
+              <span>Password Recovery</span>
+            </div>
+          </q-toolbar-title>
+          <q-space></q-space>
+
+          <q-btn icon="fas fa-times" v-close-popup @click="closePasswordRecoveryDialog()" flat></q-btn>
+        </q-toolbar>
+        <q-card-section class="no-padding">
+          <div class="q-px-md q-py-md">
+            Please Enter Your Email
+            <q-input v-model="recoveryEmail" label="Email" dense outlined></q-input>
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="center" class="q-pb-md">
+          <q-btn
+            label="Save"
+            text-color="white"
+            @click="sendEmailRecovery()"
+            no-caps
+            style="width:200px;background-color:#2C2F30"
+          ></q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -577,6 +604,8 @@ export default {
   },
   data() {
     return {
+      recoveryEmail: "",
+      isShowForgotPasswordDialog: false,
       queryIndexTemp: "",
       isEditQuery: false,
       query: "",
@@ -664,9 +693,47 @@ export default {
       downloadData: null,
       tempGroup: [],
       tempIndex: null,
+      querySelected: "--- Please Select ---",
     };
   },
   methods: {
+    closePasswordRecoveryDialog() {
+      if (!this.$q.sessionStorage.has("uid")) {
+        this.isLogin = true;
+      }
+    },
+    homeLink() {
+      this.$router.push("/");
+    },
+    async sendEmailRecovery() {
+      this.$q.loading.show();
+      const url = this.path_api + "/recovery_password.php";
+      const response = await Axios.post(url, { email: this.recoveryEmail });
+
+      if (response.data == "success") {
+        this.$q
+          .dialog({
+            html: true,
+            title: "Please check your email ",
+            message: `We sent an recovery password to <br><b>${this.recoveryEmail}</b><br>If you don't see it, you may need to check your spam folder.`,
+            cancel: true,
+            persistent: true,
+            ok: "Login",
+          })
+          .onOk(() => {
+            this.isShowForgotPasswordDialog = false;
+            this.isSignUp = false;
+            this.isLogin = true;
+          });
+      } else {
+        this.$q.notify({
+          message: "Email not found",
+          color: "red",
+          position: "top",
+        });
+      }
+      this.$q.loading.hide();
+    },
     clearData() {
       this.isSignUp = true;
       this.isLogin = false;
@@ -916,7 +983,6 @@ export default {
       } else if (this.indicator == "in_09") {
         url = this.path_api + "/in_09.php";
       }
-      console.log(obj);
 
       let data = await Axios.post(url, obj);
       this.downloadData = data.data;
@@ -932,9 +998,15 @@ export default {
       this.email = result.data[0].email;
 
       if (result.data[0].query == "") {
-        this.queryList = []
+        this.queryList = [];
       } else {
-        this.queryList = JSON.parse(result.data[0].query) || []
+        let queryList = JSON.parse(result.data[0].query) || [];
+        queryList.forEach((element, index) => {
+          element.index = index;
+        });
+
+        console.log(queryList);
+        this.queryList = queryList;
       }
     },
 
@@ -980,8 +1052,6 @@ export default {
       };
       let data = await Axios.post(url, obj);
 
-
-
       if (data.data == 0) {
         this.$q.notify({
           message: "This email has already been taken.",
@@ -1005,7 +1075,7 @@ export default {
 
       this.loadingHide();
     },
-    deleteQuery(index) {
+    deleteQuery() {
       this.$q
         .dialog({
           title: "Confirm",
@@ -1014,43 +1084,72 @@ export default {
           persistent: true,
         })
         .onOk(() => {
-          this.queryList.splice(index, 1);
+          this.queryList.splice(this.querySelected.index, 1);
+          this.querySelected = "--- Please Select ---";
           this.$q.notify({
             message: "Query Deleted",
             color: "teal",
           });
+
           this.updateQueryToDb();
         });
     },
     saveQuery() {
-      if (this.isEditQuery) {
-        this.queryList[this.queryIndexTemp] = this.query;
-        this.queryList.push("");
-        this.queryList.pop();
+      if (!this.query) {
         this.$q.notify({
-          message: "Query Updated",
-          color: "teal",
+          message: "Please enter query name.",
+          color: "red",
         });
-        this.isShowSaveQuery = false;
-        this.updateQueryToDb();
       } else {
-        this.queryList.push(this.query);
-        this.query = "";
-        this.isShowSaveQuery = false;
-        this.$q.notify({
-          message: "Query Added",
-          color: "teal",
-        });
-        this.updateQueryToDb();
+        if (this.isEditQuery) {
+          this.queryList[this.queryIndexTemp].label = this.query;
+          this.queryList.push("");
+          this.queryList.pop();
+          this.$q.notify({
+            message: "Query Updated",
+            color: "teal",
+          });
+          this.isShowSaveQuery = false;
+          this.updateQueryToDb();
+        } else {
+          let query = {
+            indicator: this.indicator,
+            exporting: this.exporting,
+            importing: this.importing,
+            exportingSector: this.sector,
+            year: this.year,
+            name: this.query,
+          };
+
+          this.queryList.push({
+            label: this.query,
+            value: query,
+          });
+          this.query = "";
+          this.isShowSaveQuery = false;
+          this.$q.notify({
+            message: "Query Added",
+            color: "teal",
+          });
+          this.updateQueryToDb();
+        }
       }
     },
-    editQuery(index) {
+    editQuery() {
+      let index = this.querySelected.index;
       this.queryIndexTemp = index;
-      this.query = this.queryList[index];
+      this.query = this.queryList[index].label;
       this.isShowSaveQuery = true;
       this.isEditQuery = true;
     },
-    loadQuery() {},
+    loadQuery() {
+      this.exporting = this.querySelected.value.exporting;
+      this.importing = this.querySelected.value.importing;
+      this.sector = this.querySelected.value.exportingSector;
+      this.year = this.querySelected.value.year;
+      this.indicator = this.querySelected.value.indicator;
+      this.isShowQueryList = false;
+    },
     async updateQueryToDb() {
       this.loadingShow();
       const url = this.path_api2 + "/update_query.php";
@@ -1061,6 +1160,7 @@ export default {
       let data = await Axios.post(url, obj);
 
       // console.log(data.data);
+      this.getEmail(this.$q.sessionStorage.getItem("uid"));
 
       this.loadingHide();
     },

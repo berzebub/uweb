@@ -13,10 +13,10 @@
         <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Regional Integration</span>
           <div class="q-mt-xs font-content">
-            <span
-              >ESCAP DigiSRII provides insights on the structure and progress of
-              regional integration in Asia-Pacific</span
-            >
+            <span>
+              ESCAP DigiSRII provides insights on the structure and progress of
+              regional integration in Asia-Pacific
+            </span>
           </div>
         </div>
         <div class="col-4" align="center">
@@ -43,21 +43,18 @@
     <!-- Global value chains -->
     <div class="col-12 row q-pa-sm bg-white" style="margin-top: 10px;">
       <div class="col-4 self-center q-pa-xs">
-        <q-img
-          src="../../public/test.png"
-          style="height: calc(50vh - 80px); object-fit: cover;"
-        ></q-img>
+        <q-img src="../../public/test.png" style="height: calc(50vh - 80px); object-fit: cover;"></q-img>
       </div>
 
       <div class="col-8 row q-pa-md q-py-md">
         <div class="col-12 q-mb-md q-pt-md q-pl-md">
           <span class="text-h4 text-bold">Global value chains</span>
           <div class="q-mt-xs font-content">
-            <span
-              >Gain insight into your economy's participation in GVCs. Uncover
+            <span>
+              Gain insight into your economy's participation in GVCs. Uncover
               the sources of intermediate inputs and the destinations of
-              domestic value-added</span
-            >
+              domestic value-added.
+            </span>
           </div>
         </div>
         <div class="col-4" align="center">

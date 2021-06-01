@@ -141,13 +141,9 @@
               <p class="font-graph">About</p>
               <div style="width:90%;border-bottom:2px solid #283891"></div>
               <div style="height:20px"></div>
-              <span class="font-content">
-                This online data visualization and distribution platform has
-                been developed with a focus on understanding global value chain
-                linkages between Asia-Pacific and Latin American economies, in
-                addition to more broadly understanding value-chain linkages
-                between economies around the world.
-              </span>
+              <span
+                class="font-content"
+              >RIVA Value Chain Analyzer in an online tool developed by ESCAP to support policy makers, analysts and researchers to better understand their economy's integration in global value chains (GVCs). RIVA Value Chain Analyzer provides data and indicators based on estimated trade in value added flows between 72 economies in 38 sectors for 2007, 2011 and 2017.</span>
             </div>
           </div>
         </q-card-section>
@@ -165,15 +161,17 @@
             <div>
               <p class="font-graph">Terms of use</p>
               <div style="width:90%;border-bottom:2px solid #283891"></div>
-              <p class="font-content q-pt-md" align="left">
-                All users may publish information taken directly or derived from
-                the platform, on the condition that:
-              </p>
+              <p
+                class="font-content q-pt-md"
+                align="left"
+              >All users may publish information taken directly or derived from the platform, on the condition that:</p>
               <ul class="font-content" align="left">
                 <li>
-                  The platform is acknowledged, cited as ESCAP-FEALAC Global
-                  Value Chain Portal, accessed (month year), available at
-                  https://
+                  The platform in acknowledged, cited as ESCAP RIVA, accessed (month year), available at
+                  <u
+                    class="cursor-pointer"
+                    @click="gotoRiva()"
+                  >riva.negotiatetrade.org</u>
                 </li>
                 <li>
                   Any conclusions or analyses based on the data and
@@ -211,6 +209,9 @@ export default {
     };
   },
   methods: {
+    gotoRiva() {
+      window.open("https://riva.negotiatetrade.org");
+    },
     toFealac() {
       window.open("https://www.fealac.org/new/m/index.do");
     },
