@@ -44,12 +44,14 @@
                 size="md"
                 class="cursor-pointer"
                 @click="isShowQueryList = true"
+                title="Open query"
               />
               <q-icon
                 name="fas fa-save"
                 size="md"
                 class="q-px-lg cursor-pointer"
                 @click="isEditQuery = false,query = '',isShowSaveQuery = true,queryIndexTemp = ''"
+                title="Save query"
               />
             </div>
             <div align="right" class="q-px-lg q-pb-sm col">

@@ -240,7 +240,7 @@
          style="background-color:#E5E1E1;"
         >
           <div   style="background-color:#F8F8F6; width:350px;">
-            <q-img src="../../public/images/image-58.png" style="width:350px;"></q-img>
+            <q-img src="../../public/images/sva.jpg" style="width:350px;"></q-img>
           </div>
           <div class="col q-py-md font-content" align="center">
             <div class="text-black"  v-if="exportingSelected ==''">
@@ -914,6 +914,13 @@ export default {
             console.log(country);
       this.isComparisonChart = true;
 
+      let ctext = ''
+      if (this.continent.length > 0){
+        ctext = this.continent
+      } else {
+        ctext = this.exportingSelected.label
+      }
+
       Highcharts.chart("container1", {
         chart: {
           type: "column",
@@ -924,7 +931,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto",
           },
-          text: `How are ${this.continent} economies’ exports to ${this.importingSelected.label} produced and utilised?`,
+          text: `How are ${ctext} economies’ exports to ${this.importingSelected.label} produced and utilised?`,
         },
         xAxis: {
           labels: {

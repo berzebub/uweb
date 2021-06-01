@@ -238,7 +238,7 @@
         </div>
         <div class="row">
           <div class="col-3 full-height">
-            <q-img class="fit" src="../../public/images/image-56.png"></q-img>
+            <q-img class="fit" src="../../public/images/bl.jpg"></q-img>
           </div>
           <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
             <p align="center" class="font-24">Where does imported content come from?</p>
@@ -312,7 +312,7 @@
         </div>
         <div class="row">
           <div class="col-3 full-height">
-            <q-img class="fit" src="../../public/images/image-56.png"></q-img>
+            <q-img class="fit" src="../../public/images/bl.jpg"></q-img>
           </div>
           <div class="col" style="background-color:#E5E1E1;padding:80px 0px">
             <p align="center" class="font-24">Where does imported content come from?</p>
@@ -1200,6 +1200,12 @@ export default {
       var countryName = this.importingSelected.label;
       var exportName = this.exportingSelected.label;
       var continentName = this.continent;
+      let ctext = "";
+      if (this.continent.length > 0) {
+        ctext = this.continent;
+      } else {
+        ctext = this.exportingSelected.label;
+      }
       var chart = Highcharts.chart(
         "container1",
         {
@@ -1218,7 +1224,7 @@ export default {
               },
               drillup: function (e) {
                 chart.setTitle({
-                  text: `Where do ${continentName} economies' imported content in exports to ${countryName} come from?`,
+                  text: `Where do ${ctext} economies' imported content in exports to ${countryName} come from?`,
                 });
                 chart.setSubtitle({
                   text:
@@ -1347,7 +1353,7 @@ export default {
               fontSize: "24px",
             },
 
-            text: `Where do ${this.continent} economies' imported content in exports to ${this.importingSelected.label} come from?`,
+            text: `Where do ${ctext} economies' imported content in exports to ${this.importingSelected.label} come from?`,
           },
           subtitle: {
             style: {
@@ -2155,6 +2161,12 @@ export default {
       var sourceName = this.sourceEconomySelected.label;
       var importName = this.importingSelected.label;
       var continentName = this.continent;
+      let ctext = "";
+      if (this.continent.length > 0) {
+        ctext = this.continent;
+      } else {
+        ctext = this.exportingSelected.label;
+      }
       var chart2 = Highcharts.chart(
         "container2",
         {
@@ -2172,7 +2184,7 @@ export default {
               },
               drillup: function (e) {
                 chart2.setTitle({
-                  text: `How is ${sourceName}'s value-added in ${continentName} economies' exports to ${importName} distributed across sectors?`,
+                  text: `How is ${sourceName}'s value-added in ${ctext} economies' exports to ${importName} distributed across sectors?`,
                 });
                 chart2.setSubtitle({
                   text:
@@ -2187,7 +2199,7 @@ export default {
               fontFamily: "roboto",
             },
 
-            text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.continent} economies' exports to ${this.importingSelected.label} distributed across sectors?`,
+            text: `How is ${this.sourceEconomySelected.label}'s value-added in ${ctext} economies' exports to ${this.importingSelected.label} distributed across sectors?`,
           },
           subtitle: {
             style: {

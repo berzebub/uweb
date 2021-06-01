@@ -212,7 +212,7 @@
           "
         >
           <div class="col-3 full-height">
-            <q-img class src="../../public/forwardlinks.png"></q-img>
+            <q-img class src="../../public/fl.jpg"></q-img>
           </div>
           <div class="col-12 self-center" style="max-width:1000px;width:100%;margin:auto;">
             <p align="center" class="font-24">
@@ -1401,6 +1401,12 @@ export default {
 
       this.isChart2 = true;
       var expCountry = this.exp_country.region;
+      let ctext = "";
+      if (expCountry.length > 0) {
+        ctext = expCountry;
+      } else {
+        ctext = this.exp_country.label;
+      }
       var chart = Highcharts.chart(
         "container2",
         {
@@ -1419,7 +1425,7 @@ export default {
               },
               drillup: function (e) {
                 chart.setTitle({
-                  text: `Where do ${expCountry} economies contribute the most towards export production? `,
+                  text: `Where do ${ctext} economies contribute the most towards export production? `,
                 });
                 chart.setSubtitle({
                   text:
@@ -1570,7 +1576,7 @@ export default {
             style: {
               fontSize: "24px",
             },
-            text: `Where do ${this.exp_country.region} economies contribute the most towards export production? `,
+            text: `Where do ${ctext} economies contribute the most towards export production? `,
           },
           subtitle: {
             style: {
@@ -2375,6 +2381,12 @@ export default {
 
       this.isChart4 = true;
       var expCountry = this.exp_country.region;
+      let ctext = "";
+      if (expCountry.length > 0) {
+        ctext = expCountry;
+      } else {
+        ctext = this.exp_country.label;
+      }
       var impCountry = this.imp_country.label;
       var chart = Highcharts.chart(
         "container4",
@@ -2390,7 +2402,7 @@ export default {
               },
               drillup: function (e) {
                 chart.setTitle({
-                  text: `Which sectors in ${expCountry} economies' are most reliant on export production in ${impCountry}?`,
+                  text: `Which sectors in ${ctext} economies' are most reliant on export production in ${impCountry}?`,
                 });
               },
             },
@@ -2400,7 +2412,7 @@ export default {
               fontSize: "24px",
               fontFamily: "roboto",
             },
-            text: `How are ${expCountry} economies' contribution to export production in ${this.imp_country.label} distributed across sectors?`,
+            text: `How are ${ctext} economies' contribution to export production in ${this.imp_country.label} distributed across sectors?`,
           },
           credits: {
             enabled: false,

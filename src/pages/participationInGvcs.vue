@@ -144,7 +144,7 @@
       <div class="bg-white" v-else>
         <div class="row">
           <div class="col-3">
-            <q-img cover src="../../public/images/image-55.png?c5e2"></q-img>
+            <q-img cover src="../../public/images/pgvc.jpg"></q-img>
           </div>
           <div class="col-9 q-py-lg" style="background-color:#E5E1E1">
             <div class="q-mt-md">
@@ -623,7 +623,7 @@ export default {
             fontFamily: "roboto",
           },
 
-          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related <br> compared to other ${region} economies?`,
+          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related compared across ${region} economies?`,
         },
       });
     },
