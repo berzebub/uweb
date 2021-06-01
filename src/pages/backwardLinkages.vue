@@ -1212,10 +1212,17 @@ export default {
                 chart.setTitle({
                   text: `Where does ${e.point.name}'s imported content in exports to ${countryName} come from?`,
                 });
+                chart.setSubtitle({
+                  text: "",
+                });
               },
               drillup: function (e) {
                 chart.setTitle({
                   text: `Where do ${continentName} economies' imported content in exports to ${countryName} come from?`,
+                });
+                chart.setSubtitle({
+                  text:
+                    "Click on a bar to see the individual economies associated with a region.",
                 });
               },
             },
@@ -2159,10 +2166,17 @@ export default {
                 chart2.setTitle({
                   text: `How is ${sourceName}'s value-added in ${e.point.name}'s exports to ${importName} distributed across sectors?`,
                 });
+                chart2.setSubtitle({
+                  text: "",
+                });
               },
               drillup: function (e) {
                 chart2.setTitle({
-                  text: `How is ${sourceName}'s value-added in ${continentName} economies' exports to ${importName} <br>distributed across sectors?`,
+                  text: `How is ${sourceName}'s value-added in ${continentName} economies' exports to ${importName} distributed across sectors?`,
+                });
+                chart2.setSubtitle({
+                  text:
+                    "Click on a bar to see the individual economies associated with a region.",
                 });
               },
             },
@@ -2377,7 +2391,6 @@ export default {
             useHTML: true,
             headerFormat: "",
             pointFormatter: function () {
-              console.log(this);
               let textShow = "";
               if (this.value >= 1000) {
                 textShow = (this.value / 1000).toFixed(2) + " billion";

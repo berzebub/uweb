@@ -1413,10 +1413,17 @@ export default {
                 chart.setTitle({
                   text: `Where does ${e.point.name} contribute the most towards export production?`,
                 });
+                chart.setSubtitle({
+                  text: "",
+                });
               },
               drillup: function (e) {
                 chart.setTitle({
                   text: `Where do ${expCountry} economies contribute the most towards export production? `,
+                });
+                chart.setSubtitle({
+                  text:
+                    "Click on a bar to see the individual economies associated with a region.",
                 });
               },
             },
@@ -1484,7 +1491,7 @@ export default {
             headerFormat: "",
             pointFormatter: function () {
               // if (this.series.name != "Series 1") {
-              console.log(this.series.name);
+              // console.log(this);
               if (
                 this.series.name == "Asia-Pacific" ||
                 this.series.name == "Europe" ||
@@ -1494,13 +1501,12 @@ export default {
               ) {
                 return (
                   "<div class='text-bold'>" +
-                  this.series.name +
+                  this.name +
                   "</div>" +
-                  "<div> " +
+                  this.series.name +
+                  "<div> Share: " +
                   Number(this.y).toFixed(2) +
-                  "% (" +
-                  Number(this.valueM).toFixed(2) +
-                  " million)</div>"
+                  "% </div>"
                 );
               } else {
                 return (
@@ -1509,7 +1515,7 @@ export default {
                   "</div>" +
                   "<div> " +
                   Number(this.y).toFixed(2) +
-                  "% (" +
+                  "% ($" +
                   Number(this.sumValueM).toFixed(2) +
                   " million)</div>"
                 );
@@ -1565,6 +1571,14 @@ export default {
               fontSize: "24px",
             },
             text: `Where do ${this.exp_country.region} economies contribute the most towards export production? `,
+          },
+          subtitle: {
+            style: {
+              fontSize: "16px",
+              fontFamily: "roboto",
+            },
+
+            text: `Click on a bar to see the individual economies associated with a region`,
           },
           exporting: {
             buttons: {
@@ -1680,6 +1694,12 @@ export default {
 
       this.isChart3 = true;
 
+      let sector5 = [];
+      for (let i = 14; i < getData.length; i++) {
+        sector5.push(getData[i]);
+      }
+      sector5.sort((a, b) => Number(b.percent) - Number(a.percent));
+
       Highcharts.chart("container3", {
         chart: {
           height: (9 / 16) * 100 + "%", // 16:9 ratio
@@ -1790,7 +1810,7 @@ export default {
           style: {
             fontSize: "24px",
           },
-          text: `Which sectors in ${this.exp_country.label} are most reliant on export production in ${this.imp_country.label}?`,
+          text: `How is ${this.exp_country.label}'s contribution to export production in ${this.imp_country.label} distributed across sectors?`,
         },
         credits: {
           enabled: false,
@@ -1800,19 +1820,23 @@ export default {
             fontSize: "14px",
           },
           useHTML: true,
-          text: `<br/>${this.exp_country.label}'s contribution to ${
+          text: `<br/>Gross exports of ${this.exp_country.label} to  ${
             this.imp_country.label
-          }'s export production: $${
-            getDataSub.contributionto < 1000
-              ? getDataSub.contributionto + " million"
-              : (getDataSub.contributionto / 1000).toFixed(2) + " billion"
-          } / ${this.exp_country.label}'s gross exports to ${
-            this.imp_country.label
-          }: $${
+          } amount to 's contribution to $${
             getDataSub.exportto < 1000
               ? getDataSub.exportto + " million"
               : (getDataSub.exportto / 1000).toFixed(2) + " billion"
-          }`,
+          } in ${this.year}. Of these exports, $${
+            getDataSub.contributionto < 1000
+              ? getDataSub.contributionto + " million"
+              : (getDataSub.contributionto / 1000).toFixed(2) + " billion"
+          } is used by ${
+            this.imp_country.label
+          } for its own export production, and come mainly from the following exporting sectors in ${
+            this.exp_country.label
+          } : '${sector5[0].name}', '${sector5[1].name}', '${
+            sector5[2].name
+          }', '${sector5[3].name}', '${sector5[4].name}'`,
           align: "left",
         },
         exporting: {
@@ -1911,9 +1935,9 @@ export default {
           cancelGraph6 = c;
         }),
       });
-      console.log(urlLink);
+      // console.log(urlLink);
       getData = getData.data;
-      console.log(getData);
+      // console.log(getData);
       let countryTemp = getData.map((x) => x.exp_country);
       this.countryList = [...new Set(countryTemp)];
       this.countryList.sort();
@@ -2376,7 +2400,7 @@ export default {
               fontSize: "24px",
               fontFamily: "roboto",
             },
-            text: `Which sectors in ${expCountry} economies' are most reliant on export production in ${this.imp_country.label}?`,
+            text: `How are ${expCountry} economies' contribution to export production in ${this.imp_country.label} distributed across sectors?`,
           },
           credits: {
             enabled: false,
@@ -2436,7 +2460,7 @@ export default {
             useHTML: true,
             headerFormat: "",
             pointFormatter: function () {
-              console.log(this.series.name);
+              // console.log(this.series.name);
               if (this.series.name != "Series 1") {
                 return (
                   "<div> <span class='text-bold'>" +
