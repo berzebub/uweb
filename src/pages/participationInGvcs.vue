@@ -157,7 +157,7 @@
             >
               <p align="left">
                 GVC participation matters for development. GVCs support
-                efficient production and technology diffusion, and access to
+                efficient production and technology diffusion, and accesfs to
                 capital and inputs thereby increasing productivity and income
                 growth, and reducing poverty.
               </p>
@@ -189,7 +189,7 @@
             <div style="height:450px;" >
         <div class="row">
           <div class="col-3">
-            <q-img cover src="../../public/images/image-55.png?c5e2"></q-img>
+            <q-img cover src="../../public/images/pgvc.jpg"></q-img>
           </div>
           <div class="col-9 q-py-lg" style="background-color:#E5E1E1">
             <div class="q-mt-md">

@@ -347,7 +347,7 @@
          style="background-color:#E5E1E1;"
         >
           <div   style="background-color:#F8F8F6; width:350px;">
-            <q-img src="../../public/images/image-58.png" style="width:350px;"></q-img>
+            <q-img src="../../public/images/sva.jpg" style="width:350px;"></q-img>
           </div>
           <div class="col q-py-md" align="center">
             <div class="text-black"  v-if="exportingSelected ==''">
