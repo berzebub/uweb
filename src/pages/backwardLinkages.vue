@@ -383,7 +383,7 @@
               <div id="container1"></div>
             </div>
 
-            <div v-if="isChart1 &&(errorGraph2 || errorGraph1 || errorChart2 || errorChart3)" >
+            <div v-if="isChart1 &&(errorGraph2 || errorGraph1 || errorChart2 || errorChart3)">
               <error-graph
                 :content="
                 `Where do ${continent} economies' imported content in exports to ${importingSelected.label} come from?`
@@ -401,11 +401,15 @@
             <div align="center" class="q-pa-lg" v-if="!isChart2">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart2 && (!errorChart2 && !errorGraph1 && !errorGraph2 && !errorChart3)">
+            <div
+              v-show="isChart2 && (!errorChart2 && !errorGraph1 && !errorGraph2 && !errorChart3)"
+            >
               <div id="container3"></div>
             </div>
 
-            <error-graph v-if="isChart2 && (errorChart2 || errorGraph1 || errorGraph2 || errorChart3)"></error-graph>
+            <error-graph
+              v-if="isChart2 && (errorChart2 || errorGraph1 || errorGraph2 || errorChart3)"
+            ></error-graph>
           </div>
 
           <!-- GRAPH1 in select by source economy  -->
@@ -414,7 +418,9 @@
             <div align="center" class="q-pa-lg" v-if="!isChart3">
               <q-spinner-pie color="primary" size="100px" />
             </div>
-            <div v-show="isChart3 && (!errorChart3 && !errorChart2 && !errorGraph1 && !errorGraph2)">
+            <div
+              v-show="isChart3 && (!errorChart3 && !errorChart2 && !errorGraph1 && !errorGraph2)"
+            >
               <div id="container2"></div>
             </div>
 
@@ -945,17 +951,22 @@ export default {
         },
         tooltip: {
           useHTML: true,
-          pointFormatter: function () {
-            return (
-              "<div> <span class='text-bold'>" +
-              this.name +
-              "</span>" +
-              "<br>" +
-              "Value: $" +
-              this.value +
-              " million" +
-              "</div>"
+          formatter: function () {
+            let sectorShow = this.key.substring(0, this.key.indexOf("("));
+            let percentShow = this.key.substring(
+              this.key.indexOf("(") + 1,
+              this.key.length - 1
             );
+            console.log(sectorShow);
+            let tempShowText = "";
+            if (this.point.value >= 1000) {
+              tempShowText = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempShowText = this.point.value.toFixed(2) + " million";
+            }
+
+            return `<div class='text-weight-bold'>${sectorShow}</div><div>Value : $${tempShowText}</div>
+            <div>Share: ${percentShow}</div>`;
           },
         },
       });
@@ -1254,10 +1265,31 @@ export default {
           },
 
           tooltip: {
-            useHTML: true,
-            headerFormat: "<div class='text-weight-bold'>{point.key}</div>",
-            pointFormat:
-              "<div> Value : {point.y}% (${point.value} million)</div>",
+            formatter: function () {
+              if (
+                this.series.name == "Asia-Pacific" ||
+                this.series.name == "Europe" ||
+                this.series.name == "Latin America" ||
+                this.series.name == "North America" ||
+                this.series.name == "Rest of the world"
+              ) {
+                if (this.point.value >= 1000) {
+                  let tempNumber = (this.point.value / 1000).toFixed(1);
+                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: ${tempNumber} billion<br>Share: ${this.y}%`;
+                } else {
+                  let tempNumber = this.point.value.toFixed(1);
+                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: ${tempNumber} million<br>Share: ${this.y}%`;
+                }
+              } else {
+                if (this.point.value >= 1000) {
+                  let tempNumber = (this.point.value / 1000).toFixed(1);
+                  return `<b>${this.point.name}</b><br>Value: ${tempNumber} billion<br>Share: ${this.y}%`;
+                } else {
+                  let tempNumber = this.point.value.toFixed(1);
+                  return `<b>${this.point.name}</b><br>Value: ${tempNumber} million<br>Share: ${this.y}%`;
+                }
+              }
+            },
           },
           plotOptions: {
             column: {
@@ -1309,6 +1341,13 @@ export default {
             },
 
             text: `Where do ${this.continent} economies' imported content in exports to ${this.importingSelected.label} come from?`,
+          },
+          subtitle: {
+            style: {
+              fontSize: "16px",
+            },
+
+            text: `Click on a bar to see the individual economies associated with a region.`,
           },
           exporting: {
             buttons: {
@@ -1415,7 +1454,8 @@ export default {
           ? getDataSub.data.fromsource
           : (getDataSub.data.fromsource / 1000).toFixed(2);
 
-      let fromsouceUnitSub = getDataSub.data.fromsource < 1000 ? "M" : "B";
+      let fromsouceUnitSub =
+        getDataSub.data.fromsource < 1000 ? "million" : "billion";
       let fromsouceUnitMain =
         getDataSub.data.fromsource < 1000 ? "million" : "billion";
       // -------------------------------
@@ -1440,6 +1480,11 @@ export default {
       if (!getData.length) {
         this.errorChart2 = true;
       }
+      let top5sector = [];
+      for (let i = 14; i < getData.length; i++) {
+        top5sector.push(getData[i]);
+      }
+      top5sector.sort((a, b) => b.value - a.value);
 
       Highcharts.chart("container3", {
         chart: {
@@ -1546,7 +1591,7 @@ export default {
           style: {
             fontSize: "14px",
           },
-          text: `<br/>${this.exportingSelected.label}'s imported content from ${this.sourceEconomySelected.label} in exports to ${this.importingSelected.label} : $${fromsouceConvert} ${fromsouceUnitSub} / ${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${exportToConvert} ${exportToUnitSub}`,
+          text: `Gross exports of ${this.exportingSelected.label} to ${this.importingSelected.label} amount to $${exportToConvert} ${exportToUnitSub} in ${this.displayYear}. Of these exports, $${fromsouceConvert} ${fromsouceUnitSub} is imported content that comes from ${this.sourceEconomySelected.label}, mainly used in the following exporting sectors in ${this.exportingSelected.label} : '${top5sector[0].name}', '${top5sector[1].name}', '${top5sector[2].name}', '${top5sector[3].name}', '${top5sector[4].name}'<br/>`,
           align: "left",
         },
 
@@ -1631,9 +1676,22 @@ export default {
         },
         tooltip: {
           useHTML: true,
-          pointFormatter: function () {
-            // console.log(this);
-            return `<div class='text-weight-bold'>${this.name}</div><div>Value : $${this.value} million</div>`;
+          formatter: function () {
+            let sectorShow = this.key.substring(0, this.key.indexOf("("));
+            let percentShow = this.key.substring(
+              this.key.indexOf("(") + 1,
+              this.key.length - 1
+            );
+
+            let tempShowText = "";
+            if (this.point.value >= 1000) {
+              tempShowText = (this.point.value / 1000).toFixed(2) + " billion";
+            } else {
+              tempShowText = this.point.value.toFixed(2) + " million";
+            }
+
+            return `<div class='text-weight-bold'>${sectorShow}</div><div>Value : $${tempShowText}</div>
+            <div>Share: ${percentShow}</div>`;
           },
         },
       });
@@ -2115,7 +2173,15 @@ export default {
               fontFamily: "roboto",
             },
 
-            text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.continent} economies' exports to ${this.importingSelected.label} <br>distributed across sectors?`,
+            text: `How is ${this.sourceEconomySelected.label}'s value-added in ${this.continent} economies' exports to ${this.importingSelected.label} distributed across sectors?`,
+          },
+          subtitle: {
+            style: {
+              fontSize: "16px",
+              fontFamily: "roboto",
+            },
+
+            text: `Click on a bar to see the individual sectors associated with a sector group`,
           },
           credits: {
             enabled: false,
@@ -2311,17 +2377,39 @@ export default {
             useHTML: true,
             headerFormat: "",
             pointFormatter: function () {
-              return (
-                "<div> <span class='text-bold'>" +
-                this.name +
-                "</span>" +
-                "<br>" +
-                " Value: " +
-                this.y +
-                "% ($" +
-                Number(this.value).toFixed(2) +
-                " million)</div>"
-              );
+              console.log(this);
+              let textShow = "";
+              if (this.value >= 1000) {
+                textShow = (this.value / 1000).toFixed(2) + " billion";
+              } else {
+                textShow = this.value.toFixed(2) + " million";
+              }
+              if (this.category >= 0) {
+                return (
+                  "<div> <span class='text-bold'>" +
+                  this.name +
+                  "</span><br>" +
+                  this.series.name +
+                  "<br>" +
+                  " Value: $" +
+                  textShow +
+                  "<br> Share: " +
+                  this.y +
+                  "%</div>"
+                );
+              } else {
+                return (
+                  "<div> <span class='text-bold'>" +
+                  this.name +
+                  "</span>" +
+                  "<br>" +
+                  " Value: $" +
+                  textShow +
+                  "<br> Share: " +
+                  this.y +
+                  "%</div>"
+                );
+              }
             },
           },
         },

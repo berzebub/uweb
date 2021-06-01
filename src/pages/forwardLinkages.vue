@@ -148,7 +148,7 @@
               class="fit font-20"
               @click="selectedActiveBy('Exporting')"
             >
-              select by Exporting
+              Select by exporting
               <br />sector
             </q-btn>
           </div>
@@ -160,7 +160,7 @@
               class="fit font-20"
               @click="selectedActiveBy('Economy')"
             >
-              select by Importing
+              Select by importing
               <br />economy
             </q-btn>
           </div>
