@@ -251,6 +251,7 @@
               {{exportingSelected.label}}’s gross exports can be divided into 5 parts, depending
               <br />on where they come from and how they are used:
             </div>
+            111
             <q-img style="width:850px;" src="../../src/assets/titlesva.jpg"></q-img>
           </div>
         </div>
