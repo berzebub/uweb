@@ -30,7 +30,9 @@
                 >
                   <template v-slot:prepend v-if="showExportingCountry">
                     <gb-flag
-                      v-if="showExportingCountry.code && showExportingCountry.code!='TW'"
+                      v-if="
+                        showExportingCountry.code && showExportingCountry.code != 'TW'
+                      "
                       :code="showExportingCountry.code"
                       size="small"
                     />
@@ -40,7 +42,7 @@
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                       <q-item-section avatar>
                         <gb-flag
-                          v-if="scope.opt.code && scope.opt.code !='TW'"
+                          v-if="scope.opt.code && scope.opt.code != 'TW'"
                           :code="scope.opt.code"
                           size="small"
                         />
@@ -48,9 +50,7 @@
                       <q-item-section>
                         <q-item-label v-html="scope.opt.label" />
                         <q-item-label caption>
-                          {{
-                          scope.opt.description
-                          }}
+                          {{ scope.opt.description }}
                         </q-item-label>
                       </q-item-section>
                     </q-item>
@@ -79,7 +79,7 @@
             <div class="col q-px-md" v-if="activeBy == 'Exporting'">
               <div>Exporting sector</div>
               <div>
-                <q-select
+                <!-- <q-select
                   bg-color="white"
                   v-model="sector"
                   dense
@@ -88,7 +88,34 @@
                   map-options
                   outlined
                   @input="selectedSector"
-                ></q-select>
+                ></q-select> -->
+
+                <q-select
+                  bg-color="white"
+                  dense
+                  filled
+                  v-model="sector"
+                  :options="sectorOptions"
+                  map-options
+                  emit-value
+                  @input="selectedSector()"
+                  outlined
+                >
+                  <template v-slot:option="scope">
+                    <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                      <q-item-section>
+                        <q-item-label
+                          v-html="scope.opt.label"
+                          :class="
+                            scope.opt.disable
+                              ? 'text-black text-weight-bolder'
+                              : 'text-black'
+                          "
+                        />
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
               </div>
             </div>
             <div class="col-6 q-px-md" v-if="activeBy == 'Economy'">
@@ -108,7 +135,9 @@
                 >
                   <template v-slot:prepend v-if="showimportingCountry">
                     <gb-flag
-                      v-if="showimportingCountry.code && showimportingCountry.code!='TW'"
+                      v-if="
+                        showimportingCountry.code && showimportingCountry.code != 'TW'
+                      "
                       :code="showimportingCountry.code"
                       size="small"
                     />
@@ -118,7 +147,7 @@
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                       <q-item-section avatar>
                         <gb-flag
-                          v-if="scope.opt.code && scope.opt.code !='TW'"
+                          v-if="scope.opt.code && scope.opt.code != 'TW'"
                           :code="scope.opt.code"
                           size="small"
                         />
@@ -126,9 +155,7 @@
                       <q-item-section>
                         <q-item-label v-html="scope.opt.label" />
                         <q-item-label caption>
-                          {{
-                          scope.opt.description
-                          }}
+                          {{ scope.opt.description }}
                         </q-item-label>
                       </q-item-section>
                     </q-item>
@@ -144,7 +171,7 @@
             <q-btn
               :class="activeBy == 'Exporting' ? 'text-amber-12' : 'text-white '"
               no-caps
-              style="background-color:#2C2F30"
+              style="background-color: #2c2f30"
               class="fit font-20"
               @click="selectedActiveBy('Exporting')"
             >
@@ -156,7 +183,7 @@
             <q-btn
               :class="activeBy == 'Economy' ? 'text-amber-12' : 'text-white '"
               no-caps
-              style="background-color:#2C2F30"
+              style="background-color: #2c2f30"
               class="fit font-20"
               @click="selectedActiveBy('Economy')"
             >
@@ -168,17 +195,19 @@
       </div>
 
       <sorry-duplicate
-        v-show="exp_country.iso == imp_country.iso && activeBy == 'Economy' && exp_country.iso != null"
+        v-show="
+          exp_country.iso == imp_country.iso &&
+          activeBy == 'Economy' &&
+          exp_country.iso != null
+        "
       ></sorry-duplicate>
 
       <!--  -->
 
       <div
         class="row"
-        style="background-color:#E5E1E1;"
-        v-if="
-          (activeBy == 'Exporting' && exp_country && sector && year) 
-        "
+        style="background-color: #e5e1e1"
+        v-if="activeBy == 'Exporting' && exp_country && sector && year"
       >
         <div class="row col-12 bg-white">
           <div class="col-6">
@@ -187,7 +216,11 @@
             </div>
             <div>
               <ul>
-                <li>Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute the most towards export production?</li>
+                <li>
+                  Where does
+                  {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                  contribute the most towards export production?
+                </li>
                 <li>How does this compare across economies in the same region?</li>
               </ul>
             </div>
@@ -198,7 +231,11 @@
             </div>
             <div>
               <ul>
-                <li>Which sectors in {{exp_country.label !=null? exp_country.label: 'an economy'}} are most reliant on export production?</li>
+                <li>
+                  Which sectors in
+                  {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                  are most reliant on export production?
+                </li>
                 <li>How does this compare across economies in the same region?</li>
               </ul>
             </div>
@@ -208,64 +245,62 @@
           class="row col-12"
           v-if="
             (activeBy == 'Economy' && exp_country.iso != imp_country.iso) ||
-              activeBy == 'Exporting'
+            activeBy == 'Exporting'
           "
         >
           <div class="col-3 full-height">
             <q-img class src="../../public/images/fl.jpg"></q-img>
           </div>
-          <div class="col-12 self-center" style="max-width:1000px;width:100%;margin:auto;">
+          <div
+            class="col-12 self-center"
+            style="max-width: 1000px; width: 100%; margin: auto"
+          >
             <p align="center" class="font-24">
-              Where does {{ exp_country.label }} contribute towards export
-              production?
+              Where does {{ exp_country.label }} contribute towards export production?
             </p>
             <div align="center" class="q-px-lg">
               <div align="center" class="q-px-xs font-content">
                 <p align="left">
-                  Some part of {{ exp_country.label }}’s gross exports consist
-                  of intermediate inputs that are used by the direct importer to
-                  produce exports for third economies
+                  Some part of {{ exp_country.label }}’s gross exports consist of
+                  intermediate inputs that are used by the direct importer to produce
+                  exports for third economies
                 </p>
               </div>
 
               <div>
                 <div class="row justify-center">
-                  <div class="col q-px-xs" style="width:170px;">
+                  <div class="col q-px-xs" style="width: 170px">
                     Exporting economy &nbsp;:
                     <br />
                     {{ exp_country.label }}
                   </div>
                   <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
 
-                  <div class="col q-px-xs" style="width:170px;">
+                  <div class="col q-px-xs" style="width: 170px">
                     Exporting sector
                     <br />
                     <div class>
                       <span v-if="activeBy == 'Exporting'">
-                        {{
-                        showSector.label
-                        }}
+                        {{ showSector.label }}
                       </span>
                       <span v-else>All</span>
                     </div>
                   </div>
 
-                  <div class="col-1 q-px-xs" style="width:65px">
-                    <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                  <div class="col-1 q-px-xs" style="width: 65px">
+                    <q-img style="width: 60px" src="../../public/arrow-right.png"></q-img>
                   </div>
 
-                  <div class="col q-px-xs" style="width:170px;">
+                  <div class="col q-px-xs" style="width: 170px">
                     Importing economy
                     <br />
                     <span v-if="activeBy == 'Economy'">
-                      {{
-                      imp_country.label
-                      }}
+                      {{ imp_country.label }}
                     </span>
                     <span v-else>All</span>
                   </div>
-                  <div class="col-1 q-px-xs" style="width:65px">
-                    <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                  <div class="col-1 q-px-xs" style="width: 65px">
+                    <q-img style="width: 60px" src="../../public/arrow-right.png"></q-img>
                   </div>
                   <div class="col q-mx-sm">Third economies</div>
                 </div>
@@ -281,7 +316,7 @@
           <!-- GRAPH -->
 
           <div class="bg-white q-py-xl">
-            <div style="width:90%;margin:auto;max-width:1200px">
+            <div style="width: 90%; margin: auto; max-width: 1200px">
               <div align="center" class="q-pa-lg" v-if="!isChart1">
                 <q-spinner-pie color="primary" size="100px" />
               </div>
@@ -294,7 +329,7 @@
           <q-separator class="no-margin bg-grey-5 shadow-1" id="exportingEconomies" />
 
           <div class="bg-white q-py-xl">
-            <div style="width:90%;margin:auto;max-width:1200px">
+            <div style="width: 90%; margin: auto; max-width: 1200px">
               <div align="center" class="q-pa-lg" v-if="!isChart2">
                 <q-spinner-pie color="primary" size="100px" />
               </div>
@@ -313,7 +348,11 @@
               </div>
               <div>
                 <ul>
-                  <li>Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute the most towards export production?</li>
+                  <li>
+                    Where does
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    contribute the most towards export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
@@ -324,68 +363,76 @@
               </div>
               <div>
                 <ul>
-                  <li>Which sectors in {{exp_country.label !=null? exp_country.label: 'an economy'}} are most reliant on export production?</li>
+                  <li>
+                    Which sectors in
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    are most reliant on export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="row" style="background-color:#E5E1E1;">
+          <div class="row" style="background-color: #e5e1e1">
             <div class="col-3 full-height">
               <q-img class src="../../public/images/fl.jpg"></q-img>
             </div>
             <div class="col-9 self-center">
               <p align="center" class="font-24">
-                Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute towards export
-                production?
+                Where does
+                {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                contribute towards export production?
               </p>
               <div align="center" class="q-px-lg">
                 <div align="center" class="q-px-xs font-content">
                   <p align="center">
-                    Some part of {{exp_country.label !=null? exp_country.label: 'an economy'}}’s gross exports consist
-                    of intermediate inputs that are used by the direct importer to
-                    produce exports for third economies
+                    Some part of
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}’s
+                    gross exports consist of intermediate inputs that are used by the
+                    direct importer to produce exports for third economies
                   </p>
                 </div>
 
                 <div>
                   <div class="row justify-center">
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting economy &nbsp;:
                       <br />
                       {{ exp_country.label }}
                     </div>
                     <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting sector
                       <br />
                       <div class>
                         <span v-if="activeBy == 'Exporting'">
-                          {{
-                          showSector.label
-                          }}
+                          {{ showSector.label }}
                         </span>
                         <span v-else>All</span>
                       </div>
                     </div>
 
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Importing economy
                       <br />
                       <span v-if="activeBy == 'Economy'">
-                        {{
-                        imp_country.label
-                        }}
+                        {{ imp_country.label }}
                       </span>
                       <span v-else>All</span>
                     </div>
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
                     <div class="col q-mx-sm">Third economies</div>
                   </div>
@@ -393,16 +440,19 @@
               </div>
             </div>
           </div>
-          <div
-            class="font-graph q-py-lg"
-            align="center"
-          >Please choose exporting economy, exporting sector and year from the drop down menus above</div>
+          <div class="font-graph q-py-lg" align="center">
+            Please choose exporting economy, exporting sector and year from the drop down
+            menus above
+          </div>
         </div>
       </div>
 
       <!-- Economy Data -->
       <div
-        v-if="this.activeBy == 'Economy' && (exp_country.iso != imp_country.iso || exp_country.iso == null)"
+        v-if="
+          this.activeBy == 'Economy' &&
+          (exp_country.iso != imp_country.iso || exp_country.iso == null)
+        "
       >
         <div v-if="exp_country && imp_country && year">
           <div class="row">
@@ -412,7 +462,11 @@
               </div>
               <div>
                 <ul>
-                  <li>Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute the most towards export production?</li>
+                  <li>
+                    Where does
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    contribute the most towards export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
@@ -423,68 +477,76 @@
               </div>
               <div>
                 <ul>
-                  <li>Which sectors in {{exp_country.label !=null? exp_country.label: 'an economy'}} are most reliant on export production?</li>
+                  <li>
+                    Which sectors in
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    are most reliant on export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="row" style="background-color:#E5E1E1;">
+          <div class="row" style="background-color: #e5e1e1">
             <div class="col-3 full-height">
               <q-img class src="../../public/forwardlinks.png"></q-img>
             </div>
             <div class="col-9 self-center">
               <p align="center" class="font-24">
-                Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute towards export
-                production?
+                Where does
+                {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                contribute towards export production?
               </p>
               <div align="center" class="q-px-lg">
                 <div align="center" class="q-px-xs font-content">
                   <p align="center">
-                    Some part of {{exp_country.label !=null? exp_country.label: 'an economy'}}’s gross exports consist
-                    of intermediate inputs that are used by the direct importer to
-                    produce exports for third economies
+                    Some part of
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}’s
+                    gross exports consist of intermediate inputs that are used by the
+                    direct importer to produce exports for third economies
                   </p>
                 </div>
 
                 <div>
                   <div class="row justify-center">
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting economy &nbsp;:
                       <br />
                       {{ exp_country.label }}
                     </div>
                     <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting sector
                       <br />
                       <div class>
                         <span v-if="activeBy == 'Exporting'">
-                          {{
-                          showSector.label
-                          }}
+                          {{ showSector.label }}
                         </span>
                         <span v-else>All</span>
                       </div>
                     </div>
 
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Importing economy
                       <br />
                       <span v-if="activeBy == 'Economy'">
-                        {{
-                        imp_country.label
-                        }}
+                        {{ imp_country.label }}
                       </span>
                       <span v-else>All</span>
                     </div>
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
                     <div class="col q-mx-sm">Third economies</div>
                   </div>
@@ -493,7 +555,7 @@
             </div>
           </div>
           <div class="bg-white q-py-xl">
-            <div style="width:90%;margin:auto;max-width:1200px">
+            <div style="width: 90%; margin: auto; max-width: 1200px">
               <div align="center" class="q-pa-lg" v-if="!isChart3">
                 <q-spinner-pie color="primary" size="100px" />
               </div>
@@ -506,7 +568,7 @@
           <q-separator class="no-margin bg-grey-5 shadow-1" id="exportingEconomiesMost" />
 
           <div class="bg-white q-py-xl">
-            <div style="width:90%;margin:auto;max-width:1200px">
+            <div style="width: 90%; margin: auto; max-width: 1200px">
               <div align="center" class="q-pa-lg" v-if="!isChart4">
                 <q-spinner-pie color="primary" size="100px" />
               </div>
@@ -525,7 +587,11 @@
               </div>
               <div>
                 <ul>
-                  <li>Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute the most towards export production?</li>
+                  <li>
+                    Where does
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    contribute the most towards export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
@@ -536,68 +602,76 @@
               </div>
               <div>
                 <ul>
-                  <li>Which sectors in {{exp_country.label !=null? exp_country.label: 'an economy'}} are most reliant on export production?</li>
+                  <li>
+                    Which sectors in
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                    are most reliant on export production?
+                  </li>
                   <li>How does this compare across economies in the same region?</li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="row" style="background-color:#E5E1E1;">
+          <div class="row" style="background-color: #e5e1e1">
             <div class="col-3 full-height">
               <q-img class src="../../public/forwardlinks.png"></q-img>
             </div>
             <div class="col-9 self-center">
               <p align="center" class="font-24">
-                Where does {{exp_country.label !=null? exp_country.label: 'an economy'}} contribute towards export
-                production?
+                Where does
+                {{ exp_country.label != null ? exp_country.label : "an economy" }}
+                contribute towards export production?
               </p>
               <div align="center" class="q-px-lg">
                 <div align="center" class="q-px-xs font-content">
                   <p align="center">
-                    Some part of {{exp_country.label !=null? exp_country.label: 'an economy'}}’s gross exports consist
-                    of intermediate inputs that are used by the direct importer to
-                    produce exports for third economies
+                    Some part of
+                    {{ exp_country.label != null ? exp_country.label : "an economy" }}’s
+                    gross exports consist of intermediate inputs that are used by the
+                    direct importer to produce exports for third economies
                   </p>
                 </div>
 
                 <div>
                   <div class="row justify-center">
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting economy &nbsp;:
                       <br />
                       {{ exp_country.label }}
                     </div>
                     <!-- <div class="col-1 q-px-xs" style="width:10px;">:</div> -->
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Exporting sector
                       <br />
                       <div class>
                         <span v-if="activeBy == 'Exporting'">
-                          {{
-                          showSector.label
-                          }}
+                          {{ showSector.label }}
                         </span>
                         <span v-else>All</span>
                       </div>
                     </div>
 
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px;" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
 
-                    <div class="col q-px-xs" style="width:170px;">
+                    <div class="col q-px-xs" style="width: 170px">
                       Importing economy
                       <br />
                       <span v-if="activeBy == 'Economy'">
-                        {{
-                        imp_country.label
-                        }}
+                        {{ imp_country.label }}
                       </span>
                       <span v-else>All</span>
                     </div>
-                    <div class="col-1 q-px-xs" style="width:65px">
-                      <q-img style="width:60px" src="../../public/arrow-right.png"></q-img>
+                    <div class="col-1 q-px-xs" style="width: 65px">
+                      <q-img
+                        style="width: 60px"
+                        src="../../public/arrow-right.png"
+                      ></q-img>
                     </div>
                     <div class="col q-mx-sm">Third economies</div>
                   </div>
@@ -605,10 +679,10 @@
               </div>
             </div>
           </div>
-          <div
-            class="font-graph q-py-lg"
-            align="center"
-          >Please choose exporting economy, importing economy and year from the drop down menus above</div>
+          <div class="font-graph q-py-lg" align="center">
+            Please choose exporting economy, importing economy and year from the drop down
+            menus above
+          </div>
         </div>
       </div>
 
@@ -704,9 +778,7 @@ export default {
   computed: {
     showExportingCountry() {
       if (this.exp_country) {
-        let res = this.countryOptions.filter(
-          (x) => x.value == this.exp_country.value
-        )[0];
+        let res = this.countryOptions.filter((x) => x.value == this.exp_country.value)[0];
 
         return res;
       } else {
@@ -715,9 +787,7 @@ export default {
     },
     showimportingCountry() {
       if (this.imp_country) {
-        let res = this.countryOptions.filter(
-          (x) => x.value == this.imp_country.value
-        )[0];
+        let res = this.countryOptions.filter((x) => x.value == this.imp_country.value)[0];
 
         return res;
       } else {
@@ -893,9 +963,8 @@ export default {
 
     async chart1() {
       this.isChart1 = false;
-      let showSectorName = this.sectorOptions.filter(
-        (x) => x.value == this.sector
-      )[0].label;
+      let showSectorName = this.sectorOptions.filter((x) => x.value == this.sector)[0]
+        .label;
       let urlLink =
         this.path_api +
         `/cal_forward_country_1.php?exp_country=${this.exp_country.iso}&year=${this.year}&sector=${this.sector}`;
@@ -1081,11 +1150,9 @@ export default {
             this.exp_country.label
           }'s contribution to export production in other economies, mainly  ${
             graphOneDetailsList[0].name
-          }, ${graphOneDetailsList[1].name} , ${
-            graphOneDetailsList[2].name
-          } , ${graphOneDetailsList[3].name} and ${
-            graphOneDetailsList[4].name
-          }. <br/> <br/>${
+          }, ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${
+            graphOneDetailsList[3].name
+          } and ${graphOneDetailsList[4].name}. <br/> <br/>${
             this.exp_country.label
           }'s contribution to export production: $
           ${
@@ -1182,8 +1249,7 @@ export default {
         countryList.push(x[0].exp_country);
       });
 
-      let region = this.sectorOptions.filter((x) => x.value == this.sector)[0]
-        .label;
+      let region = this.sectorOptions.filter((x) => x.value == this.sector)[0].label;
 
       let rawData = [];
 
@@ -1206,9 +1272,7 @@ export default {
       });
 
       //สร้าง Drill down สำหรับ Asia pacific
-      let asiaRawData = this.chart2RawData.filter(
-        (x) => x.area == "Asia-Pacific"
-      );
+      let asiaRawData = this.chart2RawData.filter((x) => x.area == "Asia-Pacific");
       countryList.forEach((x) => {
         let data = asiaRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
@@ -1362,9 +1426,7 @@ export default {
       });
 
       //สร้าง Drill down สำหรับ Rest of the world
-      let restRawData = this.chart2RawData.filter(
-        (x) => x.area == "Rest of the world"
-      );
+      let restRawData = this.chart2RawData.filter((x) => x.area == "Rest of the world");
       countryList.forEach((x) => {
         let data = restRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
@@ -1840,9 +1902,9 @@ export default {
             this.imp_country.label
           } for its own export production, and come mainly from the following exporting sectors in ${
             this.exp_country.label
-          } : '${sector5[0].name}', '${sector5[1].name}', '${
-            sector5[2].name
-          }', '${sector5[3].name}', '${sector5[4].name}'`,
+          } : '${sector5[0].name}', '${sector5[1].name}', '${sector5[2].name}', '${
+            sector5[3].name
+          }', '${sector5[4].name}'`,
           align: "left",
         },
         exporting: {
@@ -2019,8 +2081,7 @@ export default {
       let lowtechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         lowtechTemp = getData.filter(
-          (x) =>
-            x.grouping == "Low tech" && x.exp_country == this.countryList[i]
+          (x) => x.grouping == "Low tech" && x.exp_country == this.countryList[i]
         );
 
         let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
@@ -2064,8 +2125,7 @@ export default {
       for (let i = 0; i < this.countryList.length; i++) {
         hitechTemp = getData.filter(
           (x) =>
-            x.grouping == "High and medium tech" &&
-            x.exp_country == this.countryList[i]
+            x.grouping == "High and medium tech" && x.exp_country == this.countryList[i]
         );
         let temp = hitechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         hitech.push(Number(temp));
@@ -2114,9 +2174,7 @@ export default {
         let temp = tradeRepairTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tradeRepair.push(Number(temp));
 
-        temp = tradeRepairTemp
-          .reduce((a, b) => a + Number(b.valueM), 0)
-          .toFixed(2);
+        temp = tradeRepairTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
         tradeRepairV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2175,16 +2233,12 @@ export default {
       let transportTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         transportTemp = getData.filter(
-          (x) =>
-            x.grouping == "Transport service" &&
-            x.exp_country == this.countryList[i]
+          (x) => x.grouping == "Transport service" && x.exp_country == this.countryList[i]
         );
         let temp = transportTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         transport.push(Number(temp));
 
-        temp = transportTemp
-          .reduce((a, b) => a + Number(b.valueM), 0)
-          .toFixed(2);
+        temp = transportTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
         transportV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2220,8 +2274,7 @@ export default {
 
       for (let i = 0; i < this.countryList.length; i++) {
         let ictTemp = getData.filter(
-          (x) =>
-            x.grouping == "ICT service" && x.exp_country == this.countryList[i]
+          (x) => x.grouping == "ICT service" && x.exp_country == this.countryList[i]
         );
         let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         ict.push(Number(temp));
@@ -2244,16 +2297,12 @@ export default {
       let propertyTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         propertyTemp = getData.filter(
-          (x) =>
-            x.grouping == "Property service" &&
-            x.exp_country == this.countryList[i]
+          (x) => x.grouping == "Property service" && x.exp_country == this.countryList[i]
         );
         let temp = propertyTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         property.push(Number(temp));
 
-        temp = propertyTemp
-          .reduce((a, b) => a + Number(b.valueM), 0)
-          .toFixed(2);
+        temp = propertyTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
         propertyV.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2289,15 +2338,11 @@ export default {
       let financialV = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let financialTemp = getData.filter(
-          (x) =>
-            x.grouping == "Financial service" &&
-            x.exp_country == this.countryList[i]
+          (x) => x.grouping == "Financial service" && x.exp_country == this.countryList[i]
         );
         let temp = financialTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         financial.push(Number(temp));
-        temp = financialTemp
-          .reduce((a, b) => a + Number(b.valueM), 0)
-          .toFixed(2);
+        temp = financialTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
         financialV.push(Number(temp));
       }
       for (let i = 0; i < financial.length; i++) {
@@ -2365,9 +2410,7 @@ export default {
         let temp = privatewTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         privatew.push(Number(temp));
 
-        temp = privatewTemp
-          .reduce((a, b) => a + Number(b.valueM), 0)
-          .toFixed(2);
+        temp = privatewTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
         privatewV.push(Number(temp));
       }
       for (let i = 0; i < privatew.length; i++) {
@@ -2672,9 +2715,7 @@ export default {
 
     if (this.$q.sessionStorage.has("impe")) {
       this.imp_country = this.$route.params.sectorOrImpe
-        ? this.countryOptions.filter(
-            (x) => x.iso == this.$route.params.sectorOrImpe
-          )[0]
+        ? this.countryOptions.filter((x) => x.iso == this.$route.params.sectorOrImpe)[0]
         : this.$q.sessionStorage.has("impe")
         ? this.countryOptions.filter(
             (x) => x.iso == this.$q.sessionStorage.getItem("impe")
