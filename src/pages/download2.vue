@@ -1,31 +1,47 @@
 <template>
   <q-page>
-    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
+    <global-value-chains-header
+      :isShowTinaLink="false"
+      :isDisableShare="false"
+    ></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
-      <div style="width:235px" class>
-        <img style="width:100%" class="full-height" src="../../public/download-side.png" alt />
+      <div style="width: 235px" class>
+        <img
+          style="width: 100%"
+          class="full-height"
+          src="../../public/download-side.png"
+          alt
+        />
       </div>
-      <div class="col q-pa-lg" style="background-color:#E5E1E1">
-        <div style="width:90%;max-width:1200px; margin:auto;">
+      <div class="col q-pa-lg" style="background-color: #e5e1e1">
+        <div style="width: 90%; max-width: 1200px; margin: auto">
           <p align="center" class="font-24">Download data</p>
           <p>
-            Query and download detailed data on value-added trade indicators for
-            your economies, sectors and years of interest. Please make your
-            desired selection from the menus below.
+            Query and download detailed data on value-added trade indicators for your
+            economies, sectors and years of interest. Please make your desired selection
+            from the menus below.
           </p>
         </div>
 
         <div
           class="bg-white q-pb-lg rounded-borders"
-          style="width:90%;max-width:1200px; margin:auto;"
+          style="width: 90%; max-width: 1200px; margin: auto"
         >
           <!-- //header name and logout -->
           <div
             class="row q-mb-md"
-            style="height:40px;background-color:#2C2F30;color:white; line-height:40px; border-radius:5px 5px 0px 0px;"
+            style="
+              height: 40px;
+              background-color: #2c2f30;
+              color: white;
+              line-height: 40px;
+              border-radius: 5px 5px 0px 0px;
+            "
           >
-            <div class="col q-px-lg" align="left" style="  text-decoration: underline;">{{ email }}</div>
+            <div class="col q-px-lg" align="left" style="text-decoration: underline">
+              {{ email }}
+            </div>
             <div class="col q-px-lg" align="right">
               <q-icon
                 class="cursor-pointer"
@@ -50,7 +66,12 @@
                 name="fas fa-save"
                 size="md"
                 class="q-px-lg cursor-pointer"
-                @click="isEditQuery = false,query = '',isShowSaveQuery = true,queryIndexTemp = ''"
+                @click="
+                  (isEditQuery = false),
+                    (query = ''),
+                    (isShowSaveQuery = true),
+                    (queryIndexTemp = '')
+                "
                 title="Save query"
               />
             </div>
@@ -58,7 +79,7 @@
               <q-btn
                 @click="isShowEconomyGroupDialog = true"
                 label="Economy group"
-                style="width:150px;background-color:#2C2F30;color:white"
+                style="width: 150px; background-color: #2c2f30; color: white"
                 no-caps
               ></q-btn>
             </div>
@@ -106,20 +127,45 @@
             </div>
             <!-- Sector -->
             <div>
-              <q-select
-                v-show="
-                indicator != 'in_06' &&
-                  indicator != 'in_08'
-              "
+              <!-- <q-select
+                v-show="indicator != 'in_06' && indicator != 'in_08'"
                 v-model="sector"
-                :options="sectorList"
+                :options="sectorOptions"
                 label="Exporting sector"
                 multiple
                 emit-value
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              />
+              /> -->
+
+              <q-select
+                v-show="indicator != 'in_06' && indicator != 'in_08'"
+                label="Exporting sector"
+                bg-color="white"
+                v-model="sector"
+                :options="sectorOptions"
+                map-options
+                emit-value
+                @input="resetDownloadState()"
+                multiple
+                use-chips
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
             </div>
             <!-- Source country -->
             <div>
@@ -153,7 +199,7 @@
                     label="Clear All"
                     outline
                     no-caps
-                    style="width:150px;"
+                    style="width: 150px"
                     @click="clearBtn()"
                   />
                 </div>
@@ -161,17 +207,23 @@
                   <download-csv
                     v-if="isShowDownloadBtn"
                     class="bg-secondary text-white cursor-pointer"
-                    style="width:150px;border-radius:3px;height:35px;line-height:35px;"
+                    style="
+                      width: 150px;
+                      border-radius: 3px;
+                      height: 35px;
+                      line-height: 35px;
+                    "
                     :data="downloadData"
                     ref="downloadData"
                     @click="test()"
-                  >Download Data</download-csv>
+                    >Download Data</download-csv
+                  >
 
                   <q-btn
                     v-else
                     label="Generate"
                     no-caps
-                    style="width:150px;background-color:#2C2F30;"
+                    style="width: 150px; background-color: #2c2f30"
                     class="text-white"
                     @click="runBtn()"
                   />
@@ -185,11 +237,13 @@
 
     <!-- Login Dialog -->
     <q-dialog v-model="isLogin" persistent>
-      <q-card style="width:450px; height:370px; ">
-        <div style="background-color:#2C2F30" class="q-pa-sm" align="center">
+      <q-card style="width: 450px; height: 370px">
+        <div style="background-color: #2c2f30" class="q-pa-sm" align="center">
           <img src="../assets/logodialog.png" alt />
         </div>
-        <div class="q-pa-md" align="center">Please log in to access the download data page</div>
+        <div class="q-pa-md" align="center">
+          Please log in to access the download data page
+        </div>
         <div class="q-px-lg">
           <q-form @submit="signIn()">
             <div>
@@ -199,7 +253,7 @@
                 label="Email"
                 dense
                 type="email"
-                :rules="[val => !!val]"
+                :rules="[(val) => !!val]"
                 ref="password"
                 hide-bottom-space
               />
@@ -212,7 +266,7 @@
                 outlined
                 :type="isPwd ? 'password' : 'text'"
                 hide-bottom-space
-                :rules="[val => !!val]"
+                :rules="[(val) => !!val]"
                 ref="password"
               >
                 <template v-slot:append>
@@ -225,16 +279,18 @@
               </q-input>
             </div>
             <div
-              style="text-decoration:underline"
+              style="text-decoration: underline"
               class="cursor-pointer"
-              @click="isShowForgotPasswordDialog = true,isLogin = false"
+              @click="(isShowForgotPasswordDialog = true), (isLogin = false)"
               align="right"
-            >Forgot password?</div>
+            >
+              Forgot password?
+            </div>
             <div>
               <q-btn
                 type="submit"
                 label="Log in"
-                style="width:400px;background-color:#2C2F30;color:white"
+                style="width: 400px; background-color: #2c2f30; color: white"
                 no-caps
                 class="q-mt-md"
               ></q-btn>
@@ -242,15 +298,18 @@
             <div align="center" class="q-pt-lg">
               Not a Riva member?
               <span
-                style="color:#2381B8;text-decoration:underline"
+                style="color: #2381b8; text-decoration: underline"
                 @click="clearData()"
                 class="cursor-pointer"
-              >Sign up for a free account</span> / Back to
+                >Sign up for a free account</span
+              >
+              / Back to
               <span
-                style="color:#2381B8;text-decoration:underline"
+                style="color: #2381b8; text-decoration: underline"
                 @click="homeLink()"
                 class="cursor-pointer"
-              >Home</span>
+                >Home</span
+              >
             </div>
           </q-form>
         </div>
@@ -259,8 +318,8 @@
 
     <!-- Sign up dialog -->
     <q-dialog v-model="isSignUp" persistent>
-      <q-card style="width:450px; ">
-        <div style="background-color:#2C2F30" class="q-pa-sm" align="center">
+      <q-card style="width: 450px">
+        <div style="background-color: #2c2f30" class="q-pa-sm" align="center">
           <img src="../assets/logodialog.png" alt />
         </div>
 
@@ -269,7 +328,7 @@
             <div>
               <q-input
                 hide-bottom-space
-                :rules="[val => !!val]"
+                :rules="[(val) => !!val]"
                 ref="email"
                 outlined
                 v-model="signUp.email"
@@ -281,7 +340,7 @@
             <div class="q-pt-md q-pb-sm">
               <q-input
                 hide-bottom-space
-                :rules="[val => !!val]"
+                :rules="[(val) => !!val]"
                 ref="password"
                 v-model="signUp.password"
                 dense
@@ -294,7 +353,7 @@
               <q-input
                 hide-bottom-space
                 type="text"
-                :rules="[val => val == signUp.password]"
+                :rules="[(val) => val == signUp.password]"
                 ref="confirm"
                 v-model="signUp.confirmPassword"
                 dense
@@ -304,7 +363,7 @@
             </div>
             <div class="q-pt-md q-pb-sm">
               <q-select
-                :rules="[val => val != '--- Please Select ---']"
+                :rules="[(val) => val != '--- Please Select ---']"
                 ref="country"
                 outlined
                 label="Country"
@@ -320,7 +379,7 @@
             <div class="q-pt-md q-pb-sm">
               <q-select
                 hide-bottom-space
-                :rules="[val => val != '--- Please Select ---']"
+                :rules="[(val) => val != '--- Please Select ---']"
                 ref="organization"
                 outlined
                 label="Organization"
@@ -333,13 +392,16 @@
             </div>
 
             <div class="q-pt-md">
-              <q-checkbox v-model="signUp.isSubscribe" label="Subscribe for lastest updates"></q-checkbox>
+              <q-checkbox
+                v-model="signUp.isSubscribe"
+                label="Subscribe for lastest updates"
+              ></q-checkbox>
             </div>
 
             <div>
               <q-btn
                 label="Sign up"
-                style="width:400px;background-color:#2C2F30;color:white"
+                style="width: 400px; background-color: #2c2f30; color: white"
                 no-caps
                 class="q-mt-md"
                 type="submit"
@@ -348,10 +410,11 @@
             <div align="center" class="q-pt-lg">
               Not a Riva member?
               <span
-                style="color:#2381B8;text-decoration:underline"
-                @click="isSignUp = false,isLogin = true"
+                style="color: #2381b8; text-decoration: underline"
+                @click="(isSignUp = false), (isLogin = true)"
                 class="cursor-pointer"
-              >Sign in</span>
+                >Sign in</span
+              >
             </div>
           </div>
         </q-form>
@@ -359,10 +422,10 @@
     </q-dialog>
     <!-- Economy Group Table Dialog -->
     <q-dialog v-model="isShowEconomyGroupDialog" persistent>
-      <q-card style="width:650px">
+      <q-card style="width: 650px">
         <q-card-section>
           <q-toolbar>
-            <span style="font-size:20px">Economy group</span>
+            <span style="font-size: 20px">Economy group</span>
             <q-space />
             <q-btn
               v-close-popup
@@ -375,7 +438,7 @@
               label="New group"
               class="text-white"
               no-caps
-              style="width:150px;background-color:#2C2F30"
+              style="width: 150px; background-color: #2c2f30"
             ></q-btn>
           </q-toolbar>
         </q-card-section>
@@ -384,12 +447,12 @@
         </div>
         <q-card-section>
           <div class="row bg-grey-8 q-pa-xs text-white">
-            <div style="width:150px" class="q-pl-md">Economy group</div>
+            <div style="width: 150px" class="q-pl-md">Economy group</div>
             <div class="col">Economy</div>
-            <div align="center" style="width:50px">
+            <div align="center" style="width: 50px">
               <q-icon size="xs" name="fas fa-trash-alt"></q-icon>
             </div>
-            <div align="center" style="width:50px">
+            <div align="center" style="width: 50px">
               <q-icon size="xs" name="fas fa-edit"></q-icon>
             </div>
           </div>
@@ -399,9 +462,9 @@
             v-for="(item, index) in tempGroup"
             :key="index"
           >
-            <div style="width:150px" class="q-pl-md">{{ item.label }}</div>
+            <div style="width: 150px" class="q-pl-md">{{ item.label }}</div>
             <div class="col">{{ item.value.join(", ") }}</div>
-            <div align="center" style="width:50px">
+            <div align="center" style="width: 50px">
               <q-icon
                 size="xs"
                 class="cursor-pointer"
@@ -409,7 +472,7 @@
                 @click="deleteGroup(index)"
               ></q-icon>
             </div>
-            <div align="center" style="width:50px">
+            <div align="center" style="width: 50px">
               <q-icon
                 size="xs"
                 v-close-popup
@@ -425,17 +488,17 @@
             v-close-popup
             label="Close"
             no-caps
-            style="width:150px;background-color:#2C2F30;color:white"
+            style="width: 150px; background-color: #2c2f30; color: white"
           ></q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
     <!-- add new group dialog -->
     <q-dialog v-model="isAddNewGroupDialog" persistent>
-      <q-card style="width:650px">
+      <q-card style="width: 650px">
         <q-card-section>
           <q-toolbar>
-            <span style="font-size:20px">
+            <span style="font-size: 20px">
               <span v-if="isEditGroup">Edit</span>
               <span v-else>New</span> Economy group
             </span>
@@ -447,28 +510,28 @@
         </div>
         <q-card-section>
           <div class="row items-end">
-            <div style="width:65px">Name</div>
+            <div style="width: 65px">Name</div>
             <q-input
               hide-bottom-space
               autofocus
               ref="groupName"
               class="col"
               dense
-              :rules="[val => !!val]"
+              :rules="[(val) => !!val]"
               v-model.trim="groupName"
             ></q-input>
           </div>
           <div class="row items-end">
-            <div style="width:65px">Economy</div>
+            <div style="width: 65px">Economy</div>
             <q-select
               hide-bottom-space
               ref="groupSelected"
-              :rules="[val => val.length >= 1]"
+              :rules="[(val) => val.length >= 1]"
               map-options
               emit-value
               use-chips
               multiple
-              :options="countryList.filter(x => typeof x.value != 'object')"
+              :options="countryList.filter((x) => typeof x.value != 'object')"
               autofocus
               class="col"
               dense
@@ -482,14 +545,14 @@
             v-close-popup
             label="Cancel"
             no-caps
-            style="width:150px;color:black"
+            style="width: 150px; color: black"
             outline
           ></q-btn>
           <q-btn
             @click="addEconomyGroup()"
             label="Save"
             no-caps
-            style="width:150px;background-color:#2C2F30;color:white"
+            style="width: 150px; background-color: #2c2f30; color: white"
           ></q-btn>
         </q-card-actions>
       </q-card>
@@ -497,8 +560,8 @@
     <my-footer></my-footer>
 
     <q-dialog v-model="isShowQueryList">
-      <q-card style="min-width:500px;width:100%">
-        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+      <q-card style="min-width: 500px; width: 100%">
+        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
           <q-toolbar-title>
             <div class="q-pl-md">Open query</div>
           </q-toolbar-title>
@@ -508,7 +571,11 @@
         </q-toolbar>
         <q-card-section class="no-padding">
           <div class="q-px-sm row justify-between q-pt-md">
-            <q-select style="width:75%" :options="queryList" v-model="querySelected"></q-select>
+            <q-select
+              style="width: 75%"
+              :options="queryList"
+              v-model="querySelected"
+            ></q-select>
             <q-btn flat icon="fas fa-trash-alt" @click="deleteQuery()"></q-btn>
             <q-btn flat icon="fas fa-pencil-alt" @click="editQuery()"></q-btn>
           </div>
@@ -522,14 +589,14 @@
             text-color="white"
             @click="loadQuery()"
             no-caps
-            style="width:200px;background-color:#2C2F30"
+            style="width: 200px; background-color: #2c2f30"
           ></q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
     <q-dialog v-model="isShowSaveQuery">
-      <q-card style="width:500px">
-        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+      <q-card style="width: 500px">
+        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
           <q-toolbar-title>
             <div class="q-pl-md">
               <span v-if="isEditQuery">Edit query</span>
@@ -553,15 +620,15 @@
             text-color="white"
             @click="saveQuery()"
             no-caps
-            style="width:200px;background-color:#2C2F30"
+            style="width: 200px; background-color: #2c2f30"
           ></q-btn>
         </q-card-actions>
       </q-card>
     </q-dialog>
 
     <q-dialog v-model="isShowForgotPasswordDialog" persistent>
-      <q-card style="width:500px">
-        <q-toolbar class="no-padding" style="background-color:#2C2F30;color:white;">
+      <q-card style="width: 500px">
+        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
           <q-toolbar-title>
             <div class="q-pl-md">
               <span>Password Recovery</span>
@@ -569,7 +636,12 @@
           </q-toolbar-title>
           <q-space></q-space>
 
-          <q-btn icon="fas fa-times" v-close-popup @click="closePasswordRecoveryDialog()" flat></q-btn>
+          <q-btn
+            icon="fas fa-times"
+            v-close-popup
+            @click="closePasswordRecoveryDialog()"
+            flat
+          ></q-btn>
         </q-toolbar>
         <q-card-section class="no-padding">
           <div class="q-px-md q-py-md">
@@ -584,7 +656,7 @@
             text-color="white"
             @click="sendEmailRecovery()"
             no-caps
-            style="width:200px;background-color:#2C2F30"
+            style="width: 200px; background-color: #2c2f30"
           ></q-btn>
         </q-card-actions>
       </q-card>
@@ -606,6 +678,7 @@ export default {
   },
   data() {
     return {
+      sectorOptions: [],
       recoveryEmail: "",
       isShowForgotPasswordDialog: false,
       queryIndexTemp: "",
@@ -750,9 +823,7 @@ export default {
       this.tempGroup.splice(index, 1);
       this.exporting = [];
       this.importing = [];
-      this.countryList = this.countryList.filter(
-        (x) => typeof x.value != "object"
-      );
+      this.countryList = this.countryList.filter((x) => typeof x.value != "object");
 
       this.countryList = [...this.tempGroup, ...this.countryList];
     },
@@ -767,16 +838,13 @@ export default {
       this.$refs.groupName.validate();
       this.$refs.groupSelected.validate();
 
-      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError)
-        return;
+      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError) return;
 
       if (this.isEditGroup) {
         this.tempGroup[this.tempIndex].label = this.groupName;
         this.tempGroup[this.tempIndex].value = this.groupSelected;
         this.tempIndex = null;
-        this.countryList = this.countryList.filter(
-          (x) => typeof x.value != "object"
-        );
+        this.countryList = this.countryList.filter((x) => typeof x.value != "object");
 
         this.countryList = [...this.tempGroup, ...this.countryList];
         this.isAddNewGroupDialog = false;
@@ -796,8 +864,7 @@ export default {
         this.isAddNewGroupDialog = false;
       }
 
-      (this.isAddNewGroupDialog = false),
-        (this.isShowEconomyGroupDialog = true);
+      (this.isAddNewGroupDialog = false), (this.isShowEconomyGroupDialog = true);
     },
     resetDownloadState() {
       this.isShowDownloadBtn = false;
@@ -878,12 +945,7 @@ export default {
 
       let _this = this;
       function validateInput() {
-        if (
-          !_this.exporting ||
-          !_this.importing ||
-          !_this.sectorList ||
-          !_this.year
-        ) {
+        if (!_this.exporting || !_this.importing || !_this.sectorList || !_this.year) {
           if (!_this.exporting) {
             _this.$q.notify({
               message: "Please add an exporting economy",
@@ -1183,12 +1245,13 @@ export default {
         });
     },
   },
-  mounted() {
+  async mounted() {
     if (!this.$q.sessionStorage.has("uid")) {
       this.isLogin = true;
     } else {
       this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
+    await this.getSectorList();
     this.$q.sessionStorage.set("shareLink", "riva.negotiatetrade.org/download");
     this.loadYearList();
     this.loadCountryList();
