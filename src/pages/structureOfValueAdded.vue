@@ -243,16 +243,14 @@
             <q-img src="../../public/images/sva.jpg" style="width:350px;"></q-img>
           </div>
           <div class="col q-py-md font-content" align="center">
-            <div class="text-black"  v-if="exportingSelected ==''">
-              An economy’s gross exports can be divided into 5 parts, depending
-              <br />on where they come from and how they are used:
+           <div class="text-black"  v-if="exportingSelected =='' || importingSelected==''">
+              Exporter's gross exports to importer can be divided into 6 parts, <br>depending on where they come from and how they are used:
             </div>
              <div class="text-black"  v-else>
-              {{exportingSelected.label}}’s gross exports can be divided into 5 parts, depending
-              <br />on where they come from and how they are used:
+               Exporter's ({{exportingSelected.label}}) gross exports to importer ({{importingSelected.label}})  can be divided into 6 parts, <br>depending on where they come from and how they are used:
+             
             </div>
-            111
-            <q-img style="width:850px;" src="../../src/assets/titlesva.jpg"></q-img>
+            <q-img style="width:850px;" src="../../src/assets/titlesva2.jpg"></q-img>
           </div>
         </div>
         <hr>
@@ -351,15 +349,14 @@
             <q-img src="../../public/images/sva.jpg" style="width:350px;"></q-img>
           </div>
           <div class="col q-py-md" align="center">
-            <div class="text-black"  v-if="exportingSelected ==''">
-              An economy’s gross exports can be divided into 5 parts, depending
-              <br />on where they come from and how they are used:
+            <div class="text-black"  v-if="exportingSelected =='' || importingSelected==''">
+              Exporter's gross exports to importer can be divided into 6 parts, <br>depending on where they come from and how they are used:
             </div>
              <div class="text-black"  v-else>
-              {{exportingSelected.label}}’s gross exports can be divided into 5 parts, depending
-              <br />on where they come from and how they are used:
+               Exporter's ({{exportingSelected.label}}) gross exports to importer ({{importingSelected.label}})  can be divided into 6 parts, <br>depending on where they come from and how they are used:
+             
             </div>
-            <q-img style="width:850px;" src="../../src/assets/titlesva.jpg"></q-img>
+            <q-img style="width:850px;" src="../../src/assets/titlesva2.jpg"></q-img>
           </div>
         </div>
         <hr>
