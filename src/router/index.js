@@ -31,7 +31,7 @@ Vue.use(VueFlags, {
  * with the Router instance.
  */
 
-export default function (/* { store, ssrContext } */) {
+export default function(/* { store, ssrContext } */) {
   const Router = new VueRouter({
     scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
@@ -47,7 +47,7 @@ export default function (/* { store, ssrContext } */) {
 }
 import countryJson from "../../public/country_list.json";
 import countryJsonShort from "../../public/country_list_short.json";
-import sectorJson from "../../public/sector.json";
+import sectorJson from "../../public/sectorListNew.json";
 import json from "../../public/json/country_list.json";
 Vue.mixin({
   data() {
@@ -171,7 +171,8 @@ Vue.mixin({
       sectorJson.forEach(element => {
         let data = {
           label: element.name,
-          value: element.id
+          value: element.id,
+          disable: element.disable || false
         };
         tempOptions.push(data);
       });
