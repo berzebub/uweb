@@ -115,7 +115,7 @@
         <div class="col-3 q-px-md">
           <span>Exporting sector</span>
           <div>
-            <q-select
+            <!-- <q-select
               bg-color="white"
               class="q-mb-xs"
               v-model="sector"
@@ -125,7 +125,32 @@
               :options="sectorOptions"
               outlined
               @input="selectedSector()"
-            ></q-select>
+            ></q-select> -->
+
+             <q-select
+             bg-color="white"
+            dense
+            filled
+            v-model="sector"
+            :options="sectorOptions"
+               map-options
+              emit-value
+              @input="selectedSector()"
+                   outlined
+          >
+            <template v-slot:option="scope">
+              <q-item
+                v-bind="scope.itemProps"
+                v-on="scope.itemEvents"
+              >
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label" :class="scope.opt.disable ? 'text-black text-weight-bolder' : 'text-black'" />
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
+
+
           </div>
         </div>
       </div>

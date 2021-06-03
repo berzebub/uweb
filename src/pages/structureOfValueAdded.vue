@@ -124,7 +124,7 @@
         <div class="col-3 q-px-md">
           <div>Exporting sector</div>
           <div>
-            <q-select
+            <!-- <q-select
               bg-color="white"
               v-model="sectorSelected"
               dense
@@ -133,7 +133,32 @@
               map-options
               emit-value
               @input="selectedSector()"
-            ></q-select>
+            ></q-select> -->
+
+            <q-select
+             bg-color="white"
+            dense
+            filled
+            v-model="sectorSelected"
+            :options="sectorOptions"
+               map-options
+              emit-value
+              @input="selectedSector()"
+                   outlined
+          >
+            <template v-slot:option="scope">
+              <q-item
+                v-bind="scope.itemProps"
+                v-on="scope.itemEvents"
+              >
+            <q-item-section>
+              <q-item-label v-html="scope.opt.label" :class="scope.opt.disable ? 'text-black text-weight-bolder' : 'text-black'" />
+            </q-item-section>
+          </q-item>
+        </template>
+      </q-select>
+
+
           </div>
         </div>
       </div>
@@ -437,7 +462,6 @@ export default {
       exportingSelected: "",
       year: "",
       importingSelected: "",
-      sectorSelected: "",
       countryOptionsShow: [],
       dataYearList: [],
 
@@ -1301,12 +1325,15 @@ export default {
       this.sectorSelected = this.$route.params.sector
         ? this.$route.params.sector
         : this.$q.sessionStorage.getItem("esec");
+    }else{
+this.sectorSelected = "1";
     }
-    this.sectorSelected = "0";
+    
 
     if (this.validateSelected()) {
       this.renderGraph();
     }
+
   },
   computed: {
     checkDuplicateSelected() {
