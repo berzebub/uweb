@@ -125,7 +125,7 @@
                 map-options
                 emit-value
                 @input="selectedSector()"
-              ></q-select> -->
+              ></q-select>-->
 
               <q-select
                 bg-color="white"
@@ -256,9 +256,9 @@
                 <li>
                   Where does
                   {{
-                    exportingSelected.label != null
-                      ? exportingSelected.label
-                      : "an economy"
+                  exportingSelected.label != null
+                  ? exportingSelected.label
+                  : "an economy"
                   }}'s imported content used in its exports come from?
                 </li>
                 <li>How does this compare across economies in the same region?</li>
@@ -274,9 +274,9 @@
                 <li>
                   How is foreign value-added distributed across
                   {{
-                    exportingSelected.label != null
-                      ? exportingSelected.label
-                      : "an economy"
+                  exportingSelected.label != null
+                  ? exportingSelected.label
+                  : "an economy"
                   }}'s exporting sectors?
                 </li>
                 <li>How does this compare across economies in the same region?</li>
@@ -294,9 +294,9 @@
               <p align="center">
                 Some part of
                 {{
-                  exportingSelected.label == null
-                    ? "an economy"
-                    : exportingSelected.label
+                exportingSelected.label == null
+                ? "an economy"
+                : exportingSelected.label
                 }}’s gross exports consist of imported inputs that originate in other
                 source economies.
               </p>
@@ -304,9 +304,7 @@
               <div class="row justify-around q-pt-md" style="max-width: 750px">
                 <div>
                   Source economy
-                  <div v-if="activeSelect == 2">
-                    {{ sourceEconomySelected.label }}
-                  </div>
+                  <div v-if="activeSelect == 2">{{ sourceEconomySelected.label }}</div>
                 </div>
 
                 <div>
@@ -350,9 +348,9 @@
                 <li>
                   Where does
                   {{
-                    exportingSelected.label != null
-                      ? exportingSelected.label
-                      : "an economy"
+                  exportingSelected.label != null
+                  ? exportingSelected.label
+                  : "an economy"
                   }}'s imported content used in its exports come from?
                 </li>
                 <li>How does this compare across economies in the same region?</li>
@@ -368,9 +366,9 @@
                 <li>
                   How is foreign value-added distributed across
                   {{
-                    exportingSelected.label != null
-                      ? exportingSelected.label
-                      : "an economy"
+                  exportingSelected.label != null
+                  ? exportingSelected.label
+                  : "an economy"
                   }}'s exporting sectors?
                 </li>
                 <li>How does this compare across economies in the same region?</li>
@@ -393,9 +391,7 @@
               <div class="row justify-around q-pt-md" style="max-width: 750px">
                 <div>
                   Source economy
-                  <div v-if="activeSelect == 2">
-                    {{ sourceEconomySelected.label }}
-                  </div>
+                  <div v-if="activeSelect == 2">{{ sourceEconomySelected.label }}</div>
                 </div>
 
                 <div>
@@ -868,7 +864,8 @@ export default {
 
       let grossExportMoneyUnitSub = getDataSub.grossExport < 1000 ? " M" : " B";
 
-      let ImportedContentUnitSub = getDataSub.ImportedContent < 1000 ? " M" : " B";
+      let ImportedContentUnitSub =
+        getDataSub.ImportedContent < 1000 ? " M" : " B";
 
       let grossExportMoney =
         getDataSub.grossExport < 1000
@@ -1100,7 +1097,9 @@ export default {
       });
 
       //สร้าง Drill down สำหรับ Asia pacific
-      let asiaRawData = this.chart2RawData.filter((x) => x.area == "Asia-Pacific");
+      let asiaRawData = this.chart2RawData.filter(
+        (x) => x.area == "Asia-Pacific"
+      );
 
       countryList.forEach((x) => {
         let data = asiaRawData.filter((y) => y.exp_country == x);
@@ -1238,7 +1237,9 @@ export default {
       });
 
       //สร้าง Drill down สำหรับ Rest of the world
-      let restRawData = this.chart2RawData.filter((x) => x.area == "Rest of the world");
+      let restRawData = this.chart2RawData.filter(
+        (x) => x.area == "Rest of the world"
+      );
       countryList.forEach((x) => {
         let data = restRawData.filter((y) => y.exp_country == x);
         let dataFinal = [];
@@ -1543,8 +1544,10 @@ export default {
           ? getDataSub.data.fromsource
           : (getDataSub.data.fromsource / 1000).toFixed(2);
 
-      let fromsouceUnitSub = getDataSub.data.fromsource < 1000 ? "million" : "billion";
-      let fromsouceUnitMain = getDataSub.data.fromsource < 1000 ? "million" : "billion";
+      let fromsouceUnitSub =
+        getDataSub.data.fromsource < 1000 ? "million" : "billion";
+      let fromsouceUnitMain =
+        getDataSub.data.fromsource < 1000 ? "million" : "billion";
       // -------------------------------
 
       let exportToConvert =
@@ -1553,7 +1556,8 @@ export default {
           : (getDataSub.data.exportto / 1000).toFixed(2);
 
       let exportToUnitSub = getDataSub.data.exportto < 1000 ? "M" : "B";
-      let exportToUnitMain = getDataSub.data.exportto < 1000 ? "million" : "billion";
+      let exportToUnitMain =
+        getDataSub.data.exportto < 1000 ? "million" : "billion";
 
       if (getDataSub.data.fromsource < 1) {
         this.errorChart2 = true;
@@ -1878,7 +1882,8 @@ export default {
       let lowtechTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         lowtechTemp = getData.filter(
-          (x) => x.grouping == "Low tech" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "Low tech" && x.exp_country == this.countryList[i]
         );
         let temp = lowtechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         lowtech.push(Number(temp));
@@ -1919,7 +1924,8 @@ export default {
       for (let i = 0; i < this.countryList.length; i++) {
         hitechTemp = getData.filter(
           (x) =>
-            x.grouping == "High and medium tech" && x.exp_country == this.countryList[i]
+            x.grouping == "High and medium tech" &&
+            x.exp_country == this.countryList[i]
         );
         let temp = hitechTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         hitech.push(Number(temp));
@@ -1966,7 +1972,9 @@ export default {
         );
         let temp = tradeRepairTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         tradeRepair.push(Number(temp));
-        temp = tradeRepairTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        temp = tradeRepairTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
         tradeRepairValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2025,12 +2033,16 @@ export default {
       let transportTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         transportTemp = getData.filter(
-          (x) => x.grouping == "Transport service" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "Transport service" &&
+            x.exp_country == this.countryList[i]
         );
         let temp = transportTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         transport.push(Number(temp));
 
-        temp = transportTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        temp = transportTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
         transportValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2065,7 +2077,8 @@ export default {
 
       for (let i = 0; i < this.countryList.length; i++) {
         let ictTemp = getData.filter(
-          (x) => x.grouping == "ICT service" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "ICT service" && x.exp_country == this.countryList[i]
         );
         let temp = ictTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         ict.push(Number(temp));
@@ -2089,11 +2102,15 @@ export default {
       let propertyTemp = [];
       for (let i = 0; i < this.countryList.length; i++) {
         propertyTemp = getData.filter(
-          (x) => x.grouping == "Property service" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "Property service" &&
+            x.exp_country == this.countryList[i]
         );
         let temp = propertyTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         property.push(Number(temp));
-        temp = propertyTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        temp = propertyTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
         propertyValue.push(Number(temp));
         //add drill down
         let tempDataDrillDown = [];
@@ -2128,11 +2145,15 @@ export default {
       let financialValue = [];
       for (let i = 0; i < this.countryList.length; i++) {
         let financialTemp = getData.filter(
-          (x) => x.grouping == "Financial service" && x.exp_country == this.countryList[i]
+          (x) =>
+            x.grouping == "Financial service" &&
+            x.exp_country == this.countryList[i]
         );
         let temp = financialTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         financial.push(Number(temp));
-        temp = financialTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        temp = financialTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
         financialValue.push(Number(temp));
       }
       for (let i = 0; i < financial.length; i++) {
@@ -2199,7 +2220,9 @@ export default {
         let temp = privatewTemp.reduce((a, b) => a + b.value, 0).toFixed(2);
         privatew.push(Number(temp));
 
-        temp = privatewTemp.reduce((a, b) => a + Number(b.valueM), 0).toFixed(2);
+        temp = privatewTemp
+          .reduce((a, b) => a + Number(b.valueM), 0)
+          .toFixed(2);
         privatewValue.push(Number(temp));
       }
       for (let i = 0; i < privatew.length; i++) {
@@ -2568,13 +2591,18 @@ export default {
     }
 
     if (this.sectorSelected == "") {
-      this.sectorSelected = "all";
+      this.sectorSelected = "0";
       this.displaySector = "all";
     }
 
-    if (this.$q.sessionStorage.has("sourceE") || this.$route.params.sectorOrSource) {
+    if (
+      this.$q.sessionStorage.has("sourceE") ||
+      this.$route.params.sectorOrSource
+    ) {
       this.sourceEconomySelected = this.$route.params.sectorOrSource
-        ? this.countryOptions.filter((x) => x.iso == this.$route.params.sectorOrSource)[0]
+        ? this.countryOptions.filter(
+            (x) => x.iso == this.$route.params.sectorOrSource
+          )[0]
         : this.countryOptions.filter(
             (x) => x.iso == this.$q.sessionStorage.getItem("sourceE")
           )[0];

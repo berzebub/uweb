@@ -1326,7 +1326,7 @@ export default {
         ? this.$route.params.sector
         : this.$q.sessionStorage.getItem("esec");
     }else{
-this.sectorSelected = "1";
+this.sectorSelected = "0";
     }
     
 
