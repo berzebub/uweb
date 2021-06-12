@@ -726,7 +726,7 @@ export default {
                 label: `Intermediate output produced in <br>${this.exportingSelected.label} -  consumed in <br> ${this.importingSelected.label}`
               },
               {
-                name: `Final domestic production <br>comsumed by the importer (${this.dataChart1Percent.final}%)`,
+                name: `Final domestic production <br>consumed by the importer (${this.dataChart1Percent.final}%)`,
                 value: getData.final,
                 color: "#2381B8",
                 label: `Final output produced in ${this.exportingSelected.label} - <br> consumed in ${this.importingSelected.label}`

@@ -685,7 +685,7 @@
           </div>
           <div class="row" style="background-color: #e5e1e1">
             <div class="col-3 full-height">
-              <q-img class src="../../public/forwardlinks.png"></q-img>
+              <q-img class src="../../public/images/fl.jpg"></q-img>
             </div>
             <div class="col-9 self-center">
               <p align="center" class="font-24">
