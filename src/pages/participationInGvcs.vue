@@ -622,12 +622,12 @@ export default {
         },
         series: [
           {
-            name: `Produced in ${this.exp_country.label} - used in <br>${this.imp_country.label}'s exports (forward linkages)`,
+            name: `Domestic production used in<br> the importer's exports`,
             data: forwardList,
             color: "#EB1E63",
           },
           {
-            name: `Produced in  ${this.exp_country.label} - used in <br>${this.imp_country.label}'s exports consumed in <br>${this.exp_country.label} (forward linkages)`,
+            name: `Domestic production that returns <br> via the importer's exports`,
             data: finalList,
             color: "#f99704",
           },
@@ -637,7 +637,7 @@ export default {
             color: "#9C26B3",
           },
           {
-            name: `Produced abroad (used in ${this.exp_country.label}'s <br>exports) - consumed in ${this.imp_country.label} <br>(backward linkages)`,
+            name: `Foreign production consumed <br> by the importer`,
             data: backwardList,
             color: "#2D9687",
           },
