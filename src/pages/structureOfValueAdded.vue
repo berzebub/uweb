@@ -351,13 +351,13 @@
           <q-spinner-pie color="primary" size="100px" />
         </div>
         <div v-show="isStructureChart" class="q-mt-xl">
-          <div id="container"></div>
+          <div id="container" v-if="!errorGraph1 && !errorGraph2 && !errorGraph3"></div>
         </div>
 
         <!-- :exportCountry="exportingSelected.label"
         :importCountry="importingSelected.label"-->
         <error-graph
-          v-if="errorGraph1"
+          v-if="errorGraph1 || errorGraph2 || errorGraph3"
           :content="
             `How are ${exportingSelected.label}'s exports to ${importingSelected.label} produced and utilsed?`
           "
@@ -372,11 +372,11 @@
           <q-spinner-pie color="primary" size="100px" />
         </div>
         <div v-show="isMeasuringChart">
-          <div id="container2"></div>
+          <div id="container2" v-if="!errorGraph1 && !errorGraph2 && !errorGraph3"></div>
         </div>
 
         <error-graph
-          v-if="errorGraph3"
+          v-if="errorGraph3 || errorGraph1 || errorGraph2"
           :content="
             `How does ${exportingSelected.label}'s gross and domestic value-added trade balance with  ${importingSelected.label} differ?`
           "
@@ -393,11 +393,11 @@
           <q-spinner-pie color="primary" size="100px" />
         </div>
         <div v-show="isComparisonChart">
-          <div id="container1"></div>
+          <div id="container1" v-if="!errorGraph1 && !errorGraph3 && !errorGraph2"></div>
         </div>
 
         <error-graph
-          v-if="errorGraph2"
+          v-if="errorGraph2 || errorGraph1 || errorGraph3"
           :content="
             `How are ${this.continent} economies’ exports to ${this.importingSelected.label} produced and utilised?`
           "
