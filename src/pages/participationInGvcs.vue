@@ -14,7 +14,7 @@
         <div class="col-3 q-px-md">
           <span>Exporting economy</span>
           <div>
-            <q-select
+            <!-- <q-select
               v-model="exp_country"
               :options="exp_optionsShow"
               outlined
@@ -50,6 +50,30 @@
                   </q-item-section>
                 </q-item>
               </template>
+            </q-select>-->
+
+            <q-select
+              dense
+              bg-color="white"
+              outlined
+              v-model="exp_country"
+              :options="countryOptions"
+              @input="selectedExpCountry()"
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section>
+                    <q-item-label
+                      v-html="scope.opt.label"
+                      :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                    />
+                  </q-item-section>
+                </q-item>
+              </template>
             </q-select>
           </div>
         </div>
@@ -72,7 +96,7 @@
         <div class="col-3 q-px-md">
           <span>Importing economy</span>
           <div>
-            <q-select
+            <!-- <q-select
               v-model="imp_country"
               :options="imp_optionsShow"
               outlined
@@ -109,6 +133,30 @@
                   </q-item-section>
                 </q-item>
               </template>
+            </q-select>-->
+
+            <q-select
+              dense
+              bg-color="white"
+              outlined
+              v-model="imp_country"
+              :options="countryOptions"
+              @input="selectedImpCountry()"
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section>
+                    <q-item-label
+                      v-html="scope.opt.label"
+                      :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                    />
+                  </q-item-section>
+                </q-item>
+              </template>
             </q-select>
           </div>
         </div>
@@ -125,32 +173,30 @@
               :options="sectorOptions"
               outlined
               @input="selectedSector()"
-            ></q-select> -->
+            ></q-select>-->
 
-             <q-select
-             bg-color="white"
-            dense
-            filled
-            v-model="sector"
-            :options="sectorOptions"
-               map-options
+            <q-select
+              bg-color="white"
+              dense
+              filled
+              v-model="sector"
+              :options="sectorOptions"
+              map-options
               emit-value
               @input="selectedSector()"
-                   outlined
-          >
-            <template v-slot:option="scope">
-              <q-item
-                v-bind="scope.itemProps"
-                v-on="scope.itemEvents"
-              >
-            <q-item-section>
-              <q-item-label v-html="scope.opt.label" :class="scope.opt.disable ? 'text-black text-weight-bolder' : 'text-black'" />
-            </q-item-section>
-          </q-item>
-        </template>
-      </q-select>
-
-
+              outlined
+            >
+              <template v-slot:option="scope">
+                <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                  <q-item-section>
+                    <q-item-label
+                      v-html="scope.opt.label"
+                      :class="scope.opt.disable ? 'text-black text-weight-bolder' : 'text-black'"
+                    />
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
           </div>
         </div>
       </div>
@@ -211,7 +257,7 @@
 
     <!-- Data Waiting -->
     <div v-else>
-            <div style="height:450px;" >
+      <div style="height:450px;">
         <div class="row">
           <div class="col-3">
             <q-img cover src="../../public/images/pgvc.jpg"></q-img>
@@ -239,16 +285,11 @@
             </div>
           </div>
         </div>
-        <hr>
-        <div
-          class=" font-graph text-black q-pt-xl"
-          style="width:100%;"
-          align="center"
-        >
+        <hr />
+        <div class="font-graph text-black q-pt-xl" style="width:100%;" align="center">
           Please choose exporting economy, importing economy, exporting sector and year
           from the drop down menus above
         </div>
-         </div>
       </div>
     </div>
 
@@ -477,23 +518,31 @@ export default {
       console.log(finalList);
 
       forwardList.forEach((element, index) => {
-        forwardList[index]["totalY"] =Number(element.valM +
-          backwardList[index]["valM"] +
-          doubleList[index]["valM"] + finalList[index]['valM']).toFixed(2)
-          ;
-        backwardList[index]["totalY"] = Number(element.valM +
-          backwardList[index]["valM"] +
-          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2)
-          ;
-        doubleList[index]["totalY"] =
-          Number(element.valM +
-          backwardList[index]["valM"] +
-          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2);
+        forwardList[index]["totalY"] = Number(
+          element.valM +
+            backwardList[index]["valM"] +
+            doubleList[index]["valM"] +
+            finalList[index]["valM"]
+        ).toFixed(2);
+        backwardList[index]["totalY"] = Number(
+          element.valM +
+            backwardList[index]["valM"] +
+            doubleList[index]["valM"] +
+            finalList[index]["valM"]
+        ).toFixed(2);
+        doubleList[index]["totalY"] = Number(
+          element.valM +
+            backwardList[index]["valM"] +
+            doubleList[index]["valM"] +
+            finalList[index]["valM"]
+        ).toFixed(2);
 
-          finalList[index]["totalY"] =
-          Number(element.valM +
-          backwardList[index]["valM"] +
-          doubleList[index]["valM"]+ finalList[index]['valM']).toFixed(2);
+        finalList[index]["totalY"] = Number(
+          element.valM +
+            backwardList[index]["valM"] +
+            doubleList[index]["valM"] +
+            finalList[index]["valM"]
+        ).toFixed(2);
       });
 
       this.isChart = true;

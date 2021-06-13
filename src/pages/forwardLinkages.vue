@@ -16,7 +16,7 @@
             <div class="col q-px-md">
               <div>Exporting economy</div>
               <div>
-                <q-select
+                <!-- <q-select
                   bg-color="white"
                   v-model="exp_country"
                   dense
@@ -56,7 +56,33 @@
                       </q-item-section>
                     </q-item>
                   </template>
-                </q-select>
+                </q-select> -->
+
+                   <q-select
+                dense
+                bg-color="white"
+                outlined
+                v-model="exp_country"
+                :options="countryOptions"
+                @input="selectedExporting()"
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+
               </div>
             </div>
             <div class="col q-px-md">

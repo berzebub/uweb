@@ -1,5 +1,10 @@
 [
   {
+    "id" : "-",
+    "disable" : true,
+    "name" : "Individual economies"
+  },
+  {
     "id": "2",
     "name": "Argentina",
     "region": "Latin America and the Caribbean",
@@ -135,6 +140,7 @@
     "code": "DK",
     "region2": "NE"
   },
+
   {
     "id": "19",
     "name": "Ecuador",
@@ -583,32 +589,50 @@
     "code": "VN",
     "region2": "SEA"
   },
+
+  
+
   {
-    "id": "75",
-    "name": "South-East Asia",
-    "region": [
-      "South-East Asia"
-    ],
-    "iso": "sea",
-    "type": 1
+    "id": "-",
+    "name": "Economy groups",
+    "disable" : true
+  },
+
+  {
+    "id": "89",
+    "name": "APEC",
+    "region": [],
+    "iso": "apec",
+    "type": 2
   },
   {
-    "id": "76",
-    "name": "North and Central Asia",
-    "region": [
-      "North and Central Asia"
-    ],
-    "iso": "nca",
-    "type": 1
+    "id": "83",
+    "name": "APTA",
+    "region": [],
+    "iso": "apta",
+    "type": 2
   },
   {
-    "id": "77",
-    "name": "South and South-West Asia",
-    "region": [
-      "South and South-West Asia"
-    ],
-    "iso": "sswa",
-    "type": 1
+    "id": "80",
+    "name": "Asia-Pacific",
+    "region": [],
+    "iso": "ap",
+    "type": 2
+  },
+  {
+    "id": "93",
+    "name": "BIMSTEC",
+    "region": [],
+    "iso": "bimstec",
+    "type": 2
+  },
+
+  {
+    "id": "87",
+    "name": "CPTPP",
+    "region": [],
+    "iso": "cptpp",
+    "type": 2
   },
   {
     "id": "78",
@@ -617,6 +641,57 @@
       "East and North-East Asia"
     ],
     "iso": "enea",
+    "type": 1
+  },
+  {
+    "id": "82",
+    "name": "Europe",
+    "region": [],
+    "iso": "eur",
+    "type": 2
+  },
+  {
+    "id": "81",
+    "name": "European Union",
+    "region": [],
+    "iso": "euz",
+    "type": 2
+  },
+  {
+    "id": "92",
+    "name": "FEALAC",
+    "region": [],
+    "iso": "fealac",
+    "type": 2
+  },
+  {
+    "id": "90",
+    "name": "Latin America",
+    "region": [],
+    "iso": "lac",
+    "type": 1
+  },
+  {
+    "id": "86",
+    "name": "MERCOSUR",
+    "region": [],
+    "iso": "mercosur",
+    "type": 2
+  },
+  {
+    "id": "85",
+    "name": "NAFTA",
+    "region": [],
+    "iso": "nafta",
+    "type": 2
+  },
+  {
+    "id": "76",
+    "name": "North and Central Asia",
+    "region": [
+      "North and Central Asia"
+    ],
+    "iso": "nca",
     "type": 1
   },
   {
@@ -629,59 +704,10 @@
     "type": 1
   },
   {
-    "id": "80",
-    "name": "Asia-Pacific",
+    "id": "91",
+    "name": "Pacific Alliance",
     "region": [],
-    "iso": "ap",
-    "type": 2
-  },
-  {
-    "id": "81",
-    "name": "European Union",
-    "region": [],
-    "iso": "euz",
-    "type": 2
-  },
-  {
-    "id": "82",
-    "name": "Europe",
-    "region": [],
-    "iso": "eur",
-    "type": 2
-  },
-  {
-    "id": "83",
-    "name": "APTA",
-    "region": [],
-    "iso": "apta",
-    "type": 2
-  },
-  {
-    "id": "84",
-    "name": "SAARC",
-    "region": [],
-    "iso": "saarc",
-    "type": 2
-  },
-  {
-    "id": "85",
-    "name": "NAFTA",
-    "region": [],
-    "iso": "nafta",
-    "type": 2
-  },
-  {
-    "id": "86",
-    "name": "MERCOSUR",
-    "region": [],
-    "iso": "mercosur",
-    "type": 2
-  },
-  {
-    "id": "87",
-    "name": "CPTPP",
-    "region": [],
-    "iso": "cptpp",
+    "iso": "pac_alliance",
     "type": 2
   },
   {
@@ -692,39 +718,29 @@
     "type": 2
   },
   {
-    "id": "89",
-    "name": "APEC",
+    "id": "84",
+    "name": "SAARC",
     "region": [],
-    "iso": "apec",
+    "iso": "saarc",
     "type": 2
   },
   {
-    "id": "90",
-    "name": "Latin America",
-    "region": [],
-    "iso": "lac",
+    "id": "77",
+    "name": "South and South-West Asia",
+    "region": [
+      "South and South-West Asia"
+    ],
+    "iso": "sswa",
     "type": 1
   },
   {
-    "id": "91",
-    "name": "Pacific Alliance",
-    "region": [],
-    "iso": "pac_alliance",
-    "type": 2
-  },
-  {
-    "id": "92",
-    "name": "FEALAC",
-    "region": [],
-    "iso": "fealac",
-    "type": 2
-  },
-  {
-    "id": "93",
-    "name": "BIMSTEC",
-    "region": [],
-    "iso": "bimstec",
-    "type": 2
+    "id": "75",
+    "name": "South-East Asia",
+    "region": [
+      "South-East Asia"
+    ],
+    "iso": "sea",
+    "type": 1
   },
   {
     "id": "94",

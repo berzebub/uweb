@@ -8,7 +8,7 @@
       <div class="col-6 row">
         <div class="col q-px-md">
           <span>Exporting economy</span>
-          <q-select
+          <!-- <q-select
             v-model="exp_country"
             :options="exp_optionsShow"
             outlined
@@ -43,7 +43,33 @@
                 </q-item-section>
               </q-item>
             </template>
-          </q-select>
+          </q-select> -->
+
+           <q-select
+           dense=""
+                bg-color="white"
+                outlined=""
+                v-model="exp_country"
+                :options="countryOptions"
+                @input="selectedExpCountry()"
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+              
         </div>
 
         <div class="col q-px-md">

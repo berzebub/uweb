@@ -1,18 +1,10 @@
 <template>
   <q-page>
-    <global-value-chains-header
-      :isShowTinaLink="false"
-      :isDisableShare="false"
-    ></global-value-chains-header>
+    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
       <div style="width: 235px" class>
-        <img
-          style="width: 100%"
-          class="full-height"
-          src="../../public/download-side.png"
-          alt
-        />
+        <img style="width: 100%" class="full-height" src="../../public/download-side.png" alt />
       </div>
       <div class="col q-pa-lg" style="background-color: #e5e1e1">
         <div style="width: 90%; max-width: 1200px; margin: auto">
@@ -39,9 +31,7 @@
               border-radius: 5px 5px 0px 0px;
             "
           >
-            <div class="col q-px-lg" align="left" style="text-decoration: underline">
-              {{ email }}
-            </div>
+            <div class="col q-px-lg" align="left" style="text-decoration: underline">{{ email }}</div>
             <div class="col q-px-lg" align="right">
               <q-icon
                 class="cursor-pointer"
@@ -100,20 +90,44 @@
 
             <!-- exporting country -->
             <div>
-              <q-select
+              <!-- <q-select
                 v-model="exporting"
                 :options="countryList"
                 label="Exporting economy"
+               
+           
+              />-->
+
+              <q-select
+                bg-color="white"
                 multiple
                 emit-value
                 map-options
+                label="Exporting economy"
                 use-chips
+                v-model="exporting"
+                :options="countryOptions"
                 @input="resetDownloadState()"
-              />
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
             </div>
             <!-- importing country -->
             <div>
-              <q-select
+              <!-- <q-select
                 v-show="indicator != 'in_07'"
                 v-model="importing"
                 :options="countryList"
@@ -123,7 +137,37 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              />
+              /> -->
+
+                   <q-select
+                        v-show="indicator != 'in_07'"
+                bg-color="white"
+                multiple
+                emit-value
+                map-options
+              label="Importing economy"
+                use-chips
+                v-model="importing"
+                :options="countryOptions"
+                @input="resetDownloadState()"
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+
             </div>
             <!-- Sector -->
             <div>
@@ -137,7 +181,7 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              /> -->
+              />-->
 
               <q-select
                 v-show="indicator != 'in_06' && indicator != 'in_08'"
@@ -216,8 +260,7 @@
                     :data="downloadData"
                     ref="downloadData"
                     @click="test()"
-                    >Download Data</download-csv
-                  >
+                  >Download Data</download-csv>
 
                   <q-btn
                     v-else
@@ -241,9 +284,7 @@
         <div style="background-color: #2c2f30" class="q-pa-sm" align="center">
           <img src="../assets/logodialog.png" alt />
         </div>
-        <div class="q-pa-md" align="center">
-          Please log in to access the download data page
-        </div>
+        <div class="q-pa-md" align="center">Please log in to access the download data page</div>
         <div class="q-px-lg">
           <q-form @submit="signIn()">
             <div>
@@ -283,9 +324,7 @@
               class="cursor-pointer"
               @click="(isShowForgotPasswordDialog = true), (isLogin = false)"
               align="right"
-            >
-              Forgot password?
-            </div>
+            >Forgot password?</div>
             <div>
               <q-btn
                 type="submit"
@@ -301,15 +340,13 @@
                 style="color: #2381b8; text-decoration: underline"
                 @click="clearData()"
                 class="cursor-pointer"
-                >Sign up for a free account</span
-              >
+              >Sign up for a free account</span>
               / Back to
               <span
                 style="color: #2381b8; text-decoration: underline"
                 @click="homeLink()"
                 class="cursor-pointer"
-                >Home</span
-              >
+              >Home</span>
             </div>
           </q-form>
         </div>
@@ -392,10 +429,7 @@
             </div>
 
             <div class="q-pt-md">
-              <q-checkbox
-                v-model="signUp.isSubscribe"
-                label="Subscribe for lastest updates"
-              ></q-checkbox>
+              <q-checkbox v-model="signUp.isSubscribe" label="Subscribe for lastest updates"></q-checkbox>
             </div>
 
             <div>
@@ -413,8 +447,7 @@
                 style="color: #2381b8; text-decoration: underline"
                 @click="(isSignUp = false), (isLogin = true)"
                 class="cursor-pointer"
-                >Sign in</span
-              >
+              >Sign in</span>
             </div>
           </div>
         </q-form>
@@ -571,11 +604,7 @@
         </q-toolbar>
         <q-card-section class="no-padding">
           <div class="q-px-sm row justify-between q-pt-md">
-            <q-select
-              style="width: 75%"
-              :options="queryList"
-              v-model="querySelected"
-            ></q-select>
+            <q-select style="width: 75%" :options="queryList" v-model="querySelected"></q-select>
             <q-btn flat icon="fas fa-trash-alt" @click="deleteQuery()"></q-btn>
             <q-btn flat icon="fas fa-pencil-alt" @click="editQuery()"></q-btn>
           </div>
@@ -636,12 +665,7 @@
           </q-toolbar-title>
           <q-space></q-space>
 
-          <q-btn
-            icon="fas fa-times"
-            v-close-popup
-            @click="closePasswordRecoveryDialog()"
-            flat
-          ></q-btn>
+          <q-btn icon="fas fa-times" v-close-popup @click="closePasswordRecoveryDialog()" flat></q-btn>
         </q-toolbar>
         <q-card-section class="no-padding">
           <div class="q-px-md q-py-md">
@@ -678,6 +702,7 @@ export default {
   },
   data() {
     return {
+      countryOptions: [],
       sectorOptions: [],
       recoveryEmail: "",
       isShowForgotPasswordDialog: false,
@@ -823,7 +848,9 @@ export default {
       this.tempGroup.splice(index, 1);
       this.exporting = [];
       this.importing = [];
-      this.countryList = this.countryList.filter((x) => typeof x.value != "object");
+      this.countryList = this.countryList.filter(
+        (x) => typeof x.value != "object"
+      );
 
       this.countryList = [...this.tempGroup, ...this.countryList];
     },
@@ -838,13 +865,16 @@ export default {
       this.$refs.groupName.validate();
       this.$refs.groupSelected.validate();
 
-      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError) return;
+      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError)
+        return;
 
       if (this.isEditGroup) {
         this.tempGroup[this.tempIndex].label = this.groupName;
         this.tempGroup[this.tempIndex].value = this.groupSelected;
         this.tempIndex = null;
-        this.countryList = this.countryList.filter((x) => typeof x.value != "object");
+        this.countryList = this.countryList.filter(
+          (x) => typeof x.value != "object"
+        );
 
         this.countryList = [...this.tempGroup, ...this.countryList];
         this.isAddNewGroupDialog = false;
@@ -864,7 +894,8 @@ export default {
         this.isAddNewGroupDialog = false;
       }
 
-      (this.isAddNewGroupDialog = false), (this.isShowEconomyGroupDialog = true);
+      (this.isAddNewGroupDialog = false),
+        (this.isShowEconomyGroupDialog = true);
     },
     resetDownloadState() {
       this.isShowDownloadBtn = false;
@@ -945,7 +976,12 @@ export default {
 
       let _this = this;
       function validateInput() {
-        if (!_this.exporting || !_this.importing || !_this.sectorList || !_this.year) {
+        if (
+          !_this.exporting ||
+          !_this.importing ||
+          !_this.sectorList ||
+          !_this.year
+        ) {
           if (!_this.exporting) {
             _this.$q.notify({
               message: "Please add an exporting economy",
@@ -1058,6 +1094,7 @@ export default {
     async getEmail(id) {
       const url = this.path_api2 + "/getEmail.php?id=" + id;
       const result = await Axios.get(url);
+      this.querySelected = "--- Please Select ---";
 
       this.email = result.data[0].email;
 
@@ -1068,8 +1105,6 @@ export default {
         queryList.forEach((element, index) => {
           element.index = index;
         });
-
-        console.log(queryList);
         this.queryList = queryList;
       }
     },
@@ -1249,6 +1284,7 @@ export default {
     if (!this.$q.sessionStorage.has("uid")) {
       this.isLogin = true;
     } else {
+      this.getCountryList();
       this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
     await this.getSectorList();

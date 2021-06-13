@@ -131,11 +131,14 @@ Vue.mixin({
           iso: element.iso,
           index: element.id,
           code: element.code,
-          region2: element.region2
+          region2: element.region2,
+          disable : element.disable ? true : false
         };
         tempOptions.push(data);
       });
-      tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
+      // tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
+
+
 
       this.countryOptions = tempOptions;
       // this.countrySelected = ""
