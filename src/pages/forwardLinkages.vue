@@ -58,31 +58,29 @@
                   </template>
                 </q-select> -->
 
-                   <q-select
-                dense
-                bg-color="white"
-                outlined
-                v-model="exp_country"
-                :options="countryOptions"
-                @input="selectedExporting()"
-              >
-                <template v-slot:option="scope">
-                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                    <q-item-section>
-                      <q-item-label
-                        v-html="scope.opt.label"
-                        :class="
-                          scope.opt.disable
-                            ? 'text-black text-weight-bolder'
-                            : 'text-black'
-                        "
-                      />
-                    </q-item-section>
-                  </q-item>
-                </template>
-              </q-select>
-
-
+                <q-select
+                  dense
+                  bg-color="white"
+                  outlined
+                  v-model="exp_country"
+                  :options="countryOptions"
+                  @input="selectedExporting()"
+                >
+                  <template v-slot:option="scope">
+                    <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                      <q-item-section>
+                        <q-item-label
+                          v-html="scope.opt.label"
+                          :class="
+                            scope.opt.disable
+                              ? 'text-black text-weight-bolder'
+                              : 'text-black'
+                          "
+                        />
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
               </div>
             </div>
             <div class="col q-px-md">
@@ -1696,11 +1694,12 @@ export default {
                   "<div class='text-bold'>" +
                   this.name +
                   "</div>" +
-                  "<div> " +
-                  Number(this.y).toFixed(2) +
-                  "% ($" +
+                  "<div>Value:  " +
                   Number(this.sumValueM).toFixed(2) +
-                  " million)</div>"
+                  " million </div>" +
+                  "<div>Share: " +
+                  Number(this.y).toFixed(2) +
+                  "% </div>"
                 );
               }
             }
@@ -2023,15 +2022,15 @@ export default {
           ${this.exp_country.label}'s contribution to ${
             this.imp_country.label
           }'s export production: $${
-            getDataSub.exportto < 1000
-              ? getDataSub.exportto + " million"
-              : (getDataSub.exportto / 1000).toFixed(2) + " billion"
-          } / ${this.exp_country.label}'s gross exports to ${
-            this.imp_country.label
-          }:  $${
             getDataSub.contributionto < 1000
               ? getDataSub.contributionto + " million"
               : (getDataSub.contributionto / 1000).toFixed(2) + " billion"
+          } / ${this.exp_country.label}'s gross exports to ${
+            this.imp_country.label
+          }:  $${
+            getDataSub.exportto < 1000
+              ? getDataSub.exportto + " million"
+              : (getDataSub.exportto / 1000).toFixed(2) + " billion"
           }
           `,
           align: "left"
@@ -2595,7 +2594,7 @@ export default {
               },
               drillup: function(e) {
                 chart.setTitle({
-                  text: `Which sectors in ${ctext} economies' are most reliant on export production in ${impCountry}?`
+                  text: `How are ${ctext}  economies' contribution to export production in  ${impCountry} distributed across sectors?`
                 });
                 chart.setSubtitle({
                   text:
@@ -2678,6 +2677,12 @@ export default {
             headerFormat: "",
             pointFormatter: function() {
               // console.log(this.series.name);
+              let textShow = "";
+              if (this.value >= 1000) {
+                textShow = (Number(this.value) / 1000).toFixed(2) + " billion";
+              } else {
+                textShow = Number(this.value).toFixed(2) + " million";
+              }
               if (this.series.name != "Series 1") {
                 return (
                   "<div> <span class='text-bold'>" +
@@ -2685,10 +2690,10 @@ export default {
                   "</span><br>" +
                   this.series.name +
                   "<br> Value: " +
+                  textShow +
+                  "<br>Share: " +
                   this.y +
-                  "% ($" +
-                  Number(this.value).toFixed(2) +
-                  " million)</div>"
+                  "%</div>"
                 );
               } else {
                 return (
@@ -2696,10 +2701,10 @@ export default {
                   this.name +
                   "</span>" +
                   "<br> Value: " +
-                  this.y +
-                  "% ($" +
                   Number(this.value).toFixed(2) +
-                  " million)</div>"
+                  " million<br>Share: " +
+                  this.y +
+                  "%</div>"
                 );
               }
             }

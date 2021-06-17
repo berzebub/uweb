@@ -1,8 +1,8 @@
 [
   {
-    "id" : "-",
-    "disable" : true,
-    "name" : "Individual economies"
+    "id": "-",
+    "disable": true,
+    "name": "Individual economies"
   },
   {
     "id": "2",
@@ -99,6 +99,14 @@
     "iso": "CAN",
     "code": "CA",
     "region2": "NA"
+  },
+  {
+    "id": "55",
+    "name": "China",
+    "region": "East and North-East Asia",
+    "iso": "CHN",
+    "code": "CN",
+    "region2": "ENEA"
   },
   {
     "id": "14",
@@ -429,14 +437,7 @@
     "code": "PT",
     "region2": "SE"
   },
-  {
-    "id": "55",
-    "name": "China",
-    "region": "East and North-East Asia",
-    "iso": "CHN",
-    "code": "CN",
-    "region2": "ENEA"
-  },
+
   {
     "id": "56",
     "name": "Rest of the Latin American Countries",
@@ -590,12 +591,10 @@
     "region2": "SEA"
   },
 
-  
-
   {
     "id": "-",
     "name": "Economy groups",
-    "disable" : true
+    "disable": true
   },
 
   {
@@ -637,9 +636,7 @@
   {
     "id": "78",
     "name": "East and North-East Asia",
-    "region": [
-      "East and North-East Asia"
-    ],
+    "region": ["East and North-East Asia"],
     "iso": "enea",
     "type": 1
   },
@@ -688,18 +685,14 @@
   {
     "id": "76",
     "name": "North and Central Asia",
-    "region": [
-      "North and Central Asia"
-    ],
+    "region": ["North and Central Asia"],
     "iso": "nca",
     "type": 1
   },
   {
     "id": "79",
     "name": "Pacific",
-    "region": [
-      "Pacific"
-    ],
+    "region": ["Pacific"],
     "iso": "pac",
     "type": 1
   },
@@ -727,18 +720,14 @@
   {
     "id": "77",
     "name": "South and South-West Asia",
-    "region": [
-      "South and South-West Asia"
-    ],
+    "region": ["South and South-West Asia"],
     "iso": "sswa",
     "type": 1
   },
   {
     "id": "75",
     "name": "South-East Asia",
-    "region": [
-      "South-East Asia"
-    ],
+    "region": ["South-East Asia"],
     "iso": "sea",
     "type": 1
   },
