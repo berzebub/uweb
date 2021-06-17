@@ -1488,6 +1488,12 @@ export default {
   },
   computed: {
     checkDuplicateSelected() {
+      if (
+        Number(this.exportingSelected.value) > 74 ||
+        Number(this.importingSelected.value) > 74
+      ) {
+        return false;
+      }
       return this.exportingSelected.iso == this.importingSelected.iso;
     }
   },
