@@ -292,7 +292,9 @@
       <sorry-duplicate
         v-show="
           exportingSelected.label == importingSelected.label &&
-            exportingSelected.label != null
+            exportingSelected.label != null &&
+            Number(exportingSelected.index) < 75 &&
+            Number(importingSelected.index) < 75
         "
       ></sorry-duplicate>
       <div
@@ -302,6 +304,7 @@
             importingSelected.label == null
         "
       >
+        {{ importingSelected.index }} {{ exportingSelected.index }}
         <!-- <data-waiting
           :text="
             activeSelect == 1
@@ -415,7 +418,11 @@
       </div>
 
       <div
-        v-if="!isWaiting && exportingSelected.label != importingSelected.label"
+        v-if="
+          (!isWaiting && exportingSelected.label != importingSelected.label) ||
+            Number(importingSelected.index) > 74 ||
+            Number(importingSelected.index) > 74
+        "
       >
         <div class="row">
           <div class="col-6">

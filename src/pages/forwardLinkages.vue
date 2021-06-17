@@ -223,11 +223,12 @@
       <sorry-duplicate
         v-show="
           exp_country.iso == imp_country.iso &&
+            Number(imp_country.value) < 74 &&
+            Number(exp_country.value) < 74 &&
             activeBy == 'Economy' &&
             exp_country.iso != null
         "
       ></sorry-duplicate>
-
       <!--  -->
 
       <div
@@ -513,7 +514,10 @@
       <div
         v-if="
           this.activeBy == 'Economy' &&
-            (exp_country.iso != imp_country.iso || exp_country.iso == null)
+            (exp_country.iso != imp_country.iso ||
+              exp_country.iso == null ||
+              Number(exp_country.value) > 74 ||
+              Number(imp_country.value) > 74)
         "
       >
         <div v-if="exp_country && imp_country && year">
@@ -1680,6 +1684,10 @@ export default {
                 this.series.name == "North America" ||
                 this.series.name == "Rest of the world"
               ) {
+                let vx =
+                  this.sumValueM >= 100
+                    ? (this.sumValueM / 1000).toFixed(2) + " billion"
+                    : this.sumValueM.toFixed(2) + " million";
                 return (
                   "<div class='text-bold'>" +
                   this.name +
@@ -1687,7 +1695,9 @@ export default {
                   this.series.name +
                   "<div> Share: " +
                   Number(this.y).toFixed(2) +
-                  "% </div>"
+                  "% <br>Value: " +
+                  vx +
+                  "</div>"
                 );
               } else {
                 return (
