@@ -66,8 +66,25 @@
                   :options="countryOptions"
                   @input="selectedExporting()"
                 >
+                   <template v-slot:prepend v-if="showExportingCountry">
+                    <gb-flag
+                      v-if="
+                        showExportingCountry.code &&
+                          showExportingCountry.code != 'TW'
+                      "
+                      :code="showExportingCountry.code"
+                      size="small"
+                    />
+                  </template>
                   <template v-slot:option="scope">
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                       <q-item-section avatar>
+                        <gb-flag
+                          v-if="scope.opt.code && scope.opt.code != 'TW'"
+                          :code="scope.opt.code"
+                          size="small"
+                        />
+                      </q-item-section>
                       <q-item-section>
                         <q-item-label
                           v-html="scope.opt.label"
