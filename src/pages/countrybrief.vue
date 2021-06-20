@@ -41,7 +41,12 @@
         </div>
 
         <div class="q-pb-md">
-          <q-btn no-caps class="bg4 font-content" label="Genereate Data" @click="genData()" />
+          <q-btn
+            no-caps
+            class="bg4 font-content"
+            label="Genereate Data"
+            @click="genData()"
+          />
         </div>
       </q-card>
     </div>
@@ -57,54 +62,62 @@ export default {
       dataSet: [
         {
           label: "Step 1 : Reset all data",
-          value: 1,
+          value: 1
         },
         {
           label:
             "Step 2 : Recalculate Value-added structure of grossexports to world by exporter (all economies)",
-          value: 2,
+          value: 2
         },
         {
           label:
             "Step 3 : Value-added structure of gross exports to world by exporter",
-          value: 3,
+          value: 3
         },
         {
-          label: "Step 4 : Gross and value-added trade balance",
-          value: 4,
+          label: "Step 4A : Gross and value-added trade balance#1",
+          value: 4
+        },
+        {
+          label: "Step 4B : Gross and value-added trade balance#2",
+          value: 9
         },
         {
           label: "Step 5 : Global value chain relationships",
-          value: 5,
+          value: 5
         },
         {
           label: "Step 6 : Participation in GVCs",
-          value: 6,
+          value: 6
         },
         {
-          label: "Step 7 : Backward linkages",
-          value: 7,
+          label: "Step 7A : Backward linkages#1",
+          value: 7
+        },
+        {
+          label: "Step 7B : Backward linkages#2",
+          value: 10
         },
         {
           label: "Step 8 : Forward linkages",
-          value: 8,
-        },
+          value: 8
+        }
       ],
       dataInput: {
         year: 2007,
         dataSet: 1,
-        country: "ARG",
+        country: "ARG"
       },
       countryList: [
         {
           label: "art",
-          value: "ARG",
+          value: "ARG"
         },
         {
           label: "art2",
-          value: "2",
-        },
-      ],
+          value: "2"
+        }
+      ]
     };
   },
   methods: {
@@ -115,21 +128,21 @@ export default {
 
       axios
         .get(url)
-        .then((res) => {
+        .then(res => {
           this.setDataTemp(res.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
       this.countryList = [];
 
       json.sort((a, b) => (a.name > b.name ? 1 : -1));
 
-      json.forEach((x) => {
+      json.forEach(x => {
         if (x.iso != "RoW" && x.iso != "RoLAC") {
           let temp = {
             label: x.name,
-            value: x.iso,
+            value: x.iso
           };
           this.countryList.push(temp);
         }
@@ -168,6 +181,13 @@ export default {
         this.loadingHide();
         this.notifyGreen("Action completely");
       }
+      //step 9
+      else if (this.dataInput.dataSet == 9) {
+        let url = this.serverPath + "u_api/cbstep4a.php";
+        let res = await axios.post(url, JSON.stringify(this.dataInput));
+        this.loadingHide();
+        this.notifyGreen("Action completely");
+      }
       //step 5
       else if (this.dataInput.dataSet == 5) {
         let url = this.serverPath + "u_api/cbstep5.php";
@@ -189,6 +209,13 @@ export default {
         this.loadingHide();
         this.notifyGreen("Action completely");
       }
+      //step 7B
+      else if (this.dataInput.dataSet == 10) {
+        let url = this.serverPath + "u_api/cbstep7a.php";
+        let res = await axios.post(url, JSON.stringify(this.dataInput));
+        this.loadingHide();
+        this.notifyGreen("Action completely");
+      }
       //step 8
       else if (this.dataInput.dataSet == 8) {
         let url = this.serverPath + "u_api/cbstep8.php";
@@ -203,7 +230,7 @@ export default {
       temp.sort((a, b) => {
         return Number(a.year) - Number(b.year);
       });
-      temp.forEach((x) => {
+      temp.forEach(x => {
         this.year.push(x.year);
       });
       // console.log(temp);
@@ -211,13 +238,12 @@ export default {
       // this.setYearOptions();
 
       this.loadingHide();
-    },
+    }
   },
   mounted() {
     this.loadData();
-  },
+  }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
