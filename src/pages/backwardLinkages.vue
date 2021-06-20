@@ -64,8 +64,24 @@
                 :options="countryOptions"
                 @input="selectedExporting()"
               >
+              <template
+                  v-slot:prepend
+                  v-if="
+                    exportingSelected.code && exportingSelected.code != 'TW'
+                  "
+                >
+                  <gb-flag :code="exportingSelected.code" size="small" />
+                </template>
+
                 <template v-slot:option="scope">
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                     <q-item-section avatar>
+                      <gb-flag
+                        v-if="scope.opt.code && scope.opt.code != 'TW'"
+                        :code="scope.opt.code"
+                        size="small"
+                      />
+                    </q-item-section>
                     <q-item-section>
                       <q-item-label
                         v-html="scope.opt.label"
@@ -154,8 +170,25 @@
                 :options="countryOptions"
                 @input="selectedImporting()"
               >
+               <template v-slot:prepend v-if="importingSelected.code">
+                  <gb-flag
+                    v-if="
+                      importingSelected.code && importingSelected.code != 'TW'
+                    "
+                    :code="importingSelected.code"
+                    size="small"
+                  />
+                </template>
+
                 <template v-slot:option="scope">
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                     <q-item-section avatar>
+                      <gb-flag
+                        v-if="scope.opt.code && scope.opt.code != 'TW'"
+                        :code="scope.opt.code"
+                        size="small"
+                      />
+                    </q-item-section>
                     <q-item-section>
                       <q-item-label
                         v-html="scope.opt.label"
