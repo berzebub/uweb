@@ -60,8 +60,23 @@
               :options="countryOptions"
               @input="selectedExpCountry()"
             >
+               <template v-slot:prepend v-if="expCountry">
+                <gb-flag
+                  class="q-mr-sm"
+                  v-if="expCountry.code && expCountry.code !='TW'"
+                  :code="expCountry.code"
+                  size="small"
+                />
+              </template>
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                   <q-item-section avatar>
+                    <gb-flag
+                      v-if="scope.opt.code && scope.opt.code !='TW'"
+                      :code="scope.opt.code"
+                      size="small"
+                    />
+                  </q-item-section>
                   <q-item-section>
                     <q-item-label
                       v-html="scope.opt.label"
@@ -143,8 +158,25 @@
               :options="countryOptions"
               @input="selectedImpCountry()"
             >
+               <template v-slot:prepend v-if="impCountry">
+                <gb-flag
+                  class="q-mr-sm"
+                  v-if="impCountry.code&&impCountry.code!='TW'"
+                  :code="impCountry.code"
+                  size="small"
+                />
+              </template>
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+
+                  <q-item-section avatar>
+                    <gb-flag
+                      v-if="scope.opt.code && scope.opt.code !='TW'"
+                      :code="scope.opt.code"
+                      size="small"
+                    />
+                  </q-item-section>
+
                   <q-item-section>
                     <q-item-label
                       v-html="scope.opt.label"
