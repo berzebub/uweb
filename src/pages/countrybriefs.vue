@@ -1,17 +1,25 @@
 <template>
   <q-page>
-    <global-value-chains-header :isShowTinaLink="false" :isDisableShare="false"></global-value-chains-header>
+    <global-value-chains-header
+      :isShowTinaLink="false"
+      :isDisableShare="false"
+    ></global-value-chains-header>
     <div class="row">
       <!-- indicator -->
-      <div style="width:235px" class>
-        <img style="width:100%" class="full-height" src="../../public/countrybrief2.png" alt />
+      <div style="width:250px" class>
+        <img
+          style="width:100%"
+          class="full-height"
+          src="../../public/countrybrief3.png"
+          alt
+        />
       </div>
       <div class="col q-pa-lg" style="background-color:#E5E1E1">
         <div style="width:90%;max-width:1200px; margin:auto;">
           <p align="center" class="font-24">Country brief</p>
-          <p>
-            Get an overview of value-added export structure for your economy of
-            choice. See how this changes perception of bilateral trade balances
+          <p align="center">
+            Get a summary of trade in value-added exports and GVC linkages for
+            your economy of choice.
           </p>
         </div>
 
@@ -46,14 +54,16 @@
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
                     <q-item-section avatar>
                       <gb-flag
-                        v-if="scope.opt.code && scope.opt.code !='TW'"
+                        v-if="scope.opt.code && scope.opt.code != 'TW'"
                         :code="scope.opt.code"
                         size="small"
                       />
                     </q-item-section>
                     <q-item-section>
                       <q-item-label v-html="scope.opt.label" />
-                      <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+                      <q-item-label caption>{{
+                        scope.opt.description
+                      }}</q-item-label>
                     </q-item-section>
                   </q-item>
                 </template>
@@ -77,7 +87,10 @@
             </div>
           </div>
           <div class="row q-mt-md">
-            <div class="col-12 row justify-center q-col-gutter-md" align="center">
+            <div
+              class="col-12 row justify-center q-col-gutter-md"
+              align="center"
+            >
               <!-- @click="$router.push('/countrybriefs/data')" -->
 
               <div>
@@ -108,14 +121,14 @@ import myFooter from "../components/footer";
 export default {
   components: {
     myFooter,
-    globalValueChainsHeader,
+    globalValueChainsHeader
   },
   data() {
     return {
       exp_country: "",
       exp_optionsShow: [],
       year: 2017,
-      yearOptions: [],
+      yearOptions: []
     };
   },
   methods: {
@@ -128,7 +141,7 @@ export default {
     filterCountry(val, update) {
       update(async () => {
         this.exp_optionsShow = this.countryOptions.filter(
-          (x) => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
+          x => x.label.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
       });
     },
@@ -139,7 +152,7 @@ export default {
 
       let temp = [];
 
-      data.data.forEach((element) => {
+      data.data.forEach(element => {
         temp.push({ value: Number(element), label: element });
       });
       this.yearOptions = temp;
@@ -248,18 +261,18 @@ export default {
 
         this.$router.push("/countrybriefs/data");
       }, 1000);
-    },
+    }
   },
   computed: {
     overviewCountry() {
       if (this.exp_country) {
         let res = this.countryOptions.filter(
-          (x) => x.value == this.exp_country.value
+          x => x.value == this.exp_country.value
         )[0];
 
         return res;
       }
-    },
+    }
   },
   async mounted() {
     await this.getCountryListShort();
@@ -281,7 +294,7 @@ export default {
 
     //   this.exp_optionsShow = this.countryOptions;
     // }
-  },
+  }
 };
 </script>
 
