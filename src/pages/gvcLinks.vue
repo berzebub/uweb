@@ -1043,7 +1043,8 @@ export default {
       );
       // console.log(backData);
       let getDataTemp = getData;
-
+      this.graphBackwardGVCSector = []
+      this.graphForwardGVCSector = []
       // console.log(getDataTemp[0], getDataTemp[9]);
       for (let i = 4; i >= 0; i--) {
         this.graphBackwardGVCSector.push(backData[i].backward);

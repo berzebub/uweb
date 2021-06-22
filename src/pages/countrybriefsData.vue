@@ -961,6 +961,7 @@ export default {
         exporting: {
           enabled: false,
         },
+       
       });
     },
     chart2(set2) {

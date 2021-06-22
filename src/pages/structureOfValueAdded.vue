@@ -799,6 +799,48 @@ export default {
           {
             dataLabels: {
               enabled: true,
+              formatter: function(){
+                console.log(getData);
+                let total = getData.imp_cons + getData.final + getData.imp_exp +getData.dom_cons+ getData.double
+              if(this.point.options.name.includes("Intermediate")){
+                  if(getData.imp_cons/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }    
+              } else if(this.point.options.name.includes("Final domestic production")){
+                if(getData.final/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }
+              } else if(this.point.options.name.includes("Domestic production used")){
+                if(getData.imp_exp/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }
+              } else if(this.point.options.name.includes("Domestic production that returns")){
+                if(getData.dom_cons/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }
+              } else if(this.point.options.name.includes("Double counted")){
+                if(getData.double/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }
+              } else if(this.point.options.name.includes("Foreign production consumed")){
+                if(getData.imp_cont/total *100 > 1){
+                    return this.point.options.name
+                  } else {
+                    return ''
+                  }
+              }
+                
+              },
               style: {
                 fontSize: "12px"
               }
@@ -999,6 +1041,7 @@ export default {
                 fontFamily: "roboto",
                 color: "#00000"
               },
+              
               align: "right",
               verticalAlign: "middle",
               layout: "vertical",
