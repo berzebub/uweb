@@ -1133,6 +1133,7 @@ export default {
           message: `Welcome ${this.email}`,
           color: "secondary",
         });
+         this.getCountryList();
       }
 
       this.loadingHide();
@@ -1281,10 +1282,11 @@ export default {
     },
   },
   async mounted() {
+       
     if (!this.$q.sessionStorage.has("uid")) {
       this.isLogin = true;
     } else {
-      this.getCountryList();
+   this.getCountryList();
       this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
     await this.getSectorList();
