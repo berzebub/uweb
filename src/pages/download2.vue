@@ -961,11 +961,6 @@ export default {
 
       let exportingGroup = finalGroup.filter((x) => x);
 
-
-
-console.log(exportingGroup);
-
-return
       // importing economy group
       let getImportGroup = this.importing.filter((x) => typeof x == "object");
       let tempImportGroup = [];
