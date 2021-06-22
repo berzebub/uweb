@@ -1134,6 +1134,15 @@ export default {
           color: "secondary",
         });
          this.getCountryList();
+
+         this.countryOptions = this.countryOptions.map(x => 
+         {
+           return  {
+             label : x.label,
+             value : x.iso
+           }
+           
+         })
       }
 
       this.loadingHide();
@@ -1287,6 +1296,14 @@ export default {
       this.isLogin = true;
     } else {
    this.getCountryList();
+     this.countryOptions = this.countryOptions.map(x => 
+         {
+           return  {
+             label : x.label,
+             value : x.iso
+           }
+           
+         })
       this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
     await this.getSectorList();
