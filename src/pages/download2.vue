@@ -564,7 +564,7 @@
               emit-value
               use-chips
               multiple
-              :options="countryList.filter((x) => typeof x.value != 'object')"
+              :options="countryOptions.filter((x) => typeof x.value != 'object')"
               autofocus
               class="col"
               dense
@@ -872,17 +872,17 @@ export default {
         this.tempGroup[this.tempIndex].label = this.groupName;
         this.tempGroup[this.tempIndex].value = this.groupSelected;
         this.tempIndex = null;
-        this.countryList = this.countryList.filter(
+        this.countryOptions = this.countryOptions.filter(
           (x) => typeof x.value != "object"
         );
 
-        this.countryList = [...this.tempGroup, ...this.countryList];
+        this.countryOptions = [...this.tempGroup, ...this.countryOptions];
         this.isAddNewGroupDialog = false;
         this.exporting = [];
         this.importing = [];
       } else {
         // add group
-        this.countryList.unshift({
+        this.countryOptions.unshift({
           label: this.groupName,
           value: this.groupSelected,
         });
@@ -961,6 +961,11 @@ export default {
 
       let exportingGroup = finalGroup.filter((x) => x);
 
+
+
+console.log(exportingGroup);
+
+return
       // importing economy group
       let getImportGroup = this.importing.filter((x) => typeof x == "object");
       let tempImportGroup = [];
@@ -1139,7 +1144,8 @@ export default {
          {
            return  {
              label : x.label,
-             value : x.iso
+             value : x.iso,
+             disable : x.disable ? true : false
            }
            
          })
@@ -1300,7 +1306,8 @@ export default {
          {
            return  {
              label : x.label,
-             value : x.iso
+             value : x.iso,
+             disable : x.disable ? true : false
            }
            
          })
