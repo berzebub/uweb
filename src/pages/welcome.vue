@@ -5,19 +5,30 @@
         <source type="video/mp4" src="../../public/bg-hd.webm" />
       </video>
 
-      <div style="padding-top:20px;padding-left:20px" class="absolute" v-show="false">
+      <div
+        style="padding-top:20px;padding-left:20px"
+        class="absolute text-white"
+      >
+        <q-img style="width:150px" src="../../public/logo.png"></q-img>
+      </div>
+      <div
+        style="padding-top:20px;padding-left:20px"
+        class="absolute"
+        v-show="false"
+      >
         <div
           style="background-color:rgba(2,11,59,0.8);width:450px;border-radius:5px;"
           class="text-white row"
         >
           <div style="width:100%">
             <div style="height:15px">&nbsp;</div>
-            <div style="font-size:28px" align="center">Regional Integration</div>
+            <div style="font-size:28px" align="center">
+              Regional Integration
+            </div>
             <div style="height:15px"></div>
             <div style="font-size:18px;letter-spacing:0.2px" align="center">
               ESCAP DigiSRII provides insights on the
-              <br />structure and progress of regional
-              <br />integration in
+              <br />structure and progress of regional <br />integration in
               Asia-Pacific
             </div>
           </div>
@@ -72,8 +83,7 @@
             <div style="height:15px"></div>
             <div align="center" style="font-size:18px;letter-spacing:0.2px">
               Gain insight into your economy’s participation
-              <br />in GVCs. Uncover the sources of intermediate
-              <br />inputs
+              <br />in GVCs. Uncover the sources of intermediate <br />inputs
               and destinations of domestic value-added.
             </div>
           </div>
@@ -119,7 +129,7 @@
 import myFooter from "../components/footer";
 export default {
   components: {
-    myFooter,
+    myFooter
   },
   methods: {
     goToRegional() {
@@ -133,13 +143,13 @@ export default {
     },
     goToCountryBriefs() {
       this.$router.push("/countrybriefs");
-    },
+    }
   },
   mounted() {
     document
       .getElementById("myVideo")
-      .addEventListener("contextmenu", (event) => event.preventDefault());
-  },
+      .addEventListener("contextmenu", event => event.preventDefault());
+  }
 };
 </script>
 
