@@ -1,9 +1,16 @@
 <template>
   <div>
     <div class="bg flex flex-center relative-position" style="height:390px">
+      <div
+        class="q-mx-lg cursor-pointer absolute"
+        @click="toUnescap()"
+        style="max-width:180px;top:30px;left:0px;"
+      >
+        <q-img style="width:120px" src="../../public/logo.png"></q-img>
+      </div>
       <q-btn
         class="absolute"
-        style="top:0px;left:0px"
+        style="top:0px;left:150px"
         to="/"
         color="white"
         flat

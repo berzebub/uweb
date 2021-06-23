@@ -670,7 +670,7 @@ export default {
                   style: { fontSize: "6px" }
                 },
                 labels: {
-                  style: { fontSize: "6px" }
+                  style: { fontSize: "10px" }
                 }
               }
             ],
@@ -679,7 +679,7 @@ export default {
                 categories: countryList,
                 labels: {
                   rotation: -90,
-                  style: { fontSize: "6px" }
+                  style: { fontSize: "20px" }
                 }
               }
             ]

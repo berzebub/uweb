@@ -62,7 +62,7 @@
               :options="countryOptions"
               @input="selectedExporting()"
             >
-             <template v-slot:prepend v-if="exportingSelected.code">
+              <template v-slot:prepend v-if="exportingSelected.code">
                 <gb-flag
                   v-if="exportingSelected.code != 'TW'"
                   :code="exportingSelected.code"
@@ -71,7 +71,7 @@
               </template>
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                   <q-item-section avatar>
+                  <q-item-section avatar>
                     <gb-flag
                       v-if="scope.opt.code && scope.opt.code != 'TW'"
                       :code="scope.opt.code"
@@ -164,7 +164,7 @@
               :options="countryOptions"
               @input="selectedImporting()"
             >
-             <template v-slot:prepend v-if="importingSelected.code">
+              <template v-slot:prepend v-if="importingSelected.code">
                 <gb-flag
                   v-if="
                     importingSelected.code && importingSelected.code != 'TW'
@@ -175,7 +175,7 @@
               </template>
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                    <q-item-section avatar>
+                  <q-item-section avatar>
                     <gb-flag
                       v-if="scope.opt.code && scope.opt.code != 'TW'"
                       :code="scope.opt.code"
@@ -799,47 +799,63 @@ export default {
           {
             dataLabels: {
               enabled: true,
-              formatter: function(){
+              formatter: function() {
                 console.log(getData);
-                let total = getData.imp_cons + getData.final + getData.imp_exp +getData.dom_cons+ getData.double
-              if(this.point.options.name.includes("Intermediate")){
-                  if(getData.imp_cons/total *100 > 1){
-                    return this.point.options.name
+                let total =
+                  getData.imp_cons +
+                  getData.final +
+                  getData.imp_exp +
+                  getData.dom_cons +
+                  getData.double;
+                if (this.point.options.name.includes("Intermediate")) {
+                  if ((getData.imp_cons / total) * 100 > 1) {
+                    return this.point.options.name;
                   } else {
-                    return ''
-                  }    
-              } else if(this.point.options.name.includes("Final domestic production")){
-                if(getData.final/total *100 > 1){
-                    return this.point.options.name
-                  } else {
-                    return ''
+                    return "";
                   }
-              } else if(this.point.options.name.includes("Domestic production used")){
-                if(getData.imp_exp/total *100 > 1){
-                    return this.point.options.name
+                } else if (
+                  this.point.options.name.includes("Final domestic production")
+                ) {
+                  if ((getData.final / total) * 100 > 1) {
+                    return this.point.options.name;
                   } else {
-                    return ''
+                    return "";
                   }
-              } else if(this.point.options.name.includes("Domestic production that returns")){
-                if(getData.dom_cons/total *100 > 1){
-                    return this.point.options.name
+                } else if (
+                  this.point.options.name.includes("Domestic production used")
+                ) {
+                  if ((getData.imp_exp / total) * 100 > 1) {
+                    return this.point.options.name;
                   } else {
-                    return ''
+                    return "";
                   }
-              } else if(this.point.options.name.includes("Double counted")){
-                if(getData.double/total *100 > 1){
-                    return this.point.options.name
+                } else if (
+                  this.point.options.name.includes(
+                    "Domestic production that returns"
+                  )
+                ) {
+                  if ((getData.dom_cons / total) * 100 > 1) {
+                    return this.point.options.name;
                   } else {
-                    return ''
+                    return "";
                   }
-              } else if(this.point.options.name.includes("Foreign production consumed")){
-                if(getData.imp_cont/total *100 > 1){
-                    return this.point.options.name
+                } else if (this.point.options.name.includes("Double counted")) {
+                  if ((getData.double / total) * 100 > 1) {
+                    return this.point.options.name;
                   } else {
-                    return ''
+                    return "";
                   }
-              }
-                
+                } else if (
+                  this.point.options.name.includes(
+                    "Foreign production consumed"
+                  )
+                ) {
+                  if ((getData.imp_cont / total) * 100 > 1) {
+                    return this.point.options.name;
+                  } else {
+                    return "";
+                  }
+                }
               },
               style: {
                 fontSize: "12px"
@@ -893,7 +909,7 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "12px",
+            fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000"
@@ -1041,7 +1057,7 @@ export default {
                 fontFamily: "roboto",
                 color: "#00000"
               },
-              
+
               align: "right",
               verticalAlign: "middle",
               layout: "vertical",
@@ -1419,7 +1435,8 @@ export default {
         yAxis: {
           title: {
             text: `% of gross exports to ${this.importingSelected.label}`
-          }
+          },
+          style: { fontSize: "12px" }
         },
         credits: {
           enabled: false

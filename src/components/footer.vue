@@ -57,14 +57,14 @@
           </div>
         </div>
       </div>
-      <q-toolbar class="q-px-sm items-center">
-        <div
+      <q-toolbar class="q-px-md items-center">
+        <!-- <div
           class="q-mx-lg cursor-pointer"
           @click="toUnescap()"
           style="max-width:180px"
         >
           <q-img style="width:120px" src="../../public/logo.png"></q-img>
-        </div>
+        </div> -->
         <div
           class="q-mx-lg cursor-pointer"
           @click="toFealac()"
