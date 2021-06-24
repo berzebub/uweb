@@ -225,8 +225,8 @@
             </div>
             <!-- Source country -->
             <div>
-              <q-select
-                v-show="indicator == 'in_06'"
+              <!-- <q-select
+              
                 v-model="source"
                 :options="countryList"
                 label="Source economy"
@@ -235,7 +235,37 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              />
+              /> -->
+
+                <q-select
+                v-show="indicator == 'in_06'"
+                label="Source economy"
+                bg-color="white"
+                v-model="source"
+                :options="countryOptions"
+                map-options
+                emit-value
+                @input="resetDownloadState()"
+                multiple
+                use-chips
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+
             </div>
             <!-- year -->
             <div>
