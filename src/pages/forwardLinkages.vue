@@ -66,7 +66,7 @@
                   :options="countryOptions"
                   @input="selectedExporting()"
                 >
-                   <template v-slot:prepend v-if="showExportingCountry">
+                  <template v-slot:prepend v-if="showExportingCountry">
                     <gb-flag
                       v-if="
                         showExportingCountry.code &&
@@ -78,7 +78,7 @@
                   </template>
                   <template v-slot:option="scope">
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                       <q-item-section avatar>
+                      <q-item-section avatar>
                         <gb-flag
                           v-if="scope.opt.code && scope.opt.code != 'TW'"
                           :code="scope.opt.code"
@@ -303,10 +303,7 @@
           <div class="col-3 full-height">
             <q-img class src="../../public/images/fl.jpg"></q-img>
           </div>
-          <div
-            class="col-12 self-center"
-            style="max-width: 1000px; width: 100%; margin: auto"
-          >
+          <div class="col self-center">
             <p align="center" class="font-24">
               Where does {{ exp_country.label }} contribute towards export
               production?
@@ -1705,11 +1702,12 @@ export default {
                 //   this.sumValueM >= 100
                 //     ? (this.sumValueM / 1000).toFixed(2) + " billion"
                 //     : this.sumValueM.toFixed(2) + " million";
-                let sumvalueM = Number(this.sumValueM)
+                let sumvalueM = Number(this.sumValueM);
 
-                let vx = sumvalueM >= 100 ?(sumvalueM/1000).toFixed(2) + "billion" : sumvalueM.toFixed(2) + "million"
-
-
+                let vx =
+                  sumvalueM >= 100
+                    ? (sumvalueM / 1000).toFixed(2) + "billion"
+                    : sumvalueM.toFixed(2) + "million";
 
                 return (
                   "<div class='text-bold'>" +
