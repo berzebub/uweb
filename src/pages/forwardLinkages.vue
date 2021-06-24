@@ -1701,10 +1701,16 @@ export default {
                 this.series.name == "North America" ||
                 this.series.name == "Rest of the world"
               ) {
-                let vx =
-                  this.sumValueM >= 100
-                    ? (this.sumValueM / 1000).toFixed(2) + " billion"
-                    : this.sumValueM.toFixed(2) + " million";
+                // let vx =
+                //   this.sumValueM >= 100
+                //     ? (this.sumValueM / 1000).toFixed(2) + " billion"
+                //     : this.sumValueM.toFixed(2) + " million";
+                let sumvalueM = Number(this.sumValueM)
+
+                let vx = sumvalueM >= 100 ?(sumvalueM/1000).toFixed(2) + "billion" : sumvalueM.toFixed(2) + "million"
+
+
+
                 return (
                   "<div class='text-bold'>" +
                   this.name +
