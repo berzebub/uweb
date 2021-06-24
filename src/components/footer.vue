@@ -112,9 +112,9 @@
                 <span>
                   <q-tooltip content-class="bg-indigo" style="font-size:14px">
                     <span class="text-subtitle1"
-                      >ESCAP Trade Policy and Integration</span
+                      >Trade Intelligence and Negotiation Advisor</span
                     > </q-tooltip
-                  >ESCAP TPI
+                  >TINA
                 </span>
               </div>
               <div
@@ -274,9 +274,7 @@ export default {
       window.open("https://artnet.unescap.org/databases");
     },
     toTradeEtoolsPolicy() {
-      window.open(
-        "https://www.unescap.org/our-work/trade-investment-innovation/trade-policy-integration"
-      );
+      window.open("https://tina.trade/");
     }
   }
 };
