@@ -58,6 +58,15 @@
           @click="toTinaLink()"
         ></q-btn>
       </div>
+      <div class="absolute q-pa-md text-white" style="bottom:150px;right:0px">
+        <q-btn
+          label="Introduction"
+          no-caps
+          outline
+          @click="goToIntro()"
+          style="width:150px;"
+        ></q-btn>
+      </div>
       <div class="absolute q-pa-md text-white" style="bottom:100px;right:0px">
         <q-btn
           label="Download data"
@@ -204,6 +213,9 @@ export default {
     },
     toNote() {
       window.open("https://riva.negotiatetrade.org/note/");
+    },
+    goToIntro() {
+      window.open("https://riva.negotiatetrade.org/intro/");
     },
     copyLink() {
       var range = document.createRange();
