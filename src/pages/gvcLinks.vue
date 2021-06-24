@@ -56,7 +56,7 @@
             :options="countryOptions"
             @input="selectedExpCountry()"
           >
-          <template v-slot:prepend v-if="overviewCountry">
+            <template v-slot:prepend v-if="overviewCountry">
               <gb-flag
                 v-if="overviewCountry.code && overviewCountry.code != 'TW'"
                 :code="overviewCountry.code"
@@ -65,9 +65,9 @@
             </template>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                    <q-item-section avatar>
+                <q-item-section avatar>
                   <gb-flag
-                    v-if="scope.opt.code && scope.opt.code !='TW' "
+                    v-if="scope.opt.code && scope.opt.code != 'TW'"
                     :code="scope.opt.code"
                     size="small"
                   />
@@ -745,8 +745,8 @@
       <div>
         <q-img src="../../public/waiting.png" width="100%">
           <div
-            style="width:100%;background-color: rgba(0, 0, 0, 0.2);"
-            class="text-black"
+            style="width:100%;background-color: rgba(0, 0, 0, 0.05);"
+            class="text-black font-16"
           >
             <span class="font-graph">Key policy questions</span>
             <ul>
@@ -779,7 +779,7 @@
           </div>
           <div
             class="font-graph text-black"
-            style="width:100%;position:relative; top:300px;background-color: rgba(0, 0, 0, 0);"
+            style="width:100%;position:relative; top:450px;background-color: rgba(0, 0, 0, 0);"
             align="center"
           >
             Please choose exporting economy and year from the drop down menus
@@ -1043,8 +1043,8 @@ export default {
       );
       // console.log(backData);
       let getDataTemp = getData;
-      this.graphBackwardGVCSector = []
-      this.graphForwardGVCSector = []
+      this.graphBackwardGVCSector = [];
+      this.graphForwardGVCSector = [];
       // console.log(getDataTemp[0], getDataTemp[9]);
       for (let i = 4; i >= 0; i--) {
         this.graphBackwardGVCSector.push(backData[i].backward);

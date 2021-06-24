@@ -1199,16 +1199,24 @@ export default {
         },
         xAxis: {
           labels: {
-            rotation: -90
+            rotation: -90,
+            style: {
+              fontSize: "14px"
+            }
           },
+
           categories: country
         },
         yAxis: {
           min: 0,
           max: 100,
           title: {
-            text: `% of gross exports to ${this.importingSelected.label}`
+            text: `% of gross exports to ${this.importingSelected.label}`,
+            style: {
+              fontSize: "14px"
+            }
           },
+
           stackLabels: {
             enabled: false,
             style: {
@@ -1227,7 +1235,7 @@ export default {
         legend: {
           useHTML: true,
           itemStyle: {
-            fontSize: "12px",
+            fontSize: "14px",
             fontWeight: "medium",
             fontFamily: "roboto",
             color: "#00000"
@@ -1347,17 +1355,16 @@ export default {
             subtitle: {
               style: { fontSize: "8px" }
             },
-            yAxis: [
-              {
-                title: {
-                  text: `% of gross exports to ${this.importingSelected.label}`,
-                  style: { fontSize: "6px" }
-                },
-                labels: {
-                  style: { fontSize: "6px" }
-                }
-              }
-            ],
+            // yAxis: [
+            //   {
+            //     title: {
+            //       text: `% of gross exports to ${this.importingSelected.label}`,
+            //       style: {
+            //         fontSize: "16px"
+            //       }
+            //     }
+            //   }
+            // ],
             xAxis: [
               {
                 categories: country,
@@ -1434,7 +1441,10 @@ export default {
         },
         yAxis: {
           title: {
-            text: `% of gross exports to ${this.importingSelected.label}`
+            text: `% of gross exports to ${this.importingSelected.label}`,
+            style: {
+              fontSize: "14px"
+            }
           },
           style: { fontSize: "12px" }
         },
