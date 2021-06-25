@@ -1,5 +1,10 @@
 [
   {
+    "id": "-",
+    "disable": true,
+    "name": "Individual economies"
+  },
+  {
     "id": "2",
     "name": "Argentina",
     "region": "Latin America and the Caribbean",
@@ -96,6 +101,14 @@
     "region2": "NA"
   },
   {
+    "id": "55",
+    "name": "China",
+    "region": "East and North-East Asia",
+    "iso": "CHN",
+    "code": "CN",
+    "region2": "ENEA"
+  },
+  {
     "id": "14",
     "name": "Chile",
     "region": "Latin America and the Caribbean",
@@ -135,6 +148,7 @@
     "code": "DK",
     "region2": "NE"
   },
+
   {
     "id": "19",
     "name": "Ecuador",
@@ -423,14 +437,7 @@
     "code": "PT",
     "region2": "SE"
   },
-  {
-    "id": "55",
-    "name": "China",
-    "region": "East and North-East Asia",
-    "iso": "CHN",
-    "code": "CN",
-    "region2": "ENEA"
-  },
+
   {
     "id": "56",
     "name": "Rest of the Latin American Countries",
@@ -583,70 +590,18 @@
     "code": "VN",
     "region2": "SEA"
   },
+
   {
-    "id": "75",
-    "name": "South-East Asia",
-    "region": [
-      "South-East Asia"
-    ],
-    "iso": "sea",
-    "type": 1
+    "id": "-",
+    "name": "Economy groups",
+    "disable": true
   },
+
   {
-    "id": "76",
-    "name": "North and Central Asia",
-    "region": [
-      "North and Central Asia"
-    ],
-    "iso": "nca",
-    "type": 1
-  },
-  {
-    "id": "77",
-    "name": "South and South-West Asia",
-    "region": [
-      "South and South-West Asia"
-    ],
-    "iso": "sswa",
-    "type": 1
-  },
-  {
-    "id": "78",
-    "name": "East and North-East Asia",
-    "region": [
-      "East and North-East Asia"
-    ],
-    "iso": "enea",
-    "type": 1
-  },
-  {
-    "id": "79",
-    "name": "Pacific",
-    "region": [
-      "Pacific"
-    ],
-    "iso": "pac",
-    "type": 1
-  },
-  {
-    "id": "80",
-    "name": "Asia-Pacific",
+    "id": "89",
+    "name": "APEC",
     "region": [],
-    "iso": "ap",
-    "type": 2
-  },
-  {
-    "id": "81",
-    "name": "European Union",
-    "region": [],
-    "iso": "euz",
-    "type": 2
-  },
-  {
-    "id": "82",
-    "name": "Europe",
-    "region": [],
-    "iso": "eur",
+    "iso": "apec",
     "type": 2
   },
   {
@@ -657,26 +612,20 @@
     "type": 2
   },
   {
-    "id": "84",
-    "name": "SAARC",
+    "id": "80",
+    "name": "Asia-Pacific",
     "region": [],
-    "iso": "saarc",
+    "iso": "ap",
     "type": 2
   },
   {
-    "id": "85",
-    "name": "NAFTA",
+    "id": "93",
+    "name": "BIMSTEC",
     "region": [],
-    "iso": "nafta",
+    "iso": "bimstec",
     "type": 2
   },
-  {
-    "id": "86",
-    "name": "MERCOSUR",
-    "region": [],
-    "iso": "mercosur",
-    "type": 2
-  },
+
   {
     "id": "87",
     "name": "CPTPP",
@@ -685,31 +634,24 @@
     "type": 2
   },
   {
-    "id": "88",
-    "name": "RCEP",
-    "region": [],
-    "iso": "rcep",
-    "type": 2
-  },
-  {
-    "id": "89",
-    "name": "APEC",
-    "region": [],
-    "iso": "apec",
-    "type": 2
-  },
-  {
-    "id": "90",
-    "name": "Latin America",
-    "region": [],
-    "iso": "lac",
+    "id": "78",
+    "name": "East and North-East Asia",
+    "region": ["East and North-East Asia"],
+    "iso": "enea",
     "type": 1
   },
   {
-    "id": "91",
-    "name": "Pacific Alliance",
+    "id": "82",
+    "name": "Europe",
     "region": [],
-    "iso": "pac_alliance",
+    "iso": "eur",
+    "type": 2
+  },
+  {
+    "id": "81",
+    "name": "European Union",
+    "region": [],
+    "iso": "euz",
     "type": 2
   },
   {
@@ -720,11 +662,74 @@
     "type": 2
   },
   {
-    "id": "93",
-    "name": "BIMSTEC",
+    "id": "90",
+    "name": "Latin America",
     "region": [],
-    "iso": "bimstec",
+    "iso": "lac",
+    "type": 1
+  },
+  {
+    "id": "86",
+    "name": "MERCOSUR",
+    "region": [],
+    "iso": "mercosur",
     "type": 2
+  },
+  {
+    "id": "85",
+    "name": "NAFTA",
+    "region": [],
+    "iso": "nafta",
+    "type": 2
+  },
+  {
+    "id": "76",
+    "name": "North and Central Asia",
+    "region": ["North and Central Asia"],
+    "iso": "nca",
+    "type": 1
+  },
+  {
+    "id": "79",
+    "name": "Pacific",
+    "region": ["Pacific"],
+    "iso": "pac",
+    "type": 1
+  },
+  {
+    "id": "91",
+    "name": "Pacific Alliance",
+    "region": [],
+    "iso": "pac_alliance",
+    "type": 2
+  },
+  {
+    "id": "88",
+    "name": "RCEP",
+    "region": [],
+    "iso": "rcep",
+    "type": 2
+  },
+  {
+    "id": "84",
+    "name": "SAARC",
+    "region": [],
+    "iso": "saarc",
+    "type": 2
+  },
+  {
+    "id": "77",
+    "name": "South and South-West Asia",
+    "region": ["South and South-West Asia"],
+    "iso": "sswa",
+    "type": 1
+  },
+  {
+    "id": "75",
+    "name": "South-East Asia",
+    "region": ["South-East Asia"],
+    "iso": "sea",
+    "type": 1
   },
   {
     "id": "94",

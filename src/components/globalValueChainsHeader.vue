@@ -1,9 +1,12 @@
 <template>
   <div>
     <div class="bg flex flex-center relative-position" style="height:390px">
+      <div class="q-mx-lg absolute" style="max-width:180px;top:22px;left:0px;">
+        <q-img style="width:150px" src="../../public/logo.png"></q-img>
+      </div>
       <q-btn
         class="absolute"
-        style="top:0px;left:0px"
+        style="top:0px;left:170px"
         to="/"
         color="white"
         flat
@@ -17,12 +20,14 @@
           class="text-white col-12 text-stroke"
           align="center"
           style="font-size:48px"
-        >Global Value Chains</div>
+        >
+          Global Value Chains
+        </div>
         <div align="center" class="text-stroke text-white font-graph q-pt-lg">
-          Gain insight into your economy’s participation in global value chains (GVCs).
-          <br />Uncover the
-          sources of
-          intermediate inputs and destinations of domestic value-added.
+          Gain insight into your economy’s participation in global value chains
+          (GVCs).
+          <br />Uncover the sources of intermediate inputs and destinations of
+          domestic value-added.
         </div>
       </div>
 
@@ -39,7 +44,11 @@
           icon="fas fa-share"
         ></q-btn>
       </div>
-      <div class="absolute q-pa-md text-white" style="top:0px;right:0px" v-if="isShowTinaLink">
+      <div
+        class="absolute q-pa-md text-white"
+        style="top:0px;right:0px"
+        v-if="isShowTinaLink"
+      >
         <q-btn
           :disable="isDisableTina"
           label="TINA Link"
@@ -49,8 +58,23 @@
           @click="toTinaLink()"
         ></q-btn>
       </div>
+      <div class="absolute q-pa-md text-white" style="bottom:150px;right:0px">
+        <q-btn
+          label="Introduction"
+          no-caps
+          outline
+          @click="goToIntro()"
+          style="width:150px;"
+        ></q-btn>
+      </div>
       <div class="absolute q-pa-md text-white" style="bottom:100px;right:0px">
-        <q-btn label="Download data" no-caps outline @click="goToDownload()" style="width:150px;"></q-btn>
+        <q-btn
+          label="Download data"
+          no-caps
+          outline
+          @click="goToDownload()"
+          style="width:150px;"
+        ></q-btn>
       </div>
       <div class="absolute q-pa-md text-white" style="bottom:50px;right:0px">
         <q-btn
@@ -66,9 +90,8 @@
           label="Techincal notes"
           no-caps
           outline
-          @click="toTinaLink()"
+          @click="toNote()"
           style="width:150px;"
-          disable
         ></q-btn>
       </div>
     </div>
@@ -130,8 +153,14 @@
               class="col"
               style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap"
               id="shareLink"
-            >{{ $q.sessionStorage.getItem("shareLink") }}</div>
-            <div style="width:50px" class="text-blue cursor-pointer" @click="copyLink()">
+            >
+              {{ $q.sessionStorage.getItem("shareLink") }}
+            </div>
+            <div
+              style="width:50px"
+              class="text-blue cursor-pointer"
+              @click="copyLink()"
+            >
               <b>COPY</b>
             </div>
           </div>
@@ -146,21 +175,21 @@ export default {
   props: {
     isShowTinaLink: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isDisableTina: {
       type: Boolean,
-      default: true,
+      default: true
     },
     isDisableShare: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   data() {
     return {
       isShowShareOptions: false,
-      link: window.location.href,
+      link: window.location.href
     };
   },
   methods: {
@@ -182,6 +211,12 @@ export default {
           "/current-trade/"
       );
     },
+    toNote() {
+      window.open("https://riva.negotiatetrade.org/note/");
+    },
+    goToIntro() {
+      window.open("https://riva.negotiatetrade.org/intro/");
+    },
     copyLink() {
       var range = document.createRange();
       range.selectNode(document.getElementById("shareLink"));
@@ -189,9 +224,9 @@ export default {
       window.getSelection().addRange(range); // to select text
       document.execCommand("copy");
       window.getSelection().removeAllRanges(); // to deselect
-    },
+    }
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 

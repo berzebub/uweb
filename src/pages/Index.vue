@@ -43,7 +43,10 @@
     <!-- Global value chains -->
     <div class="col-12 row q-pa-sm bg-white" style="margin-top: 10px;">
       <div class="col-4 self-center q-pa-xs">
-        <q-img src="../../public/test.png" style="height: calc(50vh - 80px); object-fit: cover;"></q-img>
+        <q-img
+          src="../../public/test.png"
+          style="height: calc(50vh - 80px); object-fit: cover;"
+        ></q-img>
       </div>
 
       <div class="col-8 row q-pa-md q-py-md">
@@ -91,7 +94,7 @@
 
 <script>
 export default {
-  name: "PageIndex",
+  name: "PageIndex"
 };
 </script>
 <style>

@@ -18,9 +18,9 @@
         <div style="width: 90%; max-width: 1200px; margin: auto">
           <p align="center" class="font-24">Download data</p>
           <p>
-            Query and download detailed data on value-added trade indicators for your
-            economies, sectors and years of interest. Please make your desired selection
-            from the menus below.
+            Query and download detailed data on value-added trade indicators for
+            your economies, sectors and years of interest. Please make your
+            desired selection from the menus below.
           </p>
         </div>
 
@@ -39,7 +39,11 @@
               border-radius: 5px 5px 0px 0px;
             "
           >
-            <div class="col q-px-lg" align="left" style="text-decoration: underline">
+            <div
+              class="col q-px-lg"
+              align="left"
+              style="text-decoration: underline"
+            >
               {{ email }}
             </div>
             <div class="col q-px-lg" align="right">
@@ -78,8 +82,8 @@
             <div align="right" class="q-px-lg q-pb-sm col">
               <q-btn
                 @click="isShowEconomyGroupDialog = true"
-                label="Economy group"
-                style="width: 150px; background-color: #2c2f30; color: white"
+                label="Create your own economy group"
+                style="width: 250px; background-color: #2c2f30; color: white"
                 no-caps
               ></q-btn>
             </div>
@@ -100,20 +104,44 @@
 
             <!-- exporting country -->
             <div>
-              <q-select
+              <!-- <q-select
                 v-model="exporting"
                 :options="countryList"
                 label="Exporting economy"
+               
+           
+              />-->
+
+              <q-select
+                bg-color="white"
                 multiple
                 emit-value
                 map-options
+                label="Exporting economy"
                 use-chips
+                v-model="exporting"
+                :options="countryOptions"
                 @input="resetDownloadState()"
-              />
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
             </div>
             <!-- importing country -->
             <div>
-              <q-select
+              <!-- <q-select
                 v-show="indicator != 'in_07'"
                 v-model="importing"
                 :options="countryList"
@@ -123,7 +151,35 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              />
+              /> -->
+
+              <q-select
+                v-show="indicator != 'in_07'"
+                bg-color="white"
+                multiple
+                emit-value
+                map-options
+                label="Importing economy"
+                use-chips
+                v-model="importing"
+                :options="countryOptions"
+                @input="resetDownloadState()"
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
             </div>
             <!-- Sector -->
             <div>
@@ -137,7 +193,7 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              /> -->
+              />-->
 
               <q-select
                 v-show="indicator != 'in_06' && indicator != 'in_08'"
@@ -169,8 +225,8 @@
             </div>
             <!-- Source country -->
             <div>
-              <q-select
-                v-show="indicator == 'in_06'"
+              <!-- <q-select
+              
                 v-model="source"
                 :options="countryList"
                 label="Source economy"
@@ -179,7 +235,37 @@
                 map-options
                 use-chips
                 @input="resetDownloadState()"
-              />
+              /> -->
+
+                <q-select
+                v-show="indicator == 'in_06'"
+                label="Source economy"
+                bg-color="white"
+                v-model="source"
+                :options="countryOptions"
+                map-options
+                emit-value
+                @input="resetDownloadState()"
+                multiple
+                use-chips
+              >
+                <template v-slot:option="scope">
+                  <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
+                    <q-item-section>
+                      <q-item-label
+                        v-html="scope.opt.label"
+                        :class="
+                          scope.opt.disable
+                            ? 'text-black text-weight-bolder'
+                            : 'text-black'
+                        "
+                      />
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
+
+
             </div>
             <!-- year -->
             <div>
@@ -193,7 +279,10 @@
               />
             </div>
             <div class="row q-mt-md">
-              <div class="col-12 row justify-center q-col-gutter-md" align="center">
+              <div
+                class="col-12 row justify-center q-col-gutter-md"
+                align="center"
+              >
                 <div>
                   <q-btn
                     label="Clear All"
@@ -253,7 +342,7 @@
                 label="Email"
                 dense
                 type="email"
-                :rules="[(val) => !!val]"
+                :rules="[val => !!val]"
                 ref="password"
                 hide-bottom-space
               />
@@ -266,7 +355,7 @@
                 outlined
                 :type="isPwd ? 'password' : 'text'"
                 hide-bottom-space
-                :rules="[(val) => !!val]"
+                :rules="[val => !!val]"
                 ref="password"
               >
                 <template v-slot:append>
@@ -328,7 +417,7 @@
             <div>
               <q-input
                 hide-bottom-space
-                :rules="[(val) => !!val]"
+                :rules="[val => !!val]"
                 ref="email"
                 outlined
                 v-model="signUp.email"
@@ -340,7 +429,7 @@
             <div class="q-pt-md q-pb-sm">
               <q-input
                 hide-bottom-space
-                :rules="[(val) => !!val]"
+                :rules="[val => !!val]"
                 ref="password"
                 v-model="signUp.password"
                 dense
@@ -353,7 +442,7 @@
               <q-input
                 hide-bottom-space
                 type="text"
-                :rules="[(val) => val == signUp.password]"
+                :rules="[val => val == signUp.password]"
                 ref="confirm"
                 v-model="signUp.confirmPassword"
                 dense
@@ -363,7 +452,7 @@
             </div>
             <div class="q-pt-md q-pb-sm">
               <q-select
-                :rules="[(val) => val != '--- Please Select ---']"
+                :rules="[val => val != '--- Please Select ---']"
                 ref="country"
                 outlined
                 label="Country"
@@ -379,7 +468,7 @@
             <div class="q-pt-md q-pb-sm">
               <q-select
                 hide-bottom-space
-                :rules="[(val) => val != '--- Please Select ---']"
+                :rules="[val => val != '--- Please Select ---']"
                 ref="organization"
                 outlined
                 label="Organization"
@@ -517,7 +606,7 @@
               ref="groupName"
               class="col"
               dense
-              :rules="[(val) => !!val]"
+              :rules="[val => !!val]"
               v-model.trim="groupName"
             ></q-input>
           </div>
@@ -526,12 +615,12 @@
             <q-select
               hide-bottom-space
               ref="groupSelected"
-              :rules="[(val) => val.length >= 1]"
+              :rules="[val => val.length >= 1]"
               map-options
               emit-value
               use-chips
               multiple
-              :options="countryList.filter((x) => typeof x.value != 'object')"
+              :options="countryOptions.filter(x => typeof x.value != 'object')"
               autofocus
               class="col"
               dense
@@ -561,7 +650,10 @@
 
     <q-dialog v-model="isShowQueryList">
       <q-card style="min-width: 500px; width: 100%">
-        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
+        <q-toolbar
+          class="no-padding"
+          style="background-color: #2c2f30; color: white"
+        >
           <q-toolbar-title>
             <div class="q-pl-md">Open query</div>
           </q-toolbar-title>
@@ -596,7 +688,10 @@
     </q-dialog>
     <q-dialog v-model="isShowSaveQuery">
       <q-card style="width: 500px">
-        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
+        <q-toolbar
+          class="no-padding"
+          style="background-color: #2c2f30; color: white"
+        >
           <q-toolbar-title>
             <div class="q-pl-md">
               <span v-if="isEditQuery">Edit query</span>
@@ -610,7 +705,12 @@
         <q-card-section class="no-padding">
           <div class="q-px-md q-py-md">
             Query name
-            <q-input v-model="query" label="Query name" dense outlined></q-input>
+            <q-input
+              v-model="query"
+              label="Query name"
+              dense
+              outlined
+            ></q-input>
           </div>
         </q-card-section>
 
@@ -628,7 +728,10 @@
 
     <q-dialog v-model="isShowForgotPasswordDialog" persistent>
       <q-card style="width: 500px">
-        <q-toolbar class="no-padding" style="background-color: #2c2f30; color: white">
+        <q-toolbar
+          class="no-padding"
+          style="background-color: #2c2f30; color: white"
+        >
           <q-toolbar-title>
             <div class="q-pl-md">
               <span>Password Recovery</span>
@@ -646,7 +749,12 @@
         <q-card-section class="no-padding">
           <div class="q-px-md q-py-md">
             Please Enter Your Email
-            <q-input v-model="recoveryEmail" label="Email" dense outlined></q-input>
+            <q-input
+              v-model="recoveryEmail"
+              label="Email"
+              dense
+              outlined
+            ></q-input>
           </div>
         </q-card-section>
 
@@ -674,10 +782,11 @@ import myFooter from "../components/footer";
 export default {
   components: {
     myFooter,
-    globalValueChainsHeader,
+    globalValueChainsHeader
   },
   data() {
     return {
+      countryOptions: [],
       sectorOptions: [],
       recoveryEmail: "",
       isShowForgotPasswordDialog: false,
@@ -694,12 +803,12 @@ export default {
         "International Organisation",
         "NGO",
         "Private sector",
-        "Think tank",
+        "Think tank"
       ],
       isLogin: false, //เปิดปิด login dialog
       login: {
         email: "",
-        password: "",
+        password: ""
       },
       signUp: {
         email: "",
@@ -707,7 +816,7 @@ export default {
         confirmPassword: "",
         country: "--- Please Select ---",
         Organization: "--- Please Select ---",
-        isSubscribe: false,
+        isSubscribe: false
       },
       isPwd: true,
       isSignUp: false, //เปิดปิด Sign up dialog
@@ -721,40 +830,40 @@ export default {
       indicatorList: [
         {
           value: "in_01",
-          label: "Structure of value added",
+          label: "Structure of value added"
         },
         {
           value: "in_02",
-          label: "Value-added trade balance",
+          label: "Value-added trade balance"
         },
         {
           value: "in_03",
-          label: "Gross trade balance",
+          label: "Gross trade balance"
         },
         {
           value: "in_04",
-          label: "GVC participation",
+          label: "GVC participation"
         },
         {
           value: "in_05",
-          label: "Backward linkages (by exporting sector)",
+          label: "Backward linkages (by exporting sector)"
         },
         {
           value: "in_06",
-          label: "Backward linkages (by source economy)",
+          label: "Backward linkages (by source economy)"
         },
         {
           value: "in_07",
-          label: "Forward linkages (by exporting sector)",
+          label: "Forward linkages (by exporting sector)"
         },
         {
           value: "in_08",
-          label: "Forward linakages (by importing economy)",
+          label: "Forward linakages (by importing economy)"
         },
         {
           value: "in_09",
-          label: "Gross exports",
-        },
+          label: "Gross exports"
+        }
       ],
       countryList: [],
       source: null,
@@ -768,7 +877,7 @@ export default {
       downloadData: null,
       tempGroup: [],
       tempIndex: null,
-      querySelected: "--- Please Select ---",
+      querySelected: "--- Please Select ---"
     };
   },
   methods: {
@@ -793,7 +902,7 @@ export default {
             message: `We sent an recovery password to <br><b>${this.recoveryEmail}</b><br>If you don't see it, you may need to check your spam folder.`,
             cancel: true,
             persistent: true,
-            ok: "Login",
+            ok: "Login"
           })
           .onOk(() => {
             this.isShowForgotPasswordDialog = false;
@@ -804,7 +913,7 @@ export default {
         this.$q.notify({
           message: "Email not found",
           color: "red",
-          position: "top",
+          position: "top"
         });
       }
       this.$q.loading.hide();
@@ -823,7 +932,9 @@ export default {
       this.tempGroup.splice(index, 1);
       this.exporting = [];
       this.importing = [];
-      this.countryList = this.countryList.filter((x) => typeof x.value != "object");
+      this.countryList = this.countryList.filter(
+        x => typeof x.value != "object"
+      );
 
       this.countryList = [...this.tempGroup, ...this.countryList];
     },
@@ -838,63 +949,67 @@ export default {
       this.$refs.groupName.validate();
       this.$refs.groupSelected.validate();
 
-      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError) return;
+      if (this.$refs.groupName.hasError || this.$refs.groupSelected.hasError)
+        return;
 
       if (this.isEditGroup) {
         this.tempGroup[this.tempIndex].label = this.groupName;
         this.tempGroup[this.tempIndex].value = this.groupSelected;
         this.tempIndex = null;
-        this.countryList = this.countryList.filter((x) => typeof x.value != "object");
+        this.countryOptions = this.countryOptions.filter(
+          x => typeof x.value != "object"
+        );
 
-        this.countryList = [...this.tempGroup, ...this.countryList];
+        this.countryOptions = [...this.tempGroup, ...this.countryOptions];
         this.isAddNewGroupDialog = false;
         this.exporting = [];
         this.importing = [];
       } else {
         // add group
-        this.countryList.unshift({
+        this.countryOptions.unshift({
           label: this.groupName,
-          value: this.groupSelected,
+          value: this.groupSelected
         });
 
         this.tempGroup.push({
           label: this.groupName,
-          value: this.groupSelected,
+          value: this.groupSelected
         });
         this.isAddNewGroupDialog = false;
       }
 
-      (this.isAddNewGroupDialog = false), (this.isShowEconomyGroupDialog = true);
+      (this.isAddNewGroupDialog = false),
+        (this.isShowEconomyGroupDialog = true);
     },
     resetDownloadState() {
       this.isShowDownloadBtn = false;
     },
     loadCountryList() {
       this.countryList = [];
-      countryJson.forEach((data) => {
+      countryJson.forEach(data => {
         let tempCountryList = {
           value: data.iso,
-          label: data.name,
+          label: data.name
         };
         this.countryList.push(tempCountryList);
       });
       this.countryList.sort((a, b) => (a.label < b.label ? -1 : 1));
 
       this.countryAllList = [];
-      countryAll.forEach((data) => {
+      countryAll.forEach(data => {
         let temp = {
           value: data.iso,
-          label: data.Country,
+          label: data.Country
         };
         this.countryAllList.push(temp);
       });
     },
     loadSectorList() {
       this.sectorList = [];
-      sectorJson.forEach((data) => {
+      sectorJson.forEach(data => {
         let tempSectorList = {
           value: data.id,
-          label: data.name,
+          label: data.name
         };
         this.sectorList.push(tempSectorList);
       });
@@ -903,7 +1018,7 @@ export default {
       this.yearList = [];
       let url = this.path_api + "/get_year_active.php";
       let data = await Axios.get(url);
-      data.data.forEach((x) => {
+      data.data.forEach(x => {
         this.yearList.push(x);
       });
     },
@@ -917,61 +1032,66 @@ export default {
     },
     async runBtn() {
       // exporting group
-      let getGroup = this.exporting.filter((x) => typeof x == "object");
+      let getGroup = this.exporting.filter(x => typeof x == "object");
       let tempGroup = [];
-      getGroup.forEach((element) => {
-        element.forEach((x) => tempGroup.push(x));
+      getGroup.forEach(element => {
+        element.forEach(x => tempGroup.push(x));
       });
 
-      let filterExporting = this.exporting.filter((x) => typeof x != "object");
+      let filterExporting = this.exporting.filter(x => typeof x != "object");
       let finalGroup = [...tempGroup, ...filterExporting];
 
       finalGroup = [...new Set(finalGroup)];
 
-      let exportingGroup = finalGroup.filter((x) => x);
+      let exportingGroup = finalGroup.filter(x => x);
 
       // importing economy group
-      let getImportGroup = this.importing.filter((x) => typeof x == "object");
+      let getImportGroup = this.importing.filter(x => typeof x == "object");
       let tempImportGroup = [];
-      getImportGroup.forEach((element) => {
-        element.forEach((x) => tempImportGroup.push(x));
+      getImportGroup.forEach(element => {
+        element.forEach(x => tempImportGroup.push(x));
       });
 
-      let filterImporting = this.importing.filter((x) => typeof x != "object");
+      let filterImporting = this.importing.filter(x => typeof x != "object");
       let finalImportGroup = [...tempImportGroup, ...filterImporting];
       finalImportGroup = [...new Set(finalImportGroup)];
 
-      let importingGroup = finalImportGroup.filter((x) => x);
+      let importingGroup = finalImportGroup.filter(x => x);
 
       let _this = this;
       function validateInput() {
-        if (!_this.exporting || !_this.importing || !_this.sectorList || !_this.year) {
+        if (
+          !_this.exporting ||
+          !_this.importing ||
+          !_this.sectorList ||
+          !_this.year
+        ) {
           if (!_this.exporting) {
             _this.$q.notify({
               message: "Please add an exporting economy",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.importing) {
             _this.$q.notify({
               message: "Please add an importing economy",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.sector) {
             _this.$q.notify({
               message: "Please add a sector",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           if (!_this.year) {
             _this.$q.notify({
               message: "Please add a year",
               color: "red",
-              position: "top",
+              position: "top"
             });
           }
           return;
@@ -983,7 +1103,7 @@ export default {
           this.$q.notify({
             message: "Please add an source economy",
             color: "red",
-            position: "top",
+            position: "top"
           });
         }
         validateInput();
@@ -1004,26 +1124,26 @@ export default {
           exporting: exportingGroup,
           importing: importingGroup,
           sector: this.sector,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "in_06") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
           source: this.source,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "in_07") {
         obj = {
           exporting: exportingGroup,
           sector: this.sector,
-          year: this.year,
+          year: this.year
         };
       } else if (this.indicator == "in_08") {
         obj = {
           exporting: exportingGroup,
           importing: importingGroup,
-          year: this.year,
+          year: this.year
         };
       }
 
@@ -1058,6 +1178,7 @@ export default {
     async getEmail(id) {
       const url = this.path_api2 + "/getEmail.php?id=" + id;
       const result = await Axios.get(url);
+      this.querySelected = "--- Please Select ---";
 
       this.email = result.data[0].email;
 
@@ -1068,8 +1189,6 @@ export default {
         queryList.forEach((element, index) => {
           element.index = index;
         });
-
-        console.log(queryList);
         this.queryList = queryList;
       }
     },
@@ -1080,14 +1199,14 @@ export default {
 
       const obj = {
         email: this.login.email,
-        password: this.login.password,
+        password: this.login.password
       };
       let data = await Axios.post(url, obj);
       if (data.data == 0) {
         // Failed Login
         this.$q.notify({
           message: "Incorrect email address or password",
-          color: "red",
+          color: "red"
         });
       } else {
         // Success Login
@@ -1096,7 +1215,16 @@ export default {
         this.isLogin = false;
         this.$q.notify({
           message: `Welcome ${this.email}`,
-          color: "secondary",
+          color: "secondary"
+        });
+        this.getCountryList();
+
+        this.countryOptions = this.countryOptions.map(x => {
+          return {
+            label: x.label,
+            value: x.iso,
+            disable: x.disable ? true : false
+          };
         });
       }
 
@@ -1112,14 +1240,14 @@ export default {
         password: this.signUp.password,
         country: this.signUp.country,
         organization: this.signUp.Organization,
-        isSubscribe: this.signUp.isSubscribe,
+        isSubscribe: this.signUp.isSubscribe
       };
       let data = await Axios.post(url, obj);
 
       if (data.data == 0) {
         this.$q.notify({
           message: "This email has already been taken.",
-          color: "red",
+          color: "red"
         });
       } else {
         this.$q
@@ -1129,7 +1257,7 @@ export default {
             message: `You're almost there! We sent an email to <br><b>${this.signUp.email}</b><br><br> Just click on the link in that email to complete your signup.<br>If you don't see it, you may need to check your spam folder.`,
             cancel: true,
             persistent: true,
-            ok: "Login",
+            ok: "Login"
           })
           .onOk(() => {
             this.isSignUp = false;
@@ -1145,14 +1273,14 @@ export default {
           title: "Confirm",
           message: "Would you like to delete the query?",
           cancel: true,
-          persistent: true,
+          persistent: true
         })
         .onOk(() => {
           this.queryList.splice(this.querySelected.index, 1);
           this.querySelected = "--- Please Select ---";
           this.$q.notify({
             message: "Query Deleted",
-            color: "teal",
+            color: "teal"
           });
 
           this.updateQueryToDb();
@@ -1162,7 +1290,7 @@ export default {
       if (!this.query) {
         this.$q.notify({
           message: "Please enter query name.",
-          color: "red",
+          color: "red"
         });
       } else {
         if (this.isEditQuery) {
@@ -1171,7 +1299,7 @@ export default {
           this.queryList.pop();
           this.$q.notify({
             message: "Query Updated",
-            color: "teal",
+            color: "teal"
           });
           this.isShowSaveQuery = false;
           this.updateQueryToDb();
@@ -1182,18 +1310,18 @@ export default {
             importing: this.importing,
             exportingSector: this.sector,
             year: this.year,
-            name: this.query,
+            name: this.query
           };
 
           this.queryList.push({
             label: this.query,
-            value: query,
+            value: query
           });
           this.query = "";
           this.isShowSaveQuery = false;
           this.$q.notify({
             message: "Query Added",
-            color: "teal",
+            color: "teal"
           });
           this.updateQueryToDb();
         }
@@ -1219,7 +1347,7 @@ export default {
       const url = this.path_api2 + "/update_query.php";
       const obj = {
         uid: this.$q.sessionStorage.getItem("uid"),
-        query: JSON.stringify(this.queryList),
+        query: JSON.stringify(this.queryList)
       };
       let data = await Axios.post(url, obj);
 
@@ -1236,19 +1364,27 @@ export default {
           message: `Are you sure you want to sign out?`,
           cancel: true,
           persistent: true,
-          ok: "Sign Out",
+          ok: "Sign Out"
         })
         .onOk(() => {
           this.email = "";
           this.$q.sessionStorage.remove("uid");
           this.isLogin = true;
         });
-    },
+    }
   },
   async mounted() {
     if (!this.$q.sessionStorage.has("uid")) {
       this.isLogin = true;
     } else {
+      this.getCountryList();
+      this.countryOptions = this.countryOptions.map(x => {
+        return {
+          label: x.label,
+          value: x.iso,
+          disable: x.disable ? true : false
+        };
+      });
       this.getEmail(this.$q.sessionStorage.getItem("uid"));
     }
     await this.getSectorList();
@@ -1256,7 +1392,7 @@ export default {
     this.loadYearList();
     this.loadCountryList();
     this.loadSectorList();
-  },
+  }
 };
 </script>
 
