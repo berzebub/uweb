@@ -977,12 +977,14 @@ export default {
 
       summaryValue = summaryValue.reduce((a, b) => a + b, 0);
 
+
       getData.data.forEach((element, index) => {
-        if (index > 5) {
+        if (index >= 5) {
           element.name = `${element.name}(${(
             (element.value / summaryValue) *
             100
           ).toFixed(2)}%) `;
+          console.log(element.value,summaryValue);
           element.percent = ((element.value / summaryValue) * 100).toFixed(2);
         }
       });
@@ -1044,6 +1046,8 @@ export default {
         getDataSub.ImportedContent < 1000
           ? getDataSub.ImportedContent
           : (getDataSub.ImportedContent / 1000).toFixed(2);
+
+          console.log(getData.data);
 
       Highcharts.chart("container", {
         chart: {
@@ -1202,7 +1206,6 @@ export default {
               this.key.indexOf("(") + 1,
               this.key.length - 2
             );
-            console.log(sectorShow);
             let tempShowText = "";
             if (this.point.value >= 1000) {
               tempShowText = (this.point.value / 1000).toFixed(2) + " billion";
