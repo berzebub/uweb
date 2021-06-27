@@ -64,7 +64,7 @@
                 :options="countryOptions"
                 @input="selectedExporting()"
               >
-              <template
+                <template
                   v-slot:prepend
                   v-if="
                     exportingSelected.code && exportingSelected.code != 'TW'
@@ -75,7 +75,7 @@
 
                 <template v-slot:option="scope">
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                     <q-item-section avatar>
+                    <q-item-section avatar>
                       <gb-flag
                         v-if="scope.opt.code && scope.opt.code != 'TW'"
                         :code="scope.opt.code"
@@ -170,7 +170,7 @@
                 :options="countryOptions"
                 @input="selectedImporting()"
               >
-               <template v-slot:prepend v-if="importingSelected.code">
+                <template v-slot:prepend v-if="importingSelected.code">
                   <gb-flag
                     v-if="
                       importingSelected.code && importingSelected.code != 'TW'
@@ -182,7 +182,7 @@
 
                 <template v-slot:option="scope">
                   <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
-                     <q-item-section avatar>
+                    <q-item-section avatar>
                       <gb-flag
                         v-if="scope.opt.code && scope.opt.code != 'TW'"
                         :code="scope.opt.code"
@@ -1533,18 +1533,18 @@ export default {
               ) {
                 if (this.point.value >= 1000) {
                   let tempNumber = (this.point.value / 1000).toFixed(1);
-                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: ${tempNumber} billion<br>Share: ${this.y}%`;
+                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: $${tempNumber} billion<br>Share: ${this.y}%`;
                 } else {
                   let tempNumber = this.point.value.toFixed(1);
-                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: ${tempNumber} million<br>Share: ${this.y}%`;
+                  return `<b>${this.point.name}</b><br>${this.series.name}<br>Value: $${tempNumber} million<br>Share: ${this.y}%`;
                 }
               } else {
                 if (this.point.value >= 1000) {
                   let tempNumber = (this.point.value / 1000).toFixed(1);
-                  return `<b>${this.point.name}</b><br>Value: ${tempNumber} billion<br>Share: ${this.y}%`;
+                  return `<b>${this.point.name}</b><br>Value: $${tempNumber} billion<br>Share: ${this.y}%`;
                 } else {
                   let tempNumber = this.point.value.toFixed(1);
-                  return `<b>${this.point.name}</b><br>Value: ${tempNumber} million<br>Share: ${this.y}%`;
+                  return `<b>${this.point.name}</b><br>Value: $${tempNumber} million<br>Share: ${this.y}%`;
                 }
               }
             }

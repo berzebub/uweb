@@ -1706,8 +1706,8 @@ export default {
 
                 let vx =
                   sumvalueM >= 100
-                    ? (sumvalueM / 1000).toFixed(2) + "billion"
-                    : sumvalueM.toFixed(2) + "million";
+                    ? "$" + (sumvalueM / 1000).toFixed(2) + " billion"
+                    : "$" + sumvalueM.toFixed(2) + " million";
 
                 return (
                   "<div class='text-bold'>" +
@@ -1725,7 +1725,7 @@ export default {
                   "<div class='text-bold'>" +
                   this.name +
                   "</div>" +
-                  "<div>Value:  " +
+                  "<div>Value:  $" +
                   Number(this.sumValueM).toFixed(2) +
                   " million </div>" +
                   "<div>Share: " +
