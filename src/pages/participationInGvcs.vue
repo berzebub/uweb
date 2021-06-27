@@ -402,7 +402,7 @@ export default {
 
       sectorOptions: [],
       sector: "",
-
+      sectorName: "",
       isShowErrorWarning: false,
 
       isChart: false
@@ -484,6 +484,15 @@ export default {
     },
 
     renderGraph() {
+      this.sectorName = this.sectorOptions.filter(x => x.value == this.sector);
+      this.sectorName = this.sectorName[0].label
+
+        .slice(this.sectorName[0].label.indexOf(" "))
+        .trim()
+        .toLowerCase();
+      if (this.sector == 0) {
+        this.sectorName = "all sectors";
+      }
       this.setStackChart();
       let link =
         "https://riva.negotiatetrade.org/#/participation-in-gvcs/" +
@@ -562,10 +571,10 @@ export default {
         finalList.push(newFinal);
       });
 
-      console.log(forwardList);
-      console.log(backwardList);
-      console.log(doubleList);
-      console.log(finalList);
+      // console.log(forwardList);
+      // console.log(backwardList);
+      // console.log(doubleList);
+      // console.log(finalList);
 
       forwardList.forEach((element, index) => {
         forwardList[index]["totalY"] = Number(
@@ -747,7 +756,7 @@ export default {
             fontFamily: "roboto"
           },
 
-          text: `How much of ${this.exp_country.label}’s exports to ${this.imp_country.label} are GVC related compared across ${region} economies?`
+          text: `How much of ${this.exp_country.label}’s exports of ${this.sectorName} to ${this.imp_country.label} are GVC related compared across ${region} economies?`
         }
       });
     },

@@ -613,6 +613,7 @@ export default {
 
       displaySector: "",
       sector: "",
+      sectorName: "",
 
       dataChart1Percent: {
         imp_cons: 0,
@@ -679,7 +680,18 @@ export default {
     // Render Graph
     renderGraph() {
       // this.source.cancel("Operation canceled by the user.");
+      this.sectorName = this.sectorOptions.filter(
+        x => x.value == this.sectorSelected
+      );
+      this.sectorName = this.sectorName[0].label
 
+        .slice(this.sectorName[0].label.indexOf(" "))
+        .trim()
+        .toLowerCase();
+      if (this.sectorSelected == 0) {
+        this.sectorName = "all sectors";
+      }
+      // console.log(this.sectorName[0].label.indexOf(" "));
       this.setStackChart();
       this.setStackChart2();
       this.setStackChart3();
@@ -934,7 +946,9 @@ export default {
           text:
             "How are " +
             this.exportingSelected.label +
-            "'s exports to " +
+            "'s exports of " +
+            this.sectorName +
+            " to " +
             this.importingSelected.label +
             " produced and utilised?"
         },
@@ -1175,7 +1189,7 @@ export default {
           y: x.double.precent
         });
       });
-      console.log(country);
+      // console.log(country);
       this.isComparisonChart = true;
 
       let ctext = "";
@@ -1195,7 +1209,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto"
           },
-          text: `How are ${ctext} economies’ exports to ${this.importingSelected.label} produced and utilised?`
+          text: `How are ${ctext} economies’ exports of ${this.sectorName} to ${this.importingSelected.label} produced and utilised?`
         },
         xAxis: {
           labels: {
@@ -1276,7 +1290,7 @@ export default {
                   this.options.value >= 1000
                     ? (this.options.value / 1000).toFixed(2) + " billion"
                     : this.options.value + " million"
-                } 
+                }
               </div>`
             );
           }
@@ -1434,7 +1448,7 @@ export default {
             fontSize: "24px",
             fontFamily: "roboto"
           },
-          text: `How does ${this.exportingSelected.label}'s gross and value-added trade balance with ${this.importingSelected.label} differ?`
+          text: `How does ${this.exportingSelected.label}'s gross and value-added trade balance in ${this.sectorName} with ${this.importingSelected.label} differ?`
         },
         xAxis: {
           categories: ["", ""]

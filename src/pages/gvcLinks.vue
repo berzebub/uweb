@@ -297,17 +297,19 @@
           >
         </div>
         <div align="center">
-          <span class="font-content"
-            >Click on a sector to see the top 5 partner economies associated
-            with it</span
+          <span class="font-content "
+            >Click on a sector to see the top 5 partner of
+            {{ overviewCountry.label }} in each other</span
           >
         </div>
 
         <div class="row justify-center q-mt-lg">
-          <div class="col-7 row">
+          <div class="col-8 row">
             <div class="col q-pa-md">
               <div class="font-footer text-teal" align="right">
-                <span class="font-content text-bold">Backward linkages</span>
+                <span class="font-content text-bold"
+                  >Largest backward linked sectors</span
+                >
               </div>
             </div>
 
@@ -315,7 +317,9 @@
             <div class="col-3 self-center" align="center"></div>
             <div class="col q-pa-md">
               <div class="font-footer" style="color: #EB1E63">
-                <span class="font-content text-bold">Forward linkages</span>
+                <span class="font-content text-bold"
+                  >Largest forward linked sectors</span
+                >
               </div>
             </div>
           </div>
@@ -522,16 +526,18 @@
         </div>
         <div align="center">
           <span class="font-content"
-            >Click on a partner economy to see the top 5 exporting sectors
-            associated with it</span
-          >
+            >Click on a partner economy to see the top 5 sectors of
+            {{ overviewCountry.label }} associated with each partner
+          </span>
         </div>
 
         <div class="row justify-center q-mt-lg">
-          <div class="col-7 row">
+          <div class="col-8 row">
             <div class="col q-pa-md">
               <div class="font-footer text-teal" align="right">
-                <span class="font-content text-bold">Backward linkages</span>
+                <span class="font-content text-bold"
+                  >Largest backward linked partners</span
+                >
                 <!-- <br />
                 <span class="text-bold">Source economy</span>
                 <br />
@@ -544,7 +550,9 @@
             <div class="col-3 self-center" align="center"></div>
             <div class="col q-pa-md">
               <div class="font-footer" align="left" style="color:#EB1E63">
-                <span class="font-content text-bold">Forward linkages</span>
+                <span class="font-content text-bold"
+                  >Largest forward linked partners</span
+                >
                 <!-- <br />
                 <span class="text-bold">Improting economy</span>
                 <br />

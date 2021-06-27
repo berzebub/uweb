@@ -889,6 +889,7 @@ export default {
       financialData: [],
       publicwData: [],
       privatewData: [],
+      sectorName: "",
 
       isDisableTinaLink: true,
       isDisableShare: true
@@ -1075,6 +1076,15 @@ export default {
     },
 
     renderOne() {
+      this.sectorName = this.sectorOptions.filter(x => x.value == this.sector);
+      this.sectorName = this.sectorName[0].label
+
+        .slice(this.sectorName[0].label.indexOf(" "))
+        .trim()
+        .toLowerCase();
+      if (this.sector == 0) {
+        this.sectorName = "all sectors";
+      }
       this.chart1();
       this.chart2();
     },
@@ -1202,7 +1212,7 @@ export default {
           style: {
             fontSize: "24px"
           },
-          text: `Where does ${this.exp_country.label} contribute the most towards export production?`
+          text: `Where does ${this.exp_country.label} contribute the most towards export production (${this.sectorName})?`
         },
         credits: {
           enabled: false
@@ -1259,9 +1269,9 @@ export default {
             fontSize: "14px"
           },
           useHTML: true,
-          text: `Gross exports of ${
-            this.exp_country.label
-          } in ${showSectorName} sector(s) to World amount to $${
+          text: `Gross exports of ${this.exp_country.label} in ${
+            this.sectorName
+          }  to World amount to $${
             getDataSub.grossExport < 1000
               ? getDataSub.grossExport + " million"
               : (getDataSub.grossExport / 1000).toFixed(2) + " billion"
@@ -1600,6 +1610,7 @@ export default {
       } else {
         ctext = this.exp_country.label;
       }
+      let sname = this.sectorName;
       var chart = Highcharts.chart(
         "container2",
         {
@@ -1610,7 +1621,7 @@ export default {
             events: {
               drilldown: function(e) {
                 chart.setTitle({
-                  text: `Where does ${e.point.name} contribute the most towards export production?`
+                  text: `Where does ${e.point.name} contribute the most towards export production (${sname})?`
                 });
                 chart.setSubtitle({
                   text: ""
@@ -1618,7 +1629,7 @@ export default {
               },
               drillup: function(e) {
                 chart.setTitle({
-                  text: `Where do ${ctext} economies contribute the most towards export production? `
+                  text: `Where do ${ctext} economies contribute the most towards export production (${sname})? `
                 });
                 chart.setSubtitle({
                   text:
@@ -1783,7 +1794,7 @@ export default {
             style: {
               fontSize: "24px"
             },
-            text: `Where do ${ctext} economies contribute the most towards export production? `
+            text: `Where do ${ctext} economies contribute the most towards export production (${sname})? `
           },
           subtitle: {
             style: {

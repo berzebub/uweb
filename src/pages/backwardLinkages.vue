@@ -780,7 +780,8 @@ export default {
       propertyData: [],
       financialData: [],
       publicwData: [],
-      privatewData: []
+      privatewData: [],
+      sectorName: ""
     };
   },
   methods: {
@@ -915,6 +916,17 @@ export default {
     },
 
     renderGraphSector() {
+      this.sectorName = this.sectorOptions.filter(
+        x => x.value == this.sectorSelected
+      );
+      this.sectorName = this.sectorName[0].label
+
+        .slice(this.sectorName[0].label.indexOf(" "))
+        .trim()
+        .toLowerCase();
+      if (this.sectorSelected == 0) {
+        this.sectorName = "all sectors";
+      }
       this.errorGraph1 = false;
       this.errorGraph2 = false;
       let link =
@@ -977,14 +989,13 @@ export default {
 
       summaryValue = summaryValue.reduce((a, b) => a + b, 0);
 
-
       getData.data.forEach((element, index) => {
         if (index >= 5) {
           element.name = `${element.name}(${(
             (element.value / summaryValue) *
             100
           ).toFixed(2)}%) `;
-          console.log(element.value,summaryValue);
+          console.log(element.value, summaryValue);
           element.percent = ((element.value / summaryValue) * 100).toFixed(2);
         }
       });
@@ -1047,7 +1058,7 @@ export default {
           ? getDataSub.ImportedContent
           : (getDataSub.ImportedContent / 1000).toFixed(2);
 
-          console.log(getData.data);
+      console.log(getData.data);
 
       Highcharts.chart("container", {
         chart: {
@@ -1130,7 +1141,7 @@ export default {
           style: {
             fontSize: "24px"
           },
-          text: `Where does ${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label} come from?`
+          text: `Where does ${this.exportingSelected.label}'s imported content in exports of ${this.sectorName} to ${this.importingSelected.label} come from?`
         },
         credits: {
           enabled: false
@@ -1140,7 +1151,7 @@ export default {
           style: {
             fontSize: "14px"
           },
-          text: `Gross exports of ${this.exportingSelected.label} in ${this.displaySector} sector(s) to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / ${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub} <br> `,
+          text: `Gross exports of ${this.exportingSelected.label} in ${this.sectorName}  to ${this.importingSelected.label} amount to $${grossExportMoney} ${grossExportMoneyUnitMain} in ${this.displayYear}. Of these exports, $${ImportedContent} ${ImportedContentUnitMain} is imported content that comes from other economies, mainly ${graphOneDetailsList[0].name} , ${graphOneDetailsList[1].name} , ${graphOneDetailsList[2].name} , ${graphOneDetailsList[3].name} and ${graphOneDetailsList[4].name}. <br><br><br>${this.exportingSelected.label}'s imported content in exports to ${this.importingSelected.label}: $${ImportedContent}  ${ImportedContentUnitSub} / ${this.exportingSelected.label}'s gross exports to ${this.importingSelected.label}: $${grossExportMoney} ${grossExportMoneyUnitSub} <br> `,
           align: "left"
         },
         // exporting: this.exportingGraphOptions,
@@ -1454,6 +1465,7 @@ export default {
       } else {
         ctext = this.exportingSelected.label;
       }
+      let sName = this.sectorName;
       var chart = Highcharts.chart(
         "container1",
         {
@@ -1464,7 +1476,7 @@ export default {
             events: {
               drilldown: function(e) {
                 chart.setTitle({
-                  text: `Where does ${e.point.name}'s imported content in exports to ${countryName} come from?`
+                  text: `Where does ${e.point.name}'s imported content in exports of ${sName} to ${countryName} come from?`
                 });
                 chart.setSubtitle({
                   text: ""
@@ -1472,7 +1484,7 @@ export default {
               },
               drillup: function(e) {
                 chart.setTitle({
-                  text: `Where do ${ctext} economies' imported content in exports to ${countryName} come from?`
+                  text: `Where do ${ctext} economies' imported content in exports of ${this.sectorName} to ${countryName} come from?`
                 });
                 chart.setSubtitle({
                   text:
@@ -1601,7 +1613,7 @@ export default {
               fontSize: "24px"
             },
 
-            text: `Where do ${ctext} economies' imported content in exports to ${this.importingSelected.label} come from?`
+            text: `Where do ${ctext} economies' imported content in exports of ${this.sectorName} to ${this.importingSelected.label} come from?`
           },
           subtitle: {
             style: {
