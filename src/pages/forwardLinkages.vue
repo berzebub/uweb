@@ -2005,7 +2005,7 @@ export default {
             } else if (this.name == "ICT service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #1565C0;"></div></td><td style="padding-left:12px;"><div>Services</div>ICT </td></tr></table></div>';
             } else if (this.name == "Property service") {
-              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Services</div>Property </td></tr></table></div>';
+              return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #19227D;"></div></td><td style="padding-left:12px;"><div>Services-Property</div>and business </td></tr></table></div>';
             } else if (this.name == "Financial service") {
               return '<div style="padding:3px;font-size:12px;"><table style=" border-collapse: collapse;"><tr><td><div style="width: 35px;height: 35px;background-color: #43A7F5;"></div></td><td style="padding-left:12px;"><div>Services</div>Financial </td></tr></table></div>';
             } else if (this.name == "Public and welfare service") {
@@ -2803,7 +2803,7 @@ export default {
               color: "#1565C0"
             },
             {
-              name: "Services-Property",
+              name: "Services-Property and business",
               data: this.propertyData,
               color: "#19227D"
             },

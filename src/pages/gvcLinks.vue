@@ -299,7 +299,7 @@
         <div align="center">
           <span class="font-content "
             >Click on a sector to see the top 5 partner of
-            {{ overviewCountry.label }} in each other</span
+            {{ overviewCountry.label }} in each sector</span
           >
         </div>
 
