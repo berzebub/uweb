@@ -2233,13 +2233,18 @@ export default {
 
       //utilities
       this.utilitiesData = [];
-      let utilities = getData.filter(x => x.grouping == "Utilities");
-      utilities.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
-      utilities = utilities.map(x => x.value);
+      let utilitiesV = [];
+      let utilitie2 = getData.filter(x => x.grouping == "Utilities");
+      utilitie2.sort((a, b) => (a.exp_country > b.exp_country ? 1 : -1));
+
+      let utilities = utilitie2.map(x => x.value);
+      utilitiesV = utilitie2.map(x => x.valueM);
+
       for (let i = 0; i < utilities.length; i++) {
         let temp = {
           name: this.countryList[i],
-          y: utilities[i]
+          y: utilities[i],
+          value: utilitiesV[i]
         };
         this.utilitiesData.push(temp);
       }
