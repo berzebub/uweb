@@ -57,7 +57,7 @@
           </div>
         </div>
       </div>
-      <q-toolbar class="q-px-md items-center">
+      <q-toolbar class="q-px-md items-center" style="height:70px;">
         <!-- <div
           class="q-mx-lg cursor-pointer"
           @click="toUnescap()"
@@ -66,12 +66,19 @@
           <q-img style="width:120px" src="../../public/logo.png"></q-img>
         </div> -->
         <div
-          class="q-mx-lg cursor-pointer"
+          class="q-ml-lg cursor-pointer "
           @click="toFealac()"
-          style="max-width:180px"
+          style="max-width:210px"
         >
-          <q-img style="width:120px" src="../../public/fealac.png"></q-img>
+          <q-img style="width:200px" src="../../public/fealac.png"></q-img>
         </div>
+        <div class="q-px-md">
+          <q-img style="width:45px" src="../../public/12x.png"></q-img>
+        </div>
+        <div>
+          <q-img style="width:50px" src="../../public/adb.png"></q-img>
+        </div>
+        <div style="width:200px;"></div>
         <q-space />
         <div class="row full-width font-content" align="right">
           <div class="col-12 q-px-md">
@@ -136,20 +143,16 @@
           <div class="col-5">
             <div class="font-footer">ABOUT RIVA</div>
             <div style="font-size:11px">
-              RIVA is an initiative of the Trade, Investment and Innovation
-              Division of the United Nations Economic and Social Commission for
-              Asia and the Pacific, located in Bangkok, Thailand. For questions,
-              please contact us at escap-tiid@un.org or visit
+              RIVA is developed by the Trade, Investment and Innovation Division
+              of the United Nations Economic and Social Commission for Asia and
+              the Pacific, in collaboration with the Asian Development Bank,
+              Economic Commission for Latin America and the Caribbean, Economic
+              Commission for Africa, and Forum for East Asia-Latin America
+              Cooperation. For questions, please contact us at
               <a
-                href="https://www.unescap.org"
+                href="mailto: escap-tiid@un.org"
                 style="text-decoration:underline;color:white"
-                >www.unescap.org</a
-              >
-              RIVA is available on
-              <a
-                href="https://riva.negotiatetrade.org"
-                style="text-decoration:underline;color:white"
-                >riva.negotiatetrade.org</a
+                >escap-tiid@un.org</a
               >
             </div>
           </div>
