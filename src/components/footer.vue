@@ -98,7 +98,7 @@
               >
                 <span>Trade-etools</span>
               </div>
-              <div
+              <!-- <div
                 @click="toEscapTrade()"
                 class="text-white cursor-pointer"
                 style="text-decoration:none;"
@@ -110,7 +110,7 @@
                     > </q-tooltip
                   >ESCAP TIID
                 </span>
-              </div>
+              </div> -->
               <div
                 @click="toTradeEtoolsPolicy()"
                 class="text-white cursor-pointer"
@@ -160,11 +160,10 @@
           <div class="col-5 q-pr-md">
             <div class="font-footer">DISCLAIMER</div>
             <div style="font-size:11px">
-              RIVA gratefully acknowledges use of data from the ADB MRIO
-              database (currently covering 2007, 2011 and 2017) to analyze
-              global value chains and from the Asian Development Bank, ILO, IMF,
-              ITU, OECD, UNESCAP, UN Comtrade, UNCTAD and World Bank to analyze
-              regional integration.
+              ESCAP gratefully acknowledges use of data from the ADB MRIO
+              database to analyze value chains, and databases of ILO, IMF, ITU,
+              OECD, UNESCAP, UN Comtrade, UNCTAD and World Bank to analyze
+              regional integration
             </div>
           </div>
         </div>
