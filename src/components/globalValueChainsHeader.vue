@@ -58,12 +58,21 @@
           @click="toTinaLink()"
         ></q-btn>
       </div>
-      <div class="absolute q-pa-md text-white" style="bottom:150px;right:0px">
+      <div class="absolute q-pa-md text-white" style="bottom:50px;left:0px">
         <q-btn
-          label="Introduction"
+          label="User note"
           no-caps
           outline
           @click="goToIntro()"
+          style="width:150px;"
+        ></q-btn>
+      </div>
+      <div class="absolute q-pa-md text-white" style="bottom:0px;left:0px">
+        <q-btn
+          label="Demostration VDO"
+          no-caps
+          outline
+          @click="goToDemo()"
           style="width:150px;"
         ></q-btn>
       </div>
@@ -167,6 +176,42 @@
         </q-card-section>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="isShowDemo" persistent>
+      <q-card style="width:1500px; height:380px;">
+        <q-icon
+          class="absolute cursor-pointer z-top"
+          style="right:5px;top:5px"
+          name="fas fa-times"
+          size="24px"
+          color="grey-8"
+          flat
+          v-close-popup
+        ></q-icon>
+        <div class="q-pt-xl" align="center">
+          <video controls style="width:95%">
+            <source src="../../public/demo.webm" type="video/mp4" />
+          </video>
+        </div>
+      </q-card>
+      <!-- <div style="width:800px;">
+        <q-icon
+          class="absolute cursor-pointer z-top"
+          style="right:5px;top:5px"
+          name="fas fa-times"
+          size="16px"
+          color="grey-8"
+          flat
+          v-close-popup
+        ></q-icon>
+      </div>
+      <div>
+        <!-- <video controls style="width:80%">
+          <source src="../../public/demo.mp4" type="video/mp4" />
+        </video> -->
+      <!-- </div> -->
+      -->
+    </q-dialog>
   </div>
 </template>
 
@@ -188,11 +233,15 @@ export default {
   },
   data() {
     return {
+      isShowDemo: false,
       isShowShareOptions: false,
       link: window.location.href
     };
   },
   methods: {
+    goToDemo() {
+      this.isShowDemo = true;
+    },
     goToDownload() {
       this.$router.push("/download");
     },
@@ -242,5 +291,8 @@ export default {
 }
 .link-hover :hover {
   transform: scale(1.1);
+}
+.diashow {
+  width: 800px;
 }
 </style>
