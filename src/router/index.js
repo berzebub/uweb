@@ -6,11 +6,14 @@ import JsonCSV from "vue-json-csv";
 import CountryFlag from "vue-country-flag";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import VueGtag from "vue-gtag";
 
 import VueFlags from "@growthbunker/vueflags";
 import VueSocialSharing from "vue-social-sharing";
 var VueScrollTo = require("vue-scrollto");
-
+Vue.use(VueGtag, {
+  config: { id: "UA-1234567-1" }
+});
 Vue.use(VueScrollTo);
 Vue.use(VueRouter);
 Vue.use(HighchartsVue);
@@ -132,13 +135,11 @@ Vue.mixin({
           index: element.id,
           code: element.code,
           region2: element.region2,
-          disable : element.disable ? true : false
+          disable: element.disable ? true : false
         };
         tempOptions.push(data);
       });
       // tempOptions.sort((a, b) => (a.label > b.label ? 1 : -1));
-
-
 
       this.countryOptions = tempOptions;
       // this.countrySelected = ""
