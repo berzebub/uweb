@@ -64,16 +64,16 @@
           no-caps
           outline
           @click="goToIntro()"
-          style="width:150px;"
+          style="width:180px;"
         ></q-btn>
       </div>
       <div class="absolute q-pa-md text-white" style="bottom:0px;left:0px">
         <q-btn
-          label="Demostration VDO"
+          label="Demonstration video"
           no-caps
           outline
           @click="goToDemo()"
-          style="width:150px;"
+          style="width:180px;"
         ></q-btn>
       </div>
       <div class="absolute q-pa-md text-white" style="bottom:100px;right:0px">

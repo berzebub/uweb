@@ -1,5 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
+    <!-- Google Tag Manager (noscript) -->
+
+<noscript><iframe src=https://www.googletagmanager.com/ns.html?id=GTM-54LH3KP
+
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  
+  <!-- End Google Tag Manager (noscript) -->
     <q-header elevated>
       <q-toolbar class="bg12a">
         <q-toolbar-title v-if="$route.name == 'year'">Year</q-toolbar-title>
