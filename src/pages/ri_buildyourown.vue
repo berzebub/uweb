@@ -163,6 +163,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[0]" dense style="width:30px;" />
               <br />
@@ -180,6 +181,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[1]" dense style="width:30px;" />
               <br />
@@ -197,6 +199,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[2]" dense style="width:30px;" />
               <br />
@@ -214,6 +217,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[3]" dense style="width:30px;" />
               <br />
@@ -231,6 +235,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[4]" dense style="width:30px;" />
               <br />
@@ -248,6 +253,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[5]" dense style="width:30px;" />
               <br />
@@ -265,6 +271,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[6]" dense style="width:30px;" />
               <br />
@@ -282,6 +289,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[7]" dense style="width:30px;" />
               <br />
@@ -299,6 +307,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[8]" dense style="width:30px;" />
               <br />
@@ -316,6 +325,7 @@
                 vertical
                 reverse
                 label-always
+                @change="calActualWeight()"
               />
               <q-input v-model="weightBalance[9]" dense style="width:30px;" />
               <br />
@@ -329,6 +339,33 @@
         <br /><br />
       </div>
       <!-- Actual weight       -->
+      <div>
+        <div class="row" style="width:80%; margin:auto;">
+          <div class="v1" :style="{ width: actualWeightBalance[0] + '%' }">
+            {{ actualWeightBalance[0] > 5 ? actualWeightBalance[0] + "%" : "" }}
+          </div>
+          <div class="v2" :style="{ width: actualWeightBalance[1] + '%' }">
+            {{ actualWeightBalance[1] > 5 ? actualWeightBalance[1] + "%" : "" }}
+          </div>
+          <div class="v3" :style="{ width: actualWeightBalance[2] + '%' }">
+            {{ actualWeightBalance[2] > 5 ? actualWeightBalance[2] + "%" : "" }}
+          </div>
+          <div class="v4" :style="{ width: actualWeightBalance[3] + '%' }">
+            {{ actualWeightBalance[3] > 5 ? actualWeightBalance[3] + "%" : "" }}
+          </div>
+          <div class="v5" :style="{ width: actualWeightBalance[4] + '%' }">
+            {{ actualWeightBalance[4] > 5 ? actualWeightBalance[4] + "%" : "" }}
+          </div>
+          <div class="v6" :style="{ width: actualWeightBalance[5] + '%' }">
+            {{ actualWeightBalance[5] > 5 ? actualWeightBalance[5] + "%" : "" }}
+          </div>
+          <div class="v7" :style="{ width: actualWeightBalance[6] + '%' }">
+            {{ actualWeightBalance[6] > 5 ? actualWeightBalance[6] + "%" : "" }}
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
     </div>
 
     <my-footer></my-footer>
@@ -372,18 +409,51 @@ export default {
         "#652076",
         "#F7E900"
       ],
-      weightBalance: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+      weightBalance: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
+      actualWeightBalance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
   },
   methods: {
+    calActualWeight() {
+      this.input.weight = "B";
+      this.actualWeightBalance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      let sumAll = 0;
+      for (let i = 0; i < this.dimensionList.length; i++) {
+        sumAll += this.weightBalance[i];
+      }
+      for (let i = 0; i < this.dimensionList.length; i++) {
+        this.actualWeightBalance[i] =
+          Math.floor(((this.weightBalance[i] / sumAll) * 100).toFixed(2) * 10) /
+          10;
+      }
+      console.log(this.actualWeightBalance);
+    },
     changeWeightB() {
       this.weightBalance[0] = 50;
       this.weightBalance[1] = 50;
+      this.weightBalance[2] = 50;
+      this.weightBalance[3] = 50;
+      this.weightBalance[4] = 50;
+      this.weightBalance[5] = 50;
+      this.weightBalance[6] = 50;
+      this.weightBalance[7] = 50;
+      this.weightBalance[8] = 50;
+      this.weightBalance[9] = 50;
+      this.calActualWeight();
       this.input.weight = "B";
     },
     changeWeightA() {
       this.weightBalance[0] = 100;
       this.weightBalance[1] = 100;
+      this.weightBalance[2] = 100;
+      this.weightBalance[3] = 100;
+      this.weightBalance[4] = 100;
+      this.weightBalance[5] = 100;
+      this.weightBalance[6] = 100;
+      this.weightBalance[7] = 100;
+      this.weightBalance[8] = 100;
+      this.weightBalance[9] = 100;
+      this.calActualWeight();
       this.input.weight = "A";
     },
     changeA() {
@@ -424,8 +494,8 @@ export default {
   async mounted() {
     await this.loadDimension();
     await this.getCountryList();
-
     await this.loadIndicator();
+    this.calActualWeight();
   }
 };
 </script>
@@ -467,5 +537,53 @@ export default {
   // width: 300px;
   // height: 30px;
   // transform: rotate(-90deg);
+}
+.v1 {
+  height: 25px;
+  background-color: #2381b8;
+  text-align: center;
+  color: white;
+}
+.v2 {
+  height: 25px;
+  width: 10%;
+  background-color: #eb1e63;
+  text-align: center;
+  color: white;
+}
+.v3 {
+  height: 25px;
+  width: 10%;
+  background-color: #9c26b3;
+  text-align: center;
+  color: white;
+}
+.v4 {
+  height: 25px;
+  width: 10%;
+  background-color: #2d9687;
+  text-align: center;
+  color: white;
+}
+.v5 {
+  height: 25px;
+  width: 10%;
+  background-color: #000000;
+  text-align: center;
+  color: white;
+}
+.v6 {
+  height: 25px;
+  width: 10%;
+  background-color: #886439;
+  text-align: center;
+  color: white;
+}
+.v7 {
+  height: 25px;
+  width: 10%;
+  background-color: #d0af58;
+  text-align: center;
+  color: white;
 }
 </style>
