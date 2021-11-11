@@ -284,4 +284,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.footer-bg {
+  background-image: url("../../public/footer.jpg");
+  background-size: inherit;
+  background-position: bottom;
+}
+</style>

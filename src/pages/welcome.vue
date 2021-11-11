@@ -51,17 +51,28 @@
           class="text-white row"
         >
           <div style="width:100%" class="q-pt-md">
-            <img src="../../public/logobig.png" width="400px" alt />
+            <img src="../../public/logobig2.png" width="400px" alt />
             <div style="height:15px">&nbsp;</div>
           </div>
-          <div align="center" class="col-12">
-            <q-btn
-              @click.stop="goToGlobal()"
-              style="width:180px;background-color:#000000;border:1px solid #F4B802"
-              label="Get started"
-              class="font-content"
-              no-caps
-            ></q-btn>
+          <div class="row" style="width:100%">
+            <div align="center" class="col-6">
+              <q-btn
+                @click.stop="goToRI()"
+                style="width:250px;background-color:#000000;border:1px solid #F4B802"
+                label="REGIONAL INTEGRATION"
+                class="font-content"
+                no-caps
+              ></q-btn>
+            </div>
+            <div align="center" class="col-6">
+              <q-btn
+                @click.stop="goToGlobal()"
+                style="width:250px;background-color:#000000;border:1px solid #F4B802"
+                label="VALUE CHAIN ANALYZER"
+                class="font-content"
+                no-caps
+              ></q-btn>
+            </div>
           </div>
           <div style="height:15px">&nbsp;</div>
         </div>
@@ -132,6 +143,9 @@ export default {
     myFooter
   },
   methods: {
+    goToRI() {
+      this.$router.push("/riintragroup");
+    },
     goToRegional() {
       this.$router.push("/regional-integration");
     },

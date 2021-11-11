@@ -15,6 +15,21 @@ const routes = [
     name: "login"
   },
   {
+    path: "/riintragroup",
+    component: () => import("pages/ri_intragroup.vue"),
+    name: "riintragroup"
+  },
+  {
+    path: "/rieconomypartner",
+    component: () => import("pages/ri_economypartner.vue"),
+    name: "rieconomypartner"
+  },
+  {
+    path: "/ribuildyourown",
+    component: () => import("pages/ri_buildyourown.vue"),
+    name: "ribuildyourown"
+  },
+  {
     path: "/year",
     component: () => import("layouts/MainLayout2.vue"),
     children: [
@@ -57,7 +72,7 @@ const routes = [
         path: "/countrybrief",
         component: () => import("pages/countrybrief.vue"),
         name: "countrybrief"
-      },
+      }
     ]
   },
   {

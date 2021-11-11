@@ -2,19 +2,77 @@
   <q-page class>
     <!-- Header Button -->
     <div class="q-pa-md q-py-lg">
-      <div align="right">
-        <q-btn
-          label="Upload Data"
-          no-caps
-          class="bg4 font-content"
-          style="width:200px;border-radius:10px"
-          @click="isDialogUpload = true"
-        ></q-btn>
+      <div class="row justify-between">
+        <div class="row">
+          <!-- ปุ่ม RI Mode -->
+          <div>
+            <q-btn
+              label="RI Mode"
+              no-caps
+              class="bg4 font-content"
+              style="width:200px;border-radius:10px"
+              v-show="modeDisplay == 'RI'"
+            ></q-btn>
+            <q-btn
+              label="RI Mode"
+              no-caps
+              class="font-content"
+              style="width:200px;border-radius:10px"
+              @click="riModeBtn()"
+              v-show="modeDisplay == 'VA'"
+            ></q-btn>
+          </div>
+          <!-- ปุ่ม VA Mode -->
+          <div class="q-pl-md">
+            <q-btn
+              label="VA Mode"
+              no-caps
+              class="bg4 font-content"
+              style="width:200px;border-radius:10px"
+              v-show="modeDisplay == 'VA'"
+            ></q-btn>
+            <q-btn
+              label="VA Mode"
+              no-caps
+              class="font-content"
+              style="width:200px;border-radius:10px"
+              @click="vaModeBtn()"
+              v-show="modeDisplay == 'RI'"
+            ></q-btn>
+          </div>
+        </div>
+
+        <div align="right">
+          <!-- ปุ่ม Upload data สำหรับ VA-->
+          <div v-show="modeDisplay == 'VA'">
+            <q-btn
+              label="Upload Data"
+              no-caps
+              class="bg4 font-content"
+              style="width:200px;border-radius:10px"
+              @click="isDialogUpload = true"
+            ></q-btn>
+          </div>
+          <!-- ตัวเลือก integration สำหรับ RI -->
+          <div v-show="modeDisplay == 'RI'">
+            <q-select
+              @input="selectIntegration()"
+              dense
+              outlined
+              :options="integrationOptions"
+              v-model="integrationSelected"
+              emit-value
+              map-options
+              style="width: 250px;"
+            />
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- Body Content -->
-    <div class="q-px-md">
+    <!-- Body Content VA Mode -->
+    <div class="q-px-md" v-show="modeDisplay == 'VA'">
+      <!-- หัวปี -->
       <div>
         <q-tabs
           active-bg-color="bg4"
@@ -36,6 +94,7 @@
           />
         </q-tabs>
       </div>
+      <!-- ส่วนของ Scroll area -->
       <div class="q-mt-md">
         <q-scroll-area
           visible
@@ -55,7 +114,7 @@
               <span class="font-content">{{ item.name }}</span>
             </div>
             <div class="col self-center">
-              <span>{{showLastUpdate(item.name)}}</span>
+              <span>{{ showLastUpdate(item.name) }}</span>
             </div>
             <div class="col-1 self-center" align="center" style="width:130px;">
               <q-btn
@@ -65,9 +124,15 @@
                 flat
                 @click="
                   (isDeleteData = true),
-                    selectDelete.year = selectYear,selectDelete.code = item.code,selectDelete.country = item.name
+                    (selectDelete.year = selectYear),
+                    (selectDelete.code = item.code),
+                    (selectDelete.country = item.name)
                 "
-                v-if="dataShow.filter(x => x.year == selectYear && x.country == item.name).length"
+                v-if="
+                  dataShow.filter(
+                    x => x.year == selectYear && x.country == item.name
+                  ).length
+                "
               >
                 <q-icon size="xs" name="fas fa-trash-alt"></q-icon>
               </q-btn>
@@ -77,7 +142,132 @@
       </div>
     </div>
 
-    <!-- Dialog Popup -->
+    <!-- Body content RI Mode -->
+    <div class="q-px-md" v-show="modeDisplay == 'RI'">
+      <hr />
+      <div class="row justify-between">
+        <div class="row">
+          <div class="row">
+            <!-- ปุ่ม Indicator -->
+            <q-btn
+              label="Indicator"
+              no-caps
+              class="bg4 font-content"
+              style="width:200px;border-radius:10px"
+              v-show="indicatorDatabtn == 1"
+            ></q-btn>
+            <q-btn
+              label="Indicator"
+              no-caps
+              class="font-content"
+              style="width:200px;border-radius:10px"
+              @click="indicatorBtn()"
+              v-show="indicatorDatabtn == 0"
+            ></q-btn>
+          </div>
+
+          <!-- ปุ่ม Data -->
+          <div class="row q-pl-md">
+            <q-btn
+              label="Data"
+              no-caps
+              class="bg4 font-content"
+              style="width:200px;border-radius:10px"
+              v-show="indicatorDatabtn == 0"
+            ></q-btn>
+            <q-btn
+              label="Data"
+              no-caps
+              class="font-content"
+              style="width:200px;border-radius:10px"
+              @click="dataBtn()"
+              v-show="indicatorDatabtn == 1"
+            ></q-btn>
+          </div>
+        </div>
+
+        <div>
+          <q-btn
+            label="Add new indicator"
+            no-caps
+            class="font-content"
+            style="width:200px;border-radius:10px;"
+            @click="isDialogAddNew = true"
+          />
+        </div>
+      </div>
+
+      <div>
+        <!-- RI Mode // Indicator // Conventional integration -->
+        <div
+          class="q-mt-md"
+          v-show="indicatorDatabtn == 1 && integrationSelected == 1"
+        >
+          <q-scroll-area
+            visible
+            :thumb-style="thumbStyle"
+            :bar-style="barStyle"
+            style="height: calc(100vh - 230px);font-size:16px;overflow:hidden;"
+            class="shadow-1 rounded-borders"
+          >
+            Indicator -- Conventional Integration
+          </q-scroll-area>
+        </div>
+        <!-- RI Mode // Indicator // Sustainable integration -->
+        <div
+          class="q-mt-md"
+          v-show="indicatorDatabtn == 1 && integrationSelected == 2"
+        >
+          <q-scroll-area
+            visible
+            :thumb-style="thumbStyle"
+            :bar-style="barStyle"
+            style="height: calc(100vh - 230px);font-size:16px;overflow:hidden;"
+            class="shadow-1 rounded-borders"
+          >
+            Indicator -- Sustainable Integration
+          </q-scroll-area>
+        </div>
+      </div>
+    </div>
+    <!-- Dialog add new indicator -->
+    <q-dialog v-model="isDialogAddNew" persistent>
+      <q-card style="width:400px;height:305px;border-radius:10px;">
+        <q-card-section class="bg4 q-py-sm" align="center">
+          <span style="font-size:20px;">Add new indicator</span>
+        </q-card-section>
+        <q-card-section class="q-pt-lg" align="center">
+          <q-input
+            label="order id"
+            v-model="orderid"
+            outlined=""
+            class="q-pb-md"
+          />
+          <q-input label="indicator name" v-model="indicatorName" outlined="" />
+        </q-card-section>
+        <q-card-actions class="q-pb-lg" align="center">
+          <q-btn
+            class="font-content q-mx-md"
+            style="width:150px;border-radius:10px;"
+            outline
+            label="Cancel"
+            color="black"
+            v-close-popup
+            no-caps
+          />
+          <q-btn
+            class="font-content q-mx-md bg4"
+            style="width:150px;border-radius:10px;"
+            label="OK"
+            no-caps
+            @click="addNewIndicator()"
+            :disable="isUploadData"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
+    <!-- Dialog Delete Popup -->
     <q-dialog v-model="isDeleteData">
       <q-card style="width:400px;border-radius:10px;">
         <q-card-section class="bg4 q-py-sm" align="center">
@@ -86,9 +276,11 @@
 
         <q-card-section class="q-pt-lg" align="center">
           <div class="q-pt-md q-pb-sm">
-            <span
-              style="font-size:16px;"
-            >Do you really want to delete “{{ selectDelete.country + "-" + selectDelete.year }}”?</span>
+            <span style="font-size:16px;"
+              >Do you really want to delete “{{
+                selectDelete.country + "-" + selectDelete.year
+              }}”?</span
+            >
           </div>
         </q-card-section>
 
@@ -115,6 +307,7 @@
       </q-card>
     </q-dialog>
 
+    <!-- Dialog for upload -->
     <q-dialog v-model="isDialogUpload" persistent>
       <q-card style="width:400px;">
         <q-card-section class="bg4 q-py-sm" align="center">
@@ -137,16 +330,22 @@
                 accept=".csv"
                 style="overflow:hidden;"
               >
-                <div class="absolute-center full-width" align="center" v-if="!files">
+                <div
+                  class="absolute-center full-width"
+                  align="center"
+                  v-if="!files"
+                >
                   <span
                     class="font-hint text-black"
                     style="text-decoration:underline;"
-                  >Choose a data file</span>
+                    >Choose a data file</span
+                  >
                 </div>
                 <template v-slot:file="{ index, file }">
                   <span
                     style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                  >{{ file.name }}</span>
+                    >{{ file.name }}</span
+                  >
                 </template>
               </q-file>
             </div>
@@ -184,9 +383,10 @@
 
         <q-card-section class="q-pt-lg" align="center">
           <div class="q-pt-md q-pb-sm">
-            <span
-              style="font-size:16px;"
-            >Upload “{{uploadDetails.country}} - {{uploadDetails.year}}” complete</span>
+            <span style="font-size:16px;"
+              >Upload “{{ uploadDetails.country }} - {{ uploadDetails.year }}”
+              complete</span
+            >
           </div>
         </q-card-section>
 
@@ -212,9 +412,10 @@
 
         <q-card-section class="q-pt-lg" align="center">
           <div class="q-pt-md q-pb-sm">
-            <span
-              style="font-size:16px;"
-            >Delete “{{selectDelete.country}} - {{selectDelete.year}}” complete</span>
+            <span style="font-size:16px;"
+              >Delete “{{ selectDelete.country }} - {{ selectDelete.year }}”
+              complete</span
+            >
           </div>
         </q-card-section>
 
@@ -240,9 +441,10 @@
 
         <q-card-section class="q-pt-lg" align="center">
           <div class="q-pt-md q-pb-sm">
-            <span
-              style="font-size:16px;"
-            >Please delete old data in “{{uploadDetails.country}} - {{uploadDetails.year}}” before uploading new one.</span>
+            <span style="font-size:16px;"
+              >Please delete old data in “{{ uploadDetails.country }} -
+              {{ uploadDetails.year }}” before uploading new one.</span
+            >
           </div>
         </q-card-section>
 
@@ -292,24 +494,41 @@ import json from "../../public/json/country_list.json";
 export default {
   data() {
     return {
+      integrationSelected: 1, //1 Conventional , sustainable
+      integrationOptions: [
+        {
+          value: 1,
+          label: "Conventional Integration"
+        },
+        {
+          value: 2,
+          label: "Sustainable Integration"
+        }
+      ],
+      indicatorName: "", //indicator name
+      isDialogAddNew: true, // Dialog add new indicator
+      modeDisplay: "RI", //Mode สำหรับการแสดงผล
+      indicatorDatabtn: 1, //1 indicator 2 data
+      orderid: "", //เลขรหัสการเรียงของ indicator
+
       files: null,
       selectYear: "",
       selectDelete: {
         year: "",
         code: "",
-        country: "",
+        country: ""
       },
       thumbStyle: {
         right: "0px",
         backgroundColor: "#757575",
         width: "13px",
-        opacity: 1,
+        opacity: 1
       },
       barStyle: {
         right: "0px",
         backgroundColor: "#C4C4C4",
         width: "13px",
-        opacity: 1,
+        opacity: 1
       },
       yearList: [],
       dataList: [],
@@ -320,7 +539,7 @@ export default {
 
       uploadDetails: {
         country: "",
-        year: "",
+        year: ""
       },
       isDialogUpload: false,
       isUploadData: false,
@@ -333,10 +552,34 @@ export default {
 
       isDialogFormatIsWrong: false,
 
-      fileinput: "",
+      fileinput: ""
     };
   },
   methods: {
+    riModeBtn() {
+      this.modeDisplay = "RI";
+    },
+    vaModeBtn() {
+      this.modeDisplay = "VA";
+    },
+    dataBtn() {
+      //เมื่อกด Ri กแล้วกด data
+      this.indicatorDatabtn = 0;
+    },
+    indicatorBtn() {
+      this.indicatorDatabtn = 1;
+    },
+    async addNewIndicator() {
+      //add new indicator
+      let data = {
+        orderid: this.orderid,
+        indicator: this.indicatorName
+      };
+      let url = this.serverpath + "ri_add_indicator.php";
+      let res = await axios.post(url, JSON.stringify(data));
+
+      console.log("add new indicator");
+    },
     deleteData() {
       this.loadingShow();
 
@@ -348,7 +591,7 @@ export default {
       let sendData = {
         year: this.selectDelete.year,
         code: this.selectDelete.code,
-        country: this.selectDelete.country,
+        country: this.selectDelete.country
       };
 
       // console.log(sendData);
@@ -356,25 +599,25 @@ export default {
 
       axios
         .post(url, (data = sendData))
-        .then((res) => {
+        .then(res => {
           this.isDialogDeleteCompletely = true;
           this.setDataUpdateLog(res.data);
           this.loadingHide();
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
           this.loadingHide();
         });
     },
     filter(val) {
-      this.dataShow = this.dataList.filter((x) => x.year == val);
+      this.dataShow = this.dataList.filter(x => x.year == val);
 
       // this.dataList.sort((a, b) => {
       //   return a.name > b.name ? 1 : -1;
       // });
     },
     showLastUpdate(country) {
-      let hasLastUpdate = this.dataShow.filter((x) => {
+      let hasLastUpdate = this.dataShow.filter(x => {
         return x.year == this.selectYear && x.country == country;
       });
 
@@ -394,17 +637,17 @@ export default {
       this.isDialogUpload = false;
       this.isUploadData = true;
 
-      let promise = new Promise((resolve) => {
+      let promise = new Promise(resolve => {
         var reader = new FileReader();
         var vm = this;
-        reader.onload = (e) => {
+        reader.onload = e => {
           resolve((vm.fileinput = reader.result));
         };
         reader.readAsText(this.files);
       });
 
       promise.then(
-        async (result) => {
+        async result => {
           this.loadingShow();
 
           let data = "";
@@ -423,12 +666,12 @@ export default {
 
             allTextLine = allTextLine[0].split(",");
 
-            let getCountry = this.countryList.filter((x) => {
+            let getCountry = this.countryList.filter(x => {
               return x.code == allTextLine[1].replace(/[\"]/g, "");
             });
 
             let checkDataLog = this.dataList.filter(
-              (x) =>
+              x =>
                 x.year == allTextLine[6].toString() &&
                 x.country == getCountry[0].name
             );
@@ -455,8 +698,8 @@ export default {
 
               let getFiles = await axios.post(url, formData, {
                 header: {
-                  "Content-Type": "multipart/form-data",
-                },
+                  "Content-Type": "multipart/form-data"
+                }
               });
               console.log(getFiles);
 
@@ -464,7 +707,7 @@ export default {
 
               let setNewData = {
                 year: allTextLine[6],
-                country: getCountry[0].name,
+                country: getCountry[0].name
               };
 
               let setLog = await axios.post(
@@ -493,7 +736,7 @@ export default {
             return;
           }
         },
-        (err) => {
+        err => {
           console.log(err);
         }
       );
@@ -510,7 +753,7 @@ export default {
       this.dataList = temp;
 
       if (temp.length) {
-        this.dataShow = this.dataList.filter((x) => {
+        this.dataShow = this.dataList.filter(x => {
           return x.year == this.selectYear;
         });
       }
@@ -534,10 +777,10 @@ export default {
     },
     loadCountry() {
       let tempOptions = [];
-      json.forEach((element) => {
+      json.forEach(element => {
         let newData = {
           name: element.name,
-          code: element.iso,
+          code: element.iso
         };
         tempOptions.push(newData);
       });
@@ -553,7 +796,7 @@ export default {
 
       let url = this.serverPath + "u_api/get_year.php";
 
-      let res = await axios.get(url).catch((err) => {
+      let res = await axios.get(url).catch(err => {
         console.log(err);
       });
 
@@ -563,7 +806,7 @@ export default {
 
       url = this.serverPath + "u_api/get_upload_log.php";
 
-      res = await axios.get(url).catch((err) => {
+      res = await axios.get(url).catch(err => {
         console.log(err);
       });
 
@@ -572,11 +815,11 @@ export default {
       }
 
       this.loadCountry();
-    },
+    }
   },
   mounted() {
     this.loadData();
-  },
+  }
 };
 </script>
 

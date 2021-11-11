@@ -1,0 +1,471 @@
+<template>
+  <div class="container shadow-2">
+    <ri-header :menu="3"></ri-header>
+    <div class="row " style="color:#757575">
+      <div class="col-6 q-pa-md">
+        <br />
+        <div class="font-16"><b>Economies</b></div>
+        <div>
+          Select an economic / economies to create a group or choose a
+          pre-selected group
+        </div>
+        <div>
+          <q-select
+            :options="countryOptions"
+            v-model="input.eco"
+            map-options
+            emit-value
+            multiple
+            use-chips
+            stack-label
+            dense
+            style="width:90%"
+          />
+        </div>
+        <br />
+        <div class="font-16"><b>Partner economies</b></div>
+        <div>
+          Select economies to create a group (minimum 3) or choose a
+          pre-selected group
+        </div>
+        <div>
+          <q-select
+            :options="countryOptions"
+            v-model="input.partner"
+            multiple
+            map-options
+            emit-value
+            use-chips
+            stack-label
+            dense
+            style="width:90%"
+          />
+        </div>
+        <br />
+        <div class="font-16"><b>Period</b></div>
+        <div style="width: 250px;" class="row">
+          <div class="col-6">
+            <div>Start</div>
+            <div>
+              <q-select
+                dense
+                :options="year"
+                v-model="input.startYear"
+                style="width:80px;"
+              />
+            </div>
+          </div>
+          <div class="col-6">
+            <div>End</div>
+            <div>
+              <q-select
+                dense
+                :options="year"
+                v-model="input.endYear"
+                style="width:80px;"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="font-16"><b>Integration type</b></div>
+        <br />
+        <div class="row">
+          <div class="col-6" align="center">
+            <div
+              :class="input.type == 'A' ? 'btnGreen' : 'btnGrey'"
+              @click="changeA()"
+              class="cursor-pointer"
+            >
+              Sustainable Integration
+            </div>
+          </div>
+          <div class="col-6" align="center">
+            <div
+              :class="input.type == 'B' ? 'btnGreen' : 'btnGrey'"
+              @click="changeB()"
+              class="cursor-pointer"
+            >
+              Conventional Integration
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 q-pa-md">
+        <br />
+        <div class="font-16" v-show="input.type == 'A'">
+          <b>Sustainable Integration Indicators</b>
+        </div>
+        <div class="font-16" v-show="input.type == 'B'">
+          <b>Conventional Integration Indicators</b>
+        </div>
+        <div class="font-12">
+          Click on any dimension to reveal included indicators
+        </div>
+        <div>
+          <q-select
+            dense
+            v-model="showDim"
+            style="width:90%"
+            :options="dimensionList"
+            emit-value
+            map-options
+            @input="showIndicator()"
+          />
+        </div>
+        <div>
+          <ul>
+            <li v-for="(item, index) in indicatorShow" :key="index">
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div>
+      <br />
+      <div align="center">Select the type of integration</div>
+      <br />
+      <div class="row" style="width:800px; margin:auto;">
+        <div class="col-6" align="center">
+          <div
+            :class="input.weight == 'A' ? 'btnGreen' : 'btnGrey'"
+            @click="changeWeightA()"
+            class="cursor-pointer"
+          >
+            DigiSRII
+          </div>
+        </div>
+        <div class="col-6" align="center">
+          <div
+            :class="input.weight == 'B' ? 'btnGreen' : 'btnGrey'"
+            @click="changeWeightB()"
+            class="cursor-pointer"
+          >
+            Build your own
+          </div>
+        </div>
+      </div>
+      <br />
+      <div align="center">Equal weighting across dimensions</div>
+      <br />
+      <!-- Equalizer -->
+      <div>
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-10 row justify-around">
+            <div style="width: 100px;">
+              <q-slider
+                v-model="weightBalance[0]"
+                :min="0"
+                :max="100"
+                :color="colorList[0]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[0]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#2381B8"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[0].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 2">
+              <q-slider
+                v-model="weightBalance[1]"
+                :min="0"
+                :max="100"
+                :color="colorList[1]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[1]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#EB1E63"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[1].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 3">
+              <q-slider
+                v-model="weightBalance[2]"
+                :min="0"
+                :max="100"
+                :color="colorList[2]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[2]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#9C26B3"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[2].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 4">
+              <q-slider
+                v-model="weightBalance[3]"
+                :min="0"
+                :max="100"
+                :color="colorList[3]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[3]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#2D9687"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[3].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 5">
+              <q-slider
+                v-model="weightBalance[4]"
+                :min="0"
+                :max="100"
+                :color="colorList[4]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[4]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#000000"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[4].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 6">
+              <q-slider
+                v-model="weightBalance[5]"
+                :min="0"
+                :max="100"
+                :color="colorList[5]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[5]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#886439"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[5].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 7">
+              <q-slider
+                v-model="weightBalance[6]"
+                :min="0"
+                :max="100"
+                :color="colorList[6]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[6]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#D0AF58"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[6].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 8">
+              <q-slider
+                v-model="weightBalance[7]"
+                :min="0"
+                :max="100"
+                :color="colorList[7]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[7]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#F78800"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[7].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 9">
+              <q-slider
+                v-model="weightBalance[8]"
+                :min="0"
+                :max="100"
+                :color="colorList[8]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[8]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#652076"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[8].label }}</div>
+            </div>
+
+            <div style="width: 100px;" v-if="dimensionList.length >= 10">
+              <q-slider
+                v-model="weightBalance[9]"
+                :min="0"
+                :max="100"
+                :color="colorList[9]"
+                vertical
+                reverse
+                label-always
+              />
+              <q-input v-model="weightBalance[9]" dense style="width:30px;" />
+              <br />
+              <div class="boxshow" style="background-color:#F7E900"></div>
+              <br />
+              <div class="rotateText">{{ dimensionList[9].label }}</div>
+            </div>
+          </div>
+          <div class="col-1"></div>
+        </div>
+        <br /><br />
+      </div>
+      <!-- Actual weight       -->
+    </div>
+
+    <my-footer></my-footer>
+  </div>
+</template>
+
+<script>
+import riHeader from "../components/ri_header";
+import myFooter from "../components/footer";
+import Axios from "axios";
+export default {
+  components: {
+    riHeader,
+    myFooter
+  },
+  data() {
+    return {
+      countryOptions: [],
+      input: {
+        eco: [],
+        partner: [],
+        startYear: "",
+        endYear: "",
+        type: "A",
+        weight: "A"
+      },
+      showDim: "",
+      year: [2014, 2015, 2016, 2017, 2018, 2019, 2020],
+      dimensionList: [],
+      indicatorList: [],
+      indicatorShow: [],
+      colorList: [
+        "#2381B8",
+        "#EB1E63",
+        "#9C26B3",
+        "#2D9687",
+        "#000000",
+        "#886439",
+        "#D0AF58",
+        "#F78800",
+        "#652076",
+        "#F7E900"
+      ],
+      weightBalance: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
+    };
+  },
+  methods: {
+    changeWeightB() {
+      this.weightBalance[0] = 50;
+      this.weightBalance[1] = 50;
+      this.input.weight = "B";
+    },
+    changeWeightA() {
+      this.weightBalance[0] = 100;
+      this.weightBalance[1] = 100;
+      this.input.weight = "A";
+    },
+    changeA() {
+      this.input.type = "A";
+      this.showIndicator();
+    },
+    changeB() {
+      this.input.type = "B";
+      this.showIndicator();
+    },
+    async loadDimension() {
+      this.dimensionList = [];
+      let url = this.path_api2 + "/ri_showdimension.php";
+      let res = await axios.get(url);
+      for (let i = 0; i < res.data.length; i++) {
+        let temp = {
+          value: res.data[i].id,
+          label: res.data[i].name
+        };
+        this.dimensionList.push(temp);
+      }
+      this.showDim = this.dimensionList[0].value;
+    },
+    async loadIndicator() {
+      this.indicatorList = [];
+      let url = this.path_api2 + "/ri_showindicator.php";
+      let res = await axios.get(url);
+      this.indicatorList = res.data;
+      this.showIndicator();
+    },
+    showIndicator() {
+      this.indicatorShow = [];
+      this.indicatorShow = this.indicatorList.filter(
+        x => x.type == this.input.type && x.dimensionId == this.showDim
+      );
+    }
+  },
+  async mounted() {
+    await this.loadDimension();
+    await this.getCountryList();
+
+    await this.loadIndicator();
+  }
+};
+</script>
+
+<style lang="scss" scoped>
+.btnGreen {
+  text-align: center;
+  border-radius: 5px;
+  width: 220px;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  background-color: #2d9687;
+}
+.btnGrey {
+  text-align: center;
+  border-radius: 5px;
+  width: 220px;
+  height: 40px;
+  line-height: 40px;
+  color: white;
+  background-color: #757575;
+}
+.btnOutGreen {
+  width: 220px;
+  height: 45px;
+  border: 3px solid #2d9687;
+  border-radius: 5px;
+  line-height: 45px;
+  font-size: 18px;
+  text-align: center;
+}
+.boxshow {
+  width: 25px;
+  height: 25px;
+}
+.rotateText {
+  writing-mode: vertical-lr;
+  // width: 300px;
+  // height: 30px;
+  // transform: rotate(-90deg);
+}
+</style>
