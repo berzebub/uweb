@@ -377,7 +377,43 @@
                 <q-spinner-pie color="primary" size="100px" />
               </div>
               <div v-show="isChart1">
-                <div id="container1"></div>
+                <div class="row">
+                  <div id="container1" style="width:80%"></div>
+                  <div style="padding-top: 170px; width:20%">
+                    <div style="padding-left:30px;">
+                      <div class="row">
+                        <div
+                          style="width:15px; height:15px; background-color:#2381B8"
+                        ></div>
+                        <div style="padding-left:15px;">Asia-Pacific</div>
+                      </div>
+                      <div class="row q-pt-lg">
+                        <div
+                          style="width:15px; height:15px; background-color:#EB1E63"
+                        ></div>
+                        <div style="padding-left:15px;">Europe</div>
+                      </div>
+                      <div class="row q-pt-lg">
+                        <div
+                          style="width:15px; height:15px; background-color:#F99704"
+                        ></div>
+                        <div style="padding-left:15px;">North America</div>
+                      </div>
+                      <div class="row q-pt-lg">
+                        <div
+                          style="width:15px; height:15px; background-color:#2D9687"
+                        ></div>
+                        <div style="padding-left:15px;">Latin America</div>
+                      </div>
+                      <div class="row q-pt-lg">
+                        <div
+                          style="width:15px; height:15px; background-color:#9C26B3"
+                        ></div>
+                        <div style="padding-left:15px;">Rest of the world</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1179,7 +1215,7 @@ export default {
 
       Highcharts.chart("container1", {
         chart: {
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 12) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" }
         },
         series: [
@@ -1204,7 +1240,7 @@ export default {
             ],
 
             data: getData,
-            showInLegend: true,
+            showInLegend: false,
             legendType: "point"
           }
         ],
@@ -1926,7 +1962,7 @@ export default {
 
       Highcharts.chart("container3", {
         chart: {
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 10) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" }
         },
         series: [

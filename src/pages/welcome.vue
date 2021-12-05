@@ -54,8 +54,8 @@
             <img src="../../public/logobig2.png" width="400px" alt />
             <div style="height:15px">&nbsp;</div>
           </div>
-          <div class="row" style="width:100%">
-            <div align="center" class="col-6">
+          <div class="row justify-center" style="width:100%">
+            <!-- <div align="center" class="col-6">
               <q-btn
                 @click.stop="goToRI()"
                 style="width:250px;background-color:#000000;border:1px solid #F4B802"
@@ -63,7 +63,7 @@
                 class="font-content"
                 no-caps
               ></q-btn>
-            </div>
+            </div> -->
             <div align="center" class="col-6">
               <q-btn
                 @click.stop="goToGlobal()"

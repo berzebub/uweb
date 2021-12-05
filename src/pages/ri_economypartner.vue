@@ -63,7 +63,7 @@
         <div class="font-16"><b>Integration type</b></div>
         <br />
         <div class="row">
-          <div class="col-6" align="center">
+          <div align="center">
             <div
               :class="input.type == 'A' ? 'btnGreen' : 'btnGrey'"
               @click="changeA()"
@@ -72,7 +72,7 @@
               Sustainable Integration
             </div>
           </div>
-          <div class="col-6" align="center">
+          <div class="q-px-md" align="center">
             <div
               :class="input.type == 'B' ? 'btnGreen' : 'btnGrey'"
               @click="changeB()"
@@ -84,7 +84,9 @@
         </div>
         <br />
         <div align="center">
-          <div class="btnOutGreen cursor-pointer">Start</div>
+          <div class="btnOutGreen cursor-pointer" @click="startBtn()">
+            Start
+          </div>
         </div>
       </div>
       <div class="col-6 q-pa-md">
@@ -118,6 +120,53 @@
         </div>
       </div>
     </div>
+    <!-- Result -->
+    <div v-if="showResult" class="q-ma-md">
+      <!-- 4 bar result -->
+      <div>
+        <hr />
+        <div class="q-pt-sm">
+          Your group's
+          <span v-if="input.type == 'A'">sustainable</span
+          ><span v-else>conventional</span> Integration score in
+          {{ input.endYear }} was
+          <span class="text-green"
+            ><b>{{ 0.74 }}</b></span
+          >
+        </div>
+        <div>
+          <four-bar :data="fourBarData"></four-bar>
+        </div>
+        <hr />
+      </div>
+      <!-- select type btn -->
+      <div class="row">
+        <div align="center">
+          <div
+            :class="viewType == 'A' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewA()"
+            class="cursor-pointer"
+          >
+            By country
+          </div>
+        </div>
+        <div class="q-px-md" align="center">
+          <div
+            :class="viewType == 'B' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewB()"
+            class="cursor-pointer"
+          >
+            By dimension
+          </div>
+        </div>
+      </div>
+      <div v-if="viewType == 'A'">
+        See how each country is integrated with the group
+      </div>
+      <div v-else>
+        See how each dimension is integrated with the group
+      </div>
+    </div>
 
     <my-footer></my-footer>
   </div>
@@ -126,11 +175,13 @@
 <script>
 import riHeader from "../components/ri_header";
 import myFooter from "../components/footer";
+import fourBar from "../components/ri_fourbar";
 import Axios from "axios";
 export default {
   components: {
     riHeader,
-    myFooter
+    myFooter,
+    fourBar
   },
   data() {
     return {
@@ -146,10 +197,41 @@ export default {
       year: [2014, 2015, 2016, 2017, 2018, 2019, 2020],
       dimensionList: [],
       indicatorList: [],
-      indicatorShow: []
+      indicatorShow: [],
+      showResult: true, //แสดงคำตอบ
+      yourScore: 0.74, //คะแนนของตัวเองใน 4 bar
+      fourBarData: [
+        {
+          name: "China-Mongolia",
+          value: 0.85,
+          own: false
+        },
+        {
+          name: "ASEAN",
+          value: 0.73,
+          own: false
+        },
+        {
+          name: "Your group",
+          value: 0.71,
+          own: true
+        },
+        {
+          name: "Asia-Pacific",
+          value: 0.56,
+          own: false
+        }
+      ],
+      viewType: "A" //A = By country, B= by dimension
     };
   },
   methods: {
+    changeViewA() {
+      this.viewType = "A";
+    },
+    changeViewB() {
+      this.viewType = "B";
+    },
     changeA() {
       this.input.type = "A";
       this.showIndicator();

@@ -60,7 +60,7 @@
       </div>
       <div class="absolute q-pa-md text-white" style="bottom:50px;left:0px">
         <q-btn
-          label="User note"
+          label="User guide"
           no-caps
           outline
           @click="goToIntro()"

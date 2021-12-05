@@ -1,7 +1,8 @@
 <template>
-  <div class="container shadow-2">
+  <div class="container shadow-2" style="color:#757575">
     <ri-header :menu="1"></ri-header>
-    <div class="row " style="color:#757575">
+    <!-- Control Panel -->
+    <div class="row ">
       <div class="col-6 q-pa-md">
         <br />
         <div class="font-16"><b>Economies</b></div>
@@ -12,7 +13,7 @@
         <div>
           <q-select
             :options="countryOptions"
-            v-model="input.parter"
+            v-model="input.partner"
             multiple
             use-chips
             stack-label
@@ -49,8 +50,8 @@
         <br />
         <div class="font-16"><b>Integration type</b></div>
         <br />
-        <div class="row">
-          <div class="col-6" align="center">
+        <div class="row" align="center">
+          <div align="center">
             <div
               :class="input.type == 'A' ? 'btnGreen' : 'btnGrey'"
               @click="changeA()"
@@ -59,7 +60,7 @@
               Sustainable Integration
             </div>
           </div>
-          <div class="col-6" align="center">
+          <div class="q-px-md" align="center">
             <div
               :class="input.type == 'B' ? 'btnGreen' : 'btnGrey'"
               @click="changeB()"
@@ -71,7 +72,9 @@
         </div>
         <br />
         <div align="center">
-          <div class="btnOutGreen cursor-pointer">Start</div>
+          <div class="btnOutGreen cursor-pointer" @click="startBtn()">
+            Start
+          </div>
         </div>
       </div>
       <div class="col-6 q-pa-md">
@@ -105,6 +108,79 @@
         </div>
       </div>
     </div>
+    <!-- Result -->
+    <div v-if="showResult" class="q-ma-md">
+      <!-- 4 bar result -->
+      <div>
+        <hr />
+        <div class="q-pt-sm">
+          Your group's
+          <span v-if="input.type == 'A'">sustainable</span
+          ><span v-else>conventional</span> Integration score in
+          {{ input.endYear }} was
+          <span class="text-green"
+            ><b>{{ 0.74 }}</b></span
+          >
+        </div>
+        <div>
+          <four-bar :data="fourBarData"></four-bar>
+        </div>
+        <hr />
+      </div>
+      <!-- select type btn -->
+      <div class="row">
+        <div align="center">
+          <div
+            :class="viewType == 'A' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewA()"
+            class="cursor-pointer"
+          >
+            By country
+          </div>
+        </div>
+        <div class="q-px-md" align="center">
+          <div
+            :class="viewType == 'B' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewB()"
+            class="cursor-pointer"
+          >
+            By dimension
+          </div>
+        </div>
+      </div>
+      <div v-if="viewType == 'A'">
+        See how each country is integrated with the group
+      </div>
+      <div v-else>
+        See how each dimension is integrated with the group
+      </div>
+      <br />
+      <!-- Line chart for by country  -->
+      <div
+        id="lineChartByCountry"
+        style="max-width:1024px; width:100%; margin:auto;"
+      ></div>
+      <br />
+      <!-- country box selected -->
+      <div class="selectBoxDiv q-pa-sm">
+        <div class="font-18 "><b>Select economies of interst</b></div>
+        <div class="">
+          Number in parentheses are
+          <span v-if="input.type == 'A'">Sustainable</span
+          ><span v-else>Conventional</span> Integration Index from the
+          {{ input.endYear }}
+        </div>
+        <div>Click on each country to select / unselect it in the graph</div>
+        <div>
+          <select-item
+            colorBox="#b02054"
+            name="Group average"
+            value="0.83"
+          ></select-item>
+        </div>
+        <div><hr /></div>
+      </div>
+    </div>
 
     <my-footer></my-footer>
   </div>
@@ -113,29 +189,188 @@
 <script>
 import riHeader from "../components/ri_header";
 import myFooter from "../components/footer";
+import fourBar from "../components/ri_fourbar";
+import selectItem from "../components/ri_selectitem";
 import Axios from "axios";
 export default {
   components: {
     riHeader,
-    myFooter
+    myFooter,
+    fourBar,
+    selectItem
   },
   data() {
     return {
       countryOptions: [],
       input: {
         partner: [],
-        startYear: "",
-        endYear: "",
+        startYear: "2014",
+        endYear: "2019",
         type: "A"
       },
       showDim: "",
       year: [2014, 2015, 2016, 2017, 2018, 2019, 2020],
       dimensionList: [],
       indicatorList: [],
-      indicatorShow: []
+      indicatorShow: [],
+      showResult: true, //แสดงคำตอบ
+      yourScore: 0.74, //คะแนนของตัวเองใน 4 bar
+      fourBarData: [
+        {
+          name: "China-Mongolia",
+          value: 0.91,
+          own: false
+        },
+        {
+          name: "ASEAN",
+          value: 0.81,
+          own: false
+        },
+        {
+          name: "Your group",
+          value: 0.74,
+          own: true
+        },
+        {
+          name: "Asia-Pacific",
+          value: 0.56,
+          own: false
+        }
+      ],
+      viewType: "A", //A = By country, B= by dimension
+      lineChartByCountryData: [
+        {
+          name: "Your group",
+          data: [0.82, 0.84, 0.87, 0.88, 0.9, 0.91]
+        },
+        {
+          name: "Singapore",
+          data: [0.9, 0.92, 0.92, 0.93, 0.94, 0.96]
+        },
+        {
+          name: "China",
+          data: [0.75, 0.78, 0.79, 0.81, 0.82, 0.92]
+        },
+        {
+          name: "Brazil",
+          data: [0.63, 0.67, 0.8, 0.82, 0.87, 0.9]
+        },
+        {
+          name: "Paraguay",
+          data: [0.56, 0.59, 0.63, 0.7, 0.72, 0.87]
+        },
+        {
+          name: "Ecuador",
+          data: [0.56, 0.59, 0.63, 0.8, 0.85, 0.86]
+        },
+        {
+          name: "Argentina",
+          data: [0.43, 0.5, 0.53, 0.55, 0.57, 0.79]
+        },
+        {
+          name: "Bolivia",
+          data: [0.53, 0.5, 0.63, 0.65, 0.67, 0.69]
+        },
+        {
+          name: "Chille",
+          data: [0.43, 0.6, 0.63, 0.65, 0.67, 0.69]
+        },
+        {
+          name: "Uruguay",
+          data: [0.53, 0.6, 0.63, 0.65, 0.67, 0.69]
+        }
+      ]
     };
   },
   methods: {
+    LineChartByCountry() {
+      let yAxisLabel = "";
+      if (this.input.type == "A") {
+        yAxisLabel = "Sustainable Integration Index";
+      } else {
+        yAxisLabel = "Conventional Integration Index";
+      }
+      console.log(this.lineChartByCountryData[0].data[0]);
+
+      let subTitle =
+        "Since " +
+        this.input.startYear +
+        ", this group's Integration increased by";
+
+      Highcharts.chart("lineChartByCountry", {
+        chart: {
+          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          style: { fontFamily: "roboto" }
+        },
+        title: {
+          text:
+            "How did Integration progress across year? - group and individual economics"
+        },
+
+        subtitle: {
+          text: subTitle
+        },
+
+        yAxis: {
+          title: {
+            text: yAxisLabel
+          },
+          min: 0,
+          max: 1
+        },
+        xAxis: {
+          accessibility: {
+            rangeDescription: "Range: 2010 to 2017"
+          },
+          tickInterval: 1
+        },
+        legend: {
+          layout: "vertical",
+          align: "right",
+          verticalAlign: "middle"
+        },
+
+        plotOptions: {
+          series: {
+            label: {
+              connectorAllowed: true
+            },
+            pointStart: Number(this.input.startYear),
+            pointInterval: 1
+          }
+        },
+
+        series: this.lineChartByCountryData,
+
+        responsive: {
+          rules: [
+            {
+              condition: {
+                maxWidth: 500
+              },
+              chartOptions: {
+                legend: {
+                  layout: "horizontal",
+                  align: "center",
+                  verticalAlign: "bottom"
+                }
+              }
+            }
+          ]
+        }
+      });
+    },
+
+    startBtn() {
+      this.showResult = true;
+    },
+    changeViewA() {
+      this.viewType = "A";
+      this.LineChartByCountry();
+    },
+    changeViewB() {
+      this.viewType = "B";
+    },
     changeA() {
       this.input.type = "A";
       this.showIndicator();
@@ -211,5 +446,8 @@ export default {
   background-image: url("../../public/footer.jpg");
   background-size: inherit;
   background-position: bottom;
+}
+.selectBoxDiv {
+  border: 1px solid #757575;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
-  <div class="container shadow-2">
+  <div class="container shadow-2" style="color:#757575">
     <ri-header :menu="3"></ri-header>
-    <div class="row " style="color:#757575">
+    <div class="row ">
       <div class="col-6 q-pa-md">
         <br />
         <div class="font-16"><b>Economies</b></div>
@@ -71,7 +71,7 @@
         <div class="font-16"><b>Integration type</b></div>
         <br />
         <div class="row">
-          <div class="col-6" align="center">
+          <div align="center">
             <div
               :class="input.type == 'A' ? 'btnGreen' : 'btnGrey'"
               @click="changeA()"
@@ -80,7 +80,7 @@
               Sustainable Integration
             </div>
           </div>
-          <div class="col-6" align="center">
+          <div class="q-px-md" align="center">
             <div
               :class="input.type == 'B' ? 'btnGreen' : 'btnGrey'"
               @click="changeB()"
@@ -124,7 +124,9 @@
     </div>
     <div>
       <br />
-      <div align="center">Select the type of integration</div>
+      <div align="center" class="font-16">
+        <b>Select the type of integration</b>
+      </div>
       <br />
       <div class="row" style="width:800px; margin:auto;">
         <div class="col-6" align="center">
@@ -362,12 +364,72 @@
           <div class="v7" :style="{ width: actualWeightBalance[6] + '%' }">
             {{ actualWeightBalance[6] > 5 ? actualWeightBalance[6] + "%" : "" }}
           </div>
+          <div class="v8" :style="{ width: actualWeightBalance[7] + '%' }">
+            {{ actualWeightBalance[7] > 5 ? actualWeightBalance[7] + "%" : "" }}
+          </div>
+          <div class="v9" :style="{ width: actualWeightBalance[8] + '%' }">
+            {{ actualWeightBalance[8] > 5 ? actualWeightBalance[8] + "%" : "" }}
+          </div>
+          <div class="v10" :style="{ width: actualWeightBalance[9] + '%' }">
+            {{ actualWeightBalance[9] > 5 ? actualWeightBalance[9] + "%" : "" }}
+          </div>
         </div>
+      </div>
+      <!-- start -->
+      <br />
+      <div align="center">
+        <div class="btnOutGreen cursor-pointer">Start</div>
       </div>
       <br />
       <br />
     </div>
-
+    <!-- Result -->
+    <div v-if="showResult" class="q-ma-md">
+      <!-- 4 bar result -->
+      <div>
+        <hr />
+        <div class="q-pt-sm">
+          Your group's
+          <span v-if="input.type == 'A'">sustainable</span
+          ><span v-else>conventional</span> Integration score in
+          {{ input.endYear }} was
+          <span class="text-green"
+            ><b>{{ 0.74 }}</b></span
+          >
+        </div>
+        <div>
+          <four-bar :data="fourBarData"></four-bar>
+        </div>
+        <hr />
+      </div>
+      <!-- select type btn -->
+      <div class="row">
+        <div align="center">
+          <div
+            :class="viewType == 'A' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewA()"
+            class="cursor-pointer"
+          >
+            By country
+          </div>
+        </div>
+        <div class="q-px-md" align="center">
+          <div
+            :class="viewType == 'B' ? 'btnGreen' : 'btnGrey'"
+            @click="changeViewB()"
+            class="cursor-pointer"
+          >
+            By dimension
+          </div>
+        </div>
+      </div>
+      <div v-if="viewType == 'A'">
+        See how each country is integrated with the group
+      </div>
+      <div v-else>
+        See how each dimension is integrated with the group
+      </div>
+    </div>
     <my-footer></my-footer>
   </div>
 </template>
@@ -375,11 +437,13 @@
 <script>
 import riHeader from "../components/ri_header";
 import myFooter from "../components/footer";
+import fourBar from "../components/ri_fourbar";
 import Axios from "axios";
 export default {
   components: {
     riHeader,
-    myFooter
+    myFooter,
+    fourBar
   },
   data() {
     return {
@@ -410,10 +474,41 @@ export default {
         "#F7E900"
       ],
       weightBalance: [100, 100, 100, 100, 100, 100, 100, 100, 100, 100],
-      actualWeightBalance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      actualWeightBalance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      showResult: true, //แสดงคำตอบ
+      yourScore: 0.74, //คะแนนของตัวเองใน 4 bar
+      fourBarData: [
+        {
+          name: "China-Mongolia",
+          value: 0.85,
+          own: false
+        },
+        {
+          name: "ASEAN",
+          value: 0.73,
+          own: false
+        },
+        {
+          name: "Your group",
+          value: 0.63,
+          own: true
+        },
+        {
+          name: "Asia-Pacific",
+          value: 0.56,
+          own: false
+        }
+      ],
+      viewType: "A" //A = By country, B= by dimension
     };
   },
   methods: {
+    changeViewA() {
+      this.viewType = "A";
+    },
+    changeViewB() {
+      this.viewType = "B";
+    },
     calActualWeight() {
       this.input.weight = "B";
       this.actualWeightBalance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -585,5 +680,35 @@ export default {
   background-color: #d0af58;
   text-align: center;
   color: white;
+}
+.v8 {
+  height: 25px;
+  width: 10%;
+  background-color: #f78800;
+  text-align: center;
+  color: white;
+}
+.v9 {
+  height: 25px;
+  width: 10%;
+  background-color: #652076;
+  text-align: center;
+  color: white;
+}
+.v10 {
+  height: 25px;
+  width: 10%;
+  background-color: #f7e900;
+  text-align: center;
+  color: white;
+}
+.btnOutGreen {
+  width: 220px;
+  height: 45px;
+  border: 3px solid #2d9687;
+  border-radius: 5px;
+  line-height: 45px;
+  font-size: 18px;
+  text-align: center;
 }
 </style>

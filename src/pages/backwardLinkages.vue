@@ -572,7 +572,43 @@
                   !errorChart3
               "
             >
-              <div id="container"></div>
+              <div class="row">
+                <div id="container" style="width:80%"></div>
+                <div style="padding-top: 170px;">
+                  <div style="padding-left:30px;">
+                    <div class="row">
+                      <div
+                        style="width:15px; height:15px; background-color:#2381B8"
+                      ></div>
+                      <div style="padding-left:15px;">Asia-Pacific</div>
+                    </div>
+                    <div class="row q-pt-lg">
+                      <div
+                        style="width:15px; height:15px; background-color:#EB1E63"
+                      ></div>
+                      <div style="padding-left:15px;">Europe</div>
+                    </div>
+                    <div class="row q-pt-lg">
+                      <div
+                        style="width:15px; height:15px; background-color:#F99704"
+                      ></div>
+                      <div style="padding-left:15px;">North America</div>
+                    </div>
+                    <div class="row q-pt-lg">
+                      <div
+                        style="width:15px; height:15px; background-color:#2D9687"
+                      ></div>
+                      <div style="padding-left:15px;">Latin America</div>
+                    </div>
+                    <div class="row q-pt-lg">
+                      <div
+                        style="width:15px; height:15px; background-color:#9C26B3"
+                      ></div>
+                      <div style="padding-left:15px;">Rest of the world</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <error-graph
@@ -995,7 +1031,7 @@ export default {
             (element.value / summaryValue) *
             100
           ).toFixed(2)}%) `;
-          console.log(element.value, summaryValue);
+
           element.percent = ((element.value / summaryValue) * 100).toFixed(2);
         }
       });
@@ -1058,13 +1094,12 @@ export default {
           ? getDataSub.ImportedContent
           : (getDataSub.ImportedContent / 1000).toFixed(2);
 
-      console.log(getData.data);
-
       Highcharts.chart("container", {
         chart: {
-          height: (9 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 12) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" }
         },
+
         series: [
           {
             legendType: "point",
@@ -1088,7 +1123,7 @@ export default {
             ],
 
             data: getData.data,
-            showInLegend: true,
+
             legendType: "point"
           }
         ],
@@ -1121,6 +1156,8 @@ export default {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #2381B8;"></div></td><td style="padding-left:20px;">Asia-Pacific</td></tr></table></div>';
             } else if (this.name == "Rest of the world") {
               return '<div style="padding-bottom:15px;"><table><tr><td><div style="width: 15px;height: 15px;background-color: #9C26B3;"></div></td><td style="padding-left:20px;">Rest of the world</td></tr></table></div>';
+            } else {
+              return this.name;
             }
           }
         },
@@ -1260,7 +1297,7 @@ export default {
         return;
       }
       getData = getData.data;
-      console.log(getData);
+
       let countryList = [];
 
       getData.map(x => {
@@ -1762,7 +1799,7 @@ export default {
 
       Highcharts.chart("container3", {
         chart: {
-          height: (11 / 16) * 100 + "%", // 16:9 ratio
+          height: (9 / 10) * 100 + "%", // 16:9 ratio
           style: { fontFamily: "roboto" }
         },
         series: [

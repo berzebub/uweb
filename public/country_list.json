@@ -600,14 +600,25 @@
   {
     "id": "89",
     "name": "APEC",
-    "region": [],
+    "region": [
+      "AUS",
+      "CAN",
+      "JPN",
+      "KOR",
+      "MEX",
+      "CHN",
+      "RUS",
+      "SGP",
+      "TWN",
+      "USA"
+    ],
     "iso": "apec",
     "type": 2
   },
   {
     "id": "83",
     "name": "APTA",
-    "region": [],
+    "region": ["BGD", "IND", "KOR", "LAO", "MNG", "CHN", "LKA"],
     "iso": "apta",
     "type": 2
   },
